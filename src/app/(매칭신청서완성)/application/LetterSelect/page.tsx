@@ -1,13 +1,11 @@
 "use client";
 
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
-import { CheckedCheckbox } from "@/app/components/CheckBox/CheckedCheckbox";
-import { DefaultCheckbox } from "@/app/components/CheckBox/DefaultCheckbox";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 
 import { Container, Typography } from "@mui/material";
 import { useState } from "react";
-import LetterRoot from "./LetterRoot";
+import LetterRoot from "./LetterSelectRoot";
 
 const Index = () => {
   const [checkedStates, setCheckedStates] = useState([
@@ -34,7 +32,7 @@ const Index = () => {
 
   return (
     <LetterRoot>
-      <Container>
+      <Container className="letter-container">
         <Typography variant="h5" sx={{ color: "black", fontWeight: "bold" }}>
           편지 질문 선택하기
         </Typography>

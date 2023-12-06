@@ -17,12 +17,6 @@ const CheckboxRoot = styled("div")<{
   shadow: boolean;
   width: string;
 }>(({ theme, checked, shadow, width }) => ({
-  secondary: {
-    light: "#FFFFFF",
-    main: "#F7F4F2",
-    dark: "#B2B0AE",
-    contrastText: "#3C3B3A",
-  },
   ".checkbox": {
     backgroundColor: checked ? "#fff" : "#F7F4F2",
     color: checked ? "#FF7700" : "#B2B0AE",
