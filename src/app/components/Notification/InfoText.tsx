@@ -35,7 +35,7 @@ export function InfoText({ title, alertMessage, shadow = false }) {
             color: "#FF7700",
           }}
         />
-        {/* 수정: 230906 제목 추가 부분. 
+        {/* 수정: 230906 제목 추가 부분. 111
                     div로 감싼 후 제목을 위해 Typography를 새로 만들어 제목을 추가했습니다.
                     이슈: 230906 제목 텍스트 css를 수정해야 합니다.
                 */}
