@@ -1,20 +1,31 @@
 "use client";
 
+import { MainButton, SubButton } from "@/app/components/Button/Button";
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
-
+import { toggle } from "@/store/checkboxSlice";
+import { RootState } from "@/store/store";
 import { Container, Typography } from "@mui/material";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LetterRoot from "./LetterSelectRoot";
+import Link from "next/link";
 
 const Index = () => {
-  const [checkedStates, setCheckedStates] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const checkedStates = useSelector(
+    (state: RootState) => state.checkbox.checkedItems
+  );
+  const dispatch = useDispatch();
+
+  const handleCheckboxClick = (index: number) => {
+    dispatch(toggle(index));
+  };
+  // const [checkedStates, setCheckedStates] = useState([
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  // ]);
 
   const checkboxNames = [
     "지금 어떤 일을 하고 있나요?",
@@ -24,11 +35,11 @@ const Index = () => {
     "내 취미 생활은 ?",
   ];
 
-  const handleCheckboxClick = (index: any) => {
-    const newCheckedStates = [...checkedStates];
-    newCheckedStates[index] = !newCheckedStates[index];
-    setCheckedStates(newCheckedStates);
-  };
+  // const handleCheckboxClick = (index: any) => {
+  //   const newCheckedStates = [...checkedStates];
+  //   newCheckedStates[index] = !newCheckedStates[index];
+  //   setCheckedStates(newCheckedStates);
+  // };
 
   return (
     <LetterRoot>
@@ -51,6 +62,21 @@ const Index = () => {
               width={"100%"}
             />
           ))}
+        </Container>
+        <Container
+          disableGutters
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+          }}
+        >
+          <Link href={`LetterWhite/`}>
+            <MainButton buttonName="다음 단계" />
+          </Link>
+          <Link href={`application/my/life?type=init`}>
+            <SubButton buttonName="이전 단계" />
+          </Link>
         </Container>
       </Container>
     </LetterRoot>

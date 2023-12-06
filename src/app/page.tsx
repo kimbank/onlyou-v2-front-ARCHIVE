@@ -15,6 +15,7 @@ import { Container, createTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import RootLayout from "./layout";
 
 const theme = createTheme({
   palette: {
