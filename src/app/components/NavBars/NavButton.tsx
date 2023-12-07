@@ -27,24 +27,30 @@ export const StepNavButton = ({
   nextType = "button",
 }: StepNavButtonProps) => (
   <StepNavButtonRoot>
-    <Link href={prevHref} passHref>
-      <Button sx={{ width: 220 }} variant="contained" className="prevButton">
-        <Typography>{prevText}</Typography>
-      </Button>
-    </Link>
-    <Link href={nextHref} passHref>
-      <Button
-        size="large"
-        sx={{ width: 220 }}
-        className="nextButton"
-        fullWidth
-        color="primary"
-        variant="contained"
-        type={nextType}
-      >
-        <Typography>{nextText}</Typography>
-      </Button>
-    </Link>
+    <Container className="button-box">
+      <Link href={prevHref} passHref>
+        <Button
+          size="large"
+          fullWidth
+          variant="contained"
+          className="prevButton"
+        >
+          <Typography>{prevText}</Typography>
+        </Button>
+      </Link>
+      <Link href={nextHref} passHref>
+        <Button
+          size="large"
+          className="nextButton"
+          fullWidth
+          color="primary"
+          variant="contained"
+          type={nextType}
+        >
+          <Typography>{nextText}</Typography>
+        </Button>
+      </Link>
+    </Container>
   </StepNavButtonRoot>
 );
 // interface StepNavButtonProps {

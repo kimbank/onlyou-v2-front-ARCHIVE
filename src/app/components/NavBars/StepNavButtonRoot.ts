@@ -17,8 +17,19 @@ export default styled("div")(({ theme }) => {
     paddingTop: "10px",
     paddingBottom: "10px",
     gap: "10px",
+    ".button-box": {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      gap: "20px",
+      "@media (max-width: 400px)": {
+        gap: "5px",
+      },
+    },
     ".prevButton": {
-      flex: 1,
+      flex: "1 1 auto",
+      //   width: "180px",
       borderRadius: "12px",
       height: "56px",
       color: "#FF7700",
@@ -27,7 +38,8 @@ export default styled("div")(({ theme }) => {
       fontWeight: "bold",
     },
     " .nextButton": {
-      flex: 1,
+      flex: "1 1 auto",
+      //   width: "180px",
       borderRadius: "12px",
       height: "56px",
       color: "#fff",
