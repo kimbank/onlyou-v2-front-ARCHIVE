@@ -1,6 +1,10 @@
 "use client";
 
-import { MainMiniButton } from "@/app/components/Button/Button";
+import {
+  MainMiniButton,
+  PrimaryButton,
+  SecondaryButton,
+} from "@/app/components/Button/Button";
 import { StepNavButton } from "@/app/components/NavBars/NavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
@@ -16,15 +20,6 @@ const Index = () => {
   const [lettertexts, setLetterTexts] = useState<string[]>(
     checkedStates.map(() => "")
   );
-  const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
-    new Array(checkedStates.length).fill(true)
-  );
-
-  const toggleEditMode = (index: number) => () => {
-    const newReadOnlyStates = [...readOnlyStates];
-    newReadOnlyStates[index] = !newReadOnlyStates[index];
-    setReadOnlyStates(newReadOnlyStates);
-  };
   const checkboxNames = [
     "지금 어떤 일을 하고 있나요?",
     "인생의 목표가 있다면?",
@@ -32,6 +27,17 @@ const Index = () => {
     "주변인이 말하는 내 매력은?",
     "내 취미 생활은?",
   ];
+  const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
+    new Array(checkedStates.length).fill(false)
+  );
+  const toggleEditMode = (index: number) => () => {
+    if (lettertexts[index].length > 0) {
+      const newReadOnlyStates = [...readOnlyStates];
+      newReadOnlyStates[index] = !newReadOnlyStates[index];
+      setReadOnlyStates(newReadOnlyStates);
+    }
+  };
+
   const handleTextChange =
     (index: number) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       const newTextValues = [...lettertexts];
@@ -75,12 +81,20 @@ const Index = () => {
                     <Typography>
                       글자수 : {lettertexts[index].length}
                     </Typography>
-                    <MainMiniButton
-                      buttonName={
-                        readOnlyStates[index] ? "수정하기" : "저장하기"
-                      }
-                      onClick={toggleEditMode(index)}
-                    />
+
+                    {lettertexts[index].length > 0 ? (
+                      <PrimaryButton
+                        buttonName={
+                          readOnlyStates[index] ? "수정하기" : "저장하기"
+                        }
+                        onClick={toggleEditMode(index)}
+                      />
+                    ) : (
+                      <SecondaryButton
+                        buttonName="저장하기"
+                        onClick={() => console.log("클릭")}
+                      />
+                    )}
                   </Container>
                 </div>
               )

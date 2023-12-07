@@ -19,32 +19,75 @@ const ButtonText = "버튼";
 
 // Figma: Main Button
 // CTA에 쓰이는 메인 버튼입니다.
-export function MainButton({ onClick, buttonName, shadow = false }: any) {
+
+interface PrimaryButtonProps {
+  onClick: () => void;
+  buttonName: string;
+  shadow?: boolean;
+  width?: "full" | "half" | "auto";
+}
+
+export function PrimaryButton({
+  onClick,
+  buttonName,
+  shadow = false,
+  width = "auto",
+}: PrimaryButtonProps) {
   return (
-    <div style={{ flex: "auto" }}>
-      <Button
-        onClick={onClick}
-        color="primary"
-        variant="contained"
+    <Button
+      onClick={onClick}
+      color="primary"
+      variant="contained"
+      sx={{
+        borderRadius: "12px",
+        height: "56px",
+        width: width === "full" ? "100%" : width === "half" ? "50%" : undefined,
+        ...(shadow ? {} : { boxShadow: "none" }),
+      }}
+    >
+      <Typography
+        variant="subtitle1"
         sx={{
-          borderRadius: "12px",
-          height: "56px",
-          width: "100%",
-          boxShadow: !shadow && "none", // initial, inherit, none, unset
+          fontFamily: "Pretendard-Semibold",
+          fontSize: "14px",
+          letterSpacing: "1.25px",
         }}
       >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
+        {buttonName}
+      </Typography>
+    </Button>
+  );
+}
+
+export function SecondaryButton({
+  onClick,
+  buttonName,
+  shadow = false,
+  width = "auto",
+}: PrimaryButtonProps) {
+  return (
+    <Button
+      onClick={onClick}
+      color="secondary"
+      variant="contained"
+      sx={{
+        borderRadius: "12px",
+        height: "56px",
+        width: width === "full" ? "100%" : width === "half" ? "50%" : undefined,
+        ...(shadow ? {} : { boxShadow: "none" }),
+      }}
+    >
+      <Typography
+        variant="subtitle1"
+        sx={{
+          fontFamily: "Pretendard-Semibold",
+          fontSize: "14px",
+          letterSpacing: "1.25px",
+        }}
+      >
+        {buttonName}
+      </Typography>
+    </Button>
   );
 }
 
