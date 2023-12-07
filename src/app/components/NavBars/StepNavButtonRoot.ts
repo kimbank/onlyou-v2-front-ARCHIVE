@@ -24,12 +24,14 @@ export default styled("div")(({ theme }) => {
       color: "#FF7700",
       border: "1px solid #FF7700",
       backgroundColor: "#fff",
+      fontWeight: "bold",
     },
     " .nextButton": {
       flex: 1,
       borderRadius: "12px",
       height: "56px",
-      color: "black",
+      color: "#fff",
+      fontWeight: "bold",
     },
   };
 });

@@ -9,6 +9,7 @@ import { Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import LetterRoot from "./LetterSelectRoot";
 import Link from "next/link";
+import { StepNavButton } from "@/app/components/NavBars/NavButton";
 
 const Index = () => {
   const checkedStates = useSelector(
@@ -63,21 +64,13 @@ const Index = () => {
             />
           ))}
         </Container>
-        <Container
-          disableGutters
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          <Link href={`LetterWhite/`}>
-            <MainButton buttonName="다음 단계" />
-          </Link>
-          <Link href={`application/my/life?type=init`}>
-            <SubButton buttonName="이전 단계" />
-          </Link>
-        </Container>
+        <StepNavButton
+          prevText="이전"
+          nextText="다음"
+          prevHref="LetterSelect/"
+          nextHref="LetterWhite/"
+          nextType="button"
+        />
       </Container>
     </LetterRoot>
   );

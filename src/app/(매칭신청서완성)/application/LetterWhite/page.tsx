@@ -16,7 +16,15 @@ const Index = () => {
   const [lettertexts, setLetterTexts] = useState<string[]>(
     checkedStates.map(() => "")
   );
-  const [lettertext, setLetterText] = useState("");
+  const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
+    new Array(checkedStates.length).fill(true)
+  );
+
+  const toggleEditMode = (index: number) => () => {
+    const newReadOnlyStates = [...readOnlyStates];
+    newReadOnlyStates[index] = !newReadOnlyStates[index];
+    setReadOnlyStates(newReadOnlyStates);
+  };
   const checkboxNames = [
     "지금 어떤 일을 하고 있나요?",
     "인생의 목표가 있다면?",
@@ -58,14 +66,21 @@ const Index = () => {
                       width: "100%",
                       border: "1px solid #B2B0AE",
                       borderRadius: "10px",
+                      color: readOnlyStates[index] ? "grey" : "black",
                     }}
                     onChange={handleTextChange(index)}
+                    readOnly={readOnlyStates[index]}
                   />
                   <Container className="letter-box-values">
                     <Typography>
                       글자수 : {lettertexts[index].length}
                     </Typography>
-                    <MainMiniButton buttonName="저장하기" />
+                    <MainMiniButton
+                      buttonName={
+                        readOnlyStates[index] ? "수정하기" : "저장하기"
+                      }
+                      onClick={toggleEditMode(index)}
+                    />
                   </Container>
                 </div>
               )
@@ -73,10 +88,10 @@ const Index = () => {
         </Container>
         <StepNavButton
           prevText="이전"
-          nextText="다음"
+          nextText="신청서 제출하기"
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
-          nextType="button"
+          nextType="submit"
         />
       </Container>
     </LetterRoot>
