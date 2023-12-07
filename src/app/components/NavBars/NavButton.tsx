@@ -3,6 +3,7 @@ import { NavButtonStyles } from "./NavButtonStyles";
 import Link from "next/link";
 import StepNavButtonRoot from "./StepNavButtonRoot";
 import { MainHalfButton } from "../Button/Button";
+import { useRouter } from "next/navigation";
 interface ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
@@ -11,10 +12,8 @@ interface ButtonProps {
 }
 interface StepNavButtonProps {
   prevText: string;
-  onPrevClick?: () => void;
   prevHref: string;
   nextText: string;
-  onNextClick?: () => void;
   nextHref: string;
   nextType?: "button" | "submit" | "reset";
 }
@@ -25,20 +24,29 @@ export const StepNavButton = ({
   prevHref,
   nextHref,
   nextType = "button",
-}: StepNavButtonProps) => (
-  <StepNavButtonRoot>
-    <Container className="button-box">
-      <Link href={prevHref} passHref>
+}: StepNavButtonProps) => {
+  const router = useRouter();
+
+  const handlePrevClick = () => {
+    router.push(prevHref);
+  };
+
+  const handleNextClick = () => {
+    router.push(nextHref);
+  };
+
+  return (
+    <StepNavButtonRoot>
+      <Container className="button-box">
         <Button
           size="large"
           fullWidth
           variant="contained"
           className="prevButton"
+          onClick={handlePrevClick}
         >
           <Typography>{prevText}</Typography>
         </Button>
-      </Link>
-      <Link href={nextHref} passHref>
         <Button
           size="large"
           className="nextButton"
@@ -46,13 +54,14 @@ export const StepNavButton = ({
           color="primary"
           variant="contained"
           type={nextType}
+          onClick={handleNextClick}
         >
           <Typography>{nextText}</Typography>
         </Button>
-      </Link>
-    </Container>
-  </StepNavButtonRoot>
-);
+      </Container>
+    </StepNavButtonRoot>
+  );
+};
 // interface StepNavButtonProps {
 //     prevText: string;
 //     nextText: string;

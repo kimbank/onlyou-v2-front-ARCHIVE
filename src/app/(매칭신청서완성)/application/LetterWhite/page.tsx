@@ -4,7 +4,7 @@ import { MainMiniButton } from "@/app/components/Button/Button";
 import { StepNavButton } from "@/app/components/NavBars/NavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
-import { Button, Container, TextareaAutosize, Typography } from "@mui/material";
+import { Container, TextareaAutosize, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";

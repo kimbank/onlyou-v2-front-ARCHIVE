@@ -22,14 +22,11 @@ export default styled("div")(({ theme }) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
-      gap: "20px",
-      "@media (max-width: 400px)": {
-        gap: "5px",
-      },
+      gap: "10px",
     },
     ".prevButton": {
       flex: "1 1 auto",
-      //   width: "180px",
+      width: "100%",
       borderRadius: "12px",
       height: "56px",
       color: "#FF7700",
@@ -39,7 +36,7 @@ export default styled("div")(({ theme }) => {
     },
     " .nextButton": {
       flex: "1 1 auto",
-      //   width: "180px",
+      width: "100%",
       borderRadius: "12px",
       height: "56px",
       color: "#fff",
