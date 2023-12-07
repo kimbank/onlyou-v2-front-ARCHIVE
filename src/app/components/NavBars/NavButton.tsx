@@ -1,9 +1,6 @@
 import { Button, Container, Typography } from "@mui/material";
-import { NavButtonStyles } from "./NavButtonStyles";
-import Link from "next/link";
-import StepNavButtonRoot from "./StepNavButtonRoot";
-import { MainHalfButton } from "../Button/Button";
 import { useRouter } from "next/navigation";
+import StepNavButtonRoot from "./StepNavButtonRoot";
 interface ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
@@ -16,6 +13,7 @@ interface StepNavButtonProps {
   nextText: string;
   nextHref: string;
   nextType?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
 export const StepNavButton = ({
@@ -23,7 +21,8 @@ export const StepNavButton = ({
   nextText,
   prevHref,
   nextHref,
-  nextType = "button",
+  nextType,
+  onClick,
 }: StepNavButtonProps) => {
   const router = useRouter();
 
@@ -54,7 +53,7 @@ export const StepNavButton = ({
           color="primary"
           variant="contained"
           type={nextType}
-          onClick={handleNextClick}
+          onClick={nextType === "submit" ? onClick : handleNextClick}
         >
           <Typography>{nextText}</Typography>
         </Button>

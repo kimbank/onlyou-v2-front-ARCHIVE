@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  MainMiniButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "@/app/components/Button/Button";
+import { PrimaryButton, SecondaryButton } from "@/app/components/Button/Button";
+import Modal from "@/app/components/Modal/Modal";
 import { StepNavButton } from "@/app/components/NavBars/NavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
@@ -14,6 +11,16 @@ import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";
 
 const Index = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const checkedStates = useSelector(
     (state: RootState) => state.checkbox.checkedItems
   );
@@ -106,8 +113,19 @@ const Index = () => {
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
           nextType="submit"
+          onClick={handleOpenModal}
         />
       </Container>
+      <Modal open={modalOpen} onClose={handleCloseModal}>
+        <Typography sx={{ fontWeight: "bold" }}>매칭 신청서 완성</Typography>
+        <Typography>
+          정말 제출 하시겠어요?
+          <br />
+          매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
+        </Typography>
+        <SecondaryButton buttonName={"다시작성하기"} />
+        <PrimaryButton buttonName={"제출하기"} />
+      </Modal>
     </LetterRoot>
   );
 };

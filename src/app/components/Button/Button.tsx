@@ -21,7 +21,7 @@ const ButtonText = "버튼";
 // CTA에 쓰이는 메인 버튼입니다.
 
 interface PrimaryButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   buttonName: string;
   shadow?: boolean;
   width?: "full" | "half" | "auto";
@@ -91,425 +91,425 @@ export function SecondaryButton({
   );
 }
 
-// Figma: Main half Button
-export function MainHalfButton({ onClick, buttonName, shadow = false }) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="primary"
-        variant="contained"
-        sx={{
-          borderRadius: "12px",
-          height: "56px",
-          width: "50%",
-          boxShadow: !shadow && "none",
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: Main half Button
+// export function MainHalfButton({ onClick, buttonName, shadow = false }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="primary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "12px",
+//           height: "56px",
+//           width: "50%",
+//           boxShadow: !shadow && "none",
+//         }}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: Sub Button
-// 회색 계열의 서브버튼입니다.
-export function SubButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  height = "56px",
-  width = "100%",
-}: any) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "12px",
-          height: height,
-          width: "100%",
-          boxShadow: !shadow && "none",
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: Sub Button
+// // 회색 계열의 서브버튼입니다.
+// export function SubButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   height = "56px",
+//   width = "100%",
+// }: any) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "12px",
+//           height: height,
+//           width: "100%",
+//           boxShadow: !shadow && "none",
+//         }}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: Sub half Button
-export function SubHalfButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "12px",
-          height: "56px",
-          width: "50%",
-          boxShadow: !shadow && "none",
-        }}
-        disabled={disabled}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: Sub half Button
+// export function SubHalfButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "12px",
+//           height: "56px",
+//           width: "50%",
+//           boxShadow: !shadow && "none",
+//         }}
+//         disabled={disabled}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: Edit Button
-export function EditButton({ onClick, buttonName, shadow = false }) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          height: "33px",
-          padding: "8px 12px",
-          boxShadow: !shadow && "none",
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-            textDecoration: "none",
-          }}
-        >
-          {buttonName}
-          <ArrowForwardIosIcon
-            sx={{
-              width: "10px",
-              height: "10px",
-              color: "#3C3B3A",
-            }}
-          />
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: Edit Button
+// export function EditButton({ onClick, buttonName, shadow = false }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "8px",
+//           height: "33px",
+//           padding: "8px 12px",
+//           boxShadow: !shadow && "none",
+//         }}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//             textDecoration: "none",
+//           }}
+//         >
+//           {buttonName}
+//           <ArrowForwardIosIcon
+//             sx={{
+//               width: "10px",
+//               height: "10px",
+//               color: "#3C3B3A",
+//             }}
+//           />
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: Upload Button
-export function UploadButton({ onClick, buttonName, shadow = false }) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "16px",
-          width: "120px",
-          height: "80px",
-          boxShadow: !shadow && "none",
-        }}
-      >
-        <CloudUploadIcon
-          sx={{
-            width: "40px",
-          }}
-        />
-      </Button>
-    </div>
-  );
-}
+// // Figma: Upload Button
+// export function UploadButton({ onClick, buttonName, shadow = false }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "16px",
+//           width: "120px",
+//           height: "80px",
+//           boxShadow: !shadow && "none",
+//         }}
+//       >
+//         <CloudUploadIcon
+//           sx={{
+//             width: "40px",
+//           }}
+//         />
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: List Button
-export function ListButton({ onClick, buttonName, shadow = false }) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          width: "100%",
-          height: "33px",
-          padding: "8px 12px",
-          justifyContent: "left",
-          boxShadow: !shadow && "none",
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-            textAlign: "left",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: List Button
+// export function ListButton({ onClick, buttonName, shadow = false }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "8px",
+//           width: "100%",
+//           height: "33px",
+//           padding: "8px 12px",
+//           justifyContent: "left",
+//           boxShadow: !shadow && "none",
+//         }}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//             textAlign: "left",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-// Figma: Sub mini Button
-// 원래 셀렉티드에 사용할 수 있는 button group으로 만들려고 했는데, 그룹에 버튼이 몇개씩 들어갈지 몰라서 우선 그룹 속 버튼 요소만 만들어두었습니다.
-export function SubMiniButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="secondary"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          height: "33px",
-          padding: "8px 12px",
-          boxShadow: !shadow && "none",
-        }}
-        disabled={disabled}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// // Figma: Sub mini Button
+// // 원래 셀렉티드에 사용할 수 있는 button group으로 만들려고 했는데, 그룹에 버튼이 몇개씩 들어갈지 몰라서 우선 그룹 속 버튼 요소만 만들어두었습니다.
+// export function SubMiniButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="secondary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "8px",
+//           height: "33px",
+//           padding: "8px 12px",
+//           boxShadow: !shadow && "none",
+//         }}
+//         disabled={disabled}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-export function SubMiniFullButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <Button
-      onClick={onClick}
-      color="secondary"
-      variant="contained"
-      sx={{
-        borderRadius: "8px",
-        height: "33px",
-        padding: "8px 12px",
-        width: "100%",
-        boxShadow: !shadow && "none",
-        justifyContent: "flex-start",
-      }}
-      disabled={disabled}
-    >
-      <Typography
-        variant="subtitle1"
-        align="left"
-        sx={{
-          fontFamily: "Pretendard-Semibold",
-          fontSize: "14px",
-          letterSpacing: "1.25px",
-        }}
-      >
-        {buttonName}
-      </Typography>
-    </Button>
-  );
-}
+// export function SubMiniFullButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <Button
+//       onClick={onClick}
+//       color="secondary"
+//       variant="contained"
+//       sx={{
+//         borderRadius: "8px",
+//         height: "33px",
+//         padding: "8px 12px",
+//         width: "100%",
+//         boxShadow: !shadow && "none",
+//         justifyContent: "flex-start",
+//       }}
+//       disabled={disabled}
+//     >
+//       <Typography
+//         variant="subtitle1"
+//         align="left"
+//         sx={{
+//           fontFamily: "Pretendard-Semibold",
+//           fontSize: "14px",
+//           letterSpacing: "1.25px",
+//         }}
+//       >
+//         {buttonName}
+//       </Typography>
+//     </Button>
+//   );
+// }
 
-export function MainMiniButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="primary"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          height: "33px",
-          padding: "8px 12px",
-          boxShadow: !shadow && "none",
-        }}
-        disabled={disabled}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// export function MainMiniButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="primary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "8px",
+//           height: "33px",
+//           padding: "8px 12px",
+//           boxShadow: !shadow && "none",
+//         }}
+//         disabled={disabled}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-export function MainMiniCancelButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <div>
-      <Button
-        onClick={onClick}
-        color="primary"
-        variant="contained"
-        sx={{
-          borderRadius: "8px",
-          height: "33px",
-          padding: "8px 12px",
-          boxShadow: !shadow && "none",
-        }}
-        disabled={disabled}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            fontFamily: "Pretendard-Semibold",
-            fontSize: "14px",
-            letterSpacing: "1.25px",
-          }}
-        >
-          {buttonName}
-          <ClearIcon
-            sx={{
-              fontSize: "large",
-              color: "#fff",
-              marginLeft: "8px",
-              alignSelf: "center",
-            }}
-          />
-        </Typography>
-      </Button>
-    </div>
-  );
-}
+// export function MainMiniCancelButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <div>
+//       <Button
+//         onClick={onClick}
+//         color="primary"
+//         variant="contained"
+//         sx={{
+//           borderRadius: "8px",
+//           height: "33px",
+//           padding: "8px 12px",
+//           boxShadow: !shadow && "none",
+//         }}
+//         disabled={disabled}
+//       >
+//         <Typography
+//           variant="subtitle1"
+//           sx={{
+//             display: "flex",
+//             alignItems: "center",
+//             fontFamily: "Pretendard-Semibold",
+//             fontSize: "14px",
+//             letterSpacing: "1.25px",
+//           }}
+//         >
+//           {buttonName}
+//           <ClearIcon
+//             sx={{
+//               fontSize: "large",
+//               color: "#fff",
+//               marginLeft: "8px",
+//               alignSelf: "center",
+//             }}
+//           />
+//         </Typography>
+//       </Button>
+//     </div>
+//   );
+// }
 
-export function MainSelectButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <Button
-      onClick={onClick}
-      color="primary"
-      variant="contained"
-      sx={{
-        borderRadius: "8px",
-        height: "33px",
-        padding: "8px 12px",
-        width: "100%",
-        boxShadow: !shadow && "none",
-        flex: "1",
-      }}
-      disabled={disabled}
-    >
-      <Typography
-        variant="subtitle1"
-        sx={{
-          fontFamily: "Pretendard-Semibold",
-          fontSize: "14px",
-          letterSpacing: "1.25px",
-        }}
-      >
-        {buttonName}
-      </Typography>
-    </Button>
-  );
-}
+// export function MainSelectButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <Button
+//       onClick={onClick}
+//       color="primary"
+//       variant="contained"
+//       sx={{
+//         borderRadius: "8px",
+//         height: "33px",
+//         padding: "8px 12px",
+//         width: "100%",
+//         boxShadow: !shadow && "none",
+//         flex: "1",
+//       }}
+//       disabled={disabled}
+//     >
+//       <Typography
+//         variant="subtitle1"
+//         sx={{
+//           fontFamily: "Pretendard-Semibold",
+//           fontSize: "14px",
+//           letterSpacing: "1.25px",
+//         }}
+//       >
+//         {buttonName}
+//       </Typography>
+//     </Button>
+//   );
+// }
 
-export function SubSelectButton({
-  onClick,
-  buttonName,
-  shadow = false,
-  disabled = false,
-}) {
-  return (
-    <Button
-      onClick={onClick}
-      color="secondary"
-      variant="contained"
-      sx={{
-        borderRadius: "8px",
-        height: "33px",
-        padding: "8px 12px",
-        width: "100%",
-        boxShadow: !shadow && "none",
-        flex: "1",
-      }}
-      disabled={disabled}
-    >
-      <Typography
-        variant="subtitle1"
-        align="left"
-        sx={{
-          fontFamily: "Pretendard-Semibold",
-          fontSize: "14px",
-          letterSpacing: "1.25px",
-        }}
-      >
-        {buttonName}
-      </Typography>
-    </Button>
-  );
-}
+// export function SubSelectButton({
+//   onClick,
+//   buttonName,
+//   shadow = false,
+//   disabled = false,
+// }) {
+//   return (
+//     <Button
+//       onClick={onClick}
+//       color="secondary"
+//       variant="contained"
+//       sx={{
+//         borderRadius: "8px",
+//         height: "33px",
+//         padding: "8px 12px",
+//         width: "100%",
+//         boxShadow: !shadow && "none",
+//         flex: "1",
+//       }}
+//       disabled={disabled}
+//     >
+//       <Typography
+//         variant="subtitle1"
+//         align="left"
+//         sx={{
+//           fontFamily: "Pretendard-Semibold",
+//           fontSize: "14px",
+//           letterSpacing: "1.25px",
+//         }}
+//       >
+//         {buttonName}
+//       </Typography>
+//     </Button>
+//   );
+// }
