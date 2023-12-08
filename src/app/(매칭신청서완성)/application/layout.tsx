@@ -1,6 +1,5 @@
 "use client";
 
-import { MyInfoHeader } from "@/app/components/Header/MyInfoHeader";
 import { ThemeProvider } from "@emotion/react";
 import { Container, createTheme } from "@mui/material";
 
@@ -28,7 +27,6 @@ export default function ApplicationLayout({
 }) {
   return (
     <ThemeProvider theme={theme}>
-      <MyInfoHeader />
       <Container disableGutters sx={{ padding: "55px 5px" }}>
         {children}
       </Container>

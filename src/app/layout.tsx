@@ -1,5 +1,6 @@
 import ReduxProvider from "@/store/provider.tsx";
 import { CssBaseline } from "@mui/material";
+import { Header } from "./components/Header/Header";
 
 import "./globals.css";
 
@@ -11,6 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ backgroundColor: "#FFE4CC" }}>
+        <Header />
         <ReduxProvider>
           <div
             style={{
@@ -19,6 +21,7 @@ export default function RootLayout({
               marginLeft: "auto",
               marginRight: "auto",
               backgroundColor: "#fff",
+              marginTop: "50px",
             }}
           >
             <div
