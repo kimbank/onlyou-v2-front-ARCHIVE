@@ -1,7 +1,7 @@
 "use client";
 
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
-import { StepNavButton } from "@/app/components/NavBars/NavButton";
+import { StepNavButton } from "@/app/components/NavBars/StepNavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";

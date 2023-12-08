@@ -11,3 +11,43 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.heading1 {
+  font-family: Pretendard-Bold;
+  font-size: 32px;
+}
+
+.heading2 {
+  font-family: Pretendard-Bold !important;
+  font-size: 26px !important;
+}
+
+.heading3 {
+  font-family: Pretendard-Bold;
+  font-size: 23px;
+}
+
+.heading4 {
+  font-family: Pretendard-Bold;
+  font-size: 20px;
+}
+
+.heading4-gray {
+  font-family: Pretendard-Bold;
+  font-size: 20px;
+  color: #666563;
+}
+
+.heading5 {
+  font-family: Pretendard-Bold;
+  font-size: 17px;
+}
+
+.heading6 {
+  font-family: Pretendard-Bold;
+  font-size: 14px;
+}
+
+.heading7 {
+  font-family: Pretendard-Bold;
+  font-size: 11px;
+}
