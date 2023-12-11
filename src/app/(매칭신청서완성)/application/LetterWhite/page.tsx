@@ -2,7 +2,7 @@
 
 import { PrimaryButton, SecondaryButton } from "@/app/components/Button/Button";
 import Modal from "@/app/components/Modal/Modal";
-import { StepNavButton } from "@/app/components/NavBars/StepNavButton";
+import { StepNavButton } from "@/app/components/Button/StepNavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
 import { Container, TextareaAutosize, Typography } from "@mui/material";
