@@ -15,6 +15,7 @@ import { Container, createTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import RootLayout from "./layout";
 
 const theme = createTheme({
   palette: {
@@ -29,6 +30,24 @@ const theme = createTheme({
       main: "#F7F4F2",
       dark: "#B2B0AE",
       contrastText: "#3C3B3A",
+    },
+  },
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          h1: "h2",
+          h2: "h2",
+          h3: "h2",
+          h4: "h2",
+          h5: "h2",
+          h6: "h2",
+          subtitle1: "h2",
+          subtitle2: "h2",
+          body1: "span",
+          body2: "span",
+        },
+      },
     },
   },
 });
