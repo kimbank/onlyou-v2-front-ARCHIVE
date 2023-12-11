@@ -29,7 +29,7 @@ const theme = createTheme({
   },
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: any) {
   const queryClient = new QueryClient();
 
   return (
