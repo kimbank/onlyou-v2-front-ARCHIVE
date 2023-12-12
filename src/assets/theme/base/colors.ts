@@ -1,0 +1,133 @@
+interface ColorsTypes {
+  main: string;
+  focus: string;
+}
+
+interface Types {
+  background:
+    | {
+        default: string;
+        sidenav?: string;
+        card?: string;
+      }
+    | any;
+  white:
+    | {
+        main: string;
+        focus: string;
+      }
+    | any;
+  text:
+    | {
+        main: string;
+        focus: string;
+        primary?: string;
+        secondary?: string;
+        disabled?: string;
+      }
+    | any;
+  transparent:
+    | {
+        main: string;
+      }
+    | any;
+  black:
+    | {
+        light: string;
+        main: string;
+        focus: string;
+      }
+    | any;
+  primary: ColorsTypes | any;
+  secondary: ColorsTypes | any;
+  info: ColorsTypes | any;
+  success: ColorsTypes | any;
+  warning: ColorsTypes | any;
+  error: ColorsTypes | any;
+  light: ColorsTypes | any;
+  dark: ColorsTypes | any;
+  grey:
+    | {
+        [key: string | number]: string;
+      }
+    | any;
+}
+
+const colors: Types = {
+  background: {
+    default: "#f0f2f5",
+  },
+
+  text: {
+    main: "#7b809a",
+    focus: "#7b809a",
+  },
+
+  transparent: {
+    main: "transparent",
+  },
+
+  white: {
+    main: "#ffffff",
+    focus: "#ffffff",
+  },
+
+  black: {
+    light: "#000000",
+    main: "#000000",
+    focus: "#000000",
+  },
+
+  primary: {
+    main: "#FF7700",
+    focus: "#C45A00",
+  },
+
+  secondary: {
+    main: "#F7F4F2",
+    focus: "#B2B0AE",
+  },
+  light: {
+    main: "#FFA266",
+    focus: "#FF7700",
+  },
+
+  info: {
+    main: "#7CDC00",
+    focus: "#7CDC00",
+  },
+
+  success: {
+    main: "#4CAF50",
+    focus: "#67bb6a",
+  },
+
+  warning: {
+    main: "#fb8c00",
+    focus: "#fc9d26",
+  },
+
+  error: {
+    main: "#F44335",
+    focus: "#f65f53",
+  },
+
+  dark: {
+    main: "#344767",
+    focus: "#2c3c58",
+  },
+
+  grey: {
+    100: "#f8f9fa",
+    200: "#f0f2f5",
+    300: "#dee2e6",
+    400: "#ced4da",
+    500: "#adb5bd",
+    600: "#6c757d",
+    700: "#495057",
+    800: "#343a40",
+    900: "#212529",
+  },
+};
+
+export default colors;

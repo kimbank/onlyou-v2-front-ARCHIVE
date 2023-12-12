@@ -1,56 +1,48 @@
 "use client";
+import { theme } from "@/assets";
 import { ThemeProvider } from "@emotion/react";
-import { Container, createTheme } from "@mui/material";
+import { Container, createTheme, Typography } from "@mui/material";
 
-// import {
-//   EditButton,
-//   ListButton,
-//   MainButton,
-//   MainHalfButton,
-//   SubButton,
-//   SubHalfButton,
-//   SubMiniButton,
-//   UploadButton,
-// } from "@/components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import MDButton from "./components/MDButton/MDButton";
 import RootLayout from "./layout";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: "#FFA266",
-      main: "#FF7700",
-      dark: "#C45A00",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#FFFFFF",
-      main: "#F7F4F2",
-      dark: "#B2B0AE",
-      contrastText: "#3C3B3A",
-    },
-  },
-  components: {
-    MuiTypography: {
-      defaultProps: {
-        variantMapping: {
-          h1: "h2",
-          h2: "h2",
-          h3: "h2",
-          h4: "h2",
-          h5: "h2",
-          h6: "h2",
-          subtitle1: "h2",
-          subtitle2: "h2",
-          body1: "span",
-          body2: "span",
-        },
-      },
-    },
-  },
-});
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       light: "#FFA266",
+//       main: "#FF7700",
+//       dark: "#C45A00",
+//       contrastText: "#fff",
+//     },
+//     secondary: {
+//       light: "#FFFFFF",
+//       main: "#F7F4F2",
+//       dark: "#B2B0AE",
+//       contrastText: "#3C3B3A",
+//     },
+//   },
+//   components: {
+//     MuiTypography: {
+//       defaultProps: {
+//         variantMapping: {
+//           h1: "h2",
+//           h2: "h2",
+//           h3: "h2",
+//           h4: "h2",
+//           h5: "h2",
+//           h6: "h2",
+//           subtitle1: "h2",
+//           subtitle2: "h2",
+//           body1: "span",
+//           body2: "span",
+//         },
+//       },
+//     },
+//   },
+// });
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   return (
@@ -109,6 +101,31 @@ export default function Home() {
             <button onClick={() => setShowModal(true)}>모달 후보</button>
 
             <h1>다음은 버튼입니다.</h1>
+            <MDButton />
+            <MDButton
+              autoFocus
+              variant="contained"
+              color="primary"
+              sx={{ flex: 1 }}
+              disabled={true}
+            >
+              취소
+            </MDButton>
+            <MDButton
+              autoFocus
+              variant="outlined"
+              color="primary"
+              size="small"
+              circular={true}
+              disabled={true}
+            >
+              <Typography variant="h3" color="primary">
+                취소
+              </Typography>
+            </MDButton>
+            <MDButton autoFocus variant="text" color="primary" size="small">
+              <Typography variant="h1">취소</Typography>
+            </MDButton>
             {/* <MainButton buttonName={buttonTitle + "MainButton"} />
             <SubButton buttonName={buttonTitle + "SubButton"} />
             <MainHalfButton buttonName={buttonTitle + "MainHalfButton"} />

@@ -2,11 +2,7 @@
 
 "use client";
 
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import ClearIcon from "@mui/icons-material/Clear";
+import { Button, Typography } from "@mui/material";
 
 const ButtonText = "버튼";
 
@@ -21,7 +17,7 @@ const ButtonText = "버튼";
 // CTA에 쓰이는 메인 버튼입니다.
 
 interface PrimaryButtonProps {
-  onClick?: () => void;
+  onClick: () => void;
   buttonName: string;
   shadow?: boolean;
   width?: "full" | "half" | "auto";
