@@ -34,7 +34,12 @@ const Index = () => {
     "인생의 목표가 있다면?",
     "내가 연인에게 해줄 수 있는 것은?",
     "주변인이 말하는 내 매력은?",
-    "내 취미 생활은?",
+    "내 취미 생활은 ?",
+    "이런 연애를 지향해요",
+    "잊지 못할 일생일대의 경험은?",
+    "연인이 생기면 하고싶은 일은?",
+    "내가 인생에서 가장 잘한 일은?",
+    "자유편지",
   ];
   const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
     new Array(checkedStates.length).fill(false)
@@ -70,7 +75,7 @@ const Index = () => {
             (isChecked, index) =>
               isChecked && (
                 <div key={index}>
-                  <Typography variant="body3" sx={{ color: "black" }}>
+                  <Typography variant="body3" sx={{ fontWeight: "bold" }}>
                     {checkboxNames[index]}
                   </Typography>
                   <TextareaAutosize
@@ -90,7 +95,13 @@ const Index = () => {
                     readOnly={readOnlyStates[index]}
                   />
                   <Container className="letter-box-values">
-                    <Typography variant="caption">
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color:
+                          lettertexts[index].length > 0 ? "primary" : "primary",
+                      }}
+                    >
                       글자 수 /{lettertexts[index].length}자
                     </Typography>
 
@@ -121,20 +132,12 @@ const Index = () => {
         </Container>
         <RDStepNavButton
           prevText="이전"
-          nextText="제출하기"
-          prevHref="LetterSelect/"
-          nextHref="LetterWhite/"
-          nextType="button"
-          onClick={handleOpenModal}
-        />
-        {/* <StepNavButton
-          prevText="이전"
           nextText="신청서 제출하기"
           prevHref="LetterSelect/"
-          nextHref="LetterWhite/"
-          nextType="submit"
+          nextType="button"
           onClick={handleOpenModal}
-        /> */}
+          checkedStates={checkedStates}
+        />
       </Container>
       <Modal open={modalOpen} onClose={handleCloseModal}>
         <Typography sx={{ fontWeight: "bold" }}>매칭 신청서 완성</Typography>
@@ -143,8 +146,8 @@ const Index = () => {
           <br />
           매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
         </Typography>
-        {/* <SecondaryButton buttonName={"다시작성하기"} />
-        <PrimaryButton buttonName={"제출하기"} /> */}
+        <SecondaryButton buttonName={"다시작성하기"} />
+        <PrimaryButton buttonName={"제출하기"} />
       </Modal>
     </LetterRoot>
   );

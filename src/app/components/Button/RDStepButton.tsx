@@ -7,7 +7,7 @@ interface RDStepNavButtonProps {
   prevText: string;
   prevHref: string;
   nextText: string;
-  nextHref: string;
+  nextHref?: string;
   nextType?: "button" | "submit" | "reset";
   onClick?: () => void;
   checkedStates?: boolean[];
@@ -29,8 +29,11 @@ export const RDStepNavButton = ({
   };
 
   const handleNextClick = () => {
-    router.push(nextHref);
+    if (nextHref) {
+      router.push(nextHref);
+    }
   };
+
   const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
   return (
     <RDStepNavButtonRoot>

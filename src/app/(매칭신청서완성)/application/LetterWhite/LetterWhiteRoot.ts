@@ -16,7 +16,9 @@ export default styled("div")(({ theme }) => {
     },
     ".letter-box-values": {
       display: "flex",
+      width: "100%",
       justifyContent: "space-between",
+      padding: "0",
     },
   };
 });
