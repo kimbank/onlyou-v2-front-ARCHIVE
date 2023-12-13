@@ -117,7 +117,7 @@ const baseProperties = {
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightBold: 700,
-  fontSizeXS: "11px",
+  fontSizeXS: "12px",
   fontSizeSM: "14px",
   fontSizeMD: "16px",
   fontSizeLG: "20px,",

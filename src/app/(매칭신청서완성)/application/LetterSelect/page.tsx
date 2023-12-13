@@ -68,7 +68,6 @@ const Index = () => {
             />
           ))}
         </Container>
-
         {/* <StepNavButton
           prevText="이전"
           nextText="다음"
@@ -76,14 +75,15 @@ const Index = () => {
           nextHref="LetterWhite/"
           nextType="button"
         /> */}
+        <RDStepNavButton
+          prevText="이전"
+          nextText="다음"
+          prevHref="LetterSelect/"
+          nextHref="LetterWhite/"
+          nextType="button"
+          checkedStates={checkedStates}
+        />
       </Container>
-      <RDStepNavButton
-        prevText="이전"
-        nextText="다음"
-        prevHref="LetterSelect/"
-        nextHref="LetterWhite/"
-        nextType="button"
-      />
     </LetterRoot>
   );
 };

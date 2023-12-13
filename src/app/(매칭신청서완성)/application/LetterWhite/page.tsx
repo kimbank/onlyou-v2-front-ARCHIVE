@@ -9,6 +9,8 @@ import { Container, TextareaAutosize, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";
+import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
+import RDButton from "@/app/components/RDButton/RDButton";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,7 +56,7 @@ const Index = () => {
   return (
     <LetterRoot>
       <Container className="letter-container">
-        <Typography variant="h5" sx={{ color: "black", fontWeight: "bold" }}>
+        <Typography variant="h3">
           📝 <br />
           이제 편지를 작성해 볼까요?
         </Typography>
@@ -68,7 +70,7 @@ const Index = () => {
             (isChecked, index) =>
               isChecked && (
                 <div key={index}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography variant="body3" sx={{ color: "black" }}>
                     {checkboxNames[index]}
                   </Typography>
                   <TextareaAutosize
@@ -80,41 +82,59 @@ const Index = () => {
                       border: "1px solid #B2B0AE",
                       borderRadius: "10px",
                       color: readOnlyStates[index] ? "grey" : "black",
+                      padding: "16px",
+                      height: "160px",
+                      minHeight: "140px",
                     }}
                     onChange={handleTextChange(index)}
                     readOnly={readOnlyStates[index]}
                   />
                   <Container className="letter-box-values">
-                    <Typography>
-                      글자수 : {lettertexts[index].length}
+                    <Typography variant="caption">
+                      글자 수 /{lettertexts[index].length}자
                     </Typography>
 
                     {lettertexts[index].length > 0 ? (
-                      <PrimaryButton
-                        buttonName={
-                          readOnlyStates[index] ? "수정하기" : "저장하기"
-                        }
-                        onClick={toggleEditMode(index)}
-                      />
+                      <>
+                        <RDButton
+                          variant="contained"
+                          size="small"
+                          color="primary"
+                          onClick={toggleEditMode(index)}
+                        >
+                          {readOnlyStates[index] ? "수정하기" : "저장하기"}
+                        </RDButton>
+                      </>
                     ) : (
-                      <SecondaryButton
-                        buttonName="저장하기"
-                        onClick={() => console.log("클릭")}
-                      />
+                      <RDButton
+                        variant="contained"
+                        size="small"
+                        disabled={true}
+                      >
+                        저장하기
+                      </RDButton>
                     )}
                   </Container>
                 </div>
               )
           )}
         </Container>
-        <StepNavButton
+        <RDStepNavButton
+          prevText="이전"
+          nextText="제출하기"
+          prevHref="LetterSelect/"
+          nextHref="LetterWhite/"
+          nextType="button"
+          onClick={handleOpenModal}
+        />
+        {/* <StepNavButton
           prevText="이전"
           nextText="신청서 제출하기"
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
           nextType="submit"
           onClick={handleOpenModal}
-        />
+        /> */}
       </Container>
       <Modal open={modalOpen} onClose={handleCloseModal}>
         <Typography sx={{ fontWeight: "bold" }}>매칭 신청서 완성</Typography>
@@ -123,8 +143,8 @@ const Index = () => {
           <br />
           매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
         </Typography>
-        <SecondaryButton buttonName={"다시작성하기"} />
-        <PrimaryButton buttonName={"제출하기"} />
+        {/* <SecondaryButton buttonName={"다시작성하기"} />
+        <PrimaryButton buttonName={"제출하기"} /> */}
       </Modal>
     </LetterRoot>
   );

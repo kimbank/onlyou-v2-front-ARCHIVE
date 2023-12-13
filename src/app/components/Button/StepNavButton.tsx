@@ -29,6 +29,8 @@ export const StepNavButton = ({
     router.push(nextHref);
   };
 
+  const checkedCount = checkedStates.filter(Boolean).length;
+
   return (
     <StepNavButtonRoot>
       <Container className="button-box">
@@ -48,6 +50,7 @@ export const StepNavButton = ({
           color="primary"
           variant="contained"
           type={nextType}
+          disabled={checkedCount < 3}
           onClick={nextType === "submit" ? onClick : handleNextClick}
         >
           <Typography>{nextText}</Typography>

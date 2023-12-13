@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import RDButton from "../RDButton/RDButton";
 import RDStepNavButtonRoot from "./RDStepNavButtonRoot";
@@ -10,6 +10,7 @@ interface RDStepNavButtonProps {
   nextHref: string;
   nextType?: "button" | "submit" | "reset";
   onClick?: () => void;
+  checkedStates?: boolean[];
 }
 
 export const RDStepNavButton = ({
@@ -19,6 +20,7 @@ export const RDStepNavButton = ({
   nextHref,
   nextType,
   onClick,
+  checkedStates,
 }: RDStepNavButtonProps) => {
   const router = useRouter();
 
@@ -29,14 +31,14 @@ export const RDStepNavButton = ({
   const handleNextClick = () => {
     router.push(nextHref);
   };
-
+  const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
   return (
     <RDStepNavButtonRoot>
       <RDButton
         color="primary"
         size="large"
         variant="outlined"
-        onclick={handlePrevClick}
+        onClick={handlePrevClick}
       >
         <Typography variant="body2">{prevText}</Typography>
       </RDButton>
@@ -44,7 +46,8 @@ export const RDStepNavButton = ({
         color="primary"
         size="large"
         variant="contained"
-        onclick={handleNextClick}
+        disabled={checkedCount < 3}
+        onClick={handleNextClick}
       >
         <Typography variant="body2">{nextText}</Typography>
       </RDButton>
