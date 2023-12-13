@@ -6,7 +6,7 @@ import { Container, createTheme, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import MDButton from "./components/MDButton/MDButton";
+import RDButton from "./components/RDButton/RDButton";
 import RootLayout from "./layout";
 
 // const theme = createTheme({
@@ -101,31 +101,34 @@ export default function Home() {
             <button onClick={() => setShowModal(true)}>모달 후보</button>
 
             <h1>다음은 버튼입니다.</h1>
-            <MDButton />
-            <MDButton
-              autoFocus
+            <RDButton variant="contained" color="primary" sx={{ flex: 1 }}>
+              취소
+            </RDButton>
+            <RDButton
+              size="large"
               variant="contained"
               color="primary"
               sx={{ flex: 1 }}
               disabled={true}
             >
               취소
-            </MDButton>
-            <MDButton
-              autoFocus
+            </RDButton>
+            <RDButton
               variant="outlined"
               color="primary"
-              size="small"
+              size="large"
               circular={true}
-              disabled={true}
             >
               <Typography variant="h3" color="primary">
                 취소
               </Typography>
-            </MDButton>
-            <MDButton autoFocus variant="text" color="primary" size="small">
+            </RDButton>
+            <RDButton variant="text" color="primary" size="small">
               <Typography variant="h1">취소</Typography>
-            </MDButton>
+            </RDButton>
+            <RDButton variant="text" color="primary" size="small">
+              <Typography variant="h1">취소</Typography>
+            </RDButton>
             {/* <MainButton buttonName={buttonTitle + "MainButton"} />
             <SubButton buttonName={buttonTitle + "SubButton"} />
             <MainHalfButton buttonName={buttonTitle + "MainHalfButton"} />

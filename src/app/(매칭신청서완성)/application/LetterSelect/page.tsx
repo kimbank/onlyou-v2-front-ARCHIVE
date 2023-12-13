@@ -1,8 +1,9 @@
 "use client";
 
+import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
-import { StepNavButton } from "@/app/components/Button/StepNavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
+import RDButton from "@/app/components/RDButton/RDButton";
 import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";
 import { Container, Typography } from "@mui/material";
@@ -48,10 +49,10 @@ const Index = () => {
   return (
     <LetterRoot>
       <Container className="letter-container">
-        <Typography variant="h5" sx={{ color: "black", fontWeight: "bold" }}>
+        <Typography variant="h3" sx={{ color: "black", fontWeight: "bold" }}>
           편지 질문 선택하기
         </Typography>
-        <Typography className="heading2" sx={{ color: "black" }}>
+        <Typography variant="subtitle2">
           질문을 고르고 선택한 질문에 답변하며 <br />
           편지를 완성해보아요!
         </Typography>
@@ -67,14 +68,22 @@ const Index = () => {
             />
           ))}
         </Container>
-        <StepNavButton
+
+        {/* <StepNavButton
           prevText="이전"
           nextText="다음"
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
           nextType="button"
-        />
+        /> */}
       </Container>
+      <RDStepNavButton
+        prevText="이전"
+        nextText="다음"
+        prevHref="LetterSelect/"
+        nextHref="LetterWhite/"
+        nextType="button"
+      />
     </LetterRoot>
   );
 };

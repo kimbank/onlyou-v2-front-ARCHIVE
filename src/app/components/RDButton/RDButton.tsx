@@ -1,6 +1,6 @@
 import { ButtonProps } from "@mui/material";
 import { FC, forwardRef, ReactNode } from "react";
-import MDButtonRoot from "./MDButtonRoot";
+import RDButtonRoot from "./RDButtonRoot";
 
 interface Props extends Omit<ButtonProps, "color" | "variant"> {
   color?:
@@ -21,10 +21,10 @@ interface Props extends Omit<ButtonProps, "color" | "variant"> {
   [key: string]: any;
 }
 
-const MDButton: FC<Props> = forwardRef(
+const RDButton: FC<Props> = forwardRef(
   ({ color, variant, size, children, ...rest }, ref) => {
     return (
-      <MDButtonRoot
+      <RDButtonRoot
         {...rest}
         ref={ref}
         color="primary"
@@ -33,17 +33,17 @@ const MDButton: FC<Props> = forwardRef(
         ownerState={{ color, variant, size }}
       >
         {children}
-      </MDButtonRoot>
+      </RDButtonRoot>
     );
   }
 );
 
-MDButton.defaultProps = {
+RDButton.defaultProps = {
   color: "white",
   variant: "contained",
   size: "medium",
   circular: false,
   iconOnly: false,
 };
-MDButton.displayName = "MDButton";
-export default MDButton;
+RDButton.displayName = "RDButton";
+export default RDButton;

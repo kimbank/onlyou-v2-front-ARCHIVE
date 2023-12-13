@@ -2,16 +2,126 @@ import colors from "./colors";
 
 const { dark } = colors;
 
+interface Types {
+  fontFamily: string;
+  fontWeightLight: number;
+  fontWeightRegular: number;
+  fontWeightBold: number;
+  h1: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h2: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h3: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h4: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h5: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h6: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  subtitle1: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  subtitle2: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  body1: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  body2: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  body3: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  button: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+    textTransform: any;
+  };
+  caption: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  overline: {
+    fontFamily: string;
+  };
+
+  size: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    "2xl": string;
+    "3xl": string;
+  };
+  lineHeight: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
+}
+
 const baseProperties = {
-  fontFamily: '"Pretendard"',
+  fontFamily: "Pretendard",
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightBold: 700,
   fontSizeXS: "11px",
   fontSizeSM: "14px",
-  fontSizeMD: "17px",
+  fontSizeMD: "16px",
   fontSizeLG: "20px,",
-  fontSizeXL: "23px",
+  fontSizeXL: "24px",
   fontSize2XL: "26px",
   fontSize3XL: "32px",
 };
@@ -48,7 +158,7 @@ const typography: Types = {
   },
 
   h3: {
-    fontSize: "23px",
+    fontSize: "24px",
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
@@ -60,7 +170,7 @@ const typography: Types = {
   },
 
   h5: {
-    fontSize: "17px",
+    fontSize: "16px",
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
@@ -74,14 +184,14 @@ const typography: Types = {
   subtitle1: {
     fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeXL,
-    fontWeight: baseProperties.fontWeightLight,
+    fontWeight: baseProperties.fontWeightRegular,
     lineHeight: 1.625,
   },
 
   subtitle2: {
     fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeMD,
-    fontWeight: baseProperties.fontWeightLight,
+    fontWeight: baseProperties.fontWeightRegular,
     lineHeight: 1.6,
   },
 

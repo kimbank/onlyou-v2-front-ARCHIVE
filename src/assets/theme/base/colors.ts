@@ -45,6 +45,7 @@ interface Types {
   warning: ColorsTypes | any;
   error: ColorsTypes | any;
   light: ColorsTypes | any;
+  disabled: ColorsTypes | any;
   dark: ColorsTypes | any;
   grey:
     | {
@@ -92,8 +93,13 @@ const colors: Types = {
     focus: "#FF7700",
   },
 
+  disabled: {
+    main: "#9f99ac",
+    focus: "#d3d6db",
+  },
+
   info: {
-    main: "#7CDC00",
+    main: "#fff0e4",
     focus: "#7CDC00",
   },
 
@@ -113,7 +119,7 @@ const colors: Types = {
   },
 
   dark: {
-    main: "#344767",
+    main: "#000000",
     focus: "#2c3c58",
   },
 

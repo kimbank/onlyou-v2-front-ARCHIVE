@@ -8,7 +8,6 @@ interface DisplayTypes {
 
 interface Types {
   fontFamily: string;
-
   fontWeightLight: number;
   fontWeightRegular: number;
 

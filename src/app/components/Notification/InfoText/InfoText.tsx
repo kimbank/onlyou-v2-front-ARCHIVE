@@ -22,7 +22,7 @@ export function InfoText({ title, alertMessage, shadow = false }: Props) {
   return (
     <InfoTextRoot shadow={shadow}>
       {/* 이슈: 버튼이 figma와 다르게 양 옆으로 화면을 체우지 않습니다. */}
-      <Container color="light" className="info-text-button">
+      <Container color="primary" className="info-text-button">
         <InfoOutlinedIcon className="info-icon" />
         {/* 수정: 230906 제목 추가 부분. 111
                     div로 감싼 후 제목을 위해 Typography를 새로 만들어 제목을 추가했습니다.
@@ -38,11 +38,12 @@ export function InfoText({ title, alertMessage, shadow = false }: Props) {
         >
           {title && (
             <Typography
-              variant="subtitle1"
+              variant="h6"
               className="caption"
               align="left"
               sx={{
                 color: "#black",
+                marginLeft: "8px",
               }}
             >
               {title}

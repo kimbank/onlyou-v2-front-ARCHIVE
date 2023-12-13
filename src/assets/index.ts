@@ -1,3 +1,5 @@
+"use client";
+
 import { createTheme } from "@mui/material";
 import colors from "./theme/base/colors";
 import globals from "./theme/base/globals";

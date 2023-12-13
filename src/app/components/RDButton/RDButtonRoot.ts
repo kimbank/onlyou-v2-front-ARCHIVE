@@ -8,10 +8,11 @@ export default styled(Button)(({
   theme?: Theme | any;
   ownerState: any;
 }) => {
-  const { palette, functions, borders, boxShadows } = theme;
-  const { color, variant, size, darkMode } = ownerState;
+  const { palette } = theme;
+  const { color, variant } = ownerState;
 
-  const { white, text, transparent, grey, light, secondary } = palette;
+  const { white, text, transparent, grey, light, secondary, disabled } =
+    palette;
 
   // variant="contained 스타일"
   const containedStyles = () => {
@@ -21,28 +22,13 @@ export default styled(Button)(({
       ? palette[color].focus
       : white.focus;
 
-    // color value
+    // color value when button is focused
     let colorValue = white.main;
 
-    if (
-      !darkMode &&
-      (color === "white" || color === "light" || !palette[color])
-    ) {
-      colorValue = text.main;
-    } else if (
-      darkMode &&
-      (color === "white" || color === "light" || !palette[color])
-    ) {
-      colorValue = grey[600];
-    }
-
-    // color value when button is focused
-    let focusedColorValue = white.main;
-
     if (color === "white") {
-      focusedColorValue = text.main;
+      colorValue = text.main;
     } else if (color === "primary" || color === "error" || color === "dark") {
-      focusedColorValue = white.main;
+      colorValue = white.main;
     }
 
     return {
@@ -60,8 +46,8 @@ export default styled(Button)(({
       },
 
       "&:disabled": {
-        backgroundColor: backgroundValue,
-        color: focusedColorValue,
+        backgroundColor: disabled.main,
+        color: disabled.focus,
       },
     };
   };

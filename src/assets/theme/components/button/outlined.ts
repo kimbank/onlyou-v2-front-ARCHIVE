@@ -7,7 +7,8 @@ const { size } = typography;
 
 const outlined = {
   base: {
-    minHeight: pxToRem(40),
+    width: "100%",
+    minHeight: "52px",
     color: light.main,
     borderColor: light.main,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
@@ -23,7 +24,8 @@ const outlined = {
   },
 
   small: {
-    minHeight: pxToRem(32),
+    minHeight: "34px",
+    width: "auto",
     padding: `${pxToRem(6)} ${pxToRem(16)}`,
     fontSize: size.xs,
     boxShadow: `0 4px 4px rgba(0, 0, 0, 0.2)`,
@@ -39,7 +41,8 @@ const outlined = {
   },
 
   large: {
-    minHeight: pxToRem(47),
+    minHeight: "52px",
+    width: "50%",
     padding: `${pxToRem(12)} ${pxToRem(28)}`,
     fontSize: size.sm,
 

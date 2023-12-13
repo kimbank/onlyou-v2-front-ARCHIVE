@@ -1,5 +1,6 @@
+import { theme } from "@/assets";
 import ReduxProvider from "@/store/provider.tsx";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Header } from "./components/Header/Header";
 
 import "./globals.css";
@@ -12,32 +13,34 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ backgroundColor: "#FFE4CC" }}>
-        <Header />
-        <ReduxProvider>
-          <div
-            style={{
-              maxWidth: "480px",
-              minHeight: "100vh",
-              marginLeft: "auto",
-              marginRight: "auto",
-              backgroundColor: "#fff",
-              marginTop: "50px",
-            }}
-          >
+        <ThemeProvider theme={theme}>
+          <Header />
+          <ReduxProvider>
             <div
               style={{
-                width: "480px",
-                height: "100vh",
+                maxWidth: "480px",
+                minHeight: "100vh",
+                marginLeft: "auto",
+                marginRight: "auto",
                 backgroundColor: "#fff",
-                position: "fixed",
-                zIndex: "-4",
-                boxShadow: "0px 0px 32px -12px grey",
+                marginTop: "50px",
               }}
-            />
-            <CssBaseline>{children}</CssBaseline>
-          </div>
-          {/* { process.env.NEXT_PUBLIC_HOTJAR === 'true' && <Hotjar />} */}
-        </ReduxProvider>
+            >
+              <div
+                style={{
+                  width: "480px",
+                  height: "100vh",
+                  backgroundColor: "#fff",
+                  position: "fixed",
+                  zIndex: "-4",
+                  boxShadow: "0px 0px 32px -12px grey",
+                }}
+              />
+              <CssBaseline>{children}</CssBaseline>
+            </div>
+            {/* { process.env.NEXT_PUBLIC_HOTJAR === 'true' && <Hotjar />} */}
+          </ReduxProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ export default styled("div")(({ theme }) => {
     ".letter-box": {
       display: "flex",
       flexDirection: "column",
-      gap: "8px",
+      gap: "10px",
       width: "100%",
       padding: "0",
     },

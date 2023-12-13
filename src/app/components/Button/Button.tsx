@@ -17,7 +17,7 @@ const ButtonText = "버튼";
 // CTA에 쓰이는 메인 버튼입니다.
 
 interface PrimaryButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   buttonName: string;
   shadow?: boolean;
   width?: "full" | "half" | "auto";
