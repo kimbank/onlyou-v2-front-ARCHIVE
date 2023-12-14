@@ -1,7 +1,7 @@
 "use client";
 
 import SubmitNavButton from "@/app/components/NavBars/\bSubmitNavButton";
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import CompleteRoot from "./CompleteRoot";
 
 const Index = () => {

@@ -62,7 +62,7 @@ export function Checkbox({
     >
       <Button className="checkbox-button">
         <CheckBox className="checkbox" />
-        <Typography variant="body3" className="checkbox-label">
+        <Typography variant="body2" className="checkbox-label">
           {buttonName}
         </Typography>
       </Button>

@@ -28,8 +28,8 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
         </ModalTitle>
         <ModalContent>
           <Container className="modal-contents">
-            <Typography variant="body3">정말 제출 하시겠어요?</Typography>
-            <Typography variant="body3">
+            <Typography variant="body2">정말 제출 하시겠어요?</Typography>
+            <Typography variant="body2">
               매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
             </Typography>
           </Container>

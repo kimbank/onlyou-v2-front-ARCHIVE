@@ -73,7 +73,7 @@ const Index = () => {
             (isChecked, index) =>
               isChecked && (
                 <div key={index}>
-                  <Typography variant="body3" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                     {checkboxNames[index]}
                   </Typography>
                   <TextareaAutosize

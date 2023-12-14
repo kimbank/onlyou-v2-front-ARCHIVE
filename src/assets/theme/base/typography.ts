@@ -73,12 +73,7 @@ interface Types {
     fontWeight: number;
     lineHeight: number;
   };
-  body3: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    lineHeight: number;
-  };
+
   button: {
     fontFamily: string;
     fontSize: string;
@@ -197,24 +192,18 @@ const typography: Types = {
 
   body1: {
     fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeXL,
-    fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.625,
-  },
-
-  body2: {
-    fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeMD,
     fontWeight: baseProperties.fontWeightRegular,
     lineHeight: 1.6,
   },
 
-  body3: {
+  body2: {
     fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeSM,
     fontWeight: baseProperties.fontWeightRegular,
     lineHeight: 1.4,
   },
+
   button: {
     fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeSM,

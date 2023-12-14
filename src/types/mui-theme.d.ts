@@ -133,12 +133,7 @@ declare module "@mui/material/styles" {
       fontWeight: number;
       lineHeight: number;
     };
-    body3: {
-      fontFamily: string;
-      fontSize: string;
-      fontWeight: number;
-      lineHeight: number;
-    };
+
     button: {
       fontFamily: string;
       fontSize: string;

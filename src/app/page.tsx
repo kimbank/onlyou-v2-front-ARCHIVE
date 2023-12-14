@@ -1,48 +1,11 @@
 "use client";
 import { theme } from "@/assets";
 import { ThemeProvider } from "@emotion/react";
-import { Container, createTheme, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import RDButton from "./components/RDButton/RDButton";
-import RootLayout from "./layout";
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       light: "#FFA266",
-//       main: "#FF7700",
-//       dark: "#C45A00",
-//       contrastText: "#fff",
-//     },
-//     secondary: {
-//       light: "#FFFFFF",
-//       main: "#F7F4F2",
-//       dark: "#B2B0AE",
-//       contrastText: "#3C3B3A",
-//     },
-//   },
-//   components: {
-//     MuiTypography: {
-//       defaultProps: {
-//         variantMapping: {
-//           h1: "h2",
-//           h2: "h2",
-//           h3: "h2",
-//           h4: "h2",
-//           h5: "h2",
-//           h6: "h2",
-//           subtitle1: "h2",
-//           subtitle2: "h2",
-//           body1: "span",
-//           body2: "span",
-//         },
-//       },
-//     },
-//   },
-// });
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   return (

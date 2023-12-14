@@ -45,7 +45,7 @@ export const RDStepNavButton = ({
         variant="outlined"
         onClick={handlePrevClick}
       >
-        <Typography variant="body2">{prevText}</Typography>
+        <Typography variant="body1">{prevText}</Typography>
       </RDButton>
       <RDButton
         color="primary"
@@ -54,7 +54,7 @@ export const RDStepNavButton = ({
         disabled={checkedCount < 3}
         onClick={handleNextClick}
       >
-        <Typography variant="body2">{nextText}</Typography>
+        <Typography variant="body1">{nextText}</Typography>
       </RDButton>
     </RDStepNavButtonRoot>
   );

@@ -3,7 +3,6 @@
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
-import RDButton from "@/app/components/RDButton/RDButton";
 import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";
 import { Container, Typography } from "@mui/material";
@@ -19,13 +18,6 @@ const Index = () => {
   const handleCheckboxClick = (index: number) => {
     dispatch(toggle(index));
   };
-  // const [checkedStates, setCheckedStates] = useState([
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ]);
 
   const checkboxNames = [
     "지금 어떤 일을 하고 있나요?",
@@ -39,12 +31,6 @@ const Index = () => {
     "내가 인생에서 가장 잘한 일은?",
     "자유편지",
   ];
-
-  // const handleCheckboxClick = (index: any) => {
-  //   const newCheckedStates = [...checkedStates];
-  //   newCheckedStates[index] = !newCheckedStates[index];
-  //   setCheckedStates(newCheckedStates);
-  // };
 
   return (
     <LetterRoot>
@@ -68,13 +54,6 @@ const Index = () => {
             />
           ))}
         </Container>
-        {/* <StepNavButton
-          prevText="이전"
-          nextText="다음"
-          prevHref="LetterSelect/"
-          nextHref="LetterWhite/"
-          nextType="button"
-        /> */}
         <RDStepNavButton
           prevText="이전"
           nextText="다음"
