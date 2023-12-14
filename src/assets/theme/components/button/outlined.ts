@@ -6,23 +6,6 @@ const { transparent, light, info, secondary } = colors;
 const { size } = typography;
 
 const outlined = {
-  base: {
-    width: "100%",
-    minHeight: "52px",
-    color: light.main,
-    borderColor: light.main,
-    padding: `${pxToRem(10)} ${pxToRem(24)}`,
-
-    "&:hover": {
-      opacity: 0.75,
-      backgroundColor: transparent.main,
-    },
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(16)} !important`,
-    },
-  },
-
   small: {
     minHeight: "34px",
     width: "auto",
@@ -39,8 +22,7 @@ const outlined = {
       fontSize: `${pxToRem(12)} !important`,
     },
   },
-
-  large: {
+  medium: {
     minHeight: "52px",
     width: "50%",
     padding: `${pxToRem(12)} ${pxToRem(28)}`,
@@ -48,6 +30,22 @@ const outlined = {
 
     "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
+    },
+  },
+  large: {
+    width: "100%",
+    minHeight: "52px",
+    color: light.main,
+    borderColor: light.main,
+    padding: `${pxToRem(10)} ${pxToRem(24)}`,
+
+    "&:hover": {
+      opacity: 0.75,
+      backgroundColor: transparent.main,
+    },
+
+    "& .material-icon, .material-icons-round, svg": {
+      fontSize: `${pxToRem(16)} !important`,
     },
   },
 

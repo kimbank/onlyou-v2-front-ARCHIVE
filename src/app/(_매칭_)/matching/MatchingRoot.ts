@@ -1,5 +1,11 @@
 import { styled } from "@mui/material";
 
 export default styled("div")(({ theme }) => {
-  return {};
+  return {
+    width: "100%",
+    gap: "16px",
+    ".subtitle2": {
+      marginTop: "5px",
+    },
+  };
 });

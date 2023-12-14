@@ -6,26 +6,6 @@ const { white, text, info, secondary } = colors;
 const { size } = typography;
 
 const contained = {
-  base: {
-    backgroundColor: info.main,
-    width: "100%",
-    minHeight: "52px",
-    color: text.main,
-    padding: `${pxToRem(10)} ${pxToRem(24)}`,
-
-    "&:hover": {
-      backgroundColor: white.main,
-    },
-
-    "&:active, &:active:focus, &:active:hover": {
-      opacity: 0.85,
-    },
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(16)} !important`,
-    },
-  },
-
   small: {
     minHeight: "34px",
     width: "auto",
@@ -37,7 +17,7 @@ const contained = {
     },
   },
 
-  large: {
+  medium: {
     minHeight: "52px",
     width: "50%",
     padding: `${pxToRem(12)} ${pxToRem(28)}`,
@@ -57,6 +37,25 @@ const contained = {
 
     "&:focus:not(:hover)": {
       backgroundColor: info.focus,
+    },
+  },
+  large: {
+    backgroundColor: info.main,
+    width: "100%",
+    minHeight: "52px",
+    color: text.main,
+    padding: `${pxToRem(10)} ${pxToRem(24)}`,
+
+    "&:hover": {
+      backgroundColor: white.main,
+    },
+
+    "&:active, &:active:focus, &:active:hover": {
+      opacity: 0.85,
+    },
+
+    "& .material-icon, .material-icons-round, svg": {
+      fontSize: `${pxToRem(16)} !important`,
     },
   },
 

@@ -42,7 +42,12 @@ const Index = () => {
           질문을 고르고 선택한 질문에 답변하며 <br />
           편지를 완성해보아요!
         </Typography>
-        <InfoText title="질문을 최소 3개 골라주세요" alertMessage="" />
+        <InfoText>
+          <Typography variant="body2" className="caption">
+            질문을 <span style={{ fontWeight: "bold" }}>최소 3개 </span>{" "}
+            골라주세요
+          </Typography>
+        </InfoText>
         <Container className="letter-box">
           {checkedStates.map((isChecked, index) => (
             <Checkbox

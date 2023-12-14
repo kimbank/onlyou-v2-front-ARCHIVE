@@ -3,6 +3,7 @@
 import { theme } from "@/assets";
 import { ThemeProvider } from "@emotion/react";
 import { Container } from "@mui/material";
+import Navigation from "../components/NavBars/Navigation";
 
 export default function ApplicationLayout({
   children,
@@ -14,6 +15,7 @@ export default function ApplicationLayout({
       <Container disableGutters sx={{ padding: "55px 5px" }}>
         {children}
       </Container>
+      <Navigation />
     </ThemeProvider>
   );
 }
