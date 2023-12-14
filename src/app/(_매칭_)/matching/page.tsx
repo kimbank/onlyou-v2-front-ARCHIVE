@@ -11,7 +11,7 @@ const Index = () => {
   return (
     <MatchingRoot>
       {/* <Icon/> 아이콘 배치 */}
-      <Container>
+      <Container className="matching-Box">
         <Typography variant="h3">신청서 완성하기</Typography>
         <Typography variant="subtitle2" className="subtitle2">
           신청서를 완성하고

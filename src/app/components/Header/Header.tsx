@@ -1,9 +1,16 @@
-import { AppBar, Container, Toolbar } from "@mui/material";
-import Image from "next/image";
+"use client";
 
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
+import Image from "next/image";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import CloseIcon from "@mui/icons-material/Close";
+import { usePathname } from "next/navigation";
 export const Header = ({ onClick }: any) => {
   const Logo = "/logo.png";
   const Cancel = "/cancel.svg";
+  const pathname = usePathname();
+  const currentPage = pathname.split("/")[1];
   return (
     <AppBar
       position="fixed"
@@ -25,14 +32,13 @@ export const Header = ({ onClick }: any) => {
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",
-          paddingRight: "32px",
+          paddingRight: "24px",
         }}
       >
         <Toolbar
           sx={{ gap: 0.5, flexGrow: 1, marginTop: "6px", padding: "0 32px" }}
         >
           <a href="/">
-            {/* <Image src={Logo} alt="logo" width={84} height={30} priority={true} /> */}
             <Image
               src={Logo}
               alt="logo"
@@ -41,16 +47,15 @@ export const Header = ({ onClick }: any) => {
               priority={true}
             />
           </a>
-
-          {/* <div className='logo-title' style={{ marginTop: '-12px' }}>온리유</div> */}
         </Toolbar>
-        <Image
-          src={Cancel}
-          width={28}
-          height={28}
-          onClick={onClick}
-          alt="cancel"
-        />
+        {currentPage === "matching" ? (
+          <Box sx={{ display: "flex", gap: "24px" }}>
+            <NotificationsNoneIcon color="primary" />
+            <ChatBubbleOutlineIcon color="primary" />
+          </Box>
+        ) : (
+          <CloseIcon />
+        )}
       </Container>
     </AppBar>
   );

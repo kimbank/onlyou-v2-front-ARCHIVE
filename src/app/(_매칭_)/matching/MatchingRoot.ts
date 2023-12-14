@@ -7,5 +7,8 @@ export default styled("div")(({ theme }) => {
     ".subtitle2": {
       marginTop: "5px",
     },
+    ".matching-Box": {
+      paddingBottom: "40px",
+    },
   };
 });
