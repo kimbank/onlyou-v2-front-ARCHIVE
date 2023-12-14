@@ -1,7 +1,7 @@
 "use client";
 
+import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import { Checkbox } from "@/app/components/CheckBox/CheckBox";
-import { StepNavButton } from "@/app/components/Button/StepNavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";
@@ -18,13 +18,6 @@ const Index = () => {
   const handleCheckboxClick = (index: number) => {
     dispatch(toggle(index));
   };
-  // const [checkedStates, setCheckedStates] = useState([
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ]);
 
   const checkboxNames = [
     "지금 어떤 일을 하고 있나요?",
@@ -32,21 +25,20 @@ const Index = () => {
     "내가 연인에게 해줄 수 있는 것은?",
     "주변인이 말하는 내 매력은?",
     "내 취미 생활은 ?",
+    "이런 연애를 지향해요",
+    "잊지 못할 일생일대의 경험은?",
+    "연인이 생기면 하고싶은 일은?",
+    "내가 인생에서 가장 잘한 일은?",
+    "자유편지",
   ];
-
-  // const handleCheckboxClick = (index: any) => {
-  //   const newCheckedStates = [...checkedStates];
-  //   newCheckedStates[index] = !newCheckedStates[index];
-  //   setCheckedStates(newCheckedStates);
-  // };
 
   return (
     <LetterRoot>
       <Container className="letter-container">
-        <Typography variant="h5" sx={{ color: "black", fontWeight: "bold" }}>
+        <Typography variant="h3" sx={{ color: "black", fontWeight: "bold" }}>
           편지 질문 선택하기
         </Typography>
-        <Typography className="heading2" sx={{ color: "black" }}>
+        <Typography variant="subtitle2">
           질문을 고르고 선택한 질문에 답변하며 <br />
           편지를 완성해보아요!
         </Typography>
@@ -62,12 +54,13 @@ const Index = () => {
             />
           ))}
         </Container>
-        <StepNavButton
+        <RDStepNavButton
           prevText="이전"
           nextText="다음"
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
           nextType="button"
+          checkedStates={checkedStates}
         />
       </Container>
     </LetterRoot>

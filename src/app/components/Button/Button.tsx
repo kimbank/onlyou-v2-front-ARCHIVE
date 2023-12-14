@@ -2,11 +2,7 @@
 
 "use client";
 
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import ClearIcon from "@mui/icons-material/Clear";
+import { Button, Typography } from "@mui/material";
 
 const ButtonText = "버튼";
 
