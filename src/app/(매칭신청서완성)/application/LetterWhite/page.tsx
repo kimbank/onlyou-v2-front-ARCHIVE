@@ -63,10 +63,12 @@ const Index = () => {
           📝 <br />
           이제 편지를 작성해 볼까요?
         </Typography>
-        <InfoText
-          title="편지를 정성스레 쓸 수록 성사율이 올라가요!"
-          alertMessage=""
-        />
+
+        <InfoText>
+          <Typography variant="body2" className="caption">
+            편지를 정성스레 쓸 수록 성사율이 올라가요!
+          </Typography>
+        </InfoText>
 
         <Container className="letter-box">
           {checkedStates.map(

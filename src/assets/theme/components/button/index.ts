@@ -11,13 +11,14 @@ const button: Types = {
   },
   styleOverrides: {
     root: { ...root },
-    containedSize: { ...contained.base },
+
     containedSizeSmall: { ...contained.small },
+    containedSizeMedium: { ...contained.medium },
     containedSizeLarge: { ...contained.large },
     containedPrimary: { ...contained.primary },
     containedSecondary: { ...contained.secondary },
-    outlinedSize: { ...outlined.base },
     outlinedSizeSmall: { ...outlined.small },
+    outlinedSizeMedium: { ...outlined.medium },
     outlinedSizeLarge: { ...outlined.large },
     outlinedPrimary: { ...outlined.primary },
     outlinedSecondary: { ...outlined.secondary },

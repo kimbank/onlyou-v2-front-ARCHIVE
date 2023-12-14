@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Container } from "@mui/material";
-import InfoTextRoot from "./InfoTextRoot";
+import InfoBoxRoot from "./InfoBoxRoot";
 
 type Props = {
   children: React.ReactNode;
@@ -12,13 +12,13 @@ type Props = {
   shadow?: boolean;
 };
 
-export function InfoText({ children, alertMessage, shadow = false }: Props) {
+export function InfoBox({ children, alertMessage, shadow = false }: Props) {
   return (
-    <InfoTextRoot shadow={shadow}>
-      <Container color="primary" className="info-text-button">
+    <InfoBoxRoot shadow={shadow}>
+      <Container className="info-text-button">
         <InfoOutlinedIcon className="info-icon" />
         {children}
       </Container>
-    </InfoTextRoot>
+    </InfoBoxRoot>
   );
 }

@@ -100,7 +100,7 @@ const colors: Types = {
 
   info: {
     main: "#fff0e4",
-    focus: "#7CDC00",
+    focus: "#f1f3f6",
   },
 
   success: {
@@ -124,7 +124,7 @@ const colors: Types = {
   },
 
   grey: {
-    100: "#f8f9fa",
+    100: "#f1f3f6",
     200: "#f0f2f5",
     300: "#dee2e6",
     400: "#ced4da",

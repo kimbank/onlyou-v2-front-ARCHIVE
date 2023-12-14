@@ -11,42 +11,42 @@ interface Types {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   h2: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   h3: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   h4: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   h5: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   h6: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    color: string;
+
     lineHeight: number;
   };
   subtitle1: {
@@ -123,15 +123,7 @@ const baseProperties = {
 
 const baseHeadingProperties = {
   fontFamily: baseProperties.fontFamily,
-  color: dark.main,
   fontWeight: baseProperties.fontWeightBold,
-};
-
-const baseDisplayProperties = {
-  fontFamily: baseProperties.fontFamily,
-  color: dark.main,
-  fontWeight: baseProperties.fontWeightLight,
-  lineHeight: 1.2,
 };
 
 const typography: Types = {
