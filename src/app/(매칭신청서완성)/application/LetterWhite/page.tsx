@@ -1,7 +1,7 @@
 "use client";
 
 import { PrimaryButton, SecondaryButton } from "@/app/components/Button/Button";
-import Modal from "@/app/components/Modal/Modal";
+
 import { StepNavButton } from "@/app/components/Button/StepNavButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import RDButton from "@/app/components/RDButton/RDButton";
+import { LetterModal } from "@/app/components/Modal/LetterModal/LetterModal";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -95,14 +96,17 @@ const Index = () => {
                     readOnly={readOnlyStates[index]}
                   />
                   <Container className="letter-box-values">
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        color:
-                          lettertexts[index].length > 0 ? "primary" : "primary",
-                      }}
-                    >
-                      글자 수 /{lettertexts[index].length}자
+                    <Typography color="" variant="caption">
+                      글자 수 /
+                      <Typography
+                        variant="caption"
+                        color={
+                          lettertexts[index].length > 0 ? "primary" : "inherit"
+                        }
+                      >
+                        {lettertexts[index].length}
+                      </Typography>
+                      자
                     </Typography>
 
                     {lettertexts[index].length > 0 ? (
@@ -139,16 +143,7 @@ const Index = () => {
           checkedStates={checkedStates}
         />
       </Container>
-      <Modal open={modalOpen} onClose={handleCloseModal}>
-        <Typography sx={{ fontWeight: "bold" }}>매칭 신청서 완성</Typography>
-        <Typography>
-          정말 제출 하시겠어요?
-          <br />
-          매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
-        </Typography>
-        <SecondaryButton buttonName={"다시작성하기"} />
-        <PrimaryButton buttonName={"제출하기"} />
-      </Modal>
+      <LetterModal open={modalOpen} onClose={handleCloseModal} />
     </LetterRoot>
   );
 };

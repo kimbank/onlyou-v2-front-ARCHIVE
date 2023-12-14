@@ -31,6 +31,8 @@ export const RDStepNavButton = ({
   const handleNextClick = () => {
     if (nextHref) {
       router.push(nextHref);
+    } else if (onClick) {
+      onClick();
     }
   };
 

@@ -5,14 +5,15 @@ export default styled("div")(({ theme }) => {
     ".letter-container": {
       display: "flex",
       flexDirection: "column",
-      gap: "15px",
+      gap: "16px",
     },
     ".letter-box": {
       display: "flex",
       flexDirection: "column",
-      gap: "8px",
+      gap: "16px",
       width: "100%",
       padding: "0",
+      paddingBottom: "60px",
     },
     ".letter-box-values": {
       display: "flex",
