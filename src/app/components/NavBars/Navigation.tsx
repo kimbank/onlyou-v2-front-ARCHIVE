@@ -5,9 +5,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EmailIcon from "@mui/icons-material/Email";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { usePathname } from "next/navigation";
-
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 export default function Navigation({ recent }: any) {
   const pathname = usePathname();
   const [value, setValue] = React.useState(pathname.split("/")[1]);
@@ -35,28 +37,28 @@ export default function Navigation({ recent }: any) {
         href="/matching"
         label="매칭"
         value="matching"
-        icon={<FavoriteIcon />}
+        icon={<FavoriteBorderIcon />}
         showLabel
       />
       <BottomNavigationAction
         href="/agreement"
         label="성사"
         value="agreement"
-        icon={<EmailIcon />}
+        icon={<MailOutlineIcon />}
         showLabel
       />
       <BottomNavigationAction
         href="/board"
         label="게시판"
         value="board"
-        icon={<AssignmentIcon />}
+        icon={<LocalActivityOutlinedIcon />}
         showLabel
       />
       <BottomNavigationAction
         href="/my_info"
         label="내 정보"
         value="my_info"
-        icon={<AccountCircleIcon />}
+        icon={<PersonOutlineOutlinedIcon />}
         showLabel
       />
     </BottomNavigation>
