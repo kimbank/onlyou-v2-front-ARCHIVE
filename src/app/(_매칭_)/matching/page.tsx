@@ -2,19 +2,19 @@
 
 import SubmitNavButton from "@/app/components/NavBars/\bSubmitNavButton";
 import { Container, Typography } from "@mui/material";
+import MatchingRoot from "./MatchingRoot";
 
 const Index = () => {
   return (
-    <Container>
+    <MatchingRoot>
       {/* <Icon/> 아이콘 배치 */}
-      <Typography className="complete-title heading3">
-        매칭신청서 작성완료
+      <Typography variant="h3">신청서 완성하기</Typography>
+      <Typography variant="subtitle2">
+        신청서를 완성하고
+        <br />
+        나와 맞는 인연을 빠르게 찾아보세요!
       </Typography>
-      <Typography className="complete-caption">
-        작성하느라 수고하셨어요
-        <br />딱 맞는 인연을 찾아드릴게요!
-      </Typography>
-    </Container>
+    </MatchingRoot>
   );
 };
 
