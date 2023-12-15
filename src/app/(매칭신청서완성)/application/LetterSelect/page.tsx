@@ -31,6 +31,7 @@ const Index = () => {
     "내가 인생에서 가장 잘한 일은?",
     "자유편지",
   ];
+  const selectComplete = checkedStates.filter(Boolean).length >= 3;
 
   return (
     <LetterRoot>
@@ -65,7 +66,7 @@ const Index = () => {
           prevHref="LetterSelect/"
           nextHref="LetterWhite/"
           nextType="button"
-          checkedStates={checkedStates}
+          checkedStates={selectComplete}
         />
       </Container>
     </LetterRoot>

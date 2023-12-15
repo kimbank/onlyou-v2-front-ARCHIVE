@@ -5,7 +5,9 @@ import colors from "@/assets/theme/base/colors";
 const { info, primary, disabled } = colors;
 export const StyledFormControlLabel = styled(FormControlLabel)(
   ({ theme, checked }) => ({
-    display: "block",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     minHeight: "24px",
     marginBottom: "2px",
     marginLeft: 0,

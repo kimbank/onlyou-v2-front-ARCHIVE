@@ -10,13 +10,16 @@ interface option {
 
 interface optionsProps {
   options: option[];
+  onChange: (value: string) => void;
 }
 
-const RDRadioInput = ({ options }: optionsProps) => {
+const RDRadioInput = ({ options, onChange }: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleChange = (event: any) => {
-    setSelectedValue(event.target.value);
+    const newValue = event.target.value;
+    setSelectedValue(newValue);
+    onChange(newValue);
   };
 
   return (

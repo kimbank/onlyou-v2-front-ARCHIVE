@@ -10,7 +10,7 @@ interface RDStepNavButtonProps {
   nextHref?: string;
   nextType?: "button" | "submit" | "reset";
   onClick?: () => void;
-  checkedStates?: boolean[];
+  checkedStates?: boolean;
 }
 
 export const RDStepNavButton = ({
@@ -36,7 +36,7 @@ export const RDStepNavButton = ({
     }
   };
 
-  const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
+  //   const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
   return (
     <RDStepNavButtonRoot>
       <RDButton
@@ -51,7 +51,7 @@ export const RDStepNavButton = ({
         color="primary"
         size="large"
         variant="contained"
-        disabled={checkedCount < 3}
+        disabled={!checkedStates}
         onClick={handleNextClick}
       >
         <Typography variant="body1">{nextText}</Typography>
