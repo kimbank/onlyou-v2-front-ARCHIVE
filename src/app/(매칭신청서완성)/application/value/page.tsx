@@ -3,7 +3,7 @@
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import ValueRoot from "./ValueRoot";
@@ -112,11 +112,10 @@ const Index = () => {
 
   return (
     <ValueRoot>
-      <Typography variant="subtitle2">1/6</Typography>
-      <Typography variant="h3" sx={{ color: "black", fontWeight: "bold" }}>
-        가치관 정보 입력하기
-      </Typography>
-
+      <Box className="title-box">
+        <Typography variant="subtitle2">1/6</Typography>
+        <Typography variant="h3">가치관 정보 입력하기</Typography>
+      </Box>
       {radioGroups.map((group, index) => (
         <Container className="value-radio" key={index}>
           <Typography variant="h6">

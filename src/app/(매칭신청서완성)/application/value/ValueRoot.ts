@@ -6,6 +6,9 @@ export default styled(Container)(({ theme }) => {
     flexDirection: "column",
     gap: "24px",
     padding: " 0 24px",
+    ".title-box": {
+      gap: "0px",
+    },
     ".value-radio": {
       display: "flex",
       flexDirection: "column",

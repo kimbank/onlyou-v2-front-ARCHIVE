@@ -56,6 +56,7 @@ const Index = () => {
       newTextValues[index] = event.target.value;
       setLetterTexts(newTextValues);
     };
+  const isAllChecked = checkedStates.every(Boolean);
   return (
     <LetterRoot>
       <Container className="letter-container">
@@ -139,7 +140,7 @@ const Index = () => {
           prevHref="LetterSelect/"
           nextType="button"
           onClick={handleOpenModal}
-          checkedStates={checkedStates}
+          checkedStates={isAllChecked}
         />
       </Container>
       <LetterModal open={modalOpen} onClose={handleCloseModal} />
