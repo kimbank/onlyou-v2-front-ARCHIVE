@@ -5,7 +5,18 @@ interface CheckboxState {
 }
 
 const initialState: CheckboxState = {
-  checkedItems: [false, false, false, false, false],
+  checkedItems: [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ],
 };
 
 export const checkboxSlice = createSlice({

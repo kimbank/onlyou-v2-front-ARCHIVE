@@ -5,6 +5,8 @@ import colors from "./theme/base/colors";
 import globals from "./theme/base/globals";
 import typography from "./theme/base/typography";
 import button from "./theme/components/button";
+import formControlLabel from "./theme/components/input/formControlLabel";
+import radio from "./theme/components/input/radio";
 
 export const theme = createTheme({
   palette: { ...colors },
@@ -17,5 +19,7 @@ export const theme = createTheme({
       },
     },
     MuiButton: { ...button },
+    MuiRadio: { ...radio },
+    MuiFormControlLabel: { ...formControlLabel },
   },
 });

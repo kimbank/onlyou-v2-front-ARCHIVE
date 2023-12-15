@@ -34,6 +34,9 @@ const CheckboxRoot = styled("div")<{
     alignItems: "center",
     justifyContent: "flex-start",
     gap: "10px",
+    "&:focus, &:focus-within": {
+      backgroundColor: checked ? "#fff" : "#F7F4F2",
+    },
 
     // boxShadow: shadow ? theme.shadows[1] : "none",
   },
