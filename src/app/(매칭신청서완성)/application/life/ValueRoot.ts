@@ -18,5 +18,11 @@ export default styled(Container)(({ theme }) => {
       gap: "12px",
       margin: 0,
     },
+    ".chip-box": {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: "8px",
+    },
   };
 });

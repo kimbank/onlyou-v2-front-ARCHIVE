@@ -33,6 +33,64 @@ export const lifeRadioGroups: RadioGroup[] = [
     ],
   },
   {
+    title: "연애 횟수",
+    options: [
+      {
+        value: "0",
+        label: "0회",
+      },
+      {
+        value: "1",
+        label: "1~2회",
+      },
+      {
+        value: "2",
+        label: "3~4회",
+      },
+      {
+        value: "3",
+        label: "5~6회",
+      },
+      {
+        value: "4",
+        label: "7회이상",
+      },
+    ],
+  },
+  {
+    title: "운동 생활",
+    options: [
+      {
+        value: "0",
+        label: "중요성엔 공감하지만 규칙적으로 하고 있진 않다",
+      },
+      { value: "1", label: "운동을 규칙적으로 꾸준히 한다" },
+    ],
+  },
+  {
+    title: "반려동물",
+    options: [
+      { value: "0", label: "키우기 어렵습니다" },
+      { value: "1", label: "키우지 않으나 반려동물에 거부감은 없습니다" },
+      { value: "2", label: "한 마리 키웁니다" },
+      { value: "3", label: "두 마리 이상 키웁니다" },
+    ],
+  },
+  {
+    title: "종교",
+    options: [
+      { value: "0", label: "무교" },
+      { value: "1", label: "기독교" },
+      { value: "2", label: "천주교" },
+      { value: "3", label: "불교" },
+      { value: "4", label: "원불교" },
+      { value: "5", label: "기타" },
+    ],
+  },
+];
+
+export const interestRadioGroups: RadioGroup[] = [
+  {
     title: "관심사",
     options: [
       {
@@ -119,61 +177,6 @@ export const lifeRadioGroups: RadioGroup[] = [
         value: "20",
         label: "애니메이션",
       },
-    ],
-  },
-  {
-    title: "연애 횟수",
-    options: [
-      {
-        value: "0",
-        label: "0회",
-      },
-      {
-        value: "1",
-        label: "1~2회",
-      },
-      {
-        value: "2",
-        label: "3~4회",
-      },
-      {
-        value: "3",
-        label: "5~6회",
-      },
-      {
-        value: "4",
-        label: "7회이상",
-      },
-    ],
-  },
-  {
-    title: "운동 생활",
-    options: [
-      {
-        value: "0",
-        label: "중요성엔 공감하지만 규칙적으로 하고 있진 않다",
-      },
-      { value: "1", label: "운동을 규칙적으로 꾸준히 한다" },
-    ],
-  },
-  {
-    title: "반려동물",
-    options: [
-      { value: "0", label: "키우기 어렵습니다" },
-      { value: "1", label: "키우지 않으나 반려동물에 거부감은 없습니다" },
-      { value: "2", label: "한 마리 키웁니다" },
-      { value: "3", label: "두 마리 이상 키웁니다" },
-    ],
-  },
-  {
-    title: "종교",
-    options: [
-      { value: "0", label: "무교" },
-      { value: "1", label: "기독교" },
-      { value: "2", label: "천주교" },
-      { value: "3", label: "불교" },
-      { value: "4", label: "원불교" },
-      { value: "5", label: "기타" },
     ],
   },
 ];
