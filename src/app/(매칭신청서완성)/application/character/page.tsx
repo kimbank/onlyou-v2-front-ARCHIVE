@@ -22,8 +22,56 @@ const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
-
-  const radioGroups = useMemo(() => lifeRadioGroups, []);
+  const radioGroups: RadioGroup[] = useMemo(
+    () => [
+      {
+        title: "외향/내향",
+        options: [
+          { value: "0", label: "외향적이에요" },
+          { value: "1", label: "외향적인 편이에요" },
+          { value: "2", label: "내향적인 편이에요" },
+          { value: "3", label: "내향적이에요" },
+        ],
+      },
+      {
+        title: "직관/현실",
+        options: [
+          { value: "0", label: "상상력이 풍부해요" },
+          { value: "1", label: "상상력이 풍부한 편이에요" },
+          { value: "2", label: "현실적인 편이에요" },
+          { value: "3", label: "현실적이에요" },
+        ],
+      },
+      {
+        title: "감성/이성",
+        options: [
+          { value: "0", label: "감성이 풍부해요" },
+          { value: "1", label: "감성이 풍부한 편이에요" },
+          { value: "2", label: "이성적인 편이에요" },
+          { value: "3", label: "이성적이에요" },
+        ],
+      },
+      {
+        title: "즉흥/계획",
+        options: [
+          { value: "0", label: "즉흥적이에요" },
+          { value: "1", label: "즉흥적인 편이에요" },
+          { value: "2", label: "계획적인 편이에요" },
+          { value: "3", label: "계획적이에요" },
+        ],
+      },
+      {
+        title: "성격/매력",
+        options: [
+          { value: "0", label: "책임감 강함" },
+          { value: "1", label: "즉흥적인 편이에요" },
+          { value: "2", label: "계획적인 편이에요" },
+          { value: "3", label: "계획적이에요" },
+        ],
+      },
+    ],
+    []
+  );
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -44,8 +92,8 @@ const Index = () => {
   return (
     <ValueRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">2/6</Typography>
-        <Typography variant="h3">생활 정보 입력하기</Typography>
+        <Typography variant="subtitle2">3/6</Typography>
+        <Typography variant="h3">성격 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
         <Container className="value-radio" key={index}>
