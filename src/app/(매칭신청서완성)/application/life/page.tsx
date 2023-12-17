@@ -37,9 +37,14 @@ const Index = () => {
       }
     });
   };
-  const allGroupsSelected = radioGroups1.every(
+  const allRadiosSelected = radioGroups1.every(
     (group) => selectedValues[group.title] != null
   );
+
+  const allChipsSelected = radioGroups2.every((group) =>
+    group.options.some((option) => selectedOptions.includes(option.value))
+  );
+  const allGroupsSelected = allRadiosSelected && allChipsSelected;
 
   useEffect(() => {
     console.log("selectedValues", selectedValues);
@@ -64,22 +69,11 @@ const Index = () => {
           />
         </Container>
       ))}
-      {radioGroups2.map((group, index) => (
-        <Container className="value-radio" key={index}>
-          <Typography variant="h6">
-            {index + 1}.{group.title}
-          </Typography>
-          <RDRadioInput
-            onChange={(value: string) => handleRadioChange(group.title, value)}
-            options={group.options}
-          />
-        </Container>
-      ))}
-      <Box>
+      <Box className="value-chip">
         {radioGroups2.map((group) => (
           <Box key={group.title}>
             <Typography variant="h6">{group.title}</Typography>
-            <Box className="chip-box">
+            <Box className="chip">
               {group.options.map((option) => (
                 <RDChip
                   key={option.value}

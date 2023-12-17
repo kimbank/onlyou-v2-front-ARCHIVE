@@ -18,11 +18,16 @@ export default styled(Container)(({ theme }) => {
       gap: "12px",
       margin: 0,
     },
-    ".chip-box": {
+    ".value-chip": {
+      display: "flex",
+      flexDirection: "column",
+    },
+    ".chip": {
       display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",
       gap: "8px",
+      paddingTop: "12px",
     },
   };
 });
