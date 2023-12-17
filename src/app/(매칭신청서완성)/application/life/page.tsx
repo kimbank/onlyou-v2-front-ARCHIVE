@@ -5,7 +5,8 @@ import { RDChip } from "@/app/components/RDChip";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { interestRadioGroups, lifeRadioGroups } from "./data";
+import { interestRadioGroups, lifeRadioGroups } from "../data/lifeData";
+
 import LifeRoot from "./LifeRoot";
 
 const Index = () => {
@@ -103,7 +104,7 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="value/"
-        nextHref="LetterWhite/"
+        nextHref="character/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />
