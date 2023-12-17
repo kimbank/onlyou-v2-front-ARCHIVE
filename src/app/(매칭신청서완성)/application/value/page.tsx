@@ -11,6 +11,7 @@ const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
+  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
 
   const radioGroups = useMemo(() => ValueRadioGroups, []);
 
@@ -19,6 +20,11 @@ const Index = () => {
       ...prevValues,
       [groupTitle]: value,
     }));
+    const nextIndex =
+      radioGroups.findIndex((group) => group.title === groupTitle) + 1;
+    if (nextIndex < radioGroups.length) {
+      setActiveGroupIndex(nextIndex);
+    }
   };
   const allGroupsSelected = radioGroups.every(
     (group) => selectedValues[group.title] != null
@@ -37,7 +43,12 @@ const Index = () => {
         <Typography variant="h3">가치관 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
-        <Container className="value-radio" key={index}>
+        <Container
+          key={group.title}
+          className={
+            index <= activeGroupIndex ? "value-radio visible" : "value-radio"
+          }
+        >
           <Typography variant="h6">
             {index + 1}.{group.title}
           </Typography>
@@ -51,7 +62,7 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="LetterSelect/"
-        nextHref="LetterWhite/"
+        nextHref="life/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />
