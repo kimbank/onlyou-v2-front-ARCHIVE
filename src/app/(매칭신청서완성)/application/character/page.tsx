@@ -73,8 +73,8 @@ const Index = () => {
   return (
     <CharacterRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">2/6</Typography>
-        <Typography variant="h3">생활 정보 입력하기</Typography>
+        <Typography variant="subtitle2">3/6</Typography>
+        <Typography variant="h3">성격 정보 입력하기</Typography>
       </Box>
       {radioGroups1.map((group, index) => (
         <Container
@@ -118,7 +118,7 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="value/"
-        nextHref="character/"
+        nextHref="appearance/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />

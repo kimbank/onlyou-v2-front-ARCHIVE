@@ -6,10 +6,11 @@ import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import {
-  characterchipGroups,
-  characterRadioGroups,
-} from "../data/characterData";
-import CharacterRoot from "./CharacterRoot";
+  AppearanceManchipGroups,
+  appearanceRadioGroups,
+  AppearanceWomanchipGroups,
+} from "../data/appearanceData";
+import AppearanceRoot from "./AppearanceRoot";
 
 interface RadioOption {
   value: string;
@@ -28,8 +29,10 @@ const Index = () => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [showChipGroups, setShowChipGroups] = useState(false);
-  const radioGroups1 = useMemo(() => characterRadioGroups, []);
-  const radioGroups2 = useMemo(() => characterchipGroups, []);
+  const radioGroups1 = useMemo(() => appearanceRadioGroups, []);
+  // 추후 유저 성별에 따라 구분
+  const radioGroups2 = useMemo(() => AppearanceManchipGroups, []);
+  const radioGroups3 = useMemo(() => AppearanceWomanchipGroups, []);
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -71,17 +74,17 @@ const Index = () => {
   }, [selectedValues, radioGroups1, allGroupsSelected]);
 
   return (
-    <CharacterRoot>
+    <AppearanceRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">2/6</Typography>
-        <Typography variant="h3">생활 정보 입력하기</Typography>
+        <Typography variant="subtitle2">4/6</Typography>
+        <Typography variant="h3">외모 정보 입력하기</Typography>
       </Box>
       {radioGroups1.map((group, index) => (
         <Container
           className={
             index <= activeGroupIndex
-              ? "character-radio visible"
-              : "character-radio"
+              ? "appearance-radio visible"
+              : "appearance-radio"
           }
           key={index}
         >
@@ -95,7 +98,7 @@ const Index = () => {
         </Container>
       ))}
       {showChipGroups && (
-        <Box className={`character-chip ${showChipGroups ? "show-chip" : ""}`}>
+        <Box className={`appearance-chip ${showChipGroups ? "show-chip" : ""}`}>
           {radioGroups2.map((group) => (
             <Box key={group.title}>
               <Typography variant="h6">{group.title}</Typography>
@@ -118,11 +121,11 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="value/"
-        nextHref="character/"
+        nextHref="dating/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />
-    </CharacterRoot>
+    </AppearanceRoot>
   );
 };
 export default Index;

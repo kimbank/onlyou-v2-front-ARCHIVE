@@ -9,7 +9,7 @@ export default styled(Container)(({ theme }) => {
     ".title-box": {
       gap: "0px",
     },
-    ".character-radio": {
+    ".appearance-radio": {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -23,12 +23,12 @@ export default styled(Container)(({ theme }) => {
       transition:
         "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
     },
-    ".character-radio.visible": {
+    ".appearance-radio.visible": {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
     },
-    ".character-chip": {
+    ".appearance-chip": {
       display: "flex",
       flexDirection: "column",
       opacity: 0,
@@ -37,7 +37,7 @@ export default styled(Container)(({ theme }) => {
       transition:
         "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
     },
-    ".character-chip.show-chip": {
+    ".appearance-chip.show-chip": {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
