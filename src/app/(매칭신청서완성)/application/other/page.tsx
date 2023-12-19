@@ -1,11 +1,14 @@
 "use client";
 
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
+import RDInput from "@/app/components/RDInput";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Input, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { datingRadioGroups } from "../data/datingData";
-import DatingRoot from "./DatingRoot";
+import { otherRadioGroups } from "../data/otherData";
+import OtherRoot from "./OtherRoot";
+import DatingRoot from "./OtherRoot";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
@@ -13,7 +16,7 @@ const Index = () => {
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
 
-  const radioGroups = useMemo(() => datingRadioGroups, []);
+  const radioGroups = useMemo(() => otherRadioGroups, []);
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -37,7 +40,7 @@ const Index = () => {
   }, [selectedValues, radioGroups, allGroupsSelected]);
 
   return (
-    <DatingRoot>
+    <OtherRoot>
       <Box className="title-box">
         <Typography variant="subtitle2">5/6</Typography>
         <Typography variant="h3">연애스타일 정보 입력하기</Typography>
@@ -46,7 +49,7 @@ const Index = () => {
         <Container
           key={group.title}
           className={
-            index <= activeGroupIndex ? "dating-radio visible" : "dating-radio"
+            index <= activeGroupIndex ? "other-radio visible" : "other-radio"
           }
         >
           <Typography variant="h6">
@@ -58,15 +61,26 @@ const Index = () => {
           />
         </Container>
       ))}
+      <Box>
+        <RDInput
+          label="카카오톡 아이디"
+          placeholder="카카오톡 아이디를 입력해주세요"
+        />
+        <Typography variant="body2">
+          *매칭 성사 시, 카카오톡 아이디가 교환되어요.
+          <br />꼭 카카오톡에서 카카오톡 아이디를 ‘검색 허용’으로 설정해 주세요.
+        </Typography>
+      </Box>
+
       <RDStepNavButton
         prevText="이전"
         nextText="다음"
-        prevHref="appearance/"
-        nextHref="other/"
+        prevHref="LetterSelect/"
+        nextHref="life/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />
-    </DatingRoot>
+    </OtherRoot>
   );
 };
 export default Index;

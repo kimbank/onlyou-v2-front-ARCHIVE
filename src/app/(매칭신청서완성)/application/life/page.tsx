@@ -64,22 +64,6 @@ const Index = () => {
         <Typography variant="subtitle2">2/6</Typography>
         <Typography variant="h3">생활 정보 입력하기</Typography>
       </Box>
-      {radioGroups1.map((group, index) => (
-        <Container
-          className={
-            index <= activeGroupIndex ? "life-radio visible" : "life-radio"
-          }
-          key={index}
-        >
-          <Typography variant="h6">
-            {index + 1}.{group.title}
-          </Typography>
-          <RDRadioInput
-            onChange={(value: string) => handleRadioChange(group.title, value)}
-            options={group.options}
-          />
-        </Container>
-      ))}
       {showChipGroups && (
         <Box className={`life-chip ${showChipGroups ? "show-chip" : ""}`}>
           {radioGroups2.map((group) => (
@@ -99,6 +83,22 @@ const Index = () => {
           ))}
         </Box>
       )}
+      {radioGroups1.map((group, index) => (
+        <Container
+          className={
+            index <= activeGroupIndex ? "life-radio visible" : "life-radio"
+          }
+          key={index}
+        >
+          <Typography variant="h6">
+            {index + 1}.{group.title}
+          </Typography>
+          <RDRadioInput
+            onChange={(value: string) => handleRadioChange(group.title, value)}
+            options={group.options}
+          />
+        </Container>
+      ))}
 
       <RDStepNavButton
         prevText="이전"
