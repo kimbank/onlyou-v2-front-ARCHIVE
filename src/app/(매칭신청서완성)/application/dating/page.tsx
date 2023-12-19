@@ -4,9 +4,8 @@ import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { ValueRadioGroups } from "../data/valueData";
-
-import ValueRoot from "./ValueRoot";
+import { datingRadioGroups } from "../data/datingData";
+import DatingRoot from "./DatingRoot";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
@@ -14,7 +13,7 @@ const Index = () => {
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
 
-  const radioGroups = useMemo(() => ValueRadioGroups, []);
+  const radioGroups = useMemo(() => datingRadioGroups, []);
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -38,16 +37,16 @@ const Index = () => {
   }, [selectedValues, radioGroups, allGroupsSelected]);
 
   return (
-    <ValueRoot>
+    <DatingRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">1/6</Typography>
-        <Typography variant="h3">가치관 정보 입력하기</Typography>
+        <Typography variant="subtitle2">5/6</Typography>
+        <Typography variant="h3">연애스타일 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
         <Container
           key={group.title}
           className={
-            index <= activeGroupIndex ? "value-radio visible" : "value-radio"
+            index <= activeGroupIndex ? "dating-radio visible" : "dating-radio"
           }
         >
           <Typography variant="h6">
@@ -67,7 +66,7 @@ const Index = () => {
         nextType="button"
         checkedStates={allGroupsSelected}
       />
-    </ValueRoot>
+    </DatingRoot>
   );
 };
 export default Index;
