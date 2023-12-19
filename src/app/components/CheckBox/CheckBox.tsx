@@ -6,7 +6,7 @@ import { Button, Typography } from "@mui/material";
 
 interface CheckboxProps {
   onClick: () => void;
-  buttonName: string;
+  buttonName?: string;
   shadow?: boolean;
   checked: boolean;
   width: string;

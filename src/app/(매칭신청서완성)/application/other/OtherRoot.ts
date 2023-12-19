@@ -28,5 +28,18 @@ export default styled(Container)(({ theme }) => {
       transform: "translateY(0)",
       visibility: "visible",
     },
+    ".kakao-box": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "12px",
+    },
+    ".info-box": {
+      width: "100%",
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      flexDirection: "row",
+      gap: "8px",
+    },
   };
 });

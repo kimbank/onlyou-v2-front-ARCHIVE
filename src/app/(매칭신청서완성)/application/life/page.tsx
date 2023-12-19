@@ -6,7 +6,6 @@ import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { interestRadioGroups, lifeRadioGroups } from "../data/lifeData";
-
 import LifeRoot from "./LifeRoot";
 
 const Index = () => {

@@ -3,25 +3,36 @@ import colors from "@/assets/theme/base/colors";
 import { styled } from "@mui/material";
 
 interface infoTextProps {
-  shadow: boolean;
+  textAlign?: "center" | "left";
+  align?: "center" | "left";
+  marginB?: "bottom" | "none";
+  bgColor?: "primary" | "secondary";
 }
 const { info } = colors;
 
-export default styled("div")<infoTextProps>(({ theme, shadow }) => {
+export default styled("div")<infoTextProps>(({
+  theme,
+  align,
+  textAlign,
+  marginB,
+  bgColor,
+}) => {
   return {
     display: "flex",
-    textAlign: "center",
+    textAlign: textAlign === "center" ? "center" : "left",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: align === "center" ? "center" : "flex-start",
     flexDicetion: "colmun",
     borderRadius: "8px",
-    backgroundColor: info.focus,
-    padding: "16px 12px",
+    backgroundColor: bgColor === "primary" ? info.focus : info.main,
+    padding: "12px 16px",
     width: "100%",
     gap: "8px",
-    marginTop: "12px",
-    marginBottom: "24px",
-    ".info-text-button": {},
+    marginTop: marginB === "bottom" ? "12px" : "0px",
+    marginBottom: marginB === "bottom" ? "24px" : "0px",
+    ".info-text-button": {
+      width: "100%",
+    },
     ".info-icon": {
       color: "#FF7700",
     },

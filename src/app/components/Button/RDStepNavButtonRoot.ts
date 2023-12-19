@@ -9,7 +9,7 @@ export default styled("div")(({ theme }) => {
     width: "100%",
     margin: "0 auto",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     background: "#FFF",
     maxWidth: "480px",
