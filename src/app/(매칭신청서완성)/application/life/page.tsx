@@ -60,7 +60,9 @@ const Index = () => {
   return (
     <LifeRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">2/6</Typography>
+        <Typography variant="subtitle2">
+          <strong>2</strong>/6
+        </Typography>
         <Typography variant="h3">생활 정보 입력하기</Typography>
       </Box>
       {showChipGroups && (

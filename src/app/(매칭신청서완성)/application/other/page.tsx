@@ -1,22 +1,30 @@
 "use client";
 
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
+import { SubmitDrawer } from "@/app/components/Drawer/SubmitDrawer/SubmitDrawer";
 import { InfoBox } from "@/app/components/Notification/InfoBox/InfoText";
 import RDInput from "@/app/components/RDInput";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
-import { Box, Container, Divider, Input, Typography } from "@mui/material";
+import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
+import { Box, Container, Divider, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { datingRadioGroups } from "../data/datingData";
 import { otherRadioGroups } from "../data/otherData";
 import OtherRoot from "./OtherRoot";
-import DatingRoot from "./OtherRoot";
-import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleOpenDrawer = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+  };
 
   const radioGroups = useMemo(() => otherRadioGroups, []);
 
@@ -44,7 +52,9 @@ const Index = () => {
   return (
     <OtherRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">6/6</Typography>
+        <Typography variant="subtitle2">
+          <strong>6</strong>/6
+        </Typography>
         <Typography variant="h3">기타 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
@@ -103,11 +113,12 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="LetterSelect/"
-        nextHref="life/"
         nextType="button"
         checkedStates={allGroupsSelected}
+        onClick={handleOpenDrawer}
         tips
       />
+      <SubmitDrawer open={drawerOpen} onClose={handleCloseDrawer} />
     </OtherRoot>
   );
 };

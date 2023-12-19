@@ -73,7 +73,9 @@ const Index = () => {
   return (
     <CharacterRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">3/6</Typography>
+        <Typography variant="subtitle2">
+          <strong>3</strong>/6
+        </Typography>
         <Typography variant="h3">성격 정보 입력하기</Typography>
       </Box>
       {radioGroups1.map((group, index) => (

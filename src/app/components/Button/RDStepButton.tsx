@@ -1,8 +1,6 @@
-import { Check, CheckBox } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Checkbox } from "../CheckBox/CheckBox";
 import { RDCheckbox } from "../CheckBox/RDCheckBox";
 import RDButton from "../RDButton/RDButton";
 import RDStepNavButtonRoot from "./RDStepNavButtonRoot";

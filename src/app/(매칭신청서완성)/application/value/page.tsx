@@ -40,7 +40,9 @@ const Index = () => {
   return (
     <ValueRoot>
       <Box className="title-box">
-        <Typography variant="subtitle2">1/6</Typography>
+        <Typography variant="subtitle2">
+          <strong>1</strong>/6
+        </Typography>
         <Typography variant="h3">가치관 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
