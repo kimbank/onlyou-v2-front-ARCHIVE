@@ -89,7 +89,7 @@ const Index = () => {
                       borderRadius: "10px",
                       color: readOnlyStates[index] ? "grey" : "black",
                       padding: "16px",
-                      height: "160px",
+                      height: "210px",
                       minHeight: "140px",
                     }}
                     onChange={handleTextChange(index)}

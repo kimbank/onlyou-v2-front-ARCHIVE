@@ -1,24 +1,39 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Container } from "@mui/material";
 import InfoBoxRoot from "./InfoBoxRoot";
 
 type Props = {
   children: React.ReactNode;
-  alertMessage?: string;
-  shadow?: boolean;
+  textAlign?: "center" | "left";
+  align?: "center" | "left";
+  marginB?: "bottom" | "none";
+  bgColor?: "primary" | "secondary";
 };
 
-export function InfoBox({ children, alertMessage, shadow = false }: Props) {
+export function InfoBox({
+  children,
+  align,
+  textAlign,
+  marginB,
+  bgColor,
+}: Props) {
   return (
-    <InfoBoxRoot shadow={shadow}>
-      <Container className="info-text-button">
-        <InfoOutlinedIcon className="info-icon" />
-        {children}
-      </Container>
+    <InfoBoxRoot
+      align={align}
+      textAlign={textAlign}
+      marginB={marginB}
+      bgColor={bgColor}
+    >
+      <Box className="info-text-button">{children}</Box>
     </InfoBoxRoot>
   );
 }
+
+InfoBox.defaultProps = {
+  align: "center",
+  textAlign: "center",
+  marginB: "bottom",
+  bgColor: "primary",
+};

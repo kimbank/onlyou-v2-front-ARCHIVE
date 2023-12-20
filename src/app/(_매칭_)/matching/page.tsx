@@ -6,6 +6,7 @@ import RDButton from "@/app/components/RDButton/RDButton";
 import { Container, Typography } from "@mui/material";
 import { MatchingBox } from "./components/MatchingBox";
 import MatchingRoot from "./MatchingRoot";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Index = () => {
   return (
@@ -19,7 +20,8 @@ const Index = () => {
           나와 맞는 인연을 빠르게 찾아보세요!
         </Typography>
         <MatchingBox />
-        <InfoBox>
+        <InfoBox align="center">
+          <InfoOutlinedIcon className="info-icon" />
           <Typography variant="body2">
             매칭신청서를 작성하다 중단해도 자동 저장되니
           </Typography>

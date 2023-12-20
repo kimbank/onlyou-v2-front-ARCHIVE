@@ -61,8 +61,8 @@ const Index = () => {
       <RDStepNavButton
         prevText="이전"
         nextText="다음"
-        prevHref="LetterSelect/"
-        nextHref="life/"
+        prevHref="appearance/"
+        nextHref="other/"
         nextType="button"
         checkedStates={allGroupsSelected}
       />
