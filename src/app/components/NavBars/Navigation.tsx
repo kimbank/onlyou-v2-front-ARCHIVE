@@ -1,66 +1,102 @@
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
+import { styled } from "@mui/material";
+
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import EmailIcon from "@mui/icons-material/Email";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { usePathname } from "next/navigation";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
+
+import MatchingIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import AgreementIcon from "@mui/icons-material/MarkunreadOutlined";
+import EventIcon from "@mui/icons-material/LocalActivityOutlined";
+import MyInfoIcon from "@mui/icons-material/PersonOutlineOutlined";
+
+
 export default function Navigation({ recent }: any) {
   const pathname = usePathname();
   const [value, setValue] = React.useState(pathname.split("/")[1]);
+
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 
   return (
-    <BottomNavigation
-      value={value}
-      onChange={handleChange}
-      sx={{
-        width: "100%",
-        height: "64px",
-        borderTop: "1px solid #B2B0AE",
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        left: "50%",
-        maxWidth: "480px",
-        transform: "translate(-50%, 0)",
-      }}
-    >
-      <BottomNavigationAction
-        href="/matching"
-        label="매칭"
-        value="matching"
-        icon={<FavoriteBorderIcon />}
-        showLabel
-      />
-      <BottomNavigationAction
-        href="/agreement"
-        label="성사"
-        value="agreement"
-        icon={<MailOutlineIcon />}
-        showLabel
-      />
-      <BottomNavigationAction
-        href="/board"
-        label="게시판"
-        value="board"
-        icon={<LocalActivityOutlinedIcon />}
-        showLabel
-      />
-      <BottomNavigationAction
-        href="/my_info"
-        label="내 정보"
-        value="my_info"
-        icon={<PersonOutlineOutlinedIcon />}
-        showLabel
-      />
-    </BottomNavigation>
+    <NavigationRoot>
+      <BottomNavigation
+        value={value}
+        onChange={handleChange}>
+          {/* <Link href="/matching" passHref className="next-link"> */}
+            <BottomNavigationAction
+              href="/matching"
+              label="매칭"
+              value="matching"
+              icon={<MatchingIcon />}
+              showLabel
+            />
+          {/* </Link> */}
+          {/* <Link href="/agreement" passHref className="next-link"> */}
+            <BottomNavigationAction
+              href="/agreement"
+              label="성사"
+              value="agreement"
+              icon={<AgreementIcon />}
+              showLabel
+            />
+          {/* </Link> */}
+          {/* <Link href="/board" passHref className="next-link"> */}
+            <BottomNavigationAction
+              href="/event"
+              label="이벤트"
+              value="board"
+              icon={<EventIcon />}
+              showLabel
+            />
+          {/* </Link> */}
+          {/* <Link href="/my_info" passHref className="next-link"> */}
+            <BottomNavigationAction
+              href="/my_info"
+              label="내 정보"
+              value="my_info"
+              icon={<MyInfoIcon />}
+              showLabel
+            />
+          {/* </Link> */}
+      </BottomNavigation>
+    </NavigationRoot>
   );
 }
+
+const NavigationRoot = styled("div")(() => {
+  return {
+    position: "fixed",
+    bottom: "0px",
+    zIndex: "10",
+    width: "100%",
+    height: "72px",
+    maxWidth: "480px",
+    backgroundColor: "#fff",
+
+    "& .MuiBottomNavigation-root": {
+      height: "72px",
+      width: "100%",
+      maxWidth: "480px",
+      borderTop: "1px solid #D3D6DB",
+      display: "flex",
+      "-webkit-box-align": "center",
+      alignItems: "center",
+      "-webkit-box-pack": "center",
+      justifyContent: "center"
+    },
+
+    "& .MuiBottomNavigationAction-root": {
+      height: "72px",
+      gap: "4px",
+      color: "#999DA3",
+    },
+
+    "& .Mui-selected": {
+      fontWeight: "600",
+      color: "#FF7700",
+    },
+  };
+});

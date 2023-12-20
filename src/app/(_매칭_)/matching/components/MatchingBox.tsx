@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { ReportGmailerrorredOutlined } from "@mui/icons-material";
 import MatchingBoxRoot from "./MatchingBoxRoot";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 
@@ -14,10 +14,13 @@ export const MatchingBox = () => {
     <MatchingBoxRoot>
       <Image src="/matchingIcon.png" alt="matching" width={149} height={149} />
 
-      <InfoOutlinedIcon className="info-icon" />
-      <Typography variant="body2">
-        매칭신청서 작성은 이 순서로 구성되어 있어요
-      </Typography>
+      <Box className="subhead">
+        <ReportGmailerrorredOutlined color="primary" />
+        <Typography variant="body2">
+          매칭신청서 작성은 이 순서로 구성되어 있어요
+        </Typography>
+      </Box>
+
       <Container className="timeline-container">
         {timelineData.map((item, index) => (
           <>
@@ -33,7 +36,7 @@ export const MatchingBox = () => {
             >
               <Box className="timeline-number">{item.number}</Box>
               <Box className="timeline-content">
-                <Typography variant="body2">{item.content}</Typography>
+                <Typography variant="subtitle2">{item.content}</Typography>
               </Box>
             </Box>
             <Box
