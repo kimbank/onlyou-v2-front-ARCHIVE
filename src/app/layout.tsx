@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko-KR">
+    <html lang="ko-KR" translate="no">
       <body style={{ backgroundColor: "#FFE4CC" }}>
         <ThemeProvider theme={theme}>
           <Header />
@@ -43,6 +43,7 @@ export default function RootLayout({
             {/* { process.env.NEXT_PUBLIC_HOTJAR === 'true' && <Hotjar />} */}
           </ReduxProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
