@@ -60,7 +60,7 @@ const Index = () => {
   return (
     <LetterRoot>
       <Container className="letter-container">
-        <Typography variant="h3">
+        <Typography variant="h1">
           📝 <br />
           이제 편지를 작성해 볼까요?
         </Typography>

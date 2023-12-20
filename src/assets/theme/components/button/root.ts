@@ -18,6 +18,10 @@ const root = {
   backgroundPositionX: "25% !important",
   transition: "all 150ms ease-in",
 
+  boxShadow: "none",
+  border: "none",
+  borderRadius: "6px",
+
   "&:disabled": {
     pointerEvent: "none",
     opacity: 0.65,

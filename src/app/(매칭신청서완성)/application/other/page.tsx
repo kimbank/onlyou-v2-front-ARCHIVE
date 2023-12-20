@@ -55,7 +55,7 @@ const Index = () => {
         <Typography variant="subtitle2">
           <strong>6</strong>/6
         </Typography>
-        <Typography variant="h3">기타 정보 입력하기</Typography>
+        <Typography variant="h1">기타 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
         <Container
@@ -64,7 +64,7 @@ const Index = () => {
             index <= activeGroupIndex ? "other-radio visible" : "other-radio"
           }
         >
-          <Typography variant="h6">{group.title}</Typography>
+          <Typography variant="subtitle2">{group.title}</Typography>
           <RDRadioInput
             onChange={(value: string) => handleRadioChange(group.title, value)}
             options={group.options}
@@ -84,7 +84,7 @@ const Index = () => {
         <InfoBox align="left" textAlign="left" marginB="none" bgColor="primary">
           <Box className="info-box">
             <TipsAndUpdatesOutlinedIcon className="info-icon" />
-            <Typography variant="h5">카카오톡 아이디 찾기</Typography>
+            <Typography variant="subtitle2">카카오톡 아이디 찾기</Typography>
           </Box>
           <Divider sx={{ my: 1 }} />
           <Typography variant="body2">
@@ -99,7 +99,7 @@ const Index = () => {
         >
           <Box className="info-box">
             <TipsAndUpdatesOutlinedIcon className="info-icon" />
-            <Typography variant="h5">카카오톡 검색 허용하기</Typography>
+            <Typography variant="subtitle2">카카오톡 검색 허용하기</Typography>
           </Box>
           <Divider sx={{ my: 1 }} />
           <Typography variant="body2">

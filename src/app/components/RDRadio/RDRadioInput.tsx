@@ -1,4 +1,4 @@
-import { Radio } from "@mui/material";
+import { Radio, Typography } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
 import { useState } from "react";
 import { StyledFormControlLabel } from "./RDRadioRoot";
@@ -23,7 +23,7 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
   };
 
   return (
-    <RadioGroup value={selectedValue} onChange={handleChange}>
+    <RadioGroup value={selectedValue} onChange={handleChange} sx={{ gap: "8px" }}>
       {options.map((option, index) => (
         <StyledFormControlLabel
           key={index}
@@ -31,7 +31,7 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
           value={option.value}
           checked={selectedValue === option.value}
           control={<Radio />}
-          label={option.label}
+          label={<Typography variant="body1" sx={{ paddingRight: "8px" }}>{option.label}</Typography>}
         />
       ))}
     </RadioGroup>

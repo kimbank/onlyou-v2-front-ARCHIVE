@@ -27,7 +27,7 @@ export const SubmitDrawer = ({ children, open, onClose }: DrawerProps) => {
       <SubmitDrawerRoot>
         <DrawerTitle>
           <Box className="drawer-title">
-            <Typography variant="h3">
+            <Typography variant="h1">
               이제 회원님의
               <br />
               이상형을 알려주세요!

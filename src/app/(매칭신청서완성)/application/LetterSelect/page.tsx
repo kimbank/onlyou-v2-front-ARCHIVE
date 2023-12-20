@@ -36,10 +36,10 @@ const Index = () => {
   return (
     <LetterRoot>
       <Container className="letter-container">
-        <Typography variant="h3" sx={{ color: "black", fontWeight: "bold" }}>
+        <Typography variant="h1" sx={{ color: "black", fontWeight: "bold" }}>
           편지 질문 선택하기
         </Typography>
-        <Typography variant="subtitle2">
+        <Typography variant="body1">
           질문을 고르고 선택한 질문에 답변하며 <br />
           편지를 완성해보아요!
         </Typography>

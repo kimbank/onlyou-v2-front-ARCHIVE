@@ -79,7 +79,7 @@ const Index = () => {
         <Typography variant="subtitle2">
           <strong>4</strong>/6
         </Typography>
-        <Typography variant="h3">외모 정보 입력하기</Typography>
+        <Typography variant="h1">외모 정보 입력하기</Typography>
       </Box>
       {radioGroups1.map((group, index) => (
         <Container
@@ -90,7 +90,7 @@ const Index = () => {
           }
           key={index}
         >
-          <Typography variant="h6">
+          <Typography variant="subtitle2">
             {index + 1}.{group.title}
           </Typography>
           <RDRadioInput

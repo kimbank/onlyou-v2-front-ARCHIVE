@@ -43,7 +43,7 @@ const Index = () => {
         <Typography variant="subtitle2">
           <strong>1</strong>/6
         </Typography>
-        <Typography variant="h3">가치관 정보 입력하기</Typography>
+        <Typography variant="h1">가치관 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
         <Container
