@@ -76,7 +76,7 @@ const Index = () => {
         <Typography variant="subtitle2">
           <strong>3</strong>/6
         </Typography>
-        <Typography variant="h3">성격 정보 입력하기</Typography>
+        <Typography variant="h1">성격 정보 입력하기</Typography>
       </Box>
       {radioGroups1.map((group, index) => (
         <Container
@@ -87,7 +87,7 @@ const Index = () => {
           }
           key={index}
         >
-          <Typography variant="h6">
+          <Typography variant="subtitle2">
             {index + 1}.{group.title}
           </Typography>
           <RDRadioInput
@@ -100,7 +100,7 @@ const Index = () => {
         <Box className={`character-chip ${showChipGroups ? "show-chip" : ""}`}>
           {radioGroups2.map((group) => (
             <Box key={group.title}>
-              <Typography variant="h6">{group.title}</Typography>
+              <Typography variant="subtitle2">{group.title}</Typography>
               <Box className="chip">
                 {group.options.map((option) => (
                   <RDChip

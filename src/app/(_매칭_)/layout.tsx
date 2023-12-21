@@ -12,9 +12,7 @@ export default function ApplicationLayout({
 }) {
   return (
     <ThemeProvider theme={theme}>
-      <Container disableGutters sx={{ padding: "55px 5px" }}>
-        {children}
-      </Container>
+      {children}
       <Navigation />
     </ThemeProvider>
   );

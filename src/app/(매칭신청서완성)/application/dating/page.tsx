@@ -40,7 +40,7 @@ const Index = () => {
     <DatingRoot>
       <Box className="title-box">
         <Typography variant="subtitle2">5/6</Typography>
-        <Typography variant="h3">연애스타일 정보 입력하기</Typography>
+        <Typography variant="h1">연애스타일 정보 입력하기</Typography>
       </Box>
       {radioGroups.map((group, index) => (
         <Container
@@ -49,7 +49,7 @@ const Index = () => {
             index <= activeGroupIndex ? "dating-radio visible" : "dating-radio"
           }
         >
-          <Typography variant="h6">
+          <Typography variant="subtitle2">
             {index + 1}.{group.title}
           </Typography>
           <RDRadioInput

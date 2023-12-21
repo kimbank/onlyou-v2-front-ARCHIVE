@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import Image from "next/image";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -10,55 +11,58 @@ import CloseIcon from "@mui/icons-material/Close";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import HeaderRoot from "./HeaderRoot";
+
 export const Header = ({ onClick }: any) => {
-  const Logo = "/logo.png";
+  const Logo = "/images/header/logo_48x48.png";
   const pathname = usePathname();
   const currentPage = pathname.split("/")[1];
   const [hoverNoti, setHoverNoti] = useState(false);
   const [hoverChat, setHoverChat] = useState(false);
+
   return (
-    <HeaderRoot position="fixed">
-      <Container disableGutters className="header-container" sx={{}}>
-        <Toolbar className="toolbar">
-          <a href="/">
+    <HeaderRoot>
+      <div className="header-container">
+        <header className="header">
+          <Link href="/">
             <Image
               src={Logo}
               alt="logo"
-              width={19.5}
-              height={32}
+              width={24}
+              height={24}
               priority={true}
+              style={{ verticalAlign: "middle" }}
             />
-          </a>
-        </Toolbar>
-        {currentPage === "matching" ? (
-          <Box className="header-box">
-            <Box
-              className="noti-box"
-              onMouseEnter={() => setHoverNoti(true)}
-              onMouseLeave={() => setHoverNoti(false)}
-            >
-              {hoverNoti ? (
-                <NotificationsIcon color="primary" />
-              ) : (
-                <NotificationsNoneIcon color="primary" />
-              )}
+          </Link>
+          {currentPage === "matching" ? (
+            <Box className="header-box">
+              <Box
+                className="noti-box"
+                onMouseEnter={() => setHoverNoti(true)}
+                onMouseLeave={() => setHoverNoti(false)}
+              >
+                {hoverNoti ? (
+                  <NotificationsIcon color="primary" />
+                ) : (
+                  <NotificationsNoneIcon color="primary" />
+                )}
+              </Box>
+              <Box
+                onMouseEnter={() => setHoverChat(true)}
+                onMouseLeave={() => setHoverChat(false)}
+                className="chat-box"
+              >
+                {hoverChat ? (
+                  <ChatBubbleIcon color="primary"  />
+                ) : (
+                  <ChatBubbleOutlineIcon color="primary" />
+                )}
+              </Box>
             </Box>
-            <Box
-              onMouseEnter={() => setHoverChat(true)}
-              onMouseLeave={() => setHoverChat(false)}
-              className="chat-box"
-            >
-              {hoverChat ? (
-                <ChatBubbleIcon color="primary" />
-              ) : (
-                <ChatBubbleOutlineIcon color="primary" />
-              )}
-            </Box>
-          </Box>
-        ) : (
-          <CloseIcon />
-        )}
-      </Container>
+          ) : (
+            <CloseIcon />
+          )}
+        </header>
+      </div>
     </HeaderRoot>
   );
 };

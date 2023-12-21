@@ -1,92 +1,103 @@
-import colors from "./colors";
-
-const { dark } = colors;
-
 interface Types {
   fontFamily: string;
-  fontWeightLight: number;
-  fontWeightRegular: number;
   fontWeightBold: number;
+  fontWeightSemiBold: number;
+  fontWeightRegular: number;
+  fontWeightLight: number;
+
+  // Heading1-24
   h1: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-
-    lineHeight: number;
+    lineHeight: string;
   };
-  h2: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
 
-    lineHeight: number;
-  };
-  h3: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-
-    lineHeight: number;
-  };
-  h4: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-
-    lineHeight: number;
-  };
-  h5: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-
-    lineHeight: number;
-  };
-  h6: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-
-    lineHeight: number;
-  };
+  // subhead-16
   subtitle1: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    lineHeight: number;
+    lineHeight: string;
   };
+  // subhead-14
   subtitle2: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    lineHeight: number;
+    lineHeight: string;
   };
+  // subhaed-12
+  subtitle3: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+
+  // body-16
   body1: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    lineHeight: number;
+    lineHeight: string;
   };
+  // body-14
   body2: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    lineHeight: number;
+    lineHeight: string;
   };
 
-  button: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    lineHeight: number;
-    textTransform: any;
-  };
+  // caption-12
   caption: {
     fontFamily: string;
     fontSize: string;
     fontWeight: number;
-    lineHeight: number;
+    lineHeight: string;
   };
+
+  // 버튼 텍스트
+  button: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+  button_medium: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+
+  // 칩스 텍스트
+  chips: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+
+  // 체크박스 텍스트
+  checkbox: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+
+  // 네비게이션 텍스트
+  nav: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
+
+
+  /* legacy */
   overline: {
     fontFamily: string;
   };
@@ -105,12 +116,14 @@ interface Types {
     md: number;
     lg: number;
   };
+  /* ****** */
 }
 
 const baseProperties = {
   fontFamily: "Pretendard",
   fontWeightLight: 300,
   fontWeightRegular: 400,
+  fontWeightSemiBold: 600,
   fontWeightBold: 700,
   fontSizeXS: "12px",
   fontSizeSM: "14px",
@@ -121,96 +134,99 @@ const baseProperties = {
   fontSize3XL: "32px",
 };
 
-const baseHeadingProperties = {
-  fontFamily: baseProperties.fontFamily,
-  fontWeight: baseProperties.fontWeightBold,
-};
-
 const typography: Types = {
-  fontFamily: baseProperties.fontFamily,
-  fontWeightLight: baseProperties.fontWeightLight,
-  fontWeightRegular: baseProperties.fontWeightRegular,
+  fontFamily: "Pretendard",
   fontWeightBold: baseProperties.fontWeightBold,
+  fontWeightSemiBold: baseProperties.fontWeightSemiBold,
+  fontWeightRegular: baseProperties.fontWeightRegular,
+  fontWeightLight: baseProperties.fontWeightLight,
 
   h1: {
-    fontSize: "32px",
-    lineHeight: 1.25,
-    ...baseHeadingProperties,
-  },
-
-  h2: {
-    fontSize: "26px",
-    lineHeight: 1.3,
-    ...baseHeadingProperties,
-  },
-
-  h3: {
+    fontFamily: "Pretendard",
     fontSize: "24px",
-    lineHeight: 1.375,
-    ...baseHeadingProperties,
-  },
-
-  h4: {
-    fontSize: "20px",
-    lineHeight: 1.375,
-    ...baseHeadingProperties,
-  },
-
-  h5: {
-    fontSize: "16px",
-    lineHeight: 1.375,
-    ...baseHeadingProperties,
-  },
-
-  h6: {
-    fontSize: "14px",
-    lineHeight: 1.625,
-    ...baseHeadingProperties,
+    fontWeight: baseProperties.fontWeightBold,
+    lineHeight: "130%",
   },
 
   subtitle1: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeXL,
-    fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.625,
+    fontFamily: "Pretendard",
+    fontSize: "16px",
+    fontWeight: baseProperties.fontWeightBold,
+    lineHeight: "150%",
   },
 
   subtitle2: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeMD,
-    fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.6,
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontWeight: baseProperties.fontWeightSemiBold,
+    lineHeight: "140%",
+  },
+
+  subtitle3: {
+    fontFamily: "Pretendard",
+    fontSize: "12px",
+    fontWeight: baseProperties.fontWeightSemiBold,
+    lineHeight: "140%",
   },
 
   body1: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeMD,
+    fontFamily: "Pretendard",
+    fontSize: "16px",
     fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.6,
+    lineHeight: "145%",
   },
 
   body2: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeSM,
+    fontFamily: "Pretendard",
+    fontSize: "14px",
     fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.4,
-  },
-
-  button: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeSM,
-    fontWeight: baseProperties.fontWeightLight,
-    lineHeight: 1.5,
-    textTransform: "uppercase",
+    lineHeight: "140%",
   },
 
   caption: {
-    fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeXS,
-    fontWeight: baseProperties.fontWeightLight,
-    lineHeight: 1.25,
+    fontFamily: "Pretendard",
+    fontSize: "12px",
+    fontWeight: baseProperties.fontWeightRegular,
+    lineHeight: "140%",
   },
 
+  button: {
+    fontFamily: "Pretendard",
+    fontSize: "16px",
+    fontWeight: baseProperties.fontWeightSemiBold,
+    lineHeight: "100%",
+  },
+
+  button_medium: {
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontWeight: baseProperties.fontWeightSemiBold,
+    lineHeight: "100%",
+  },
+
+  chips: {
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontWeight: baseProperties.fontWeightSemiBold,
+    lineHeight: "100%",
+  },
+
+  checkbox: {
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontWeight: baseProperties.fontWeightRegular,
+    lineHeight: "140%",
+  },
+
+  nav: {
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontWeight: baseProperties.fontWeightRegular,
+    lineHeight: "140%",
+  },
+
+
+  /* legacy */
   overline: {
     fontFamily: baseProperties.fontFamily,
   },
@@ -230,6 +246,55 @@ const typography: Types = {
     md: 1.5,
     lg: 2,
   },
+  /* ****** */
 };
+
+
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    button_medium: React.CSSProperties;
+    chips: React.CSSProperties;
+    checkbox: React.CSSProperties;
+    nav: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    button_medium?: React.CSSProperties;
+    chips?: React.CSSProperties;
+    checkbox?: React.CSSProperties;
+    nav?: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    button_medium: true;
+    chips: true;
+    checkbox: true;
+    nav: true;
+  }
+}
+
+
+/* ************************* */
+/* way of adding new variant */
+/* ************************* */
+
+// declare module '@mui/material/styles' {
+//   interface TypographyVariants {
+//     body3: React.CSSProperties;
+//   }
+
+//   interface TypographyVariantsOptions {
+//     body3?: React.CSSProperties;
+//   }
+// }
+
+// declare module "@mui/material/Typography" {
+//   interface TypographyPropsVariantOverrides {
+//     body3: true;
+//   }
+// }
+/* ************************* */
 
 export default typography;
