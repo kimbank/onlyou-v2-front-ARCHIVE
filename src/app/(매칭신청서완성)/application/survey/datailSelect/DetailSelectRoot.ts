@@ -8,7 +8,7 @@ export default styled(Container)(({ theme }) => {
       ".button": {
         display: "flex",
         justifyContent: "space-between",
-        height: "64px",
+        height: "34px",
       },
       ".title-box": {
         paddingBottom: "24px",
@@ -16,11 +16,22 @@ export default styled(Container)(({ theme }) => {
           marginTop: "9px",
         },
       },
-      ".button-box": {
+      ".slider": {
+        width: "100%",
+        padding: "16px",
+      },
+      ".range-text": {
+        display: "flex",
+        justifyContent: "space-between",
+      },
+      ".content-box": {
         display: "flex",
         flexDirection: "column",
         gap: "16px",
-        paddingBottom: "16px",
+      },
+      ".divider": {
+        marginTop: "24px",
+        marginBottom: "24px",
       },
       ".buttonText": {
         color: dark.main,
@@ -29,10 +40,6 @@ export default styled(Container)(({ theme }) => {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        height: "108px",
-        padding: "12px 20px",
-        border: `1px solid ${dark.main}`,
-        borderRadius: "6px",
         marginTop: "12px",
       },
       ".skeleton-box": {
@@ -42,15 +49,32 @@ export default styled(Container)(({ theme }) => {
         display: "flex",
         flexDirection: "column",
         gap: "9px",
-        paddingTop: "12px",
+        paddingTop: "16px",
       },
-          ".MuiTooltip-tooltip": {
-      backgroundColor: dark.main, // 배경색 지정
-      color: 'white', // 글자색 지정
-          },
+      ".location-box": {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "8px",
+        marginTop:"12px",
+      },
+      ".MuiTooltip-tooltip": {
+        backgroundColor: dark.main, // 배경색 지정
+        color: "white", // 글자색 지정
+      },
       ".tooltip": {
         backgroundColor: dark.main,
         color: "black",
+      },
+      ".tooltip-text": {
+        display: "flex",
+        alignItems: "center",
+      },
+      ".chip": {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: "8px",
+        paddingTop: "12px",
       },
     };
 })
