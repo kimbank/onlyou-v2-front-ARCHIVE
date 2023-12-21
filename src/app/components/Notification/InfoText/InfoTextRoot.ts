@@ -1,17 +1,20 @@
 import { theme } from "@/assets";
+import colors from "@/assets/theme/base/colors";
 import { styled } from "@mui/material";
 
 interface infoTextProps {
   shadow: boolean;
+  bgColor?: "primary" | "secondary";
 }
-const { palette } = theme;
-const { info } = palette;
 
-export default styled("div")<infoTextProps>(({ theme, shadow }) => {
+const { info } = colors;
+
+
+export default styled("div")<infoTextProps>(({ theme, shadow,bgColor }) => {
   return {
     ".info-text-button": {
       borderRadius: "8px",
-      backgroundColor: info.main,
+      backgroundColor: bgColor === "primary" ? info.focus : info.main,
       padding: "16px 12px",
       display: "flex",
       alignItems: "center",
@@ -19,9 +22,6 @@ export default styled("div")<infoTextProps>(({ theme, shadow }) => {
       width: "100%",
       gap: "8px",
     },
-    ".info-icon": {
-      marginRight: 1,
-      color: "#FF7700",
-    },
+
   };
 });

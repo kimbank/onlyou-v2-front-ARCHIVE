@@ -4,7 +4,8 @@ import { Chip } from "@mui/material";
 
 interface RDChipRootProps {
   checked: boolean;
-}
+  colorB?: string;
+    }
 const {
   white,
   text,
@@ -27,5 +28,6 @@ export const RDChipRoot = styled(Chip)<RDChipRootProps>`
     padding: 8px 12px;
     display: inline-flex;
     width: auto;
+    borderRadius:20px;
   }
 `;

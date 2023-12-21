@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import checkboxReducer from "./checkboxSlice";
+import chipsStoreReducer from './chipsStore';
 
 export const store = configureStore({
   reducer: {
+    chips: chipsStoreReducer,
     checkbox: checkboxReducer,
   },
 });
