@@ -30,6 +30,9 @@
       "@/*": [
         "./src/*"
       ],
+      "@/comp/*": [
+        "./src/components/*"
+      ],
     }
   },
   "include": [
