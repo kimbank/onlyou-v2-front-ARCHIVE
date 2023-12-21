@@ -70,6 +70,8 @@ const NavigationRoot = styled("div")(() => {
   return {
     position: "fixed",
     bottom: "0px",
+    // left: "50%",
+    // transform: "translateX(-50%)",
     zIndex: "10",
     width: "100%",
     height: "72px",

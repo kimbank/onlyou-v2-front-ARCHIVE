@@ -34,7 +34,7 @@ const RootLayout = ({
           <CssBaseline>
             <ReduxProvider>
               <div id="root">
-                <div className="page">
+                <div id="page">
                     {children}
                 </div>
               </div>
