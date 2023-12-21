@@ -2,7 +2,6 @@
 
 import { Typography } from "@mui/material";
 
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Container } from "@mui/material";
 import InfoTextRoot from "./InfoTextRoot";
 
@@ -10,15 +9,19 @@ type Props = {
   children: React.ReactNode;
   alertMessage?: string;
   shadow?: boolean;
+  bgColor?: "primary" | "secondary";
 };
 
-export function InfoText({ children, alertMessage, shadow = false }: Props) {
+export function InfoText({ children, alertMessage, shadow = false ,   bgColor,}: Props) {
   return (
-    <InfoTextRoot shadow={shadow}>
+    <InfoTextRoot shadow={shadow}   bgColor={bgColor}>
       <Container color="primary" className="info-text-button">
-        <InfoOutlinedIcon className="info-icon" />
-        {children}
+             {children}
       </Container>
     </InfoTextRoot>
   );
 }
+
+InfoText.defaultProps = {
+  bgColor: "primary",
+};

@@ -1,6 +1,9 @@
 interface ColorsTypes {
   main: string;
   focus: string;
+  Primary_lighten1?:string;
+  Primary_lighten2?:string;
+  Primary_lighten3?:string;
 }
 
 interface Types {
@@ -82,6 +85,9 @@ const colors: Types = {
   primary: {
     main: "#FF7700",
     focus: "#C45A00",
+    Primary_lighten1:"#FFB06C",
+    Primary_lighten2:"#FFD9B7",
+    Primary_lighten3:"#FFF0E4",
   },
 
   secondary: {

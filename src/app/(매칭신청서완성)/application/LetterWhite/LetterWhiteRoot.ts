@@ -7,6 +7,10 @@ export default styled("div")(({ theme }) => {
       flexDirection: "column",
       gap: "16px",
     },
+    ".info-icon": {
+      marginRight: 1,
+      color: "#FF7700",
+    },
     ".letter-box": {
       display: "flex",
       flexDirection: "column",
