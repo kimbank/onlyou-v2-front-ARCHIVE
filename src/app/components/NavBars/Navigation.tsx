@@ -75,12 +75,14 @@ const NavigationRoot = styled("div")(() => {
     height: "72px",
     maxWidth: "480px",
     backgroundColor: "#fff",
+    borderTop: "1px solid #D3D6DB",
+    padding: "0px 24px",
 
     "& .MuiBottomNavigation-root": {
       height: "72px",
       width: "100%",
       maxWidth: "480px",
-      borderTop: "1px solid #D3D6DB",
+      
       display: "flex",
       "-webkit-box-align": "center",
       alignItems: "center",
@@ -89,14 +91,32 @@ const NavigationRoot = styled("div")(() => {
     },
 
     "& .MuiBottomNavigationAction-root": {
+      display: "inline-flex",
+      justifyContent: "flex-start",
+      padding: "0px",
+      paddingTop: "8px",
+      minWidth: "auto",
       height: "72px",
       gap: "4px",
       color: "#999DA3",
     },
 
+    "& .MuiBottomNavigationAction-label": {
+      fontFamily: "Pretandard",
+      fontSize: "14px",
+      fontStyle: "normal",
+      fontWeight: "400",
+      color: "#999DA3",
+      lineHeight: "140%",
+    },
+
     "& .Mui-selected": {
+      fontFamily: "Pretandard",
+      fontSize: "14px",
+      fontStyle: "normal",
       fontWeight: "600",
       color: "#FF7700",
+      lineHeight: "140%",
     },
   };
 });

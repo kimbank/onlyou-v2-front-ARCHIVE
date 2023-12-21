@@ -22,7 +22,7 @@ export default styled("div")(({ theme }) => {
 
       height: "56px",
       backgroundColor: "#fff",
-      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.13)",
+      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
     },
     
     ".header-box": {

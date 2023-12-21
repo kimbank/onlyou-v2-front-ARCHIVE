@@ -17,17 +17,19 @@ const steps = [
 ];
 
 export const StepInfo = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(-1);
 
   return (
     <StepInfoRoot>
-        <Image src={MemoIcon} alt="memo" width={149} height={149} onClick={() => setActiveStep(activeStep + 1)}/>
+        <Box className="title">
+          <Image src={MemoIcon} alt="memo" width={149} height={149} onClick={() => setActiveStep(activeStep)}/>
 
-        <Box className="subhead">
-          <ReportGmailerrorredOutlined color="primary" />
-          <Typography variant="body2">
-            매칭신청서 작성은 이 순서로 구성되어 있어요
-          </Typography>
+          <Box className="subhead">
+            <ReportGmailerrorredOutlined color="primary" />
+            <Typography variant="body2">
+              매칭신청서 작성은 이 순서로 구성되어 있어요
+            </Typography>
+          </Box>
         </Box>
 
         <Box className="stepper">
@@ -54,18 +56,31 @@ const StepInfoRoot = styled("div")(() => {
     borderRadius: "8px",
     backgroundColor: "#FFF0E4",
     padding: "21px",
+    paddingBottom: "32px",
 
     alignItems: "center",
 
-    ".subhead": {
-      textAlign: "center",
+    "& .title": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "16px",
     },
 
-    ".stepper": {
+    "& .subhead": {
+      display: "flex",
+      textAlign: "center",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "4px",
+    },
+
+    "& .stepper": {
       width: "100%",
       overflow: "hidden",
     },
 
+    /* 기본 스텝 라벨 CSS */
     "& .MuiStepLabel-label": {
       marginTop: "8px !important",
     },
@@ -75,18 +90,14 @@ const StepInfoRoot = styled("div")(() => {
       fontWeight: "600",
     },
 
-    "& .Mui-active": {"& .MuiStepConnector-line": {
-      borderColor: "#FF7700 !important",
-
-      "&::after, &::before": {
-        backgroundColor: "#FF7700 !important",
-      },
-    },
-    },
-
-    ".Mui-completed": {
+    /* 커넥터 정적 디자인 (기능 미구현 시 사용) */
+    "& .Mui-disabled": {
       fontWeight: "600 !important",
       color: "#FF7700 !important",
+
+      ".MuiSvgIcon-root": {
+        color: "#FF7700 !important",
+      },
 
       "& .MuiStepConnector-line": {
         borderColor: "#FF7700 !important",
@@ -97,6 +108,30 @@ const StepInfoRoot = styled("div")(() => {
       },
     },
 
+    /* 커넥터 상황별 색상 디자인 (기능 구현시 도입) */
+    // "& .Mui-active": {"& .MuiStepConnector-line": {
+    //   borderColor: "#FF7700 !important",
+
+    //   "&::after, &::before": {
+    //     backgroundColor: "#FF7700 !important",
+    //   },
+    // },
+    // },
+
+    // ".Mui-completed": {
+    //   fontWeight: "600 !important",
+    //   color: "#FF7700 !important",
+
+    //   "& .MuiStepConnector-line": {
+    //     borderColor: "#FF7700 !important",
+
+    //     "&::after, &::before": {
+    //       backgroundColor: "#FF7700 !important",
+    //     },
+    //   },
+    // },
+
+    /* connector 화살표 디자인 */
     "& .MuiStepConnector-line": {
       borderColor: "#ced4da",
       borderRadius: "44px",

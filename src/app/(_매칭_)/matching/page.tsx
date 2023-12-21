@@ -7,6 +7,7 @@ import { InfoBox } from "@/components/Notification/InfoBox/InfoText";
 import RDButton from "@/components/RDButton/RDButton";
 import { MatchingBox } from "./components/MatchingBox";
 import StepInfo from "./StepInfo";
+import SaveInfo from "./SaveInfo";
 
 import MatchingRoot from "./MatchingRoot";
 
@@ -23,22 +24,22 @@ const Index = () => {
         </Typography>
       </Box>
 
-      <Box>
+      <Box className="content">
         {/* <MatchingBox /> */}
         <StepInfo />
-        <InfoBox align="center">
+
+        {/* <InfoBox align="center">
           <ReportGmailerrorredOutlined color="primary" />
           <Typography variant="body2">
             매칭신청서를 작성하다 중단해도 자동 저장되니<br />
             언제든 다시 작성할 수 있어요!
           </Typography>
-        </InfoBox>
+        </InfoBox> */}
+        <SaveInfo />
+        <RDButton variant="contained" color="primary" size="large">
+          <Typography variant="button">매칭신청서 완성하기</Typography>
+        </RDButton>
       </Box>
-
-
-      <RDButton variant="contained" color="primary" size="large">
-        <Typography variant="button">매칭신청서 완성하기</Typography>
-      </RDButton>
     </MatchingRoot>
   );
 };

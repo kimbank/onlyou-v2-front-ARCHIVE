@@ -7,15 +7,15 @@ export default styled("div")(({ theme }) => {
     gap: "24px",
     padding: "0px 24px",
     paddingTop: "48px",
-    paddingBottom: "120px",
+    paddingBottom: "108px",
 
-    ".title": {
+    "& .title": {
       display: "flex",
       flexDirection: "column",
       gap: "8px",
     },
 
-    "info": {
+    "& .content": {
       display: "flex",
       flexDirection: "column",
       gap: "12px",
