@@ -16,7 +16,6 @@ const datadogRum = () => {
               site: 'us5.datadoghq.com',
               service: 'onlyou-v2-front',
               env: 'prod',
-              // Specify a version number to identify the deployed version of your application in Datadog 
               version: '2.0.0', 
               sessionSampleRate: 100,
               sessionReplaySampleRate: 20,
@@ -25,6 +24,8 @@ const datadogRum = () => {
               trackLongTasks: true,
               defaultPrivacyLevel: 'mask-user-input',
             });
+
+            window.DD_RUM.startSessionReplayRecording(); // Start recording session replay
           })
             `,
           }} 
