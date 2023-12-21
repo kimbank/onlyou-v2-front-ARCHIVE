@@ -9,7 +9,7 @@ const contained = {
   small: {
     minHeight: "34px",
     width: "auto",
-    padding: `${pxToRem(6)} ${pxToRem(16)}`,
+    padding: '8px 12px',
     fontSize: size.xs,
 
     "& .material-icon, .material-icons-round, svg": {

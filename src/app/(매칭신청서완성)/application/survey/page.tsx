@@ -19,7 +19,7 @@ const Index = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle16">기본 반영 조건</Typography>
+          <Typography variant="subtitle2">기본 반영 조건</Typography>
           <Typography variant="body2">선택하지 않아도 기본으로 반영되는 조건이에요.</Typography>
         </Box>
         <Box className="content-box">

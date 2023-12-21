@@ -11,7 +11,7 @@ export default styled(Button)(({
   const { palette } = theme;
   const { color, variant } = ownerState;
 
-  const { white, text, transparent, grey, light, secondary, disabled } =
+  const { white, text, transparent, gray, light, secondary, disabled } =
     palette;
 
   // variant="contained 스타일"

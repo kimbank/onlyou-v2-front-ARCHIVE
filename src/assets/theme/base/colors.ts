@@ -50,9 +50,9 @@ interface Types {
   light: ColorsTypes | any;
   disabled: ColorsTypes | any;
   dark: ColorsTypes | any;
-  grey:
+gray:
     | {
-        [key: string | number]: string;
+        [key: number]: string;
       }
     | any;
 }
@@ -85,9 +85,9 @@ const colors: Types = {
   primary: {
     main: "#FF7700",
     focus: "#C45A00",
-    Primary_lighten1:"#FFB06C",
-    Primary_lighten2:"#FFD9B7",
-    Primary_lighten3:"#FFF0E4",
+    Primary_lighten1: "#FFB06C",
+    Primary_lighten2: "#FFD9B7",
+    Primary_lighten3: "#FFF0E4",
   },
 
   secondary: {
@@ -95,7 +95,7 @@ const colors: Types = {
     focus: "#B2B0AE",
   },
   light: {
-    main: "#FFA266",
+    main: "#F1F3F6",
     focus: "#FF7700",
   },
 
@@ -129,16 +129,12 @@ const colors: Types = {
     focus: "#2c3c58",
   },
 
-  grey: {
-    100: "#f1f3f6",
-    200: "#f0f2f5",
-    300: "#dee2e6",
-    400: "#ced4da",
-    500: "#adb5bd",
-    600: "#6c757d",
-    700: "#495057",
-    800: "#343a40",
-    900: "#212529",
+  gray: {
+    100: "#3B3C3F",
+    200: "#5C5F63",
+    300: "#999DA3",
+    400: "#D3D6DB",
+    500: "#F1F3F6",
   },
 };
 
