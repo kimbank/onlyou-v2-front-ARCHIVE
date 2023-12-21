@@ -10,7 +10,7 @@ const {
   white,
   text,
   transparent,
-  grey,
+  gray,
   light,
   secondary,
   disabled,

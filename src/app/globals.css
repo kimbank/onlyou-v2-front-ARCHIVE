@@ -44,7 +44,7 @@ div {
   max-width: 480px;
   min-height: 100vh;
   margin: 0px auto;
-  box-shadow: grey 0px 0px 32px -12px;
+  box-shadow: gray 0px 0px 32px -12px;
 }
 
 a {

@@ -87,7 +87,7 @@ const Index = () => {
                       width: "100%",
                       border: "1px solid #B2B0AE",
                       borderRadius: "10px",
-                      color: readOnlyStates[index] ? "grey" : "black",
+                      color: readOnlyStates[index] ? "gray" : "black",
                       padding: "16px",
                       height: "210px",
                       minHeight: "140px",
