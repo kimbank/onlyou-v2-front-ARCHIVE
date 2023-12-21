@@ -14,7 +14,7 @@ body {
   font-size: 16px;
   font-style: normal;
   line-height: 145%; /* 23.2px */
-  color: var(--Black, #161617);
+  color: #161617;
   background-color: #fff;
 }
 
