@@ -2,7 +2,7 @@
 
 import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
 import { SubmitDrawer } from "@/app/components/Drawer/SubmitDrawer/SubmitDrawer";
-import { InfoBox } from "@/app/components/Notification/InfoBox/InfoText";
+import { InfoBox } from "@/app/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/app/components/RDInput";
 import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";

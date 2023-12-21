@@ -3,7 +3,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { ReportGmailerrorredOutlined } from "@mui/icons-material";
 
-import { InfoBox } from "@/components/Notification/InfoBox/InfoText";
+import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDButton from "@/components/RDButton/RDButton";
 import { MatchingBox } from "./components/MatchingBox";
 import StepInfo from "./StepInfo";
