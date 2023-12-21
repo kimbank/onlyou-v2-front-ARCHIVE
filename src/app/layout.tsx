@@ -24,27 +24,28 @@ const RootLayout = ({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <Hotjar />
-        <DatadogRum />
+        {/* Hotjar CDN Scripts */}
+        { process.env.NODE_ENV == "production" && <Hotjar /> }
+        {/* DatadogRUM CDN Scripts */}
+        { process.env.NODE_ENV == "production" && <DatadogRum /> }
       </head>
       <body>
         <ThemeProvider theme={theme}>
-          <ReduxProvider>
-            <div id="root">
-              <div className="page">
-                {/* <Header /> */}
-                <CssBaseline>
-                  {children}
-                </CssBaseline>
+          <CssBaseline>
+            <ReduxProvider>
+              <div id="root">
+                <div className="page">
+                    {children}
+                </div>
               </div>
-            </div>
-          </ReduxProvider>
+            </ReduxProvider>
+          </CssBaseline>
         </ThemeProvider>
+        {/* Vercel Speed Isight */}
         <SpeedInsights />
       </body>
     </html>
   );
 }
-
 
 export default RootLayout;
