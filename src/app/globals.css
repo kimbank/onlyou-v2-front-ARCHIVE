@@ -39,12 +39,17 @@ div {
                 sans-serif; /* 모든 기기 대응 */
 }
 
-.page {
+#page {
   width: 100%;
   max-width: 480px;
   min-height: 100vh;
   margin: 0px auto;
   box-shadow: gray 0px 0px 32px -12px;
+}
+
+#content {
+  width: 100%;
+  padding: 48px 24px 120px 24px;
 }
 
 a {
