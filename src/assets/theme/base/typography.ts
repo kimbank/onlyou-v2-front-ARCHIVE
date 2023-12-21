@@ -49,6 +49,13 @@ interface Types {
     fontWeight: number;
     lineHeight: string;
   };
+  // body-12
+  body3: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: string;
+  };
 
   // caption-12
   caption: {
@@ -183,6 +190,13 @@ const typography: Types = {
     lineHeight: "140%",
   },
 
+  body3: {
+    fontFamily: "Pretendard",
+    fontSize: "12px",
+    fontWeight: baseProperties.fontWeightRegular,
+    lineHeight: "140%",
+  },
+
   caption: {
     fontFamily: "Pretendard",
     fontSize: "12px",
@@ -252,6 +266,7 @@ const typography: Types = {
 
 declare module '@mui/material/styles' {
   interface TypographyVariants {
+    body3: React.CSSProperties;
     button_medium: React.CSSProperties;
     chips: React.CSSProperties;
     checkbox: React.CSSProperties;
@@ -259,6 +274,7 @@ declare module '@mui/material/styles' {
   }
 
   interface TypographyVariantsOptions {
+    body3?: React.CSSProperties;
     button_medium?: React.CSSProperties;
     chips?: React.CSSProperties;
     checkbox?: React.CSSProperties;
@@ -268,6 +284,7 @@ declare module '@mui/material/styles' {
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
+    body3: true;
     button_medium: true;
     chips: true;
     checkbox: true;
