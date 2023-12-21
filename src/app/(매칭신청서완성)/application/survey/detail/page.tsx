@@ -9,66 +9,15 @@ import { conditionChipGroups } from "../../data/conditionData";
 import DetailRoot from "./DetailRoot";
 import RDButton from "@/app/components/RDButton/RDButton";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-interface RadioOption {
-  value: string;
-  label: string;
-}
 
-interface RadioGroup {
-  title: string;
-  options: RadioOption[];
-}
 
-interface SelectedOptionsType {
-  [key: string]: string[];
-}
 const Index = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: number]: string[];
-  }>({
-    0: [],
-    1: [],
-    2: [],
-  });
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
-    console.log("selectedTab", selectedTab);
-    console.log("selectedOptions", selectedOptions);
-  };
-
-  const handleChipClick = (value: string) => {
-    const newOptions: SelectedOptionsType = { ...selectedOptions };
-    let isOptionInOtherTab = false;
-
-    // 다른 탭에서 이미 선택된 옵션 제거
-    Object.keys(newOptions).forEach((tab) => {
-      if (tab !== selectedTab.toString() && newOptions[tab].includes(value)) {
-        newOptions[tab] = newOptions[tab].filter((option) => option !== value);
-        isOptionInOtherTab = true;
-      }
-    });
-
-    // 현재 탭에서 해당 값이 있는 경우 제거
-    if (newOptions[selectedTab].includes(value)) {
-      newOptions[selectedTab] = newOptions[selectedTab].filter(
-        (option) => option !== value
-      );
-    }
-    // 현재 탭에서 해당 값이 없고, 다른 탭에서도 제거된 상태라면 추가
-    else if (!isOptionInOtherTab) {
-      newOptions[selectedTab].push(value);
-    }
-
-    setSelectedOptions(newOptions);
-  };
+ 
   return (
     <DetailRoot>
       <Box className="title-box">
-        <Typography className="title-text" variant="h1">
-          각 조건을 상세히 지정해 주세요.
-        </Typography>
+        <Typography variant="h1">각 조건을 상세히 지정해 주세요.</Typography>
         <Typography variant="body1">
           상세한 설정에 따라 예상 매칭 주기를 알려드려요
         </Typography>

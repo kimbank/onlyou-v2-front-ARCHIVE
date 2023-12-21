@@ -53,7 +53,7 @@ declare module "@mui/material/styles" {
     error: ColorsTypes | any;
     light: ColorsTypes | any;
     dark: ColorsTypes | any;
-    grey:
+    gray:
       | {
           [key: string | number]: string;
         }

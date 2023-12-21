@@ -8,6 +8,8 @@ import button from "./theme/components/button";
 import formControlLabel from "./theme/components/input/formControlLabel";
 import input from "./theme/components/input/input";
 import radio from "./theme/components/input/radio";
+import tooltip from "./theme/components/tooltip/tooltip";
+
 
 export const theme = createTheme({
   palette: { ...colors },
@@ -23,5 +25,6 @@ export const theme = createTheme({
     MuiRadio: { ...radio },
     MuiFormControlLabel: { ...formControlLabel },
     MuiInput: { ...input },
+    MuiTooltip: { ...tooltip },
   },
 });
