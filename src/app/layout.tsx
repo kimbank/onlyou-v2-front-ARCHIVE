@@ -25,9 +25,9 @@ const RootLayout = ({
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         {/* Hotjar CDN Scripts */}
-        { process.env.NODE_ENV == "production" && <Hotjar /> }
+        { process.env.NODE_ENV === "production" && <Hotjar /> }
         {/* DatadogRUM CDN Scripts */}
-        { process.env.NODE_ENV == "production" && <DatadogRum /> }
+        { process.env.NODE_ENV === "production" && <DatadogRum /> }
       </head>
       <body>
         <ThemeProvider theme={theme}>
@@ -35,14 +35,14 @@ const RootLayout = ({
             <ReduxProvider>
               <div id="root">
                 <div id="page">
-                    {children}
+                  {children}
                 </div>
               </div>
             </ReduxProvider>
           </CssBaseline>
         </ThemeProvider>
         {/* Vercel Speed Isight */}
-        <SpeedInsights />
+        { process.env.NODE_ENV === "production" && <SpeedInsights /> }
       </body>
     </html>
   );
