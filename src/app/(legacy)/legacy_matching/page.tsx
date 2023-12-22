@@ -10,6 +10,7 @@ import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
 
 import MatchingRoot from "./MatchingRoot";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
 
 
 const Index = () => {
@@ -36,8 +37,9 @@ const Index = () => {
           </Typography>
         </InfoBox> */}
         <SaveInfo />
+        <RDStepNavButton nextText="매칭신청서 완성하기" />
         <RDButton variant="contained" color="primary" size="large">
-          <Typography variant="button">매칭신청서 완성하기</Typography>
+          <Typography variant="button">매칭신청서 완성하기11</Typography>
         </RDButton>
       </Box>
     </MatchingRoot>

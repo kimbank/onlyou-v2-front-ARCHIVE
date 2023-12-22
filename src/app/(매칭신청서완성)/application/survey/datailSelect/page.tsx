@@ -8,7 +8,7 @@ import {
 
     Typography
 } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import DetailSelectRoot from "./DetailSelectRoot";
 import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
@@ -20,9 +20,52 @@ import { IncheonLocation, KyeongkiLocation, SeoulLocation } from "./Data/locatio
 import { RDChip } from "@/components/RDChip";
 import { interestRadioGroups, lifeRadioGroups } from "../../data/lifeData";
 import { characterchipGroups } from "../../data/characterData";
+import RDCheckButton from "@/components/Button/RDCheckButton";
 const Index = () => {
-  const [value, setValue] = useState([1980, 2004]);
+    const [value, setValue] = useState([1980, 2004]);
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [selectedSeoulOptions, setSelectedSeoulOptions] = useState<
+        string[]
+      >([]);
+    const [selectedKyeongkiOptions, setSelectedKyeongkiOptions] = useState<
+        string[]
+      >([]);
+    const [selectedIncheonOptions, setSelectedIncheonOptions] = useState<
+        string[]
+      >([]);
+    const [isCapitalRegionChecked, setIsCapitalRegionChecked] =
+         useState(false);
+
+    const radioGroups1 = useMemo(() => characterchipGroups, []);
+    const radioGroups2 = useMemo(() => interestRadioGroups, []);
+    const allLocations = [...SeoulLocation, ...KyeongkiLocation, ...IncheonLocation];
+     const handleOptionClick = (
+       value: string,
+       location: "Seoul" | "Kyeongki" | "Incheon"
+     ) => {
+       let setSelectedOptions;
+       switch (location) {
+         case "Seoul":
+           setSelectedOptions = setSelectedSeoulOptions;
+           break;
+         case "Kyeongki":
+           setSelectedOptions = setSelectedKyeongkiOptions;
+           break;
+         case "Incheon":
+           setSelectedOptions = setSelectedIncheonOptions;
+           break;
+         default:
+           return;
+       }
+
+       setSelectedOptions((prevSelectedOptions) => {
+         if (prevSelectedOptions.includes(value)) {
+           return prevSelectedOptions.filter((option) => option !== value);
+         } else {
+           return [...prevSelectedOptions, value];
+         }
+       });
+     };
 
   const handleChange = (event :any, newValue : any) => {
     setValue(newValue);
@@ -32,8 +75,6 @@ const Index = () => {
    const handleTooltipToggle = () => {
      setOpen(!open); 
    };
-  const radioGroups1 = useMemo(() => characterchipGroups, []);
-  const radioGroups2 = useMemo(() => interestRadioGroups, []);
 
   const handleChipClick = (value: string) => {
     setSelectedOptions((prev) => {
@@ -43,12 +84,20 @@ const Index = () => {
         return [...prev, value];
       }
     });
-  };
-  const handleButtonClick = (value : any) => {
-    if (selectedOptions.includes(value)) {
-      setSelectedOptions(selectedOptions.filter((option) => option !== value));
+  };  const handleCapitalRegionClick = () => {
+    setIsCapitalRegionChecked(!isCapitalRegionChecked);
+
+    if (!isCapitalRegionChecked) {
+      const allValues = allLocations.flatMap((group) =>
+        group.options.map((option) => option.value)
+      );
+      setSelectedSeoulOptions(allValues);
+      setSelectedKyeongkiOptions(allValues);
+      setSelectedIncheonOptions(allValues);
     } else {
-      setSelectedOptions([...selectedOptions, value]);
+      setSelectedSeoulOptions([]);
+      setSelectedKyeongkiOptions([]);
+      setSelectedIncheonOptions([]);
     }
   };
   return (
@@ -89,85 +138,59 @@ const Index = () => {
           placement="bottom-start"
         >
           <Box className="tooltip-text">
-            <Typography>
-              <InfoOutlinedIcon />
-              지역 상세 설명 보기
-            </Typography>
+            <InfoOutlinedIcon />
+            <Typography variant="body3">지역 상세 설명 보기</Typography>
           </Box>
         </Tooltip>
         <Box className="period-box">
-          <RDButton color="light" variant="contained" size="large">
-            <Typography className="buttonText">수도권 내 상관없음</Typography>
-          </RDButton>
+          <RDCheckButton
+            color="light"
+            variant="contained"
+            size="large"
+            label="수도권 내 상관없음"
+            onClick={handleCapitalRegionClick}
+          />
         </Box>
       </Box>
-      <Box className="info-box">
-        {SeoulLocation.map((group) => (
-          <Box key={group.title}>
+      <Box>
+        {allLocations.map((group) => (
+          <Box key={group.title} className="info-box">
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="location-box">
               {group.options.map((option) => (
-                <RDButton
+                <RDCheckButton
                   key={option.value}
                   label={option.label}
-                  checked={selectedOptions.includes(option.value)}
-                  onClick={() => handleButtonClick(option.value)}
                   size="small"
-                  color={
-                    selectedOptions.includes(option.value) ? "primary" : "light"
-                  }
                   variant="contained"
-                >
-                  <Typography className="buttonText">{option.label}</Typography>
-                </RDButton>
-              ))}
-            </Box>
-          </Box>
-        ))}
-      </Box>
-      <Box className="info-box">
-        {KyeongkiLocation.map((group) => (
-          <Box key={group.title}>
-            <Typography variant="subtitle2">{group.title}</Typography>
-            <Box className="location-box">
-              {group.options.map((option) => (
-                <RDButton
-                  key={option.value}
-                  label={option.label}
-                  checked={selectedOptions.includes(option.value)}
-                  onClick={() => handleButtonClick(option.value)}
-                  size="small"
-                  color={
-                    selectedOptions.includes(option.value) ? "primary" : "light"
+                  checked={
+                    group.title === "서울"
+                      ? selectedSeoulOptions.includes(option.value)
+                      : group.title === "경기"
+                      ? selectedKyeongkiOptions.includes(option.value)
+                      : selectedIncheonOptions.includes(option.value)
                   }
-                  variant="contained"
-                >
-                  <Typography className="buttonText">{option.label}</Typography>
-                </RDButton>
-              ))}
-            </Box>
-          </Box>
-        ))}
-      </Box>
-      <Box className="info-box">
-        {IncheonLocation.map((group) => (
-          <Box key={group.title}>
-            <Typography variant="subtitle2">{group.title}</Typography>
-            <Box className="location-box">
-              {group.options.map((option) => (
-                <RDButton
-                  key={option.value}
-                  label={option.label}
-                  checked={selectedOptions.includes(option.value)}
-                  onClick={() => handleButtonClick(option.value)}
-                  size="small"
-                  color={
-                    selectedOptions.includes(option.value) ? "primary" : "light"
+                  onClick={() =>
+                    handleOptionClick(
+                      option.value,
+                      group.title === "서울"
+                        ? "Seoul"
+                        : group.title === "경기"
+                        ? "Kyeongki"
+                        : "Incheon"
+                    )
                   }
-                  variant="contained"
-                >
-                  <Typography className="buttonText">{option.label}</Typography>
-                </RDButton>
+                  color={
+                    (group.title === "서울" &&
+                      selectedSeoulOptions.includes(option.value)) ||
+                    (group.title === "경기" &&
+                      selectedKyeongkiOptions.includes(option.value)) ||
+                    (group.title === "인천" &&
+                      selectedIncheonOptions.includes(option.value))
+                      ? "primary"
+                      : "light"
+                  }
+                />
               ))}
             </Box>
           </Box>

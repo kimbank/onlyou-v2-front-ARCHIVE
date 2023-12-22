@@ -19,7 +19,7 @@ const Index = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2">기본 반영 조건</Typography>
+          <Typography variant="subtitle1">기본 반영 조건</Typography>
           <Typography variant="body2">선택하지 않아도 기본으로 반영되는 조건이에요.</Typography>
         </Box>
         <Box className="content-box">
@@ -28,19 +28,19 @@ const Index = () => {
               <SquareRoundedIcon className="box" />
               <CheckRoundedIcon className="check" />
             </Box>
-            <Typography color="primary" variant="h6">
+            <Typography color="primary" variant="subtitle2">
               나이 | 거주지 | 관심사 | 성격적 매력 | 외적 매력
             </Typography>
           </InfoText>
         </Box>
         <Box>
-          <Typography variant="h5">1~3순위 조건 선택하기</Typography>
-          <Typography>우선순위가 높을 수록 반영될 확률이 높아져요.</Typography>
+          <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
+          <Typography variant="body2">우선순위가 높을 수록 반영될 확률이 높아져요.</Typography>
         </Box>
         <RDButton variant="outlined" size="large" color="primary">
           이상형 조건 추가하기 +
         </RDButton>
-        <RDStepNavButton prevText="이전" prevHref="value/" nextText="다음" />
+        <RDStepNavButton prevText="이전" prevHref="other/" nextText="다음" />
       </SurveyRoot>
     );
 }

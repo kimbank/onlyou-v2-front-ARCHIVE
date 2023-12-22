@@ -13,13 +13,18 @@ interface DrawerProps {
   children?: React.ReactNode;
   open: boolean;
   onClose: () => void;
+  nextHref?:string;
 }
 
-export const SubmitDrawer = ({ children, open, onClose }: DrawerProps) => {
+export const SubmitDrawer = ({ children, open, onClose, nextHref }: DrawerProps) => {
   const router = useRouter();
 
   const handleCompleteClick = () => {
-    router.push("/Complete");
+    if (nextHref) {
+      router.push(nextHref);
+    } else {
+      router.push("/Complete");
+    }
   };
 
   return (

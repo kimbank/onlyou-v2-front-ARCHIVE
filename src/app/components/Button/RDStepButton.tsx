@@ -6,9 +6,9 @@ import RDButton from "../RDButton/RDButton";
 import RDStepNavButtonRoot from "./RDStepNavButtonRoot";
 
 interface RDStepNavButtonProps {
-  prevText: string;
-  prevHref: string;
-  nextText: string;
+  prevText?: string;
+  prevHref?: string;
+  nextText?: string;
   nextHref?: string;
   nextType?: "button" | "submit" | "reset";
   onClick?: () => void;

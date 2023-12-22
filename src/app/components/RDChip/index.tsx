@@ -17,7 +17,6 @@ export const RDChip = ({ label, checked, onClick, style ,colorB}: RDChipProps) =
       onClick={onClick}
       style={style}
       colorB={colorB}
-
     />
   );
 };
