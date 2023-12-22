@@ -4,7 +4,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Container, Typography } from "@mui/material";
 
 import { useState } from "react";
-import RDButton from "./components/RDButton/RDButton";
+import RDButton from "../components/RDButton/RDButton";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);

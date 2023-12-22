@@ -1,9 +1,9 @@
 "use client";
 
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { LetterModal } from "@/app/components/Modal/LetterModal/LetterModal";
-import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
-import RDButton from "@/app/components/RDButton/RDButton";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { LetterModal } from "@/components/Modal/LetterModal/LetterModal";
+import { InfoText } from "@/components/Notification/InfoText/InfoText";
+import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";
 import { Container, TextareaAutosize, Typography } from "@mui/material";
 import { useState } from "react";

@@ -1,8 +1,8 @@
 "use client";
 
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { RDChip } from "@/app/components/RDChip";
-import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { RDChip } from "@/components/RDChip";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { interestRadioGroups, lifeRadioGroups } from "../data/lifeData";

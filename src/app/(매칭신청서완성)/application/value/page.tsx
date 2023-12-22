@@ -1,7 +1,7 @@
 "use client";
 
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { ValueRadioGroups } from "../data/valueData";

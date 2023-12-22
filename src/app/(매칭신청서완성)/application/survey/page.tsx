@@ -1,14 +1,14 @@
 'use client'
 
-import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
-import RDButton from "@/app/components/RDButton/RDButton";
+import { InfoText } from "@/components/Notification/InfoText/InfoText";
+import RDButton from "@/components/RDButton/RDButton";
 import { Box, Container, Typography } from "@mui/material";
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import SurveyRoot from "./SurveyRoot";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
 const Index = () => {
     return (
       <SurveyRoot>

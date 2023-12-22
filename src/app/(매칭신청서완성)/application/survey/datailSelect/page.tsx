@@ -1,5 +1,5 @@
 "use client";
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import {
     Box,
     Divider,

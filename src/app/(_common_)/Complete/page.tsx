@@ -1,6 +1,6 @@
 "use client";
 
-import SubmitNavButton from "@/app/components/NavBars/SubmitNavButton";
+import SubmitNavButton from "@/components/NavBars/SubmitNavButton";
 import { Typography } from "@mui/material";
 import CompleteRoot from "./CompleteRoot";
 
