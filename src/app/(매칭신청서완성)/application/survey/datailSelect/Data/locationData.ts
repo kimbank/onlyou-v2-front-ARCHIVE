@@ -42,3 +42,9 @@ export const IncheonLocation: LocationGroup[] = [
     ],
   },
 ];
+export const CapitalRegionLocation: LocationGroup[] = [
+  {
+    title: "수도권 내 상관없음",
+    options: [{ value: "14", label: "수도권 내 상관없음" }],
+  },
+];

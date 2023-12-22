@@ -65,12 +65,16 @@ export default styled(Container)(({ theme }) => {
     ".tooltip-text": {
       display: "flex",
       alignItems: "center",
+      width:"116px",
+      cursor:"pointer",
       "& > :nth-child(1)": {
         marginRight: "4px",
         width: "18px",
         height: "18px",
       },
-      "& > :nth-child(2)": {},
+      "& > :nth-child(2)": {
+         textDecoration: 'underline',
+      },
     },
     ".chip": {
       display: "flex",

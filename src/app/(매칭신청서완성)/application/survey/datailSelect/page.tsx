@@ -16,14 +16,15 @@ import { styled } from '@mui/material/styles';
 import { tooltipTitle } from "./Data/tooltipData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import RDButton from "@/components/RDButton/RDButton";
-import { IncheonLocation, KyeongkiLocation, SeoulLocation } from "./Data/locationData";
+import { CapitalRegionLocation, IncheonLocation, KyeongkiLocation, SeoulLocation } from "./Data/locationData";
 import { RDChip } from "@/components/RDChip";
 import { interestRadioGroups, lifeRadioGroups } from "../../data/lifeData";
 import { characterchipGroups } from "../../data/characterData";
 import RDCheckButton from "@/components/Button/RDCheckButton";
 const Index = () => {
     const [value, setValue] = useState([1980, 2004]);
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [selectedChip1, setSelectedChip1] = useState<string[]>([]);
+    const [selectedChip2, setSelectedChip2] = useState<string[]>([]);
     const [selectedSeoulOptions, setSelectedSeoulOptions] = useState<
         string[]
       >([]);
@@ -33,12 +34,20 @@ const Index = () => {
     const [selectedIncheonOptions, setSelectedIncheonOptions] = useState<
         string[]
       >([]);
-    const [isCapitalRegionChecked, setIsCapitalRegionChecked] =
-         useState(false);
+    const [CapitalOptions, setCapitalOptions] = useState<string[]>([]);
+  const [CapitalChecked, setCapitalChecked] = useState(false);
 
-    const radioGroups1 = useMemo(() => characterchipGroups, []);
-    const radioGroups2 = useMemo(() => interestRadioGroups, []);
-    const allLocations = [...SeoulLocation, ...KyeongkiLocation, ...IncheonLocation];
+    const chipGroups1 = useMemo(() => characterchipGroups, []);
+    const chipGroups2 = useMemo(() => interestRadioGroups, []);
+const allChips = useMemo(
+  () => [...chipGroups1, ...chipGroups2],
+  [chipGroups1, chipGroups2]
+);
+const allLocations = useMemo(
+  () => [...SeoulLocation, ...KyeongkiLocation, ...IncheonLocation],
+  [SeoulLocation, KyeongkiLocation, IncheonLocation]
+);
+
      const handleOptionClick = (
        value: string,
        location: "Seoul" | "Kyeongki" | "Incheon"
@@ -66,6 +75,17 @@ const Index = () => {
          }
        });
      };
+  const handleCapitalClick = () => {
+    setCapitalChecked(!CapitalChecked);
+    if (!CapitalChecked) {
+      const capitalOptionValues = CapitalRegionLocation[0].options.map(
+        (option) => option.value
+      );
+      setCapitalOptions(capitalOptionValues);
+    } else {
+      setCapitalOptions([]);
+    }
+  };
 
   const handleChange = (event :any, newValue : any) => {
     setValue(newValue);
@@ -76,30 +96,39 @@ const Index = () => {
      setOpen(!open); 
    };
 
-  const handleChipClick = (value: string) => {
-    setSelectedOptions((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((option) => option !== value);
-      } else {
-        return [...prev, value];
-      }
-    });
-  };  const handleCapitalRegionClick = () => {
-    setIsCapitalRegionChecked(!isCapitalRegionChecked);
-
-    if (!isCapitalRegionChecked) {
-      const allValues = allLocations.flatMap((group) =>
-        group.options.map((option) => option.value)
-      );
-      setSelectedSeoulOptions(allValues);
-      setSelectedKyeongkiOptions(allValues);
-      setSelectedIncheonOptions(allValues);
+const handleChipClick = (
+  value: string,
+  setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>
+) => {
+  setSelectedOptions((prev) => {
+    if (prev.includes(value)) {
+      return prev.filter((option) => option !== value);
     } else {
-      setSelectedSeoulOptions([]);
-      setSelectedKyeongkiOptions([]);
-      setSelectedIncheonOptions([]);
+      return [...prev, value];
     }
-  };
+  });
+};
+
+const allButtonSelected =
+  allLocations.every((group) =>
+    group.options.some(
+      (option) =>
+        selectedSeoulOptions.includes(option.value) ||
+        selectedKyeongkiOptions.includes(option.value) ||
+        selectedIncheonOptions.includes(option.value)
+    )
+  ) || CapitalOptions.length > 0; 
+const allChipsSelected = allChips.every((group) =>
+  group.options.some(
+    (option) =>
+      selectedChip1.includes(option.value) &&
+      selectedChip2.includes(option.value)
+  )
+);
+
+
+  const allGroupsSelected = allButtonSelected && allChipsSelected;
+
   return (
     <DetailSelectRoot>
       <Box className="title-box">
@@ -148,7 +177,8 @@ const Index = () => {
             variant="contained"
             size="large"
             label="수도권 내 상관없음"
-            onClick={handleCapitalRegionClick}
+            onClick={handleCapitalClick}
+            checked={CapitalChecked}
           />
         </Box>
       </Box>
@@ -198,7 +228,7 @@ const Index = () => {
       </Box>
       <Divider className="divider" />
       <Box className="info-box">
-        {radioGroups1.map((group) => (
+         {chipGroups1.map((group) => (
           <Box key={group.title}>
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="chip">
@@ -206,17 +236,19 @@ const Index = () => {
                 <RDChip
                   key={option.value}
                   label={option.label}
-                  checked={selectedOptions.includes(option.value)}
-                  onClick={() => handleChipClick(option.value)}
+                  checked={selectedChip1.includes(option.value)}
+                  onClick={() =>
+                    handleChipClick(option.value, setSelectedChip1)
+                  }
                 />
               ))}
-            </Box>
+            </Box> 
           </Box>
         ))}
       </Box>
       <Divider className="divider" />
       <Box className="info-box">
-        {radioGroups2.map((group) => (
+         {chipGroups2.map((group) => (
           <Box key={group.title}>
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="chip">
@@ -224,22 +256,27 @@ const Index = () => {
                 <RDChip
                   key={option.value}
                   label={option.label}
-                  checked={selectedOptions.includes(option.value)}
-                  onClick={() => handleChipClick(option.value)}
+                  checked={selectedChip2.includes(option.value)}
+                  onClick={() =>
+                    handleChipClick(option.value, setSelectedChip2)
+                  }
                 />
               ))}
-            </Box>
+            </Box> 
           </Box>
         ))}
       </Box>
-
-      <RDStepNavButton
+        <RDButton>
+            <Typography>저장</Typography>
+        </RDButton>
+      {/* <RDStepNavButton
         prevText="이전"
         nextText="다음"
         prevHref="value/"
         nextHref="character/"
         nextType="button"
-      />
+        checkedStates={allGroupsSelected}
+      /> */}
     </DetailSelectRoot>
   );
 };

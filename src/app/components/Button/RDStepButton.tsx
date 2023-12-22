@@ -29,10 +29,11 @@ export const RDStepNavButton = ({
   const router = useRouter();
   const [checkboxChecked, setCheckboxChecked] = useState(false);
 
-  const handlePrevClick = () => {
+const handlePrevClick = () => {
+  if (prevHref) {
     router.push(prevHref);
-  };
-
+  }
+};
   const handleNextClick = () => {
     if (nextHref) {
       router.push(nextHref);

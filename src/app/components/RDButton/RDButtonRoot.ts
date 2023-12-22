@@ -41,10 +41,14 @@ export default styled(Button)(({
       },
 
       "&:focus:not(:hover)": {
-        backgroundColor: focusedBackgroundValue,
+        background: backgroundValue,
         color: colorValue,
       },
-
+      "&:focus": {
+        outline: `2px solid ${disabled.main}`,
+        outlineOffset: "2px",
+        transition: 'outline 0.3s ease',
+      },
       "&:disabled": {
         backgroundColor: disabled.main,
         color: disabled.focus,

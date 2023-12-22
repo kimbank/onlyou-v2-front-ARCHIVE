@@ -1,16 +1,12 @@
 "use client";
 
-import { Box, Typography, Button } from "@mui/material";
-import { ReportGmailerrorredOutlined } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 
-import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDButton from "@/components/RDButton/RDButton";
-import { MatchingBox } from "./components/MatchingBox";
-import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
+import StepInfo from "./StepInfo";
 
 import MatchingRoot from "./MatchingRoot";
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 
 
 const Index = () => {
@@ -37,9 +33,8 @@ const Index = () => {
           </Typography>
         </InfoBox> */}
         <SaveInfo />
-        <RDStepNavButton nextText="매칭신청서 완성하기" />
         <RDButton variant="contained" color="primary" size="large">
-          <Typography variant="button">매칭신청서 완성하기11</Typography>
+          <Typography variant="button">매칭신청서 완성하기</Typography>
         </RDButton>
       </Box>
     </MatchingRoot>
