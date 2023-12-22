@@ -6,9 +6,9 @@ import RDButton from "../RDButton/RDButton";
 import RDStepNavButtonRoot from "./RDStepNavButtonRoot";
 
 interface RDStepNavButtonProps {
-  prevText: string;
-  prevHref: string;
-  nextText: string;
+  prevText?: string;
+  prevHref?: string;
+  nextText?: string;
   nextHref?: string;
   nextType?: "button" | "submit" | "reset";
   onClick?: () => void;
@@ -29,10 +29,11 @@ export const RDStepNavButton = ({
   const router = useRouter();
   const [checkboxChecked, setCheckboxChecked] = useState(false);
 
-  const handlePrevClick = () => {
+const handlePrevClick = () => {
+  if (prevHref) {
     router.push(prevHref);
-  };
-
+  }
+};
   const handleNextClick = () => {
     if (nextHref) {
       router.push(nextHref);

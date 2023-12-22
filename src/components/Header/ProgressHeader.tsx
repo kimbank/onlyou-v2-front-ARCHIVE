@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -9,15 +10,27 @@ import { Box, LinearProgress } from "@mui/material";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 
 import HeaderRoot from "./HeaderRoot";
+import { SaveModal } from "../Modal/SaveModal";
 
+export const ProgressHeader = ({
+  progress,
+}: {
+  href?: string;
+  progress?: number;
+}) => {
+  const [modalOpen, setModalOpen] = useState(false);
+    const handleOpenModal = () => {
+      setModalOpen(true);
+    };
 
-export const HomeHeader = ({ href = "/", progress }: { href: string, progress: number }) => {
-
+    const handleCloseModal = () => {
+      setModalOpen(false);
+    };
   return (
     <HeaderRoot>
       <div className="header-container">
         <header className="header">
-          <Link href="/">
+          <Link href="/matching">
             <Image
               src={LogoIcon}
               alt="logo"
@@ -27,17 +40,19 @@ export const HomeHeader = ({ href = "/", progress }: { href: string, progress: n
               style={{ verticalAlign: "middle" }}
             />
           </Link>
-          
-          <Link href={href} style={{ fontSize: "28px" }}>
-            <CloseIcon fontSize="inherit" />
-          </Link>
+
+          <CloseIcon
+            className="closeIcon"
+            onClick={handleOpenModal}
+          />
         </header>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <LinearProgress variant="determinate" value={progress} />
         </Box>
       </div>
+      <SaveModal open={modalOpen} onClose={handleCloseModal} />
     </HeaderRoot>
   );
 };
 
-export default HomeHeader;
+export default ProgressHeader;

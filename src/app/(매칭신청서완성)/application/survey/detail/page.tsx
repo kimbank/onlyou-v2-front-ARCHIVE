@@ -1,13 +1,13 @@
 "use client";
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { RDChip } from "@/app/components/RDChip";
-import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { RDChip } from "@/components/RDChip";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Container, Divider, Skeleton, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 
 import { conditionChipGroups } from "../../data/conditionData";
 import DetailRoot from "./DetailRoot";
-import RDButton from "@/app/components/RDButton/RDButton";
+import RDButton from "@/components/RDButton/RDButton";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 
@@ -22,7 +22,7 @@ const Index = () => {
           상세한 설정에 따라 예상 매칭 주기를 알려드려요
         </Typography>
       </Box>
-      <Box className="button-box">
+      <Box className="button-container">
         <RDButton
           className="button"
           variant="contained"

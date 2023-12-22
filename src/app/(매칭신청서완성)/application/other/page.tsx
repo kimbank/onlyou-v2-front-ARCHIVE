@@ -1,10 +1,10 @@
 "use client";
 
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { SubmitDrawer } from "@/app/components/Drawer/SubmitDrawer/SubmitDrawer";
-import { InfoBox } from "@/app/components/Notification/InfoBox/InfoBox";
-import RDInput from "@/app/components/RDInput";
-import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer/SubmitDrawer";
+import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
+import RDInput from "@/components/RDInput";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
 import { Box, Container, Divider, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -118,7 +118,7 @@ const Index = () => {
         onClick={handleOpenDrawer}
         tips
       />
-      <SubmitDrawer open={drawerOpen} onClose={handleCloseDrawer} />
+      <SubmitDrawer nextHref="survey/" open={drawerOpen} onClose={handleCloseDrawer} />
     </OtherRoot>
   );
 };

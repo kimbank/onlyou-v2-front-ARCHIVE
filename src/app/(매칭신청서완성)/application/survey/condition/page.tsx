@@ -1,13 +1,13 @@
 'use client';
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { RDChip } from "@/app/components/RDChip";
-import RDRadioInput from "@/app/components/RDRadio/RDRadioInput";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { RDChip } from "@/components/RDChip";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Container, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 
 import { conditionChipGroups } from '../../data/conditionData';
 import ConditionRoot from "./ConditionRoot";
-import RDButton from "@/app/components/RDButton/RDButton";
+import RDButton from "@/components/RDButton/RDButton";
 
 interface RadioOption {
   value: string;

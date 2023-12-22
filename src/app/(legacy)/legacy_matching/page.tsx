@@ -1,13 +1,10 @@
 "use client";
 
-import { Box, Typography, Button } from "@mui/material";
-import { ReportGmailerrorredOutlined } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 
-import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDButton from "@/components/RDButton/RDButton";
-import { MatchingBox } from "./components/MatchingBox";
-import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
+import StepInfo from "./StepInfo";
 
 import MatchingRoot from "./MatchingRoot";
 

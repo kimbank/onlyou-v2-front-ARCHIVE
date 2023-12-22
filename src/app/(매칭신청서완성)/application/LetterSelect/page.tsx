@@ -1,8 +1,8 @@
 "use client";
 
-import { RDStepNavButton } from "@/app/components/Button/RDStepButton";
-import { Checkbox } from "@/app/components/CheckBox/CheckBox";
-import { InfoText } from "@/app/components/Notification/InfoText/InfoText";
+import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { Checkbox } from "@/components/CheckBox/CheckBox";
+import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";
 import { Container, Typography } from "@mui/material";
