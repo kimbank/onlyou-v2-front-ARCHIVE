@@ -22,7 +22,7 @@ const Index = () => {
           상세한 설정에 따라 예상 매칭 주기를 알려드려요
         </Typography>
       </Box>
-      <Box className="button-box">
+      <Box className="button-container">
         <RDButton
           className="button"
           variant="contained"

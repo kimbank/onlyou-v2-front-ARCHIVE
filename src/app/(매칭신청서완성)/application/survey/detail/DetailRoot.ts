@@ -16,7 +16,7 @@ export default styled(Container)(({ theme }) => {
           marginTop: "9px",
         },
       },
-      ".button-box": {
+      ".button-container": {
         display: "flex",
         flexDirection: "column",
         gap: "16px",

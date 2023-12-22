@@ -24,7 +24,7 @@ export default styled("div")(({ theme }) => {
       backgroundColor: "#fff",
       boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
     },
-    
+
     ".header-box": {
       display: "flex",
       gap: "20px",
@@ -44,6 +44,13 @@ export default styled("div")(({ theme }) => {
     },
     "& .MuiSvgIcon-root": {
       verticalAlign: "middle",
+    },
+    ".closeIcon": {
+      cursor: "pointer",
+      transition: "transform 0.2s ease-in-out",
+      "&:hover": {
+        transform: "scale(1.2)",
+      },
     },
   };
 });

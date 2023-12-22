@@ -4,7 +4,6 @@ import ModalFrame from "../ModalFrame";
 import ModalButton from "../modalItem/ModalButton";
 import ModalContent from "../modalItem/ModalContent";
 import ModalTitle from "../modalItem/ModalTitle";
-import LetterModalRoot from "./LetterModalRoot";
 import { useRouter } from "next/navigation";
 
 interface ModalProps {
@@ -52,3 +51,26 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
     </ModalFrame>
   );
 };
+
+import { styled } from "@mui/material";
+
+const LetterModalRoot = styled(Container)(({ theme }) => {
+  return {
+    display: "flex",
+    flexDirection: "column",
+    margin: 0,
+    gap: "11px",
+    ".modal-contents": {
+      display: "flex",
+      flexDirection: "column",
+      padding: 0,
+    },
+    ".modal-buttons": {
+      width: "100%",
+      padding: 0,
+      display: "flex",
+      gap: "8px",
+      justifyContent: "flex-end",
+    },
+  };
+});

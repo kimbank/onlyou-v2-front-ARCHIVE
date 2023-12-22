@@ -1,7 +1,7 @@
 "use client";
 
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
-import { LetterModal } from "@/components/Modal/LetterModal/LetterModal";
+import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";

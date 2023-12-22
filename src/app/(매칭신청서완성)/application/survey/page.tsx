@@ -9,7 +9,12 @@ import SurveyRoot from "./SurveyRoot";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { useRouter } from "next/navigation";
 const Index = () => {
+  const router = useRouter();
+  const handleHref =() =>{
+    router.push('survey/detail/')
+  }
     return (
       <SurveyRoot>
         <Box className="title-box">
@@ -37,7 +42,7 @@ const Index = () => {
           <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
           <Typography variant="body2">우선순위가 높을 수록 반영될 확률이 높아져요.</Typography>
         </Box>
-        <RDButton variant="outlined" size="large" color="primary">
+        <RDButton variant="outlined" size="large" color="primary" onClick={handleHref}>
           이상형 조건 추가하기 +
         </RDButton>
         <RDStepNavButton prevText="이전" prevHref="other/" nextText="다음" />

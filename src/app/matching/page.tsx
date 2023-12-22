@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import HomeHeader from "@/comp/Header/HomeHeader";
 import BottomNavi from "@/comp/BottomNavi";
 import RDButton from "@/components/RDButton/RDButton";
-
+import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
 
@@ -12,6 +12,10 @@ import { styled } from "@mui/material";
 
 
 const MatchingIndex = () => {
+  const router = useRouter();
+  const handleHref = () => {
+    router.push('application/value');
+  };
   return (
     <>
       <HomeHeader />
@@ -28,7 +32,12 @@ const MatchingIndex = () => {
         <Box className="content">
           <StepInfo />
           <SaveInfo />
-          <RDButton variant="contained" color="primary" size="large">
+          <RDButton
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={handleHref}
+          >
             <Typography variant="button">매칭신청서 완성하기</Typography>
           </RDButton>
         </Box>
