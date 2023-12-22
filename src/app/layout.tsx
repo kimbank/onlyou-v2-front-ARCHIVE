@@ -1,11 +1,10 @@
 import "./globals.css";
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Hotjar from "@/utils/hotjar";
 import DatadogRum from "@/utils/datadogRum";
 
-import { theme } from "@/assets";
-import ReduxProvider from "@/store/provider.tsx";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import Provider from "@/provider";
 
 export const metadata = {
   title: '아무나 만나지 마세요, 연애정보회사 ONLYou',
@@ -16,7 +15,7 @@ export const metadata = {
 const RootLayout = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) => {
   return (
     <html lang="ko-KR" translate="no">
@@ -30,17 +29,13 @@ const RootLayout = ({
         { process.env.NODE_ENV === "production" && <DatadogRum /> }
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline>
-            <ReduxProvider>
-              <div id="root">
-                <div id="page">
-                  {children}
-                </div>
-              </div>
-            </ReduxProvider>
-          </CssBaseline>
-        </ThemeProvider>
+        <div id="root">
+          <div id="page">
+            <Provider>
+              {children}
+            </Provider>
+          </div>
+        </div>
         {/* Vercel Speed Isight */}
         { process.env.NODE_ENV === "production" && <SpeedInsights /> }
       </body>
