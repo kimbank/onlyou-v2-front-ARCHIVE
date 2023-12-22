@@ -11,7 +11,7 @@ import CloseIcon from "@mui/icons-material/CloseRounded";
 import HeaderRoot from "./HeaderRoot";
 
 
-export const HomeHeader = ({ href = "/", progress }: { href: string, progress: number }) => {
+export const ProgressHeader = ({ href = "/matching", progress }: { href?: string, progress?: number }) => {
 
   return (
     <HeaderRoot>
@@ -40,4 +40,4 @@ export const HomeHeader = ({ href = "/", progress }: { href: string, progress: n
   );
 };
 
-export default HomeHeader;
+export default ProgressHeader;
