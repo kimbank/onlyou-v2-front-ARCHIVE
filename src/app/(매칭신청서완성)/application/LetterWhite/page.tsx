@@ -13,53 +13,43 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
   const checkedStates = useSelector(
-    (state: RootState) => state.checkbox.checkedItems
-  );
+      (state: RootState) => state.checkbox.checkedItems
+    );
+  const checkedItems = checkedStates
+    .map((checkbox, index) =>
+      checkbox.checked ? { index, name: checkbox.name } : null
+    )
+    .filter((item) => item !== null);
   const [lettertexts, setLetterTexts] = useState<string[]>(
-    checkedStates.map(() => "")
-  );
-  const checkboxNames = [
-    "지금 어떤 일을 하고 있나요?",
-    "인생의 목표가 있다면?",
-    "내가 연인에게 해줄 수 있는 것은?",
-    "주변인이 말하는 내 매력은?",
-    "내 취미 생활은 ?",
-    "이런 연애를 지향해요",
-    "잊지 못할 일생일대의 경험은?",
-    "연인이 생기면 하고싶은 일은?",
-    "내가 인생에서 가장 잘한 일은?",
-    "자유편지",
-  ];
+      checkedItems.map(() => "")
+    );
   const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
-    new Array(checkedStates.length).fill(false)
-  );
-  const toggleEditMode = (index: number) => () => {
-    if (lettertexts[index].length > 0) {
-      const newReadOnlyStates = [...readOnlyStates];
-      newReadOnlyStates[index] = !newReadOnlyStates[index];
-      setReadOnlyStates(newReadOnlyStates);
-    }
+      checkedItems.map(() => false)
+    );
+
+const toggleEditMode = (checkedIndex: number) => () => {
+  if (lettertexts[checkedIndex].length > 0) {
+    const newReadOnlyStates = [...readOnlyStates];
+    newReadOnlyStates[checkedIndex] = !newReadOnlyStates[checkedIndex];
+    setReadOnlyStates(newReadOnlyStates);
+  }
+};
+const handleTextChange =
+  (checkedIndex: number) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newTextValues = [...lettertexts];
+    newTextValues[checkedIndex] = event.target.value;
+    setLetterTexts(newTextValues);
   };
+  const isAllChecked = readOnlyStates.every((state) => state === true);
 
-  const handleTextChange =
-    (index: number) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const newTextValues = [...lettertexts];
-      newTextValues[index] = event.target.value;
-      setLetterTexts(newTextValues);
+    const handleOpenModal = () => {
+      setModalOpen(true);
     };
-  const isAllChecked = checkedStates.every(Boolean);
 
-  useEffect(() => console.log(checkedStates));
+    const handleCloseModal = () => {
+      setModalOpen(false);
+    };
 
   return (
     <LetterRoot>
@@ -76,67 +66,60 @@ const Index = () => {
         </InfoText>
 
         <Container className="letter-box">
-          {checkedStates.map(
-            (isChecked, index) =>
-              isChecked && (
-                <div key={index}>
-                  <Typography variant="subtitle2">
-                    {checkboxNames[index]}
+          {checkedItems.map((item, index) => (
+            <div key={index}>
+              <Typography variant="subtitle2">
+                {index+1}.{item?.name}
+              </Typography>
+              <TextareaAutosize
+                aria-label="textarea"
+                minRows={3}
+                placeholder="답변을 작성해주세요"
+                style={{
+                  width: "100%",
+                  border: "1px solid #B2B0AE",
+                  borderRadius: "10px",
+                  color: readOnlyStates[index] ? "gray" : "black",
+                  padding: "16px",
+                  height: "210px",
+                  minHeight: "140px",
+                }}
+                onChange={handleTextChange(index)}
+                readOnly={readOnlyStates[index]}
+              />
+              <Container className="letter-box-values">
+                <Typography variant="caption">
+                  글자 수 /
+                  <Typography
+                    variant="caption"
+                    color={
+                      lettertexts[index].length > 30 ? "primary" : "inherit"
+                    }
+                  >
+                    {lettertexts[index].length}
                   </Typography>
-                  <TextareaAutosize
-                    aria-label="textarea"
-                    minRows={3}
-                    placeholder="답변을 작성해주세요"
-                    style={{
-                      width: "100%",
-                      border: "1px solid #B2B0AE",
-                      borderRadius: "10px",
-                      color: readOnlyStates[index] ? "gray" : "black",
-                      padding: "16px",
-                      height: "210px",
-                      minHeight: "140px",
-                    }}
-                    onChange={handleTextChange(index)}
-                    readOnly={readOnlyStates[index]}
-                  />
-                  <Container className="letter-box-values">
-                    <Typography color="" variant="caption">
-                      글자 수 /
-                      <Typography
-                        variant="caption"
-                        color={
-                          lettertexts[index].length > 0 ? "primary" : "inherit"
-                        }
-                      >
-                        {lettertexts[index].length}
-                      </Typography>
-                      자
-                    </Typography>
+                  자
+                </Typography>
 
-                    {lettertexts[index].length > 0 ? (
-                      <>
-                        <RDButton
-                          variant="contained"
-                          size="small"
-                          color="primary"
-                          onClick={toggleEditMode(index)}
-                        >
-                          {readOnlyStates[index] ? "수정하기" : "저장하기"}
-                        </RDButton>
-                      </>
-                    ) : (
-                      <RDButton
-                        variant="contained"
-                        size="small"
-                        disabled={true}
-                      >
-                        저장하기
-                      </RDButton>
-                    )}
-                  </Container>
-                </div>
-              )
-          )}
+                {lettertexts[index].length > 0 ? (
+                  <>
+                    <RDButton
+                      variant="contained"
+                      size="small"
+                      color="primary"
+                      onClick={toggleEditMode(index)}
+                    >
+                      {readOnlyStates[index] ? "수정하기" : "저장하기"}
+                    </RDButton>
+                  </>
+                ) : (
+                  <RDButton variant="contained" size="small" disabled={true}>
+                    저장하기
+                  </RDButton>
+                )}
+              </Container>
+            </div>
+          ))}
         </Container>
         <RDStepNavButton
           prevText="이전"
