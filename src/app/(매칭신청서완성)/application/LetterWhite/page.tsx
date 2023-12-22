@@ -6,9 +6,10 @@ import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";
 import { Container, TextareaAutosize, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -57,6 +58,9 @@ const Index = () => {
       setLetterTexts(newTextValues);
     };
   const isAllChecked = checkedStates.every(Boolean);
+
+  useEffect(() => console.log(checkedStates));
+
   return (
     <LetterRoot>
       <Container className="letter-container">
@@ -64,8 +68,8 @@ const Index = () => {
           📝 <br />
           이제 편지를 작성해 볼까요?
         </Typography>
-
-        <InfoText>
+        <InfoText bgColor="primary">
+          <InfoOutlinedIcon color="primary" />
           <Typography variant="body2" className="caption">
             편지를 정성스레 쓸 수록 성사율이 올라가요!
           </Typography>
@@ -76,7 +80,7 @@ const Index = () => {
             (isChecked, index) =>
               isChecked && (
                 <div key={index}>
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="subtitle2">
                     {checkboxNames[index]}
                   </Typography>
                   <TextareaAutosize

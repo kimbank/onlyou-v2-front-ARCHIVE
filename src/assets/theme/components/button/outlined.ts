@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { transparent, light, info, secondary } = colors;
+const { transparent, light, info, secondary,primary } = colors;
 const { size } = typography;
 
 const outlined = {
@@ -11,8 +11,7 @@ const outlined = {
     width: "auto",
     padding: `${pxToRem(6)} ${pxToRem(16)}`,
     fontSize: size.xs,
-    boxShadow: `0 4px 4px rgba(0, 0, 0, 0.2)`,
-
+    border: `1px solid ${primary.main}`,
     "&:hover": {
       opacity: 0.75,
       backgroundColor: transparent.main,
@@ -27,7 +26,7 @@ const outlined = {
     width: "50%",
     padding: `${pxToRem(12)} ${pxToRem(28)}`,
     fontSize: size.sm,
-
+    border: `1px solid ${primary.main}`,
     "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
     },
@@ -38,6 +37,7 @@ const outlined = {
     color: light.main,
     borderColor: light.main,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
+    border: `1px solid ${primary.main}`,
 
     "&:hover": {
       opacity: 0.75,

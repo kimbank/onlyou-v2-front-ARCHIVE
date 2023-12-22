@@ -7,12 +7,22 @@ import { useEffect, useMemo, useState } from "react";
 import { ValueRadioGroups } from "../data/valueData";
 
 import ValueRoot from "./ValueRoot";
+import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer/SubmitDrawer";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+    const [drawerOpen, setDrawerOpen] = useState(true);
+
+    const handleOpenDrawer = () => {
+      setDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+      setDrawerOpen(false);
+    };
 
   const radioGroups = useMemo(() => ValueRadioGroups, []);
 
@@ -39,6 +49,11 @@ const Index = () => {
 
   return (
     <ValueRoot>
+      {/* <SubmitDrawer
+        nextHref="survey/"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+      /> */}
       <Box className="title-box">
         <Typography variant="subtitle2">
           <strong>1</strong>/6

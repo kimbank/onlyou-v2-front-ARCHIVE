@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 const Index = () => {
   const router = useRouter();
   const handleHref =() =>{
-    router.push('survey/detail/')
+    router.push('survey/condition/')
   }
     return (
       <SurveyRoot>

@@ -2,14 +2,14 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { text, info, secondary, transparent } = colors;
+const {white, info, secondary, transparent } = colors;
 const { size } = typography;
 
 const buttonText = {
   base: {
     backgroundColor: transparent.main,
     minHeight: pxToRem(40),
-    color: text.main,
+    color: white.main,
     boxShadow: "none",
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
 
