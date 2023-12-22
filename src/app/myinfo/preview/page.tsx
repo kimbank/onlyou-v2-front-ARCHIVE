@@ -1,16 +1,15 @@
 "use client"
 
-import CloseHeader from "@/comp/Header/CloseHeader";
-import HomeHeader from "@/comp/Header/HomeHeader";
-import ProgressHeader from "@/comp/Header/ProgressHeader";
-import WatermarkedImage from "@/comp/WatermarkImage";
+import CloseHeader from "@/components/Header/CloseHeader";
+import HomeHeader from "@/components/Header/HomeHeader";
+import ProgressHeader from "@/components/Header/ProgressHeader";
+import WatermarkedImage from "@/components/WatermarkImage";
 
 
-const MyInfoPreview = () => {
+const PreviewPage = () => {
   return (
     <>
-      {/* <CloseHeader href="/" /> */}
-      {/* <HomeHeader /> */}
+      <HomeHeader />
       <ProgressHeader href="/" progress={30} />
 
       <div>
@@ -21,4 +20,4 @@ const MyInfoPreview = () => {
   );
 }
 
-export default MyInfoPreview;
+export default PreviewPage;
