@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+
 import LogoIcon from "public/icons/logo.svg";
 
 import HeaderRoot from "./HeaderRoot";

@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import LogoIcon from "public/images/header/logo_48x48.png";
-
 import { useState } from "react";
 
-import { Box, LinearProgress } from "@mui/material";
+import LogoIcon from "public/icons/logo.svg";
 import CloseIcon from "@mui/icons-material/CloseRounded";
+
+
+import { Box, LinearProgress } from "@mui/material";
 
 import HeaderRoot from "./HeaderRoot";
 import { SaveModal } from "../Modal/SaveModal";
