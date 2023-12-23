@@ -8,7 +8,7 @@ interface RDChipRootProps {
     }
 const {
   white,
-  text,
+  // text,
   transparent,
   gray,
   light,

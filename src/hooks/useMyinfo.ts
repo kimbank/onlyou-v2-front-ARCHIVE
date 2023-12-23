@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import fetcher from '@/utils/axiosFetcher';
+import fetcher from './swr/axiosFetcher';
 
 
 export const useMyinfo = () => {

@@ -53,7 +53,7 @@ const MyInfo = () => {
     }
   }
 
-  const handleDormant = (e, newValue) => {
+  const handleDormant = (e: any, newValue: any) => {
     if (newValue !== null) {
       setShowModal(true);
       if (newValue == 'true') {
@@ -111,19 +111,19 @@ const MyInfo = () => {
 
             {/* 직장유형 */}
             <Typography className='basic-gray' sx={{display: 'flex', verticalAlign: 'center'}}>
-              <Image src={Job} width='20px' style={{marginRight: '10px'}}/>
+              <Image src={Job} width={20} style={{marginRight: '10px'}} alt="직장"/>
               {myInfo?.jobType ? myInfo?.job_type : "직장정보 미입력"}
             </Typography>
 
             {/* 거주지 */}
             <Typography className='basic-gray' sx={{display: 'flex', verticalAlign: 'center'}}>
-              <Image src={Home} width='20px' style={{marginRight: '10px'}}/>
+              <Image src={Home} width={20} style={{marginRight: '10px'}} alt="거주지"/>
               {myInfo?.residence ? myInfo?.residence : "거주지 미입력"}
             </Typography>
 
             {/* 생년월일 */}
             <Typography className='basic-gray' sx={{display: 'flex', verticalAlign: 'center'}}>
-              <Image src={Birth} width='20px' style={{marginRight: '10px'}}/>
+              <Image src={Birth} width={20} style={{marginRight: '10px'}} alt="나이"/>
               {myInfo?.date_birth ? myInfo?.date_birth : "????"}년생
             </Typography>
           </Container>
@@ -137,7 +137,7 @@ const MyInfo = () => {
               myInfo?.dormant ? 
               <>
                 <Typography className='heading2' style={{marginRight: '56px'}}>휴면상태를<br/>해제하시겠습니까?</Typography>
-                <Typography className='basic-gray'>{data.dormant}에 휴면상태로<br/>전환되었습니다.</Typography>
+                <Typography className='basic-gray'>{myInfo.dormant}에 휴면상태로<br/>전환되었습니다.</Typography>
                 <MainButton buttonName='휴면 해제하기' onClick={() => setDormantFalse()} />
               </> :
               <>
