@@ -65,8 +65,9 @@ const SaveModalRoot = styled(Box)(({ theme }) => {
     padding: 0,
     margin: 0,
     gap: "12px",
+    height: 154,
     "& > :nth-child(3)": {
-      marginTop:"12px",
+      marginTop: "12px",
     },
     ".modal-buttons": {
       display: "flex",

@@ -5,7 +5,7 @@ import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";
-import { Container, TextareaAutosize, Typography } from "@mui/material";
+import { Box, Container, TextareaAutosize, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LetterRoot from "./LetterWhiteRoot";
@@ -24,15 +24,25 @@ const Index = () => {
   const [lettertexts, setLetterTexts] = useState<string[]>(
       checkedItems.map(() => "")
     );
-  const [readOnlyStates, setReadOnlyStates] = useState<boolean[]>(
+  const [onlyRead, setOnlyRead] = useState<boolean[]>(
       checkedItems.map(() => false)
     );
+const [textVaild, setTextValid] = useState<boolean[]>(
+  checkedItems.map(() => false)
+);
 
 const toggleEditMode = (checkedIndex: number) => () => {
-  if (lettertexts[checkedIndex].length > 0) {
-    const newReadOnlyStates = [...readOnlyStates];
+  if (lettertexts[checkedIndex].length >= 30) {
+    const newReadOnlyStates = [...onlyRead];
     newReadOnlyStates[checkedIndex] = !newReadOnlyStates[checkedIndex];
-    setReadOnlyStates(newReadOnlyStates);
+    setOnlyRead(newReadOnlyStates);
+    setTextValid((prev) =>
+      prev.map((val, idx) => (idx === checkedIndex ? false : val))
+    );
+  } else {
+    setTextValid((prev) =>
+      prev.map((val, idx) => (idx === checkedIndex ? true : val))
+    );
   }
 };
 const handleTextChange =
@@ -41,7 +51,7 @@ const handleTextChange =
     newTextValues[checkedIndex] = event.target.value;
     setLetterTexts(newTextValues);
   };
-  const isAllChecked = readOnlyStates.every((state) => state === true);
+  const isAllChecked = onlyRead.every((state) => state === true);
 
     const handleOpenModal = () => {
       setModalOpen(true);
@@ -67,9 +77,9 @@ const handleTextChange =
 
         <Container className="letter-box">
           {checkedItems.map((item, index) => (
-            <div key={index}>
-              <Typography variant="subtitle2">
-                {index+1}.{item?.name}
+            <Box key={index}>
+              <Typography className="letter-title" variant="subtitle2">
+                {index + 1}.{item?.name}
               </Typography>
               <TextareaAutosize
                 aria-label="textarea"
@@ -77,24 +87,23 @@ const handleTextChange =
                 placeholder="답변을 작성해주세요"
                 style={{
                   width: "100%",
-                  border: "1px solid #B2B0AE",
+                  border:
+                    "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
                   borderRadius: "10px",
-                  color: readOnlyStates[index] ? "gray" : "black",
+                  color: onlyRead[index] ? "gray" : "black",
                   padding: "16px",
                   height: "210px",
                   minHeight: "140px",
                 }}
                 onChange={handleTextChange(index)}
-                readOnly={readOnlyStates[index]}
+                readOnly={onlyRead[index]}
               />
               <Container className="letter-box-values">
                 <Typography variant="caption">
                   글자 수 /
                   <Typography
                     variant="caption"
-                    color={
-                      lettertexts[index].length > 30 ? "primary" : "inherit"
-                    }
+                     color={textVaild[index] ? "red" : "inherit"}
                   >
                     {lettertexts[index].length}
                   </Typography>
@@ -109,7 +118,7 @@ const handleTextChange =
                       color="primary"
                       onClick={toggleEditMode(index)}
                     >
-                      {readOnlyStates[index] ? "수정하기" : "저장하기"}
+                      {onlyRead[index] ? "수정하기" : "저장하기"}
                     </RDButton>
                   </>
                 ) : (
@@ -118,7 +127,7 @@ const handleTextChange =
                   </RDButton>
                 )}
               </Container>
-            </div>
+            </Box>
           ))}
         </Container>
         <RDStepNavButton
