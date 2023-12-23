@@ -1,11 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import LogoIcon from "public/images/header/logo_48x48.png";
 
-import { useState } from "react";
-
-import { Box } from "@mui/material";
+import LogoIcon from "public/icons/logo.svg";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 
 import HeaderRoot from "./HeaderRoot";

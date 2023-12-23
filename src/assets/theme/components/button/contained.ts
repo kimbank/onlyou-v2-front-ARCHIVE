@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { white, text, info, secondary } = colors;
+const { white, info, secondary } = colors;
 const { size } = typography;
 
 const contained = {
@@ -43,7 +43,7 @@ const contained = {
     backgroundColor: info.main,
     width: "100%",
     minHeight: "52px",
-    color: text.main,
+    color: white.main,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
 
     "&:hover": {

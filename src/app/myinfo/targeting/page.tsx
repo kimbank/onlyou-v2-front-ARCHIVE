@@ -1,5 +1,5 @@
 
-const MyInfoTargeting = () => {
+const TargetingPage = () => {
   return (
     <div>
       <h1>MyInfoTargeting</h1>
@@ -7,4 +7,4 @@ const MyInfoTargeting = () => {
   );
 }
 
-export default MyInfoTargeting;
+export default TargetingPage;

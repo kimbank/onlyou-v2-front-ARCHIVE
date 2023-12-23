@@ -5,11 +5,7 @@ export default styled("div")(({ theme }) => {
     ".letter-container": {
       display: "flex",
       flexDirection: "column",
-      gap: "16px",
-    },
-    ".info-icon": {
-      marginRight: 1,
-      color: "#FF7700",
+      gap: "24px",
     },
     ".letter-box": {
       display: "flex",
@@ -18,6 +14,9 @@ export default styled("div")(({ theme }) => {
       width: "100%",
       padding: "0",
       paddingBottom: "60px",
+      ".letter-title":{
+        paddingBottom:'6px'
+      },
     },
     ".letter-box-values": {
       display: "flex",

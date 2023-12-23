@@ -1,16 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import LogoIcon from "public/images/header/logo_48x48.png";
-
 import { useState } from "react";
 
-import { Box } from "@mui/material";
+import LogoIcon from "public/icons/logo.svg";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import CloseIcon from "@mui/icons-material/Close";
+
+import { Box } from "@mui/material";
 
 import HeaderRoot from "./HeaderRoot";
 

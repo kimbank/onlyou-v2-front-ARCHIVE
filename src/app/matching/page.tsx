@@ -1,8 +1,8 @@
 "use client"
 
 import { Box, Typography } from "@mui/material";
-import HomeHeader from "@/comp/Header/HomeHeader";
-import BottomNavi from "@/comp/BottomNavi";
+import HomeHeader from "@/components/Header/HomeHeader";
+import BottomNavi from "@/components/BottomNavi";
 import RDButton from "@/components/RDButton/RDButton";
 import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";

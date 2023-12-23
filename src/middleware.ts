@@ -19,7 +19,7 @@ const GUEST_PAGE = [
 
 export function middleware(req: NextRequest) {
   const REQ_URL = req.nextUrl.pathname;
-  const USER = req.cookies.has('access') && req.cookies.has('refresh');
+  const USER = req.cookies.has('refresh');
 
   /*  */
   // if (USER) { // 로그인 상태
@@ -35,4 +35,14 @@ export function middleware(req: NextRequest) {
   //     }
   //   }
   // }
+
+  /* 쿠키 삭제로 로그아웃 처리 */
+  if (REQ_URL.startsWith("/signout")) {
+    const res = NextResponse.next();
+
+    res.cookies.delete('access'); // access 토큰 삭제
+    res.cookies.delete('refresh'); // refresh 토큰 삭제
+
+    return res;
+  }
 }

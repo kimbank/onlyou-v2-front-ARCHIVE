@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import RDButton from "../../RDButton/RDButton";
 import ModalFrame from "../ModalFrame";
 import ModalButton from "../modalItem/ModalButton";
@@ -23,29 +23,35 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
     <ModalFrame open={open} onClose={onClose}>
       <LetterModalRoot>
         <ModalTitle>
-          <Typography variant="h5">매칭 신청서 완성</Typography>
+          <Typography variant="subtitle1">매칭 신청서 완성</Typography>
         </ModalTitle>
         <ModalContent>
-          <Container className="modal-contents">
+          <Box className="modal-contents">
             <Typography variant="body2">정말 제출 하시겠어요?</Typography>
             <Typography variant="body2">
               매칭신청서는 내정보 탭에서 언제든 수정할 수 있어요.
             </Typography>
-          </Container>
+          </Box>
         </ModalContent>
         <ModalButton>
-          <Container className="modal-buttons">
-            <RDButton color="primary" variant="outlined">
-              다시작성하기
+          <Box className="modal-buttons">
+            <RDButton
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={onClose}
+            >
+              <Typography variant="body2">다시 작성하기</Typography>
             </RDButton>
             <RDButton
               color="primary"
               variant="contained"
+              size="small"
               onClick={handleCompleteClick}
             >
-              제출하기
+              <Typography variant="body2">제출하기</Typography>
             </RDButton>
-          </Container>
+          </Box>
         </ModalButton>
       </LetterModalRoot>
     </ModalFrame>
@@ -54,22 +60,20 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
 
 import { styled } from "@mui/material";
 
-const LetterModalRoot = styled(Container)(({ theme }) => {
+const LetterModalRoot = styled(Box)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
+    padding: 0,
     margin: 0,
-    gap: "11px",
-    ".modal-contents": {
-      display: "flex",
-      flexDirection: "column",
-      padding: 0,
+    height: 133,
+    gap: "12px",
+    "& > :nth-child(3)": {
+      marginTop:"8px",
     },
     ".modal-buttons": {
-      width: "100%",
-      padding: 0,
       display: "flex",
-      gap: "8px",
+      gap: "12px",
       justifyContent: "flex-end",
     },
   };

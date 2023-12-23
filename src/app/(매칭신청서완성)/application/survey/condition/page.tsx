@@ -1,13 +1,12 @@
 'use client';
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { RDChip } from "@/components/RDChip";
-import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Container, Tab, Tabs, Typography } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { useState } from "react";
 
+import RDButton from "@/components/RDButton/RDButton";
 import { conditionChipGroups } from '../../data/conditionData';
 import ConditionRoot from "./ConditionRoot";
-import RDButton from "@/components/RDButton/RDButton";
 
 interface RadioOption {
   value: string;
@@ -108,7 +107,7 @@ const handleChipClick = (value: string) => {
           ))}
         </Box>
       </Box>
-      <RDStepNavButton prevText="이전" nextText="다음" prevHref="value/" nextHref="character/" nextType="button" />
+      <RDStepNavButton prevText="이전" nextText="다음" prevHref="/application/survey" nextHref="character/" nextType="button" />
     </ConditionRoot>
   );
 };

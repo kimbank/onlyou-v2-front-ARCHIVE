@@ -26,7 +26,7 @@ export default styled(Button)(({
     let colorValue = white.main;
 
     if (color === "white") {
-      colorValue = text.main;
+      colorValue = white.main;
     } else if (color === "primary" || color === "error" || color === "dark") {
       colorValue = white.main;
     }

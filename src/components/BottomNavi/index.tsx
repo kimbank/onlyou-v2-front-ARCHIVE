@@ -54,7 +54,7 @@ export default function Navigation({ recent }: any) {
           {/* </Link> */}
           {/* <Link href="/my_info" passHref className="next-link"> */}
             <BottomNavigationAction
-              href="/my_info"
+              href="/myinfo"
               label="내 정보"
               value="my_info"
               icon={<MyInfoIcon />}

@@ -1,9 +1,9 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
-import { Container } from "@mui/material";
-import InfoTextRoot from "./InfoTextRoot";
+import colors from "@/assets/theme/base/colors";
+
 
 type Props = {
   children: React.ReactNode;
@@ -14,10 +14,8 @@ type Props = {
 
 export function InfoText({ children, alertMessage, shadow = false ,   bgColor,}: Props) {
   return (
-    <InfoTextRoot shadow={shadow}   bgColor={bgColor}>
-      <Container color="primary" className="info-text-button">
-             {children}
-      </Container>
+    <InfoTextRoot shadow={shadow} bgColor={bgColor}>
+        {children}
     </InfoTextRoot>
   );
 }
@@ -25,3 +23,17 @@ export function InfoText({ children, alertMessage, shadow = false ,   bgColor,}:
 InfoText.defaultProps = {
   bgColor: "primary",
 };
+
+const InfoTextRoot = styled(Box)(({ shadow, bgColor }: Props) => {
+  const { info } = colors;
+  return {
+      borderRadius: "6px",
+      backgroundColor: bgColor === "primary" ? info.main : info.focus,
+      padding: "16px 12px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      width: "100%",
+      gap: "8px",
+  };
+});
