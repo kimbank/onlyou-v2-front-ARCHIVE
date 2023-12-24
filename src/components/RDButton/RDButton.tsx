@@ -42,8 +42,6 @@ RDButton.defaultProps = {
   color: "white",
   variant: "contained",
   size: "medium",
-  circular: false,
-  iconOnly: false,
 };
 RDButton.displayName = "RDButton";
 export default RDButton;

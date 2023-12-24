@@ -24,20 +24,21 @@ const RootLayout = ({
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         {/* Hotjar CDN Scripts */}
-        { process.env.NODE_ENV === "production" && <Hotjar /> }
+        {process.env.NODE_ENV === "production" && <Hotjar />}
         {/* DatadogRUM CDN Scripts */}
-        { process.env.NODE_ENV === "production" && <DatadogRum /> }
+        {process.env.NODE_ENV === "production" && <DatadogRum />}
       </head>
       <body>
         <div id="root">
-          <div id="page">
-            <Provider>
+        {/* page를 프로바이더가 감싸야 애니메이션진행가능 헤더는 고정  */}
+            <div id="page">
+              <Provider>
               {children}
-            </Provider>
-          </div>
+              </Provider>
+              </div>
         </div>
         {/* Vercel Speed Isight */}
-        { process.env.NODE_ENV === "production" && <SpeedInsights /> }
+        {process.env.NODE_ENV === "production" && <SpeedInsights />}
       </body>
     </html>
   );

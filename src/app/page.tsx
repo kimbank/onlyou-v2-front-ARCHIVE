@@ -80,7 +80,6 @@ export default function Home() {
               variant="outlined"
               color="primary"
               size="large"
-              circular={true}
             >
               <Typography variant="h3" color="primary">
                 취소

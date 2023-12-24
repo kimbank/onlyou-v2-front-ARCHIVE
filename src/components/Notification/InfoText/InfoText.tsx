@@ -7,24 +7,18 @@ import colors from "@/assets/theme/base/colors";
 
 type Props = {
   children: React.ReactNode;
-  alertMessage?: string;
-  shadow?: boolean;
   bgColor?: "primary" | "secondary";
 };
 
-export function InfoText({ children, alertMessage, shadow = false ,   bgColor,}: Props) {
+export function InfoText({ children,  bgColor,}: Props) {
   return (
-    <InfoTextRoot shadow={shadow} bgColor={bgColor}>
+    <InfoTextRoot bgColor={bgColor}>
         {children}
     </InfoTextRoot>
   );
 }
 
-InfoText.defaultProps = {
-  bgColor: "primary",
-};
-
-const InfoTextRoot = styled(Box)(({ shadow, bgColor }: Props) => {
+const InfoTextRoot = styled(Box)(({  bgColor }: Props) => {
   const { info } = colors;
   return {
       borderRadius: "6px",

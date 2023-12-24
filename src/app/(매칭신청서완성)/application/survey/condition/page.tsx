@@ -2,11 +2,13 @@
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { RDChip } from "@/components/RDChip";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import RDButton from "@/components/RDButton/RDButton";
 import { conditionChipGroups } from '../../data/conditionData';
 import ConditionRoot from "./ConditionRoot";
+import RDCheckButton from "@/components/Button/RDCheckButton";
+import colors from "@/assets/theme/base/colors";
 
 interface RadioOption {
   value: string;
@@ -57,9 +59,15 @@ const handleChipClick = (value: string) => {
   else if (!isOptionInOtherTab) {
     newOptions[selectedTab].push(value);
   }
-
+  
   setSelectedOptions(newOptions);
+
+
 };
+  useEffect(()=>{
+    console.log(selectedOptions)
+  },[selectedOptions])
+  
   return (
     <ConditionRoot>
       <Box className="title-box">
@@ -80,28 +88,34 @@ const handleChipClick = (value: string) => {
             <Box className="chip-box">
               <Typography variant="h6">{group.title}</Typography>
               <Box className="chip">
-                {group.options.map((option) => (
+              {group.options.map((option, index) => {
+                const isChecked = Object.values(selectedOptions).flat().includes(option.value);
+                const optionTabIndex = Object.keys(selectedOptions).findIndex(
+                      (key) => selectedOptions[parseInt(key)].includes(option.value)
+                      );
+                const {primary , gray,white } =colors
+                const buttonStyle = isChecked && optionTabIndex !== selectedTab ? 
+                    { backgroundColor:white.main, border: `1px solid ${primary.main}`, color: primary.main, fontWeight:"bold" } :
+                    { backgroundColor: isChecked ? primary.main : gray["500"] };
+                return (
                   <Box key={option.value}>
-                    <RDChip label={option.label} checked={Object.values(selectedOptions).flat().includes(option.value)} onClick={() => handleChipClick(option.value)} />
+                    <RDCheckButton
+                    size="small"
+                    variant="contained"
+                      label={option.label}
+                      checked={isChecked}
+                      onClick={() => handleChipClick(option.value)}
+                      style={buttonStyle}
+                    >
+                     {isChecked && optionTabIndex !== selectedTab && (
+                      <Typography style={{ fontWeight: "bold"}}>
+                      {`${optionTabIndex + 1} | `}{option.label}
+                     </Typography>
+                    )}
+                    </RDCheckButton>
                   </Box>
-                ))}
-              </Box>
-            </Box>
-          ))}
-        </Box>
-        <Box className="content-box">
-          <Typography>*다른 회원 분들은 평균 6개의 조건을 설정했어요.</Typography>
-          {conditionChipGroups.flatMap((group) => (
-            <Box className="chip-box">
-              <Typography variant="h6">{group.title}</Typography>
-              <Box className="chip">
-                {group.options.map((option) => (
-                  <Box key={option.value}>
-                    <RDButton color="secondary" size="small" variant="contained">
-                      <Typography variant="body2" color="black">{option.label}</Typography>
-                    </RDButton>
-                  </Box>
-                ))}
+                );
+              })}
               </Box>
             </Box>
           ))}
