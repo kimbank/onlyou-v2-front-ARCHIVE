@@ -32,6 +32,12 @@ const Index = () => {
     1: [],
     2: [],
   });
+const titles = ["1순위 조건", "2순위 조건", "3순위 조건"];
+const descriptions = [
+  "꼭 맞춰줬으면 하는 조건을 <strong>'최대 2개'</strong> 골라주세요.",
+  "꼭 맞춰줬으면 하는 조건을 <strong>'최대 4개'</strong> 골라주세요.",
+  "꼭 맞춰줬으면 하는 조건을 <strong>'최대 4개'</strong> 골라주세요."
+];
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
      setSelectedTab(newValue);
@@ -57,7 +63,10 @@ const handleChipClick = (value: string) => {
   }
   // 현재 탭에서 해당 값이 없고, 다른 탭에서도 제거된 상태라면 추가
   else if (!isOptionInOtherTab) {
-    newOptions[selectedTab].push(value);
+      if ((selectedTab === 0 && newOptions[selectedTab].length < 2) || 
+        ((selectedTab === 1 || selectedTab === 2) && newOptions[selectedTab].length < 4)) {
+      newOptions[selectedTab].push(value);
+    }
   }
   
   setSelectedOptions(newOptions);
@@ -67,14 +76,15 @@ const handleChipClick = (value: string) => {
   useEffect(()=>{
     console.log(selectedOptions)
   },[selectedOptions])
-  
+
+  const allGroupsSelected = Object.values(selectedOptions).every(
+    (optionsArray) => optionsArray.length > 0
+  );
   return (
     <ConditionRoot>
       <Box className="title-box">
-        <Typography variant="h3">1순위 조건</Typography>
-        <Typography variant="subtitle2">
-          꼭 맞춰줬으면 하는 조건을 <strong>&apos;최대 2개&apos;</strong> 골라주세요
-        </Typography>
+      <Typography variant="h1">{titles[selectedTab]}</Typography>
+         <Typography variant="body1" dangerouslySetInnerHTML={{ __html: descriptions[selectedTab] }}></Typography>
       </Box>
       <Box>
         <Tabs variant="fullWidth" className="tab-box" value={selectedTab} onChange={handleTabChange}>
@@ -86,7 +96,7 @@ const handleChipClick = (value: string) => {
           <Typography>*다른 회원 분들은 평균 6개의 조건을 설정했어요.</Typography>
           {conditionChipGroups.flatMap((group) => (
             <Box className="chip-box">
-              <Typography variant="h6">{group.title}</Typography>
+              <Typography variant="subtitle1">{group.title}</Typography>
               <Box className="chip">
               {group.options.map((option, index) => {
                 const isChecked = Object.values(selectedOptions).flat().includes(option.value);
@@ -121,7 +131,7 @@ const handleChipClick = (value: string) => {
           ))}
         </Box>
       </Box>
-      <RDStepNavButton prevText="이전" nextText="다음" prevHref="/application/survey" nextHref="character/" nextType="button" />
+      <RDStepNavButton prevText="이전" nextText="다음" prevHref="/application/survey" nextHref="character/" nextType="button" checkedStates={allGroupsSelected}/>
     </ConditionRoot>
   );
 };

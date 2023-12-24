@@ -23,7 +23,7 @@ const outlined = {
   },
   medium: {
     minHeight: "52px",
-    width: "50%",
+    // width: "50%",
     padding: `${pxToRem(12)} ${pxToRem(28)}`,
     fontSize: size.sm,
     border: `1px solid ${primary.main}`,

@@ -8,6 +8,11 @@ export default styled(Container)(({ theme }) => {
       display: 'flex',
       flexDirection: 'column',
       gap: '30px',
+      ".title-box":{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
+      },
       '.content-box': {
         display: 'flex',
         flexDirection: 'column',
@@ -25,6 +30,9 @@ export default styled(Container)(({ theme }) => {
         flexWrap: 'wrap',
         gap: '8px',
         alignItems: 'center',
+      },
+      ".tab-box":{
+        width:"100%"
       },
       '.tap': {
         flex: 1,
