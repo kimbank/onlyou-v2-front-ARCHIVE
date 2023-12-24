@@ -65,7 +65,7 @@ const SaveModalRoot = styled(Box)(({ theme }) => {
     padding: 0,
     margin: 0,
     gap: "12px",
-    height: 154,
+    height: 114,
     "& > :nth-child(3)": {
       marginTop: "12px",
     },
