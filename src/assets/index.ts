@@ -9,6 +9,8 @@ import formControlLabel from "./theme/components/input/formControlLabel";
 import input from "./theme/components/input/input";
 import radio from "./theme/components/input/radio";
 import tooltip from "./theme/components/tooltip/tooltip";
+import tabs from "./theme/components/tab/tabs";
+import tab from "./theme/components/tab/tab";
 
 
 export const theme = createTheme({
@@ -26,5 +28,7 @@ export const theme = createTheme({
     MuiFormControlLabel: { ...formControlLabel },
     MuiInput: { ...input },
     MuiTooltip: { ...tooltip },
+    MuiTabs: { ...tabs },
+    MuiTab: { ...tab },
   },
 });
