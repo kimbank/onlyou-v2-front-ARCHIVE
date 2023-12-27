@@ -22,7 +22,7 @@ const OptionCard = () => {
       <Typography variant="subtitle2">선택한 조건</Typography>
       <List className="option-list">
         <Box className="option-list-item">
-          <Typography variant="subtitle2">1순위</Typography>
+          <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>1순위</Typography>
           { firstOptions.length > 0 ?
             <Typography variant="body2">
             {
@@ -37,7 +37,7 @@ const OptionCard = () => {
         </Box>
         <Divider />
         <Box className="option-list-item">
-          <Typography variant="subtitle2">2순위</Typography>
+          <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>2순위</Typography>
           { secondOptions.length > 0 ?
             <Typography variant="body2">
             {
@@ -52,7 +52,7 @@ const OptionCard = () => {
         </Box>
         <Divider />
         <Box className="option-list-item">
-          <Typography variant="subtitle2">3순위</Typography>
+          <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>3순위</Typography>
           { thirdOptions.length > 0 ?
             <Typography variant="body2">
             {
