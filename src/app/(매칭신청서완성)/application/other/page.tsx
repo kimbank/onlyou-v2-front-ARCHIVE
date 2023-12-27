@@ -118,7 +118,7 @@ const Index = () => {
         onClick={handleOpenDrawer}
         tips
       />
-      <SubmitDrawer nextHref="survey/" open={drawerOpen} onClose={handleCloseDrawer} />
+      <SubmitDrawer nextHref="/apply/targeting" open={drawerOpen} onClose={handleCloseDrawer} />
     </OtherRoot>
   );
 };

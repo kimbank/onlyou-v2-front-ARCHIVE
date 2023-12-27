@@ -4,12 +4,12 @@ import pxToRem from "../../functions/pxToRem";
 const { fontWeightBold, size } = typography;
 
 const root = {
-  display: "inline-flex",
+  // display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: size.xs,
-  fontWeight: fontWeightBold,
-  padding: `${pxToRem(6.302)} ${pxToRem(16.604)}`,
+  // fontSize: size.xs,
+  // fontWeight: fontWeightBold,
+  // padding: `${pxToRem(6.302)} ${pxToRem(16.604)}`,
   lineHeight: 1.4,
   textAlign: "center",
   textTransform: "uppercase",
@@ -19,7 +19,7 @@ const root = {
   transition: "all 150ms ease-in",
 
   boxShadow: "none",
-  border: "none",
+  border: "1px solid inherit",
   borderRadius: "6px",
 
   "&:disabled": {

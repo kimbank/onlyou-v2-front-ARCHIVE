@@ -9,6 +9,8 @@ import { signinCodeSend, signinCodeVerify } from '@/api/auth';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
 
+import { get } from "@/actions/test";
+
 const Home = () => {
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -28,6 +30,7 @@ const Home = () => {
     <>
       <EmptyHeader />
       <div id="content">
+        <button onClick={() => get()}>button</button>
         <Typography variant="h1">
           로그인하기
           <Typography variant="body2">

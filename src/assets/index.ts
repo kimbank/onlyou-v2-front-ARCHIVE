@@ -11,6 +11,7 @@ import radio from "./theme/components/input/radio";
 import tooltip from "./theme/components/tooltip/tooltip";
 import tabs from "./theme/components/tab/tabs";
 import tab from "./theme/components/tab/tab";
+import chip from "./theme/components/chip";
 
 
 export const theme = createTheme({
@@ -30,5 +31,7 @@ export const theme = createTheme({
     MuiTooltip: { ...tooltip },
     MuiTabs: { ...tabs },
     MuiTab: { ...tab },
+
+    MuiChip: { ...chip },
   },
 });

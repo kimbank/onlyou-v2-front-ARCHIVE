@@ -24,8 +24,9 @@ const outlined = {
   medium: {
     minHeight: "52px",
     // width: "50%",
-    padding: `${pxToRem(12)} ${pxToRem(28)}`,
-    fontSize: size.sm,
+    // padding: `${pxToRem(12)} ${pxToRem(28)}`,
+    // fontSize: size.sm,
+    color: `${primary.main}`,
     border: `1px solid ${primary.main}`,
     "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
@@ -34,7 +35,7 @@ const outlined = {
   large: {
     width: "100%",
     minHeight: "52px",
-    color: light.main,
+    color: `${primary.main}`,
     borderColor: light.main,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
     border: `1px solid ${primary.main}`,

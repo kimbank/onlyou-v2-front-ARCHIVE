@@ -8,6 +8,7 @@ type Types = any;
 const button: Types = {
   defaultProps: {
     disableRipple: false,
+    variant: "contained",
   },
   styleOverrides: {
     root: { ...root },
