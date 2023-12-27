@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import SWRProvider from "./swr";
 import MuiProvider from "./mui";

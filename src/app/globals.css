@@ -45,6 +45,7 @@ div {
   min-height: 100vh;
   margin: 0px auto;
   /* padding: 48px 0; */
+  background-color: #fff;
   box-shadow: gray 0px 0px 32px -12px;
 }
 

@@ -5,8 +5,12 @@ import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import WatermarkedImage from "@/components/WatermarkImage";
 
+import useAuthedSWR from "@/hooks/swr/authedSWR";
+
 
 const PreviewPage = () => {
+  const { user, error } = useAuthedSWR("/test/token");
+
   return (
     <>
       <HomeHeader />

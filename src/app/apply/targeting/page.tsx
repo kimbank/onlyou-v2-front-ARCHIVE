@@ -1,17 +1,16 @@
-'use client'
+"use client"
 
+import Link from "next/link";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
-import BottomButton from "@/components/BottomButton/BeforeNext";
-import { useRouter } from "next/navigation";
+import BottomButtonContainer from "@/components/BottomButton/BottomButtonRoot";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setTargetingField } from "@/store/targetingSlice";
-import { RootState } from "@/store/store";
+// import { setTargetingField } from "@/store/targetingSlice";
 
 
 import useModal from "@/hooks/useModal";
@@ -21,15 +20,12 @@ import OptionCard from "./OptionCard";
 
 
 const TargetingPage = () => {
-  const router = useRouter();
-  const handleHref =() =>{
-    router.push('targeting/options/')
-  }
-
-  const {isOpen: isOptionOpen, openModal: openOptionModal, closeModal: closeOptionModal} = useModal();
+  const { isModalOpen: isOptionOpen, openModal: openOptionModal, closeModal: closeOptionModal } = useModal();
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+
+  console.log(targetingState);
 
   const isTargetingEmpty = Object.keys(targetingState).every((field: string) => {
     return targetingState[field].priority === null;
@@ -38,8 +34,8 @@ const TargetingPage = () => {
 
   return (
     <>
-      <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <ProgressHeader />
+      <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
           <Typography variant="h1">매칭에 반영될 조건을 선택해요!</Typography>
@@ -91,7 +87,14 @@ const TargetingPage = () => {
           }
         </Box>
       </TargetingRoot>
-      <BottomButton />
+      <BottomButtonContainer>
+        <Link href={"/"} style={{width: "100%"}} passHref>
+          <Button variant="outlined">이전</Button>
+        </Link>
+        <Link href={"/apply/targeting/details"} style={{width: "100%"}} passHref>
+          <Button variant="contained" size="large">다음</Button>
+        </Link>
+      </BottomButtonContainer>
     </>
   );
 }

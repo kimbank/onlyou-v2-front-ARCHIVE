@@ -63,26 +63,30 @@ const targetingRangeField: TargetingRangeField = {
   priority: null,
 }
 
-const initialState: TargetingState = {
-  birthYear: targetingRangeField,
-  residence: targetingField,
+const initialState: any = {
+  birthYear: { ...targetingRangeField, priority: 0}, // 기본 반영 조건
+  residence: { ...targetingField, priority: 0 }, // 기본 반영 조건
   jobType: targetingField,
   salary: targetingField,
   height: targetingRangeField,
   university: targetingField,
   divorce: targetingField,
+
   workType: targetingField,
   smoking: targetingField,
   drinking: targetingField,
-  interest: targetingField,
+  interest: { ...targetingField, priority: 0 }, // 기본 반영 조건
   numberDating: targetingField,
   athleticLife: targetingField,
+  petAnimal: targetingField,
   religion: targetingField,
+
   extrovert_introvert: targetingField,
   intuition_reality: targetingField,
   emotion_reason: targetingField,
   impromptu_plan: targetingField,
-  personalityCharm: targetingField,
+  personalityCharm: { ...targetingField, priority: 0 }, // 기본 반영 조건
+
   marriageValues: targetingField,
   oppositeSexFriendValues: targetingField,
   politicalValues: targetingField,
@@ -90,16 +94,19 @@ const initialState: TargetingState = {
   careerFamilyValues: targetingField,
   childrenValues: targetingField,
   appearance: targetingField,
+
   animalImage: targetingField,
   doubleEyelid: targetingField,
   bodyType: targetingField,
-  externalCharm: targetingField,
+  externalCharm: { ...targetingField, priority: 0 }, // 기본 반영 조건
   tattoo: targetingField,
+
   preferredDate: targetingField,
   preferredContactMethod: targetingField,
   loveInitiative: targetingField,
   datingFrequency: targetingField,
   contactStyle: targetingField,
+  premaritalPurity: targetingField,
   conflictResolutionMethod: targetingField,
 };
 
@@ -107,13 +114,23 @@ const targetingSlice = createSlice({
   name: 'targeting',
   initialState,
   reducers: {
-    setTargetingField: (
+    setTargetingDataField: (
       state,
-      action: PayloadAction<{ field: keyof TargetingState; value: any }>
+      action: PayloadAction<{ field: keyof TargetingState; data: number[] }>
     ) => {
-      const { field, value } = action.payload;
-      state[field] = value;
+      const { field, data } = action.payload;
+      state[field].data = data;
     },
+
+    setTargetingRangeField: (
+      state,
+      action: PayloadAction<{ field: keyof TargetingState; from: number, to: number }>
+    ) => {
+      const { field, from, to } = action.payload;
+      state[field].from = from;
+      state[field].to = to;
+    },
+
     setTargetingPriority: (
       state,
       action: PayloadAction<{ field: keyof TargetingState; priority: (number | null) }>
@@ -122,9 +139,11 @@ const targetingSlice = createSlice({
       if (state[field]) {
         state[field]!.priority = priority;
       }
-    }
+    },
+
+    resetTargeting: () => initialState,
   },
 });
 
-export const { setTargetingField, setTargetingPriority } = targetingSlice.actions;
+export const { setTargetingDataField, setTargetingRangeField, setTargetingPriority, resetTargeting } = targetingSlice.actions;
 export default targetingSlice.reducer;

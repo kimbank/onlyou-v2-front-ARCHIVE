@@ -8,9 +8,14 @@ import EmptyHeader from "@/components/Header/EmptyHeader";
 import BottomButton from "@/components/BottomButton/Next";
 import { targetingCategories } from "@/constants/targeting";
 
+import AlertModal from "@/components/Modal/Default";
+import useModal from "@/hooks/useModal";
+
 
 const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
   const [priority, setPriority] = useState(1);
+  const { isModalOpen: isAlertOpen, openModal: openAlertModal, closeModal: closeAlertModal } = useModal();
+  const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
@@ -19,17 +24,33 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
   };
 
   const handleOptionClick = (optionName: string) => {
+    const currentPriorityCount = Object.keys(targetingState).filter((field: string) => {
+      return targetingState[field].priority === priority;
+    });
     const targetingOption = targetingState[optionName];
     if (targetingOption.priority === priority) {
       dispatch(setTargetingPriority({ field: optionName, priority: null }));
     } else {
+      if (priority === 1 && currentPriorityCount.length >= 2) {
+        setAlertTitle("1순위는 최대 2개까지 선택할 수 있어요");
+        openAlertModal();
+        // alert("1순위는 최대 2개까지 선택할 수 있습니다.");
+        return;
+      } else if (currentPriorityCount.length >= 4) {
+        setAlertTitle(`${priority}순위는 최대 4개까지 선택할 수 있어요`);
+        openAlertModal();
+        // alert(`${priority}순위는 최대 4개까지 선택할 수 있습니다.`);
+        return;
+      }
       dispatch(setTargetingPriority({ field: optionName, priority: priority }));
     }
   };
 
   return (
-    <Modal open={open} onClose={onClose} id="root">
-      <div id="page">
+    <>
+    <AlertModal title={alertTitle} complete={"이해했어요!"} isModalOpen={isAlertOpen} onModalClose={closeAlertModal} onComplete={closeAlertModal} />
+    <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
+      <div id="page" style={{ height: "100vh" }}>
         <EmptyHeader />
         <Root id="content">
           <Box className="title-box">
@@ -48,34 +69,39 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
           </Tabs>
           <Typography variant="body2">*다른 회원 분들은 평균 6개의 조건을 설정했어요.</Typography>
           {
-            Object.keys(targetingCategories).map((category: string) => (
-              <Box key={category} className="category-box">
-                <Typography variant="subtitle1">{targetingCategories[category].label}</Typography>
-                <Box className="options-box">
-                  {
-                    targetingCategories[category].options.map((option: any) => {
-                      const buttonPriority = targetingState[option.name].priority;
-                      let buttonStyle = "";
-                      if (buttonPriority === priority) {
-                        buttonStyle = "btn-selected";
-                      } else if (buttonPriority !== null) {
-                        buttonStyle = "btn-prior-selected";
-                      } else {
-                        buttonStyle = "btn-plain";
-                      }
-                      return (
-                        <Button
-                          key={option.name}
-                          className={buttonStyle}
-                          onClick={() => handleOptionClick(option.name)}>
-                            {buttonPriority && buttonPriority !== priority && `${buttonPriority} | `} {option.label}
-                        </Button>
-                      )
-                    })
-                  }
+            Object.keys(targetingCategories).map((category: string) => {
+              if (category === "default")
+              return;
+              return (
+                <Box key={category} className="category-box">
+                  <Typography variant="subtitle1">{targetingCategories[category].label}</Typography>
+                  <Box className="options-box">
+                    {
+                      targetingCategories[category].options.map((option: any) => {
+                        const buttonPriority = targetingState[option.name].priority;
+                        let buttonStyle = "";
+                        if (buttonPriority === priority) {
+                          buttonStyle = "btn-selected";
+                        } else if (buttonPriority !== null) {
+                          buttonStyle = "btn-prior-selected";
+                        } else {
+                          buttonStyle = "btn-plain";
+                        }
+                        return (
+                          <Button
+                            key={option.name}
+                            size="small"
+                            className={buttonStyle}
+                            onClick={() => handleOptionClick(option.name)}>
+                              {buttonPriority && buttonPriority !== priority && `${buttonPriority} | `} {option.label}
+                          </Button>
+                        )
+                      })
+                    }
+                  </Box>
                 </Box>
-              </Box>
-            ))
+              )}
+            )
           }
           {/* <button onClick={onClose}>닫기</button> */}
         </Root>
@@ -84,15 +110,20 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
         </BottomButton>
       </div>
     </Modal>
+    </>
   )
 }
 
 const Root = styled("div")({
-  height: "100vh",
+  height: "calc(100vh - 146px)",
   backgroundColor: "#fff",
   display: 'flex',
   flexDirection: 'column',
   gap: '24px',
+
+  overflowX: 'hidden',
+  overflowY: 'scroll',
+  paddingBottom: '36px',
 
   ".title-box": {
     display: 'flex',
@@ -112,10 +143,10 @@ const Root = styled("div")({
     gap: "12px",
   },
 
-  "& .MuiButton-sizeMedium": {
-    fontSize: "14px",
-    padding: "8px 12px",
-  },
+  // "& .MuiButton-sizeMedium": {
+  //   fontSize: "14px",
+  //   padding: "8px 12px",
+  // },
 
   ".btn-plain": {
     backgroundColor: "#F1F3F6",
@@ -141,6 +172,7 @@ const Root = styled("div")({
   "& .MuiTabs-root": {
     width: "calc(100% + 24*2)",
     margin: "0 -24px",
+    overflow: "unset",
   },
 
   "& .MuiTab-root": {

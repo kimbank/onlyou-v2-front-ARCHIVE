@@ -36,38 +36,46 @@ const contained = {
     },
 
     "&:focus:not(:hover)": {
-      backgroundColor: info.focus,
+      backgroundColor: "",
     },
   },
   large: {
-    backgroundColor: info.main,
+    backgroundColor: "#F70",
     width: "100%",
     minHeight: "52px",
-    color: white.main,
-    padding: `${pxToRem(10)} ${pxToRem(24)}`,
+    color: "#FFF",
+    padding: "8px",
 
-    "&:hover": {
-      backgroundColor: white.main,
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: "100%",
+
+    "&:hover, :focus": {
+      backgroundColor: "#F16416",
     },
 
     "&:active, &:active:focus, &:active:hover": {
-      opacity: 0.85,
+      backgroundColor: "#F16416",
     },
 
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(16)} !important`,
-    },
+    // "& .material-icon, .material-icons-round, svg": {
+    //   fontSize: `${pxToRem(16)} !important`,
+    // },
   },
 
   secondary: {
-    backgroundColor: secondary.main,
+    backgroundColor: "#F1F3F6",
+    color: "#5C5F63",
 
     "&:hover": {
-      backgroundColor: secondary.main,
+      backgroundColor: "#F16416",
+      color: "#fff",
     },
 
     "&:focus:not(:hover)": {
-      backgroundColor: secondary.focus,
+      backgroundColor: "#F16416",
+      color: "#fff",
     },
   },
 };

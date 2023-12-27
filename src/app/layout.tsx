@@ -33,9 +33,9 @@ const RootLayout = ({
         {/* page를 프로바이더가 감싸야 애니메이션진행가능 헤더는 고정  */}
             <div id="page">
               <Provider>
-              {children}
+                {children}
               </Provider>
-              </div>
+            </div>
         </div>
         {/* Vercel Speed Isight */}
         {process.env.NODE_ENV === "production" && <SpeedInsights />}
