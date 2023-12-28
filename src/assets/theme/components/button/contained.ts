@@ -2,14 +2,14 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { white, info, secondary } = colors;
+const { primary, primary_darken } = colors;
 const { size } = typography;
 
 const contained = {
   small: {
     minHeight: "34px",
     width: "auto",
-    padding: '8px 12px',
+    padding: "8px 12px",
     fontSize: size.xs,
 
     "& .material-icon, .material-icons-round, svg": {
@@ -29,10 +29,10 @@ const contained = {
   },
 
   primary: {
-    backgroundColor: info.main,
+    backgroundColor: primary,
 
     "&:hover": {
-      backgroundColor: info.main,
+      backgroundColor: primary_darken,
     },
 
     "&:focus:not(:hover)": {

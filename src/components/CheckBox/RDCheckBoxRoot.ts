@@ -7,7 +7,7 @@ interface RDCheckBoxProps {
 }
 
 export default styled("div")<RDCheckBoxProps>(({ theme, checked, width }) => {
-  const { dark } = colors;
+  const { black } = colors;
   return {
     ".checkbox": {
       color: checked ? "#FF7700" : "#B2B0AE",
@@ -29,7 +29,7 @@ export default styled("div")<RDCheckBoxProps>(({ theme, checked, width }) => {
     ".checkbox-label": {
       fontFamily: "Pretendard-Semibold",
       fontSize: "14px",
-      color: dark.main,
+      color: black,
       letterSpacing: "1.25px",
       textAlign: "left",
     },

@@ -27,31 +27,31 @@ export function Checkbox({
 }
 const CheckboxRoot = styled(Button)(({ checked } :CheckboxProps ) => {
   
-  const { primary ,white ,gray,dark} = colors
+  const { primary ,white ,gray2,gray4 , gray5,black} = colors
   return {
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    border: `1px solid ${checked ? primary.main : "none"}`,
+    border: `1px solid ${checked ? primary : "none"}`,
     borderRadius: "8px",
     height: "33px",
     padding: "8px 12px",
-    backgroundColor: checked ? white.main : gray["500"],
+    backgroundColor: checked ? white : gray5,
     gap: "10px",
     "&:focus, &:focus-within": {
-      backgroundColor: checked ? white.main : gray["500"],
+      backgroundColor: checked ? white : gray5,
     },
     ".checkbox": {
       width: 20,
       height: 20,
-      backgroundColor: checked ? white.main : gray["500"],
-      color: checked ? primary.main : gray["400"],
+      backgroundColor: checked ? white : gray5,
+      color: checked ? primary : gray4,
       border: "none",
       textAlign: "left",
     },
     ".label": {
-      color: checked ? dark.main : gray["200"],
+      color: checked ? black : gray2,
       textAlign: "left",
     },
   };});

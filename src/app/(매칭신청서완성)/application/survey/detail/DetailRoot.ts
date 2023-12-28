@@ -3,7 +3,7 @@ import { ViewColumn } from "@mui/icons-material";
 import { Container, styled } from "@mui/material";
 
 export default styled(Container)(({ theme }) => {
-    const {primary ,info ,dark ,gray} = colors
+    const {primary ,black} = colors
     return {
       ".button": {
         display: "flex",
@@ -23,7 +23,7 @@ export default styled(Container)(({ theme }) => {
         paddingBottom: "16px",
       },
       ".buttonText": {
-        color: dark.main,
+        color: black,
       },
       ".period-box": {
         display: "flex",
@@ -31,7 +31,7 @@ export default styled(Container)(({ theme }) => {
         gap: "12px",
         height: "108px",
         padding: "12px 20px",
-        border: `1px solid ${dark.main}`,
+        border: `1px solid ${black}`,
         borderRadius: "6px",
         marginTop: "12px",
       },

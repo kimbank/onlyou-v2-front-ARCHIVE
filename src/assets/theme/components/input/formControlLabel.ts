@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, dark, info, disabled } = colors;
+const { primary, black , gray3 } = colors;
 const { size, fontWeightBold } = typography;
 
 // types
@@ -14,11 +14,11 @@ const formControlLabel: Types = {
       display: "block",
       minHeight: pxToRem(24),
       marginBottom: pxToRem(2),
-      border: `1px solid ${disabled.focus}`,
+      border: `1px solid ${gray3}`,
       borderRadius: "6px",
 
       "&:hover": {
-        backgroundColor: disabled.focus,
+        backgroundColor: gray3,
       },
     },
 
@@ -26,12 +26,12 @@ const formControlLabel: Types = {
       display: "inline-block",
       fontSize: size.md,
       fontWeight: fontWeightBold,
-      color: dark.main,
+      color: black,
       lineHeight: 1,
       transform: `translateY(${pxToRem(1)})`,
 
       "&.Mui-disabled": {
-        color: dark.main,
+        color: black,
       },
     },
   },

@@ -88,7 +88,7 @@ const handleChipClick = (value: string) => {
       </Box>
       <Box>
         <Tabs variant="fullWidth" className="tab-box" value={selectedTab} onChange={handleTabChange}>
-          <Tab className="tab" label="1순위" />
+          <Tab className="tab" color="primary" label="1순위" />
           <Tab className="tab" label="2순위" />
           <Tab className="tab" label="3순위" />
         </Tabs>
@@ -103,10 +103,10 @@ const handleChipClick = (value: string) => {
                 const optionTabIndex = Object.keys(selectedOptions).findIndex(
                       (key) => selectedOptions[parseInt(key)].includes(option.value)
                       );
-                const {primary , gray,white } =colors
+                const {primary , gray5,white } =colors
                 const buttonStyle = isChecked && optionTabIndex !== selectedTab ? 
-                    { backgroundColor:white.main, border: `1px solid ${primary.main}`, color: primary.main, fontWeight:"bold" } :
-                    { backgroundColor: isChecked ? primary.main : gray["500"] };
+                    { backgroundColor:white, border: `1px solid ${primary}`, color: primary, fontWeight:"bold" } :
+                    { backgroundColor: isChecked ? primary : gray5 };
                 return (
                   <Box key={option.value}>
                     <RDCheckButton

@@ -51,7 +51,7 @@ const StepInfoRoot = styled("div")(() => {
     display: "flex",
     flexDirection: "column",
     flexShrink: 0,
-    gap: "23px",
+    gap: "23px", 
     
     borderRadius: "8px",
     backgroundColor: "#FFF0E4",

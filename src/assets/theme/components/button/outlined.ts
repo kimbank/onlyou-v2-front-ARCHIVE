@@ -2,19 +2,19 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { transparent, light, info, secondary,primary } = colors;
+const { primary } = colors;
 const { size } = typography;
 
 const outlined = {
   small: {
     minHeight: "34px",
     width: "auto",
-    padding: '8px 12px',
+    padding: "8px 12px",
     fontSize: size.xs,
-    border: `1px solid ${primary.main}`,
+    border: `1px solid ${primary}`,
     "&:hover": {
       opacity: 0.75,
-      backgroundColor: transparent.main,
+      backgroundColor: primary,
       boxShadow: `0 4px 4px rgba(0, 0, 0, 0.3)`,
     },
     "& .material-icon, .material-icons-round, svg": {
@@ -26,8 +26,8 @@ const outlined = {
     // width: "50%",
     // padding: `${pxToRem(12)} ${pxToRem(28)}`,
     // fontSize: size.sm,
-    color: `${primary.main}`,
-    border: `1px solid ${primary.main}`,
+    color: primary,
+    border: `1px solid ${primary}`,
     "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
     },
@@ -35,14 +35,14 @@ const outlined = {
   large: {
     width: "100%",
     minHeight: "52px",
-    color: `${primary.main}`,
-    borderColor: light.main,
+    color: primary,
+    borderColor: primary,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
-    border: `1px solid ${primary.main}`,
+    border: `1px solid ${primary}`,
 
     "&:hover": {
       opacity: 0.75,
-      backgroundColor: transparent.main,
+      backgroundColor: primary,
     },
 
     "& .material-icon, .material-icons-round, svg": {
@@ -51,20 +51,18 @@ const outlined = {
   },
 
   primary: {
-    backgroundColor: transparent.main,
-    borderColor: info.main,
+    backgroundColor: primary,
 
     "&:hover": {
-      backgroundColor: transparent.main,
+      backgroundColor: primary,
     },
   },
 
   secondary: {
-    backgroundColor: transparent.main,
-    borderColor: secondary.main,
+    backgroundColor: primary,
 
     "&:hover": {
-      backgroundColor: transparent.main,
+      backgroundColor: primary,
     },
   },
 };

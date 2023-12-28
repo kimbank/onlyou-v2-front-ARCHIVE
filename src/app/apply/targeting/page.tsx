@@ -46,7 +46,9 @@ const TargetingPage = () => {
         <Box className="content-box">
           <Box className="subtitle-box">
             <Typography variant="subtitle1">기본 반영 조건</Typography>
-            <Typography variant="body2">선택하지 않아도 기본으로 반영되는 조건이에요.</Typography>
+            <Typography variant="body2">
+              선택하지 않아도 기본으로 반영되는 조건이에요.
+            </Typography>
           </Box>
           <Box>
             <InfoText>
@@ -54,45 +56,65 @@ const TargetingPage = () => {
                 <SquareRoundedIcon className="box" />
                 <CheckRoundedIcon className="check" />
               </Box>
-              <Typography color="primary" variant="subtitle2">
+              <Typography color="primary_lighten1" variant="subtitle2">
                 나이 | 거주지 | 관심사 | 성격적 매력 | 외적 매력
               </Typography>
             </InfoText>
           </Box>
         </Box>
         <Box className="content-box">
-          {
-            isTargetingEmpty ? (
-              <>
-                <Box className="subtitle-box">
-                  <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
-                  <Typography variant="body2">우선순위가 높을 수록 반영될 확률이 높아져요.</Typography>
-                </Box>
-                <Button variant="outlined" sx={{ minHeight: "34px", maxHeight: "34px" }} onClick={openOptionModal}>
-                  이상형 조건 추가하기 +
-                </Button>
-              </>
-            ) : (
-              <>
-                <Box className="subtitle-box">
-                  <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
-                  <Typography variant="body2">꼭 반영되었으면 하는 이상형 조건을 선택해 주세요.</Typography>
-                </Box>
-                <OptionCard />
-                <Button variant="outlined" sx={{ minHeight: "34px", maxHeight: "34px" }} onClick={openOptionModal}>
-                  이상형 조건 변경하기
-                </Button>
-              </>
-            )
-          }
+          {isTargetingEmpty ? (
+            <>
+              <Box className="subtitle-box">
+                <Typography variant="subtitle1">
+                  1~3순위 조건 선택하기
+                </Typography>
+                <Typography variant="body2">
+                  우선순위가 높을 수록 반영될 확률이 높아져요.
+                </Typography>
+              </Box>
+              <Button
+                variant="outlined"
+                sx={{ minHeight: "34px", maxHeight: "34px" }}
+                onClick={openOptionModal}
+              >
+                이상형 조건 추가하기 +
+              </Button>
+            </>
+          ) : (
+            <>
+              <Box className="subtitle-box">
+                <Typography variant="subtitle1">
+                  1~3순위 조건 선택하기
+                </Typography>
+                <Typography variant="body2">
+                  꼭 반영되었으면 하는 이상형 조건을 선택해 주세요.
+                </Typography>
+              </Box>
+              <OptionCard />
+              <Button
+                variant="outlined"
+                sx={{ minHeight: "34px", maxHeight: "34px" }}
+                onClick={openOptionModal}
+              >
+                이상형 조건 변경하기
+              </Button>
+            </>
+          )}
         </Box>
       </TargetingRoot>
       <BottomButtonContainer>
-        <Link href={"/"} style={{width: "100%"}} passHref>
+        <Link href={"/"} style={{ width: "100%" }} passHref>
           <Button variant="outlined">이전</Button>
         </Link>
-        <Link href={"/apply/targeting/details"} style={{width: "100%"}} passHref>
-          <Button variant="contained" size="large">다음</Button>
+        <Link
+          href={"/apply/targeting/details"}
+          style={{ width: "100%" }}
+          passHref
+        >
+          <Button variant="contained" size="large">
+            다음
+          </Button>
         </Link>
       </BottomButtonContainer>
     </>
@@ -100,3 +122,39 @@ const TargetingPage = () => {
 }
 
 export default TargetingPage;
+
+
+//   primary: {
+//     main: "#FF7700",
+//     focus: "#C45A00",
+//     primary_lighten1: "#FFB06C",
+//     primary_lighten2: "#FFD9B7",
+//     primary_lighten3: "#FFF0E4",
+//   },
+
+//   secondary: {
+//     main: "#F7F4F2",
+//     focus: "#B2B0AE",  --> #B2B0AE
+//   },
+//   info: {
+//     main: "#fff0e4",  --> primary_lighten3
+//     focus: "#f1f3f6", --> gray5
+//   },
+
+//   light: {
+//     main: "#F1F3F6", --> gray5
+//     focus: "#FF7700", --> primary
+//   },
+
+//   disabled: {
+//     main: "#9f99ac",  --> 9f99ac
+//     focus: "#d3d6db", --> gray4
+//   },
+//   gray: {
+//     "100": "#3B3C3F",  
+//     "200": "#5C5F63",
+//     "300": "#999DA3",
+//     "400": "#D3D6DB",
+//     "500": "#F1F3F6",
+//   },
+// };

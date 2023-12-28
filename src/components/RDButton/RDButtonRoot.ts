@@ -16,42 +16,42 @@ export default styled(Button)(({
 
   // variant="contained 스타일"
   const containedStyles = () => {
-    const backgroundValue = palette[color] ? palette[color].main : white.main;
+    // const backgroundValue = palette[color] ? palette[color].main : white.main;
 
-    const focusedBackgroundValue = palette[color]
-      ? palette[color].focus
-      : white.focus;
+    // const focusedBackgroundValue = palette[color]
+    //   ? palette[color].focus
+    //   : white.focus;
 
     // color value when button is focused
-    let colorValue = white.main;
+    // let colorValue = white.main;
 
-    if (color === "white") {
-      colorValue = white.main;
-    } else if (color === "primary" || color === "error" || color === "dark") {
-      colorValue = white.main;
-    }
+    // if (color === "white") {
+    //   colorValue = white.main;
+    // } else if (color === "primary" || color === "error" || color === "dark") {
+    //   colorValue = white.main;
+    // }
 
     return {
-      background: backgroundValue,
-      color: colorValue,
+      // background: backgroundValue,
+      // color: colorValue,
 
       "&:hover": {
-        backgroundColor: backgroundValue,
-        color: colorValue,
+        // backgroundColor: backgroundValue,
+        // color: colorValue,
       },
 
       "&:focus:not(:hover)": {
-        background: backgroundValue,
-        color: colorValue,
+        // background: backgroundValue,
+        // color: colorValue,
       },
       "&:focus": {
-        outline: `2px solid ${disabled.main}`,
+        // outline: `2px solid ${disabled.main}`,
         outlineOffset: "2px",
         transition: 'outline 0.3s ease',
       },
       "&:disabled": {
-        backgroundColor: disabled.main,
-        color: disabled.focus,
+        // backgroundColor: disabled.main,
+        // color: disabled.focus,
       },
     };
   };
@@ -59,35 +59,35 @@ export default styled(Button)(({
   // variant="outlined 스타일"
   const outlinedStyles = () => {
     // color value
-    const colorValue = palette[color] ? palette[color].main : white.main;
+    // const colorValue = palette[color] ? palette[color].main : white.main;
 
     return {
-      background: transparent.main,
-      color: colorValue,
-      borderColor: colorValue,
+      // background: transparent.main,
+      // color: colorValue,
+      // borderColor: colorValue,
 
       "&:hover": {
-        background: transparent.main,
-        color: colorValue,
-        borderColor: colorValue,
+        // background: transparent.main,
+        // color: colorValue,
+        // borderColor: colorValue,
         opacity: 0.85,
       },
 
       "&:focus:not(:hover)": {
-        background: transparent.main,
-        color: colorValue,
+        // background: transparent.main,
+        // color: colorValue,
       },
 
       "&:active:not(:hover)": {
-        backgroundColor: colorValue,
-        color: white.main,
+        // backgroundColor: colorValue,
+        // color: white.main,
         opacity: 0.85,
       },
 
       "&:disabled": {
-        color: secondary.main,
-        borderColor: secondary.main,
-        backgroundColor: secondary.main,
+        // color: secondary.main,
+        // borderColor: secondary.main,
+        // backgroundColor: secondary.main,
       },
     };
   };
@@ -95,22 +95,22 @@ export default styled(Button)(({
   // variant="text 스타일"
   const textStyles = () => {
     // color value
-    const colorValue = palette[color] ? palette[color].main : white.main;
+    // const colorValue = palette[color] ? palette[color].main : white.main;
 
     // color value when button is focused
-    const focusedColorValue = palette[color]
-      ? palette[color].focus
-      : white.focus;
+    // const focusedColorValue = palette[color]
+    //   ? palette[color].focus
+    //   : white.focus;
 
     return {
-      color: colorValue,
+      // color: colorValue,
 
       "&:hover": {
-        color: focusedColorValue,
+        // color: focusedColorValue,
       },
 
       "&:focus:not(:hover)": {
-        color: focusedColorValue,
+        // color: focusedColorValue,
       },
     };
   };

@@ -1,7 +1,7 @@
 import contained from "./contained";
 import outlined from "./outlined";
 import root from "./root";
-import buttonText from "./text";
+// import buttonText from "./text";
 
 type Types = any;
 
@@ -23,11 +23,11 @@ const button: Types = {
     outlinedSizeLarge: { ...outlined.large },
     outlinedPrimary: { ...outlined.primary },
     outlinedSecondary: { ...outlined.secondary },
-    text: { ...buttonText.base },
-    textSizeSmall: { ...buttonText.small },
-    textSizeLarge: { ...buttonText.large },
-    textPrimary: { ...buttonText.primary },
-    textSecondary: { ...buttonText.secondary },
+    // text: { ...buttonText.base },
+    // textSizeSmall: { ...buttonText.small },
+    // textSizeLarge: { ...buttonText.large },
+    // textPrimary: { ...buttonText.primary },
+    // textSecondary: { ...buttonText.secondary },
   },
 };
 
