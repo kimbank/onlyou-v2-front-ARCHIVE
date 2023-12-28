@@ -8,7 +8,7 @@ interface RDChipRootProps {
     }
 const { white, gray5, primary, primary_lighten3 } = colors;
 export const RDChipRoot = styled(Chip)<RDChipRootProps>`
-  background-color: ${(props) => (props.checked ? primary : gray5)};
+  background-color: ${(props) => (props.checked ? primary?.main : gray5)};
   color: ${(props) => (props.checked ? white : "black")};
 
   &:hover {

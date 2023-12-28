@@ -48,7 +48,9 @@ export const SaveModal = ({ children, open, onClose }: ModalProps) => {
               size="small"
               onClick={handleCompleteClick}
             >
-              <Typography variant="body2">저장하고 나가기</Typography>
+              <Typography color="white" variant="body2">
+                저장하고 나가기
+              </Typography>
             </RDButton>
           </Box>
         </ModalButton>

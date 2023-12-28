@@ -49,7 +49,9 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
               size="small"
               onClick={handleCompleteClick}
             >
-              <Typography variant="body2">제출하기</Typography>
+              <Typography color="white" variant="body2">
+                제출하기
+              </Typography>
             </RDButton>
           </Box>
         </ModalButton>

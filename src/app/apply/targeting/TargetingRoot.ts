@@ -47,7 +47,7 @@ export default styled(Container)(() => {
         left: 4,
         bottom: '1px',
         marginRight: '10px',
-        color: primary,
+        color: primary?.main,
         fontSize: '24px',
       },
     };

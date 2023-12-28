@@ -56,7 +56,7 @@ const TargetingPage = () => {
                 <SquareRoundedIcon className="box" />
                 <CheckRoundedIcon className="check" />
               </Box>
-              <Typography color="primary_lighten1" variant="subtitle2">
+              <Typography color="primary" variant="subtitle2">
                 나이 | 거주지 | 관심사 | 성격적 매력 | 외적 매력
               </Typography>
             </InfoText>
@@ -122,39 +122,3 @@ const TargetingPage = () => {
 }
 
 export default TargetingPage;
-
-
-//   primary: {
-//     main: "#FF7700",
-//     focus: "#C45A00",
-//     primary_lighten1: "#FFB06C",
-//     primary_lighten2: "#FFD9B7",
-//     primary_lighten3: "#FFF0E4",
-//   },
-
-//   secondary: {
-//     main: "#F7F4F2",
-//     focus: "#B2B0AE",  --> #B2B0AE
-//   },
-//   info: {
-//     main: "#fff0e4",  --> primary_lighten3
-//     focus: "#f1f3f6", --> gray5
-//   },
-
-//   light: {
-//     main: "#F1F3F6", --> gray5
-//     focus: "#FF7700", --> primary
-//   },
-
-//   disabled: {
-//     main: "#9f99ac",  --> 9f99ac
-//     focus: "#d3d6db", --> gray4
-//   },
-//   gray: {
-//     "100": "#3B3C3F",  
-//     "200": "#5C5F63",
-//     "300": "#999DA3",
-//     "400": "#D3D6DB",
-//     "500": "#F1F3F6",
-//   },
-// };

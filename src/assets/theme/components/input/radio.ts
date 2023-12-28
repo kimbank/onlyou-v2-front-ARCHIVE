@@ -16,7 +16,7 @@ const radio: Types = {
         borderRadius: "50%",
       },
       "&.Mui-checked .MuiSvgIcon-root": {
-        color: primary,
+        color: primary?.main,
       },
 
       "&:after": {
@@ -36,14 +36,14 @@ const radio: Types = {
 
       "&:hover": {
         opcity: 0.75,
-        backgroundColor: primary,
+        backgroundColor: primary?.main,
       },
       "&.Mui-checked": {
         color: "#000000 !important",
       },
 
       "&.Mui-focusVisible": {
-        border: `1 solid ${primary} !important`,
+        border: `1 solid ${primary?.main} !important`,
       },
     },
   },

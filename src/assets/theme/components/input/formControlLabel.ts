@@ -14,7 +14,7 @@ const formControlLabel: Types = {
       display: "block",
       minHeight: pxToRem(24),
       marginBottom: pxToRem(2),
-      border: `1px solid ${gray3}`,
+      border: `1px solid ${primary?.main}`,
       borderRadius: "6px",
 
       "&:hover": {

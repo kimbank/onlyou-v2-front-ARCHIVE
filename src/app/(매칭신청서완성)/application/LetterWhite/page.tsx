@@ -129,7 +129,7 @@ const Index = () => {
                     color="primary"
                     onClick={toggleEditMode(index)}
                   >
-                    <Typography variant="body2">
+                    <Typography color="white" variant="body2">
                       {onlyRead[index] ? "수정하기" : "저장하기"}
                     </Typography>
                   </RDButton>

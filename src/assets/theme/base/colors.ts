@@ -1,3 +1,4 @@
+
 interface ColorType {
   main: string | any;
 }
@@ -6,15 +7,15 @@ interface ColorsTypes {
   white?: string | any;
   black?: string | any;
   primary?: ColorType;
-  primary_darken?:string | any;
-  primary_lighten1?:string | any;
-  primary_lighten2?:string | any;
-  primary_lighten3?:string | any;
+  primary_darken?: string | any;
+  primary_lighten1?: string | any;
+  primary_lighten2?: string | any;
+  primary_lighten3?: string | any;
   gray1?: string | any;
-  gray2?:string | any;
-  gray3?:string | any;
-  gray4?:string | any;
-  gray5?:string | any;
+  gray2?: string | any;
+  gray3?: string | any;
+  gray4?: string | any;
+  gray5?: string | any;
 }
 
 const colors: ColorsTypes = {
@@ -24,7 +25,7 @@ const colors: ColorsTypes = {
   white: "#ffffff",
   black: "#000000",
   primary: {
-    main: "#Ff7700",
+    main: "#ff7700",
   },
   primary_darken: "#F16416",
   primary_lighten1: "#FFB06C",
