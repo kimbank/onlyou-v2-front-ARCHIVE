@@ -1,7 +1,7 @@
 "use client";
 import { theme } from "@/assets";
 import { ThemeProvider } from "@emotion/react";
-import { Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 import { useState } from "react";
 import RDButton from "../components/RDButton/RDButton";
@@ -76,21 +76,21 @@ export default function Home() {
             >
               취소
             </RDButton>
-            <RDButton
-              variant="outlined"
-              color="primary"
-              size="large"
-            >
+            <RDButton variant="outlined" color="primary" size="large">
               <Typography variant="h3" color="primary">
                 취소
               </Typography>
             </RDButton>
-            <RDButton variant="text" color="primary" size="small">
-              <Typography variant="h1">취소</Typography>
-            </RDButton>
-            <RDButton variant="text" color="primary" size="small">
-              <Typography variant="h1">취소</Typography>
-            </RDButton>
+            <Button color="primary" variant="contained">
+              버튼입니다
+            </Button>
+            <Button color="secondary" variant="contained">
+              버튼입니다
+            </Button>
+            <Button size="medium" variant="outlined">
+              버튼입니다
+            </Button>
+            <Button disabled>버튼이요</Button>
             {/* <MainButton buttonName={buttonTitle + "MainButton"} />
             <SubButton buttonName={buttonTitle + "SubButton"} />
             <MainHalfButton buttonName={buttonTitle + "MainHalfButton"} />

@@ -1,6 +1,5 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer/SubmitDrawer";
 import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
@@ -123,10 +122,12 @@ const Index = () => {
       </Box>
       <BottomButton sx={{ gap: "18px" }}>
         <Link href={"/matching"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
+          <Button size="large" variant="outlined">
+            이전
+          </Button>
         </Link>
 
-        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+        <Button size="large" onClick={handleNext} variant="contained" fullWidth>
           다음
         </Button>
       </BottomButton>

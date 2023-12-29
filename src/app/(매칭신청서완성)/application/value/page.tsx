@@ -1,6 +1,5 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Button, Container, Typography, styled } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -87,10 +86,7 @@ useEffect(()=>{
       /> */}
 
       <BottomButton sx={{ gap: "18px" }}>
-        <Link href={"/matching"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
-
+        <Button size="large" variant="outlined">이전</Button>
         <Button onClick={handleNext} variant="contained" size="large" fullWidth>
           다음
         </Button>

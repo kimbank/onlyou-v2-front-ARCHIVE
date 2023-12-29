@@ -1,6 +1,5 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Button, Container, Typography, styled } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -30,7 +29,7 @@ const RadioLayout = ({
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
+      radioGroups.options.findIndex((group :any) => group.name === groupTitle) + 1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -40,7 +39,7 @@ const RadioLayout = ({
     }
   };
   const allGroupsSelected = radioGroups.options.every(
-    (group) => selectedValues[group.name] != null
+    (group:any) => selectedValues[group.name] != null
   );
   const handlePrev = () => {
     if (prevHref) {
@@ -70,7 +69,7 @@ const RadioLayout = ({
         </Typography>
         <Typography variant="h1">{title}</Typography>
       </Box>
-      {radioGroups.options.map((group, index) => {
+      {radioGroups.options.map((group:any, index:any) => {
         if ("options" in group && group.options) {
           const options = group.options as { [key: string]: string };
           return (
@@ -106,11 +105,11 @@ const RadioLayout = ({
       /> */}
 
       <BottomButton sx={{ gap: "18px" }}>
-        <Button onClick={handlePrev} variant="outlined">
+        <Button size="large" onClick={handlePrev} variant="outlined">
           이전
         </Button>
 
-        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+        <Button size="large" onClick={handleNext} variant="contained" fullWidth>
           다음
         </Button>
       </BottomButton>

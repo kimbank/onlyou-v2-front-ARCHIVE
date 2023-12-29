@@ -2,16 +2,25 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary } = colors;
+const { primary,white } = colors;
 const { size } = typography;
 
 const outlined = {
+  default: {
+    height: "34px",
+    width: "auto",
+    padding: "8px 12px",
+    fontSize: size.xs,
+    borderRadius: "6px",
+    border: `1px solid ${primary}`,
+    color: primary,
+  },
   small: {
     minHeight: "34px",
     width: "auto",
     padding: "8px 12px",
     fontSize: size.xs,
-    border: `1px solid ${primary}`,
+    color: white,
     "&:hover": {
       opacity: 0.75,
       backgroundColor: primary,

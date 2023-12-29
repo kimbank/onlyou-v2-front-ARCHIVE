@@ -1,25 +1,26 @@
+import { ButtonProps } from "@mui/material";
 import contained from "./contained";
 import outlined from "./outlined";
 import root from "./root";
 // import buttonText from "./text";
 
-type Types = any;
-
-const button: Types = {
+const button: any = {
   defaultProps: {
     disableRipple: false,
     variant: "contained",
   },
   styleOverrides: {
+    //기본버튼 아무런 값 x
     root: { ...root },
-
-    containedSizeSmall: { ...contained.small },
-    containedSizeMedium: { ...contained.medium },
+    //variant="contained" default="default"
+    containedSizeMedium: { ...contained.default },
+    //variant="contained" size="lage"
     containedSizeLarge: { ...contained.large },
+    //color="primary"
     containedPrimary: { ...contained.primary },
+    //color="secondary"
     containedSecondary: { ...contained.secondary },
-    outlinedSizeSmall: { ...outlined.small },
-    outlinedSizeMedium: { ...outlined.medium },
+    outlinedSizeMedium: { ...outlined.default },
     outlinedSizeLarge: { ...outlined.large },
     outlinedPrimary: { ...outlined.primary },
     outlinedSecondary: { ...outlined.secondary },

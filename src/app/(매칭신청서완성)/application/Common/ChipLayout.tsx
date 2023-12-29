@@ -163,10 +163,10 @@ const CommonLayout = ({
         }
       })}
       <BottomButton sx={{ gap: "18px" }}>
-        <Button onClick={handlePrev} variant="outlined">
+        <Button size="large" onClick={handlePrev} variant="outlined">
           이전
         </Button>
-        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+        <Button size="large" onClick={handleNext} variant="contained" fullWidth>
           다음
         </Button>
       </BottomButton>

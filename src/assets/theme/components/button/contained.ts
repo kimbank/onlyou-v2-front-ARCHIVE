@@ -2,29 +2,40 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, primary_darken } = colors;
+const { primary, primary_darken , white } = colors;
 const { size } = typography;
 
 const contained = {
-  small: {
-    minHeight: "34px",
+  default: {
+    height: "34px",
     width: "auto",
     padding: "8px 12px",
     fontSize: size.xs,
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(12)} !important`,
-    },
+    borderRadius: "6px",
+    color: white,
   },
 
-  medium: {
+  large: {
+    width: "100%",
     minHeight: "52px",
-    width: "50%",
-    padding: `${pxToRem(12)} ${pxToRem(28)}`,
-    fontSize: size.sm,
+    backgroundColor: primary,
+    color: white,
+    padding: "8px",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: "100%",
+    textAlign: "center",
 
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(22)} !important`,
+    "&:hover, :focus": {
+      backgroundColor: "#F16416",
+    },
+
+    "&:active, &:active:focus, &:active:hover": {
+      backgroundColor: "#F16416",
+    },
+    "&.Mui-disabled": {
+      backgroundColor: primary,
     },
   },
 
@@ -38,30 +49,6 @@ const contained = {
     "&:focus:not(:hover)": {
       backgroundColor: "",
     },
-  },
-  large: {
-    backgroundColor: "#F70",
-    width: "100%",
-    minHeight: "52px",
-    color: "#FFF",
-    padding: "8px",
-
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: "100%",
-
-    "&:hover, :focus": {
-      backgroundColor: "#F16416",
-    },
-
-    "&:active, &:active:focus, &:active:hover": {
-      backgroundColor: "#F16416",
-    },
-
-    // "& .material-icon, .material-icons-round, svg": {
-    //   fontSize: `${pxToRem(16)} !important`,
-    // },
   },
 
   secondary: {

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import RDButton from "../../RDButton/RDButton";
 import ModalFrame from "../ModalFrame";
 import ModalButton from "../modalItem/ModalButton";
@@ -34,24 +34,20 @@ export const SaveModal = ({ children, open, onClose }: ModalProps) => {
         </ModalContent>
         <ModalButton>
           <Box className="modal-buttons">
-            <RDButton
-              color="primary"
+            <Button
               variant="outlined"
-              size="small"
               onClick={onClose}
             >
               <Typography variant="body2">취소</Typography>
-            </RDButton>
-            <RDButton
-              color="primary"
+            </Button>
+            <Button
               variant="contained"
-              size="small"
               onClick={handleCompleteClick}
             >
               <Typography color="white" variant="body2">
                 저장하고 나가기
               </Typography>
-            </RDButton>
+            </Button>
           </Box>
         </ModalButton>
       </SaveModalRoot>

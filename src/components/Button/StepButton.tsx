@@ -1,11 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { RDCheckbox } from "../CheckBox/RDCheckBox";
-import RDButton from "../RDButton/RDButton";
-import RDStepNavButtonRoot from "./RDStepNavButtonRoot";
 
-interface RDStepNavButtonProps {
+interface StepButtonProps {
   prevText?: string;
   prevHref?: string;
   nextText?: string;
@@ -16,7 +14,7 @@ interface RDStepNavButtonProps {
   tips?: boolean;
 }
 
-export const RDStepNavButton = ({
+export const StepButton = ({
   prevText,
   nextText,
   prevHref,
@@ -25,7 +23,7 @@ export const RDStepNavButton = ({
   onClick,
   checkedStates,
   tips,
-}: RDStepNavButtonProps) => {
+}: StepButtonProps) => {
   const router = useRouter();
   const [checkboxChecked, setCheckboxChecked] = useState(false);
 
@@ -44,7 +42,7 @@ const handlePrevClick = () => {
 
   //   const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
   return (
-    <RDStepNavButtonRoot>
+    <StepButtonRoot>
       {tips && (
         <RDCheckbox
           checked={checkboxChecked}
@@ -52,24 +50,55 @@ const handlePrevClick = () => {
         />
       )}
       <Box className="button-box">
-        <RDButton
-          color="primary"
+        <Button
           size="large"
           variant="outlined"
           onClick={handlePrevClick}
         >
           <Typography variant="body1">{prevText}</Typography>
-        </RDButton>
-        <RDButton
-          color="primary"
+        </Button>
+        <Button
           size="large"
           variant="contained"
           disabled={!checkedStates}
           onClick={handleNextClick}
         >
           <Typography variant="body1">{nextText}</Typography>
-        </RDButton>
+        </Button>
       </Box>
-    </RDStepNavButtonRoot>
+    </StepButtonRoot>
   );
 };
+
+import { styled } from "@mui/material";
+
+const StepButtonRoot = styled("div")(({ theme }) => {
+  return {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: "100%",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    background: "#FFF",
+    maxWidth: "480px",
+    borderTop: "1px solid #B2B0AE",
+    padding: "24px",
+    paddingTop: "12px",
+    paddingBottom: "10px",
+    gap: "10px",
+    ".button-box": {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      gap: "10px",
+    },
+    ".prevButton": {},
+    " .nextButton": {},
+  };
+});
+
