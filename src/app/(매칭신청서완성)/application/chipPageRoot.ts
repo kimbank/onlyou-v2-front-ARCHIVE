@@ -9,7 +9,7 @@ export default styled(Container)(({ theme }) => {
     ".title-box": {
       gap: "0px",
     },
-    ".character-radio": {
+    ".value-radio": {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -23,21 +23,7 @@ export default styled(Container)(({ theme }) => {
       transition:
         "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
     },
-    ".character-radio.visible": {
-      opacity: 1,
-      transform: "translateY(0)",
-      visibility: "visible",
-    },
-    ".character-chip": {
-      display: "flex",
-      flexDirection: "column",
-      opacity: 0,
-      transform: "translateY(20px)",
-      visibility: "hidden",
-      transition:
-        "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
-    },
-    ".character-chip.show-chip": {
+    ".value-radio.visible": {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
@@ -48,6 +34,16 @@ export default styled(Container)(({ theme }) => {
       flexWrap: "wrap",
       gap: "8px",
       paddingTop: "12px",
+      opacity: 0,
+      transform: "translateY(20px)",
+      visibility: "hidden",
+      transition:
+        "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
+    },
+    ".chip.visible": {
+      opacity: 1,
+      transform: "translateY(0)",
+      visibility: "visible",
     },
   };
 });

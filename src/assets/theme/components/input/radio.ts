@@ -36,7 +36,6 @@ const radio: Types = {
 
       "&:hover": {
         opcity: 0.75,
-        backgroundColor: primary?.main,
       },
       "&.Mui-checked": {
         color: "#000000 !important",

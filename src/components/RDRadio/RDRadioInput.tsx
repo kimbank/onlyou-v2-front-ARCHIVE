@@ -16,7 +16,6 @@ interface optionsProps {
 
 const RDRadioInput = ({ options, onChange }: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
-  console.log("selectedValue", selectedValue);
 
   const handleChange = (event: any) => {
     const newValue = event.target.value;

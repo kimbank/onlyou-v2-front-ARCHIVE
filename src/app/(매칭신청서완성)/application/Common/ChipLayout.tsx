@@ -1,24 +1,26 @@
 "use client";
 
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Container, Typography, Button, Chip, styled } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  styled,
+  Chip,
+} from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import BottomButton from "@/components/BottomButton/Container";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { targetingCategories } from "@/constants/me";
 
-interface RadioOption {
-  value: string;
-  label: string;
-}
-
-interface RadioGroup {
-  title: string;
-  options: RadioOption[];
-}
-
-const Index = () => {
+const CommonLayout = ({
+  title,
+  stepNumber,
+  radioGroupsData,
+  nextHref,
+  prevHref,
+}: any) => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
@@ -26,8 +28,7 @@ const Index = () => {
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
- const radioGroups = useMemo(() => targetingCategories.personality, []);
-
+  const radioGroups = useMemo(() => radioGroupsData, [radioGroupsData]);
   const router = useRouter();
 
   const handleRadioChange = (groupTitle: string, value: string) => {
@@ -36,7 +37,8 @@ const Index = () => {
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
+      radioGroups.options.findIndex((group: any) => group.name === groupTitle) +
+      1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -64,6 +66,7 @@ const Index = () => {
       };
     });
   };
+
   const allSelectedValue = {
     ...selectedValues,
     ...selectedChips,
@@ -76,30 +79,36 @@ const Index = () => {
       return value !== "";
     }
   });
-  
-    const handleNext = () => {
-      if (allGroupsSelected) {
-        router.push("appearance/");
-      } else {
-        alert("모든 그룹을 선택하세요.");
-      }
-    };
 
-      useEffect(() => {
-        console.log("selectedValues", selectedValues);
-        console.log("radioGroups", radioGroups);
-        console.log("allSelectedValue", allSelectedValue);
-      }, [selectedValues, radioGroups, allSelectedValue]);
+  const handlePrev = () => {
+    if (prevHref) {
+      router.push(prevHref);
+    }
+  };
+
+  const handleNext = () => {
+        if (nextHref) {
+          if (allGroupsSelected) {
+            router.push(nextHref);
+          } else {
+            alert("모든 그룹을 선택하세요.");
+          }
+        }
+  };
+
+  useEffect(() => {
+    console.log("allSelectedValue", allSelectedValue);
+  });
 
   return (
-    <CharacterRoot>
+    <Root>
       <Box className="title-box">
         <Typography variant="subtitle2">
-          <strong>3</strong>/6
+          <strong>{stepNumber}</strong>/6
         </Typography>
-        <Typography variant="h1">성격 정보 입력하기</Typography>
+        <Typography variant="h1">{title}</Typography>
       </Box>
-       {radioGroups.options.map((group, index) => {
+      {radioGroups.options.map((group: any, index: any) => {
         const isLastIndex = index === radioGroups.options.length - 1;
         const isVisible = index <= activeGroupIndex;
         if ("options" in group && group.options) {
@@ -154,29 +163,27 @@ const Index = () => {
         }
       })}
       <BottomButton sx={{ gap: "18px" }}>
-        <Link href={"value/"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
-
+        <Button onClick={handlePrev} variant="outlined">
+          이전
+        </Button>
         <Button onClick={handleNext} variant="contained" size="large" fullWidth>
           다음
         </Button>
       </BottomButton>
-{/* 
-      <RDStepNavButton
+      {/* <RDStepNavButton
         prevText="이전"
         nextText="다음"
-        prevHref="life/"
-        nextHref="appearance/"
+        prevHref="value/"
+        nextHref="character/"
         nextType="button"
         checkedStates={allGroupsSelected}
       /> */}
-    </CharacterRoot>
+    </Root>
   );
 };
-export default Index;
+export default CommonLayout;
 
-const CharacterRoot = styled(Container)(({ theme }) => {
+const Root = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
@@ -223,4 +230,3 @@ const CharacterRoot = styled(Container)(({ theme }) => {
     },
   };
 });
-

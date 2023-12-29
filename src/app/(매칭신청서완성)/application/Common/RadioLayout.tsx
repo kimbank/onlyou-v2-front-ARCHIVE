@@ -9,73 +9,92 @@ import BottomButton from "@/components/BottomButton/Container";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { targetingCategories } from "@/constants/me";
-const Index = () => {
+const RadioLayout = ({
+  title,
+  stepNumber,
+  radioGroupsData,
+  nextHref,
+  prevHref,
+}: any) => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const router = useRouter();
 
-  const radioGroups = useMemo(() => targetingCategories.values, []);
+  const radioGroups = useMemo(() => radioGroupsData, []);
 
-const handleRadioChange = (groupTitle: string, value: string) => {
-  setSelectedValues((prevValues) => ({
-    ...prevValues,
-    [groupTitle]: value,
-  }));
-  const nextIndex =
-    radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
+  const handleRadioChange = (groupTitle: string, value: string) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [groupTitle]: value,
+    }));
+    const nextIndex =
+      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
 
-  if (nextIndex > activeGroupIndex && nextIndex < radioGroups.options.length) {
-    setActiveGroupIndex(nextIndex);
-  }
-};
+    if (
+      nextIndex > activeGroupIndex &&
+      nextIndex < radioGroups.options.length
+    ) {
+      setActiveGroupIndex(nextIndex);
+    }
+  };
   const allGroupsSelected = radioGroups.options.every(
     (group) => selectedValues[group.name] != null
   );
-  const handleNext = ()=> {
-  if (allGroupsSelected) {
-    router.push('life/'); 
-  } else {
-    alert('모든 그룹을 선택하세요.');
-  }
-}
+  const handlePrev = () => {
+    if (prevHref) {
+      router.push(prevHref);
+    }
+  };
 
-useEffect(()=>{
-  console.log(selectedValues);
-})
+  const handleNext = () => {
+    if (nextHref) {
+      if (allGroupsSelected) {
+        router.push(nextHref);
+      } else {
+        alert("모든 그룹을 선택하세요.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectedValues);
+  });
 
   return (
     <ValueRoot>
       <Box className="title-box">
         <Typography variant="subtitle2">
-          <strong>1</strong>/6
+          <strong>{stepNumber}</strong>/6
         </Typography>
-        <Typography variant="h1">가치관 정보 입력하기</Typography>
+        <Typography variant="h1">{title}</Typography>
       </Box>
       {radioGroups.options.map((group, index) => {
-  if ("options" in group && group.options) {
-    const options = group.options as { [key: string]: string };
-    return (
-      <Container
-        key={group.label}
-        className={
-          index <= activeGroupIndex ? "value-radio visible" : "value-radio"
+        if ("options" in group && group.options) {
+          const options = group.options as { [key: string]: string };
+          return (
+            <Container
+              key={group.label}
+              className={
+                index <= activeGroupIndex
+                  ? "value-radio visible"
+                  : "value-radio"
+              }
+            >
+              <Typography variant="subtitle2">
+                {index + 1}.{group.label}
+              </Typography>
+              <RDRadioInput
+                onChange={(id: string) => handleRadioChange(group.name, id)}
+                options={Object.keys(options).map((key) => ({
+                  value: key,
+                  label: options[key],
+                }))}
+              />
+            </Container>
+          );
         }
-      >
-        <Typography variant="subtitle2">
-          {index + 1}.{group.label}
-        </Typography>
-        <RDRadioInput
-          onChange={(id: string) => handleRadioChange(group.name, id)}
-          options={Object.keys(options).map((key) => ({
-            value: key,
-            label: options[key],
-          }))}
-        />
-      </Container>
-    );
-  }
       })}
       {/* <RDStepNavButton
         prevText="이전"
@@ -87,9 +106,9 @@ useEffect(()=>{
       /> */}
 
       <BottomButton sx={{ gap: "18px" }}>
-        <Link href={"/matching"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
+        <Button onClick={handlePrev} variant="outlined">
+          이전
+        </Button>
 
         <Button onClick={handleNext} variant="contained" size="large" fullWidth>
           다음
@@ -98,7 +117,7 @@ useEffect(()=>{
     </ValueRoot>
   );
 };
-export default Index;
+export default RadioLayout;
 
 const ValueRoot = styled(Container)(({ theme }) => {
   return {

@@ -33,7 +33,7 @@ export interface Option {
   targeting_limit?: number;
 
   /** 선지 */
-  options?: { [key: string]: string };
+  options: { [key: string]: string };
 }
 
 
