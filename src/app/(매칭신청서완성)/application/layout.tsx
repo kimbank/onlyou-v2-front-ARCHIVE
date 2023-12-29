@@ -17,22 +17,19 @@ export default function ApplicationLayout({
     const pathname = usePathname();
 
      const currentPage = useMemo(() => {
-       // URL 경로에 따른 페이지 번호 결정
      const pageMap: { [key: string]: number } = {
-       "/value": 1,
-       "/life": 2,
-       "/character": 3,
-       "/appearance": 4,
-       "/dating": 5,
-       "/other": 6,
+       "/application/value": 1,
+       "/application/life": 2,
+       "/application/character": 3,
+       "/application/appearance": 4,
+       "/application/dating": 5,
+       "/application/other": 6,
      };
-       return pageMap[pathname] || 1; // 경로가 없으면 기본값은 1
+       return pageMap[pathname] || 1; 
      }, [pathname]);
 
        const progress = useMemo(() => {
-         // 총 페이지 수
-         const totalPages = 6;
-         // 현재 진행률 계산
+         const totalPages = 10;
          return (currentPage / totalPages) * 100;
        }, [currentPage]);
 

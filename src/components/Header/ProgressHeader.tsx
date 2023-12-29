@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LogoIcon from "public/icons/logo.svg";
 import CloseIcon from "@mui/icons-material/CloseRounded";
@@ -26,6 +26,7 @@ export const ProgressHeader = ({
     const handleCloseModal = () => {
       setModalOpen(false);
     };
+
   return (
     <HeaderRoot>
       <div className="header-container">

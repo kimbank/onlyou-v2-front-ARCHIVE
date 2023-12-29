@@ -30,11 +30,11 @@ const TargetingPage = () => {
   const isTargetingEmpty = Object.keys(targetingState).every((field: string) => {
     return targetingState[field].priority === null;
   });
-
+  const progress = (7 / 10) * 100;
 
   return (
     <>
-      <ProgressHeader />
+      <ProgressHeader progress={progress} />
       <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
