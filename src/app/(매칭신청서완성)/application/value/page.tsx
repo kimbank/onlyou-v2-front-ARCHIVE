@@ -2,32 +2,48 @@
 
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Container, Typography, styled } from "@mui/material";
-import { useMemo, useState } from "react";
+import { Box, Button, Container, Typography, styled } from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
 import { ValueRadioGroups } from "../data/valueData";
-
+import BottomButton from "@/components/BottomButton/Container";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { targetingCategories } from "@/constants/me";
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+  const router = useRouter();
 
-  const radioGroups = useMemo(() => ValueRadioGroups, []);
+  const radioGroups = useMemo(() => targetingCategories.values, []);
 
-  const handleRadioChange = (groupTitle: string, value: string) => {
-    setSelectedValues((prevValues) => ({
-      ...prevValues,
-      [groupTitle]: value,
-    }));
-    const nextIndex =
-      radioGroups.findIndex((group) => group.title === groupTitle) + 1;
-    if (nextIndex < radioGroups.length) {
-      setActiveGroupIndex(nextIndex);
-    }
-  };
-  const allGroupsSelected = radioGroups.every(
-    (group) => selectedValues[group.title] != null
+const handleRadioChange = (groupTitle: string, value: string) => {
+  setSelectedValues((prevValues) => ({
+    ...prevValues,
+    [groupTitle]: value,
+  }));
+  const nextIndex =
+    radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
+
+  if (nextIndex > activeGroupIndex && nextIndex < radioGroups.options.length) {
+    setActiveGroupIndex(nextIndex);
+  }
+};
+  const allGroupsSelected = radioGroups.options.every(
+    (group) => selectedValues[group.name] != null
   );
+  const handleNext = ()=> {
+  if (allGroupsSelected) {
+    router.push('life/'); 
+  } else {
+    alert('모든 그룹을 선택하세요.');
+  }
+}
+
+useEffect(()=>{
+  console.log(selectedValues);
+})
 
   return (
     <ValueRoot>
@@ -37,30 +53,48 @@ const Index = () => {
         </Typography>
         <Typography variant="h1">가치관 정보 입력하기</Typography>
       </Box>
-      {radioGroups.map((group, index) => (
-        <Container
-          key={group.title}
-          className={
-            index <= activeGroupIndex ? "value-radio visible" : "value-radio"
-          }
-        >
-          <Typography variant="h6">
-            {index + 1}.{group.title}
-          </Typography>
-          <RDRadioInput
-            onChange={(value: string) => handleRadioChange(group.title, value)}
-            options={group.options}
-          />
-        </Container>
-      ))}
-      <RDStepNavButton
+      {radioGroups.options.map((group, index) => {
+  if ("options" in group && group.options) {
+    const options = group.options as { [key: string]: string };
+    return (
+      <Container
+        key={group.label}
+        className={
+          index <= activeGroupIndex ? "value-radio visible" : "value-radio"
+        }
+      >
+        <Typography variant="h6">
+          {index + 1}.{group.label}
+        </Typography>
+        <RDRadioInput
+          onChange={(id: string) => handleRadioChange(group.name, id)}
+          options={Object.keys(options).map((key) => ({
+            value: key,
+            label: options[key],
+          }))}
+        />
+      </Container>
+    );
+  }
+      })}
+      {/* <RDStepNavButton
         prevText="이전"
         nextText="다음"
         prevHref="LetterSelect/"
         nextHref="life/"
         nextType="button"
         checkedStates={allGroupsSelected}
-      />
+      /> */}
+
+      <BottomButton sx={{ gap: "18px" }}>
+        <Link href={"/matching"} style={{ width: "100%" }} passHref>
+          <Button variant="outlined">이전</Button>
+        </Link>
+
+        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+          다음
+        </Button>
+      </BottomButton>
     </ValueRoot>
   );
 };

@@ -4,8 +4,9 @@ import { useState } from "react";
 import { StyledFormControlLabel } from "./RDRadioRoot";
 
 interface option {
-  value: string;
-  label: string;
+  id?: string;
+  label?: string;
+  value?: string;
 }
 
 interface optionsProps {
@@ -15,6 +16,7 @@ interface optionsProps {
 
 const RDRadioInput = ({ options, onChange }: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
+  console.log("selectedValue", selectedValue);
 
   const handleChange = (event: any) => {
     const newValue = event.target.value;
@@ -23,7 +25,11 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
   };
 
   return (
-    <RadioGroup value={selectedValue} onChange={handleChange} sx={{ gap: "8px" }}>
+    <RadioGroup
+      value={selectedValue}
+      onChange={handleChange}
+      sx={{ gap: "8px" }}
+    >
       {options.map((option, index) => (
         <StyledFormControlLabel
           key={index}
@@ -31,7 +37,11 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
           value={option.value}
           checked={selectedValue === option.value}
           control={<Radio />}
-          label={<Typography variant="body1" sx={{ paddingRight: "8px" }}>{option.label}</Typography>}
+          label={
+            <Typography variant="body1" sx={{ paddingRight: "8px" }}>
+              {option.label}
+            </Typography>
+          }
         />
       ))}
     </RadioGroup>

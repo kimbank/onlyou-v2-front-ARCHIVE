@@ -35,10 +35,10 @@ const outlined = {
   large: {
     width: "100%",
     minHeight: "52px",
-    color: primary,
-    borderColor: primary,
+    color: primary?.main,
+    borderColor: primary?.main,
     padding: `${pxToRem(10)} ${pxToRem(24)}`,
-    border: `1px solid ${primary}`,
+    border: `1px solid ${primary?.main}`,
 
     "&:hover": {
       opacity: 0.75,
@@ -60,9 +60,12 @@ const outlined = {
 
   secondary: {
     backgroundColor: primary,
+    color: primary?.main,
+    border: `1px solid ${primary?.main}`,
 
     "&:hover": {
-      backgroundColor: primary,
+      opacity: 0.75,
+      border: `1px solid ${primary?.main}`,
     },
   },
 };

@@ -3,7 +3,7 @@
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { RDChip } from "@/components/RDChip";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography,Button } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import {
   AppearanceManchipGroups,
@@ -11,6 +11,9 @@ import {
   AppearanceWomanchipGroups,
 } from "../data/appearanceData";
 import AppearanceRoot from "./AppearanceRoot";
+import BottomButton from "@/components/BottomButton/Container";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface RadioOption {
   value: string;
@@ -33,6 +36,7 @@ const Index = () => {
   // 추후 유저 성별에 따라 구분
   const radioGroups2 = useMemo(() => AppearanceManchipGroups, []);
   const radioGroups3 = useMemo(() => AppearanceWomanchipGroups, []);
+   const router = useRouter();
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -72,6 +76,15 @@ const Index = () => {
     console.log("radioGroups", radioGroups1);
     console.log("allGroupsSelected", allGroupsSelected);
   }, [selectedValues, radioGroups1, allGroupsSelected]);
+
+      const handleNext = () => {
+        if (allGroupsSelected) {
+          router.push("dating/");
+        } else {
+          alert("모든 그룹을 선택하세요.");
+        }
+      };
+
 
   return (
     <AppearanceRoot>
@@ -118,15 +131,23 @@ const Index = () => {
           ))}
         </Box>
       )}
+      <BottomButton sx={{ gap: "18px" }}>
+        <Link href={"/matching"} style={{ width: "100%" }} passHref>
+          <Button variant="outlined">이전</Button>
+        </Link>
 
-      <RDStepNavButton
+        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+          다음
+        </Button>
+      </BottomButton>
+      {/* <RDStepNavButton
         prevText="이전"
         nextText="다음"
         prevHref="character/"
         nextHref="dating/"
         nextType="button"
         checkedStates={allGroupsSelected}
-      />
+      /> */}
     </AppearanceRoot>
   );
 };

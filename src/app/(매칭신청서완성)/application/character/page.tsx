@@ -3,13 +3,16 @@
 import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { RDChip } from "@/components/RDChip";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Button } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import {
   characterchipGroups,
   characterRadioGroups,
 } from "../data/characterData";
 import CharacterRoot from "./CharacterRoot";
+import BottomButton from "@/components/BottomButton/Container";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface RadioOption {
   value: string;
@@ -30,6 +33,7 @@ const Index = () => {
   const [showChipGroups, setShowChipGroups] = useState(false);
   const radioGroups1 = useMemo(() => characterRadioGroups, []);
   const radioGroups2 = useMemo(() => characterchipGroups, []);
+  const router = useRouter();
 
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -69,6 +73,15 @@ const Index = () => {
     console.log("radioGroups", radioGroups1);
     console.log("allGroupsSelected", allGroupsSelected);
   }, [selectedValues, radioGroups1, allGroupsSelected]);
+
+    const handleNext = () => {
+      if (allGroupsSelected) {
+        router.push("appearance/");
+      } else {
+        alert("모든 그룹을 선택하세요.");
+      }
+    };
+
 
   return (
     <CharacterRoot>
@@ -115,7 +128,16 @@ const Index = () => {
           ))}
         </Box>
       )}
+      <BottomButton sx={{ gap: "18px" }}>
+        <Link href={"/matching"} style={{ width: "100%" }} passHref>
+          <Button variant="outlined">이전</Button>
+        </Link>
 
+        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
+          다음
+        </Button>
+      </BottomButton>
+{/* 
       <RDStepNavButton
         prevText="이전"
         nextText="다음"
@@ -123,7 +145,7 @@ const Index = () => {
         nextHref="appearance/"
         nextType="button"
         checkedStates={allGroupsSelected}
-      />
+      /> */}
     </CharacterRoot>
   );
 };

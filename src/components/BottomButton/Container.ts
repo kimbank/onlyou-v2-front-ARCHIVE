@@ -1,6 +1,7 @@
 import { styled } from "@mui/material";
 
-export const Container = styled("div")({
+export const Container = styled("div")(
+  {
   position: "fixed",
   bottom: "0px",
   left: "50%",

@@ -1,9 +1,10 @@
 interface RadioOption {
-  value: string;
+  id: string;
   label: string;
 }
 
 interface RadioGroup {
   title: string;
+  value : string;
   options: RadioOption[];
 }

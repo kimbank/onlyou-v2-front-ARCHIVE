@@ -1,3 +1,4 @@
+import colors from "@/assets/theme/base/colors";
 import { styled, Button } from "@mui/material";
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
   disabled?: boolean;
   sx?: any;
 }
-
+  const { gray3, gray4 } = colors;
 const SampleButton = ({
   children,
   variant = "contained",
@@ -28,6 +29,7 @@ const SampleButton = ({
 }: Props) => {
   let COLOR = {};
   let SIZE = {};
+
 
   switch(color) {
     case("primary"):
@@ -143,7 +145,11 @@ const variantDefault = {
   "&:hover": {
     backgroundColor: "#FFF0E4",
   },
-}
+  ".Mui-disabled": {
+    backgroundColor: gray3,
+    color: gray4,
+  },
+};
 
 const mediumOutlined = {
   backgroundColor: "#fff",
@@ -152,7 +158,11 @@ const mediumOutlined = {
   "&:hover": {
     backgroundColor: "#FFF0E4",
   },
-}
+  ".Mui-disabled": {
+    backgroundColor: gray3,
+    color: gray4,
+  },
+};
 
 const largeOutlined = {
   backgroundColor: "#fff",
@@ -161,6 +171,10 @@ const largeOutlined = {
   "&:hover": {
     backgroundColor: "#FFF0E4",
   },
-}
+  ".Mui-disabled": {
+    backgroundColor: gray3,
+    color: gray4,
+  },
+};
 
 export default SampleButton;
