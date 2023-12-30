@@ -15,6 +15,8 @@ import TestDrawer from "@/components/Drawer";
 
 import BottomButton from "@/components/BottomButton/Container";
 import Esitimate from "./Estimate";
+import Menu from "@/components/Button/Menu";
+import { StepButton } from "@/components/Button/StepButton";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
@@ -80,7 +82,7 @@ const DetailsPage = () => {
         </div>
         <div className="content-body">
           <MenuButton
-           color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(0)}
             variant={checkFillStatus(0) ? "outlined" : "contained"}
@@ -88,15 +90,23 @@ const DetailsPage = () => {
             기본 반영 상세 조건
           </MenuButton>
           <MenuButton
-           color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(1)}
             variant={checkFillStatus(1) ? "outlined" : "contained"}
           >
             1순위 상세 조건
           </MenuButton>
+          <Menu
+            color={checkFillStatus(0) ? "primary" : "secondary"}
+            onClick={() => openSettingModalByPriority(1)}
+            variant={checkFillStatus(1) ? "outlined" : "contained"}
+          >
+            1순위 상세 조건
+          </Menu>
           <MenuButton
-           color={checkFillStatus(0) ? "primary" : "secondary"}
+            size="large"
+            color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(2)}
             variant={checkFillStatus(2) ? "outlined" : "contained"}
@@ -104,7 +114,7 @@ const DetailsPage = () => {
             2순위 상세 조건
           </MenuButton>
           <MenuButton
-           color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(3)}
             variant={checkFillStatus(3) ? "outlined" : "contained"}
@@ -115,15 +125,13 @@ const DetailsPage = () => {
           <Esitimate />
         </div>
       </ContentRoot>
-      <BottomButton sx={{ gap: "18px" }}>
-        <Link href={"/apply/targeting"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
-
-        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
-          다음
-        </Button>
-      </BottomButton>
+      <StepButton
+        prevText="이전"
+        nextText="다음"
+        prevHref="LetterSelect/"
+        nextHref="LetterWhite/"
+        nextType="button"
+      />
       <TestDrawer
         title={
           <>

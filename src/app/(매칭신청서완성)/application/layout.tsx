@@ -29,7 +29,7 @@ export default function ApplicationLayout({
      }, [pathname]);
 
        const progress = useMemo(() => {
-         const totalPages = 10;
+         const totalPages = 6;
          return (currentPage / totalPages) * 100;
        }, [currentPage]);
 

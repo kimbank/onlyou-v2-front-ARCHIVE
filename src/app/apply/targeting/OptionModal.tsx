@@ -90,7 +90,6 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
                         return (
                           <Button
                             key={option.name}
-                            size="small"
                             className={buttonStyle}
                             onClick={() => handleOptionClick(option.name)}>
                               {buttonPriority && buttonPriority !== priority && `${buttonPriority} | `} {option.label}

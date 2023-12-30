@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, primary_darken , white } = colors;
+const { primary, primary_darken , white ,gray2,gray5} = colors;
 const { size } = typography;
 
 const contained = {
@@ -52,17 +52,18 @@ const contained = {
   },
 
   secondary: {
-    backgroundColor: "#F1F3F6",
-    color: "#5C5F63",
-
-    "&:hover": {
-      backgroundColor: "#F16416",
-      color: "#fff",
+    "&.MuiButton-root": {
+      backgroundColor: gray5,
+      color: gray2,
+      "&:hover": {
+        backgroundColor: primary,
+        color: gray2,
+      },
     },
 
     "&:focus:not(:hover)": {
       backgroundColor: "#F16416",
-      color: "#fff",
+      color: gray2,
     },
   },
 };

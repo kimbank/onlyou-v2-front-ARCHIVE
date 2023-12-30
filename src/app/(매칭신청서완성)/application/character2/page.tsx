@@ -1,40 +1,24 @@
 "use client";
 
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  styled,
-  Chip,
-} from "@mui/material";
+import { Box, Container, Typography, Button, Chip, styled } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import BottomButton from "@/components/BottomButton/Container";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Option, RangeOption } from "@/constants/application_option";
-import { StepButton } from "@/components/Button/StepButton";
+import { targetingCategories } from "@/constants/me";
 
-interface ChipLayoutProps {
-  title: string;
-  stepNumber: string;
-  radioGroupsData: {
-    name: string;
-    label: string;
-    options: (Option | RangeOption)[];
-  };
-  nextHref: string;
-  prevHref: string;
+interface RadioOption {
+  value: string;
+  label: string;
 }
 
+interface RadioGroup {
+  title: string;
+  options: RadioOption[];
+}
 
-const ChipLayout = ({
-  title,
-  stepNumber,
-  radioGroupsData,
-  nextHref,
-  prevHref,
-}: ChipLayoutProps) => {
+const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
@@ -42,7 +26,8 @@ const ChipLayout = ({
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
-  const radioGroups = useMemo(() => radioGroupsData, [radioGroupsData]);
+ const radioGroups = useMemo(() => targetingCategories.personality, []);
+
   const router = useRouter();
 
   const handleRadioChange = (groupTitle: string, value: string) => {
@@ -51,8 +36,7 @@ const ChipLayout = ({
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group) => group.name === groupTitle) +
-      1;
+      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -80,7 +64,6 @@ const ChipLayout = ({
       };
     });
   };
-
   const allSelectedValue = {
     ...selectedValues,
     ...selectedChips,
@@ -93,37 +76,30 @@ const ChipLayout = ({
       return value !== "";
     }
   });
-
-  const handlePrev = () => {
-    if (prevHref) {
-      router.push(prevHref);
-    }
-  };
-
-  const handleNext = () => {
-    if (nextHref) {
+  
+    const handleNext = () => {
       if (allGroupsSelected) {
-        router.push(nextHref);
+        router.push("appearance/");
       } else {
         alert("모든 그룹을 선택하세요.");
       }
-    }
-  };
+    };
 
-  useEffect(() => {
-    console.log("allSelectedValue", allSelectedValue);
-        console.log("allGroupsSelected", allGroupsSelected);
-  });
+      useEffect(() => {
+        console.log("selectedValues", selectedValues);
+        console.log("radioGroups", radioGroups);
+        console.log("allSelectedValue", allSelectedValue);
+      }, [selectedValues, radioGroups, allSelectedValue]);
 
   return (
-    <Root>
+    <CharacterRoot>
       <Box className="title-box">
         <Typography variant="subtitle2">
-          <strong>{stepNumber}</strong>/6
+          <strong>3</strong>/6
         </Typography>
-        <Typography variant="h1">{title}</Typography>
+        <Typography variant="h1">성격 정보 입력하기</Typography>
       </Box>
-      {radioGroups.options.map((group, index) => {
+       {radioGroups.options.map((group, index) => {
         const isLastIndex = index === radioGroups.options.length - 1;
         const isVisible = index <= activeGroupIndex;
         if ("options" in group && group.options) {
@@ -178,33 +154,29 @@ const ChipLayout = ({
         }
       })}
       <BottomButton sx={{ gap: "18px" }}>
-        <Button size="large" onClick={handlePrev} variant="outlined">
-          이전
-        </Button>
-        <Button
-          size="large"
-          onClick={handleNext}
-          variant="contained"
-          fullWidth
-          disabled={!allGroupsSelected}
-        >
+        <Link href={"value/"} style={{ width: "100%" }} passHref>
+          <Button variant="outlined">이전</Button>
+        </Link>
+
+        <Button onClick={handleNext} variant="contained" size="large" fullWidth>
           다음
         </Button>
       </BottomButton>
-      {/* <StepButton
+{/* 
+      <RDStepNavButton
         prevText="이전"
         nextText="다음"
-        prevHref={handlePrev}
-        nextHref={handleNext}
+        prevHref="life/"
+        nextHref="appearance/"
         nextType="button"
         checkedStates={allGroupsSelected}
       /> */}
-    </Root>
+    </CharacterRoot>
   );
 };
-export default ChipLayout;
+export default Index;
 
-const Root = styled(Container)(({ theme }) => {
+const CharacterRoot = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
@@ -251,3 +223,4 @@ const Root = styled(Container)(({ theme }) => {
     },
   };
 });
+

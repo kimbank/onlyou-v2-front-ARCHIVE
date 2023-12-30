@@ -27,14 +27,14 @@ export const targetingOptions: TargetingOptions = {
     option.athleticLife,
     option.petAnimal,
     option.religion,
-    option.interest, // default
+    option.interest,
   ],
   personality: [
     option.extrovert_introvert,
     option.intuition_reality,
     option.emotion_reason,
     option.impromptu_plan,
-    option.personalityCharm, // default
+    option.personalityCharm, 
   ],
   values: [
     option.marriageValues,
@@ -49,7 +49,7 @@ export const targetingOptions: TargetingOptions = {
     option.doubleEyelid,
     option.bodyType,
     option.tattoo,
-    option.externalCharm, // default
+    option.externalCharm,
   ],
   datingstyle: [
     option.preferredDate,

@@ -3,18 +3,29 @@
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Button, Container, Typography, styled } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { ValueRadioGroups } from "../data/valueData";
 import BottomButton from "@/components/BottomButton/Container";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { targetingCategories } from "@/constants/me";
+import { Option, RangeOption } from "@/constants/application_option";
+
+interface RadioLayoutProps {
+  title: string;
+  stepNumber: string;
+  radioGroupsData: {
+    name: string;
+    label: string;
+    options: (Option | RangeOption)[];
+  };
+  nextHref: string;
+  prevHref: string;
+}
+
 const RadioLayout = ({
   title,
   stepNumber,
   radioGroupsData,
   nextHref,
   prevHref,
-}: any) => {
+}: RadioLayoutProps) => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
@@ -29,7 +40,8 @@ const RadioLayout = ({
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group :any) => group.name === groupTitle) + 1;
+      radioGroups.options.findIndex((group) => group.name === groupTitle) +
+      1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -39,7 +51,7 @@ const RadioLayout = ({
     }
   };
   const allGroupsSelected = radioGroups.options.every(
-    (group:any) => selectedValues[group.name] != null
+    (group) => selectedValues[group.name] != null
   );
   const handlePrev = () => {
     if (prevHref) {
@@ -69,7 +81,7 @@ const RadioLayout = ({
         </Typography>
         <Typography variant="h1">{title}</Typography>
       </Box>
-      {radioGroups.options.map((group:any, index:any) => {
+      {radioGroups.options.map((group, index) => {
         if ("options" in group && group.options) {
           const options = group.options as { [key: string]: string };
           return (

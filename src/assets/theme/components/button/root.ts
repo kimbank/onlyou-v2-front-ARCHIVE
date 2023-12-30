@@ -22,7 +22,6 @@ const root = {
   boxShadow: "none",
   border: "1px solid inherit",
   borderRadius: "6px",
-
   //기본버튼에서 disabled값을 추가시 root에서 속성설정
   "&:disabled": {
     pointerEvent: "none",
