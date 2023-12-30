@@ -1,6 +1,5 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { RDChip } from "@/components/RDChip";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import { Box, Container, Typography,Button } from "@mui/material";
@@ -66,10 +65,7 @@ const Index = () => {
     (group) => selectedValues[group.title] != null
   );
 
-  const allChipsSelected = radioGroups2.every((group) =>
-    group.options.some((option) => selectedOptions.includes(option.value))
-  );
-  const allGroupsSelected = allRadiosSelected && allChipsSelected;
+  const allGroupsSelected = allRadiosSelected ;
 
   useEffect(() => {
     console.log("selectedValues", selectedValues);
@@ -112,25 +108,6 @@ const Index = () => {
           />
         </Container>
       ))}
-      {showChipGroups && (
-        <Box className={`appearance-chip ${showChipGroups ? "show-chip" : ""}`}>
-          {radioGroups2.map((group) => (
-            <Box key={group.title}>
-              <Typography variant="h6">{group.title}</Typography>
-              <Box className="chip">
-                {group.options.map((option) => (
-                  <RDChip
-                    key={option.value}
-                    label={option.label}
-                    checked={selectedOptions.includes(option.value)}
-                    onClick={() => handleChipClick(option.value)}
-                  />
-                ))}
-              </Box>
-            </Box>
-          ))}
-        </Box>
-      )}
       <BottomButton sx={{ gap: "18px" }}>
         <Link href={"/matching"} style={{ width: "100%" }} passHref>
           <Button variant="outlined">이전</Button>
