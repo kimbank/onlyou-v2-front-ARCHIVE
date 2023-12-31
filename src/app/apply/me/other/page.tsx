@@ -12,6 +12,7 @@ import OtherRoot from "./OtherRoot";
 import BottomButton from "@/components/BottomButton/Container";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { StepButton } from "@/components/Button/StepButton";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
@@ -120,26 +121,15 @@ const Index = () => {
           </Typography>
         </InfoBox>
       </Box>
-      <BottomButton sx={{ gap: "18px" }}>
-        <Link href={"/matching"} style={{ width: "100%" }} passHref>
-          <Button size="large" variant="outlined">
-            이전
-          </Button>
-        </Link>
-
-        <Button size="large" onClick={handleNext} variant="contained" fullWidth>
-          다음
-        </Button>
-      </BottomButton>
-      {/* <RDStepNavButton
+      <StepButton
         prevText="이전"
         nextText="다음"
         prevHref="dating/"
+        onClick={handleNext}
         nextType="button"
         checkedStates={allGroupsSelected}
-        onClick={handleOpenDrawer}
         tips
-      /> */}
+      />
       <SubmitDrawer
         nextHref="/apply/targeting"
         open={drawerOpen}

@@ -1,9 +1,8 @@
 "use client"
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import HomeHeader from "@/components/Header/HomeHeader";
 import BottomNavi from "@/components/BottomNavi";
-import RDButton from "@/components/RDButton/RDButton";
 import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
@@ -32,14 +31,14 @@ const MatchingIndex = () => {
         <Box className="content">
           <StepInfo />
           <SaveInfo />
-          <RDButton
+          <Button
             variant="contained"
             color="primary"
             size="large"
             onClick={handleHref}
           >
             <Typography variant="button">매칭신청서 완성하기</Typography>
-          </RDButton>
+          </Button>
         </Box>
       </MatchingRoot>
 

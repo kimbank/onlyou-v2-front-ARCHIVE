@@ -5,12 +5,10 @@ import {
   Box,
   Container,
   Typography,
-  Button,
   styled,
   Chip,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import BottomButton from "@/components/BottomButton/Container";
 import { useRouter } from "next/navigation";
 import { Option, RangeOption } from "@/constants/application_option";
 import { StepButton } from "@/components/Button/StepButton";
@@ -43,8 +41,6 @@ const ChipLayout = ({
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const radioGroups = useMemo(() => radioGroupsData, [radioGroupsData]);
-  const router = useRouter();
-
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
       ...prevValues,
@@ -86,34 +82,15 @@ const ChipLayout = ({
     ...selectedChips,
   };
 
-  const allGroupsSelected = Object.values(allSelectedValue).every((value) => {
-    if (Array.isArray(value)) {
-      return value.length > 0;
-    } else {
-      return value !== "";
-    }
-  });
+  const allRadioGroupsSelected = Object.values(selectedValues).every(
+    (value) => value !== ""
+  );
 
-  const handlePrev = () => {
-    if (prevHref) {
-      router.push(prevHref);
-    }
-  };
-
-  const handleNext = () => {
-    if (nextHref) {
-      if (allGroupsSelected) {
-        router.push(nextHref);
-      } else {
-        alert("모든 그룹을 선택하세요.");
-      }
-    }
-  };
-
-  useEffect(() => {
-    console.log("allSelectedValue", allSelectedValue);
-        console.log("allGroupsSelected", allGroupsSelected);
-  });
+  const allChipGroupsSelected =
+    Object.keys(selectedChips).length > 0 &&
+    Object.values(selectedChips).every((chips) => chips.length > 0);
+    
+const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
 
   return (
     <Root>

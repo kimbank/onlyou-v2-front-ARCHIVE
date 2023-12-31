@@ -23,12 +23,16 @@ export default function ApplicationLayout({
        "apply/me/appearance": 4,
        "apply/me/dating": 5,
        "apply/me/other": 6,
+       "apply/targeting": 7,
+       "apply/targeting/details": 8,
+       "apply/letter/select": 9,
+       "apply/letter/write": 10,
      };
        return pageMap[pathname] || 1; 
      }, [pathname]);
 
        const progress = useMemo(() => {
-         const totalPages = 6;
+         const totalPages = 10;
          return (currentPage / totalPages) * 100;
        }, [currentPage]);
 

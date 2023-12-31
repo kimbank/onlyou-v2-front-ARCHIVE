@@ -1,5 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
-import RDButton from "../../RDButton/RDButton";
+import { Box, Button, Container, Typography } from "@mui/material";
 import ModalFrame from "../ModalFrame";
 import ModalButton from "../modalItem/ModalButton";
 import ModalContent from "../modalItem/ModalContent";
@@ -35,24 +34,22 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
         </ModalContent>
         <ModalButton>
           <Box className="modal-buttons">
-            <RDButton
+            <Button
               color="primary"
               variant="outlined"
-              size="small"
               onClick={onClose}
             >
               <Typography variant="body2">다시 작성하기</Typography>
-            </RDButton>
-            <RDButton
+            </Button>
+            <Button
               color="primary"
               variant="contained"
-              size="small"
               onClick={handleCompleteClick}
             >
               <Typography color="white" variant="body2">
                 제출하기
               </Typography>
-            </RDButton>
+            </Button>
           </Box>
         </ModalButton>
       </LetterModalRoot>

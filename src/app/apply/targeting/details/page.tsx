@@ -67,7 +67,6 @@ const DetailsPage = () => {
 
   return (
     <>
-      <ProgressHeader />
       <SettingOptionModal
         open={isSettingOpen}
         onClose={closeSettingModal}

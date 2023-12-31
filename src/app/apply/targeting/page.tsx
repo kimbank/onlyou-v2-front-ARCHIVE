@@ -17,6 +17,8 @@ import useModal from "@/hooks/useModal";
 import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
+import { StepButton } from "@/components/Button/StepButton";
+import { useEffect } from "react";
 
 
 const TargetingPage = () => {
@@ -30,11 +32,13 @@ const TargetingPage = () => {
   const isTargetingEmpty = Object.keys(targetingState).every((field: string) => {
     return targetingState[field].priority === null;
   });
-  const progress = (7 / 10) * 100;
+
+  useEffect(()=>{
+    console.log("isTargetingEmpty", isTargetingEmpty);
+  })
 
   return (
     <>
-      <ProgressHeader progress={progress} />
       <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
@@ -103,20 +107,13 @@ const TargetingPage = () => {
           )}
         </Box>
       </TargetingRoot>
-      <BottomButtonContainer>
-        <Link href={"/"} style={{ width: "100%" }} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
-        <Link
-          href={"/apply/targeting/details"}
-          style={{ width: "100%" }}
-          passHref
-        >
-          <Button variant="contained" size="large">
-            다음
-          </Button>
-        </Link>
-      </BottomButtonContainer>
+      <StepButton
+        prevText="이전"
+        nextText="다음"
+        prevHref="/apply/me/other"
+        nextHref="/apply/targeting/details"
+        nextType="button"
+      />
     </>
   );
 }

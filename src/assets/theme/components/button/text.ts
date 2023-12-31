@@ -1,86 +1,77 @@
-// import colors from "../../base/colors";
-// import typography from "../../base/typography";
-// import pxToRem from "../../functions/pxToRem";
+import colors from "../../base/colors";
+import typography from "../../base/typography";
+import pxToRem from "../../functions/pxToRem";
 
-// const { white, info, secondary, transparent } = colors;
-// const { size } = typography;
+const { white } = colors;
+const { size } = typography;
 
-// const buttonText = {
-//   base: {
-//     backgroundColor: transparent.main,
-//     minHeight: pxToRem(40),
-//     color: white.main,
-//     boxShadow: "none",
-//     padding: `${pxToRem(10)} ${pxToRem(24)}`,
+const buttonText = {
+  base: {
+    color: white.main,
+    boxShadow: "none",
+    display:"flex",
+    flexDirection :"flex-start",
 
-//     "&:hover": {
-//       backgroundColor: transparent.main,
-//       boxShadow: "none",
-//     },
+    "&:hover": {
+      boxShadow: "none",
+    },
 
-//     "&:focus": {
-//       boxShadow: "none",
-//     },
+    "&:focus": {
+      boxShadow: "none",
+    },
 
-//     "&:active, &:active:focus, &:active:hover": {
-//       opacity: 0.85,
-//       boxShadow: "none",
-//     },
+    "&:active, &:active:focus, &:active:hover": {
+      opacity: 0.85,
+      boxShadow: "none",
+    },
 
-//     "&:disabled": {
-//       boxShadow: "none",
-//     },
+    "&:disabled": {
+      boxShadow: "none",
+    },
 
-//     "& .material-icon, .material-icons-round, svg": {
-//       fontSize: `${pxToRem(16)} !important`,
-//     },
-//   },
+    "& .material-icon, .material-icons-round, svg": {
+      fontSize: `${pxToRem(16)} !important`,
+    },
+  },
 
-//   small: {
-//     minHeight: pxToRem(32),
-//     padding: `${pxToRem(6)} ${pxToRem(16)}`,
-//     fontSize: size.xs,
+  small: {
+    minHeight: pxToRem(32),
+    padding: `${pxToRem(6)} ${pxToRem(16)}`,
+    fontSize: size.xs,
 
-//     "& .material-icon, .material-icons-round, svg": {
-//       fontSize: `${pxToRem(12)} !important`,
-//     },
-//   },
+    "& .material-icon, .material-icons-round, svg": {
+      fontSize: `${pxToRem(12)} !important`,
+    },
+  },
 
-//   large: {
-//     minHeight: pxToRem(47),
-//     padding: `${pxToRem(12)} ${pxToRem(28)}`,
-//     fontSize: size.sm,
+  large: {
+    padding: 0,
+    fontSize: size.sm,
+    height:"20px !important",
+    "& .material-icon, .material-icons-round, svg": {
+      fontSize: `${pxToRem(22)} !important`,
+    },
+  },
 
-//     "& .material-icon, .material-icons-round, svg": {
-//       fontSize: `${pxToRem(22)} !important`,
-//     },
-//   },
+  primary: {
 
-//   primary: {
-//     color: info.main,
+    "&:hover": {
+    },
 
-//     "&:hover": {
-//       color: info.main,
-//     },
+    "&:focus:not(:hover)": {
+      boxShadow: "none",
+    },
+  },
 
-//     "&:focus:not(:hover)": {
-//       color: info.focus,
-//       boxShadow: "none",
-//     },
-//   },
+  secondary: {
 
-//   secondary: {
-//     color: secondary.main,
+    "&:hover": {
+    },
 
-//     "&:hover": {
-//       color: secondary.main,
-//     },
+    "&:focus:not(:hover)": {
+      boxShadow: "none",
+    },
+  },
+};
 
-//     "&:focus:not(:hover)": {
-//       color: secondary.focus,
-//       boxShadow: "none",
-//     },
-//   },
-// };
-
-// export default buttonText;
+export default buttonText;

@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { RDCheckbox } from "../CheckBox/RDCheckBox";
 
 interface StepButtonProps {
   prevText?: string;
@@ -44,7 +43,7 @@ const handlePrevClick = () => {
   return (
     <StepButtonRoot>
       {tips && (
-        <RDCheckbox
+        <Tipbox
           checked={checkboxChecked}
           onChange={() => setCheckboxChecked(!checkboxChecked)}
         />
@@ -71,6 +70,7 @@ const handlePrevClick = () => {
 };
 
 import { styled } from "@mui/material";
+import { Tipbox } from "../CheckBox/Tipbox";
 
 const StepButtonRoot = styled("div")(({ theme }) => {
   return {
@@ -85,7 +85,10 @@ const StepButtonRoot = styled("div")(({ theme }) => {
     background: "#FFF",
     borderTop: "1px solid #B2B0AE",
     padding: "12px 24px 20px 24px",
-    justifyContent:"space-between",
+    justifyContent: "space-between",
+    // tips적용
+    flexDirection: "column",  
+    gap:"26px",
     ".button-box": {
       width: "100%",
       display: "flex",

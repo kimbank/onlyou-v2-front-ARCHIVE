@@ -2,7 +2,7 @@ import { ButtonProps } from "@mui/material";
 import contained from "./contained";
 import outlined from "./outlined";
 import root from "./root";
-// import buttonText from "./text";
+import buttonText from "./text";
 
 const button: any = {
   defaultProps: {
@@ -24,11 +24,11 @@ const button: any = {
     outlinedSizeLarge: { ...outlined.large },
     outlinedPrimary: { ...outlined.primary },
     outlinedSecondary: { ...outlined.secondary },
-    // text: { ...buttonText.base },
-    // textSizeSmall: { ...buttonText.small },
-    // textSizeLarge: { ...buttonText.large },
-    // textPrimary: { ...buttonText.primary },
-    // textSecondary: { ...buttonText.secondary },
+    text: { ...buttonText.base },
+    textSizeSmall: { ...buttonText.small },
+    textSizeLarge: { ...buttonText.large },
+    textPrimary: { ...buttonText.primary },
+    textSecondary: { ...buttonText.secondary },
   },
 };
 

@@ -50,7 +50,7 @@ const Index = () => {
         prevText="이전"
         nextText="다음"
         prevHref="LetterSelect/"
-        nextHref="LetterWhite/"
+        nextHref="write/"
         nextType="button"
         checkedStates={selectComplete}
       />

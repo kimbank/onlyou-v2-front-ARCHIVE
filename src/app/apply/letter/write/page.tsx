@@ -3,7 +3,6 @@
 import { StepButton } from "@/components/Button/StepButton";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Box, Button, Container, TextareaAutosize, Typography, styled } from "@mui/material";

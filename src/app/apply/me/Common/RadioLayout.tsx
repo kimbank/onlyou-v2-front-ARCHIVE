@@ -101,16 +101,6 @@ const RadioLayout = ({
         nextType="button"
         checkedStates={allGroupsSelected}
       />
-
-      {/* <BottomButton sx={{ gap: "18px" }}>
-        <Button size="large" onClick={handlePrev} variant="outlined">
-          이전
-        </Button>
-
-        <Button size="large" onClick={handleNext} variant="contained" fullWidth>
-          다음
-        </Button>
-      </BottomButton> */}
     </ValueRoot>
   );
 };
