@@ -121,7 +121,6 @@ const DetailsPage = () => {
           >
             3순위 상세 조건
           </MenuButton>
-
           <Esitimate />
         </div>
       </ContentRoot>

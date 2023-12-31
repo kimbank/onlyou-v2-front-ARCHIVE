@@ -1,10 +1,10 @@
-import { targetingCategories } from "@/constants/me";
+import { meCategories } from "@/constants/me";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import RadioLayout from "../Common/RadioLayout";
 
 const Index = () => {
-  const radioGroupsData = useMemo(() => targetingCategories.values, []);
+  const radioGroupsData = useMemo(() => meCategories.datingstyle, []);
   //  const handleNext = () => {
   //    if (allGroupsSelected) {
   //      router.push("character/");
@@ -14,11 +14,11 @@ const Index = () => {
   //  };
   return (
     <RadioLayout
-      title="가치관 정보 입력하기"
-      stepNumber="1"
+      title="연애 정보 입력하기"
+      stepNumber="5"
       radioGroupsData={radioGroupsData}
-      prevHref={"/matching"}
-      nextHref={"life/"}
+      prevHref={"appearance/"}
+      nextHref={"other/"}
     />
   );
 };

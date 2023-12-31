@@ -7,7 +7,7 @@ import { Container } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { useTransitionSelect } from "@/hooks/useTransitionSelect";
 import Transitions from "@/provider/transitions";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function ApplicationLayout({
   children,
@@ -15,15 +15,14 @@ export default function ApplicationLayout({
   children: React.ReactNode;
 }) {
     const pathname = usePathname();
-
      const currentPage = useMemo(() => {
      const pageMap: { [key: string]: number } = {
-       "/application/value": 1,
-       "/application/life": 2,
-       "/application/character": 3,
-       "/application/appearance": 4,
-       "/application/dating": 5,
-       "/application/other": 6,
+       "apply/me/value": 1,
+       "apply/me/life": 2,
+       "apply/me/character": 3,
+       "apply/me/appearance": 4,
+       "apply/me/dating": 5,
+       "apply/me/other": 6,
      };
        return pageMap[pathname] || 1; 
      }, [pathname]);
@@ -34,6 +33,10 @@ export default function ApplicationLayout({
        }, [currentPage]);
 
   const transition = useTransitionSelect();
+
+  useEffect(()=>{
+    console.log("pathname", pathname);
+  })
   return (
     <ThemeProvider theme={theme}>
       {/* <Transitions pageKey={pathname} transition={transition}> */}

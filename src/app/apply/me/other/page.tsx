@@ -7,7 +7,7 @@ import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
 import { Box, Container, Divider, Typography,Button } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { otherRadioGroups } from "../data/otherData";
+import { otherRadioGroups } from "../../../(매칭신청서완성)/application/data/otherData";
 import OtherRoot from "./OtherRoot";
 import BottomButton from "@/components/BottomButton/Container";
 import Link from "next/link";

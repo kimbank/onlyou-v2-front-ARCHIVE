@@ -2,13 +2,13 @@
 import * as option from "./application_option";
 
 /** 이상형 타겟팅 */
-interface TargetingOptions {
+interface MeOptions {
   /** 이상형 타겟팅 선지 */
   [key: string]: (option.Option | option.RangeOption)[];
 }
 
 /** 이상형 타겟팅 카테고리 */
-interface TargetingCategories {
+interface MeCategories {
   /** 이상형 타겟팅 */
   [key: string]: {
     name: string;
@@ -18,7 +18,7 @@ interface TargetingCategories {
 }
 
 
-export const targetingOptions: TargetingOptions = {
+export const meOptions: MeOptions = {
   lifestyle: [
     option.workType,
     option.smoking,
@@ -62,30 +62,30 @@ export const targetingOptions: TargetingOptions = {
   ],
 };
 
-export const targetingCategories: TargetingCategories = {
+export const meCategories: MeCategories = {
   lifestyle: {
     name: "lifestyle",
     label: "생활",
-    options: targetingOptions.lifestyle,
+    options: meOptions.lifestyle,
   },
   personality: {
     name: "personality",
     label: "성격",
-    options: targetingOptions.personality,
+    options: meOptions.personality,
   },
   values: {
     name: "values",
     label: "가치관",
-    options: targetingOptions.values,
+    options: meOptions.values,
   },
   appearance: {
     name: "appearance",
     label: "외모",
-    options: targetingOptions.appearance,
+    options: meOptions.appearance,
   },
   datingstyle: {
     name: "datingstyle",
     label: "연애스타일",
-    options: targetingOptions.datingstyle,
+    options: meOptions.datingstyle,
   },
 };

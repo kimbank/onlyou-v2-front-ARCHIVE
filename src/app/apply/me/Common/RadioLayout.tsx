@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import BottomButton from "@/components/BottomButton/Container";
 import { useRouter } from "next/navigation";
 import { Option, RangeOption } from "@/constants/application_option";
+import { StepButton } from "@/components/Button/StepButton";
 
 interface RadioLayoutProps {
   title: string;
@@ -53,21 +54,6 @@ const RadioLayout = ({
   const allGroupsSelected = radioGroups.options.every(
     (group) => selectedValues[group.name] != null
   );
-  const handlePrev = () => {
-    if (prevHref) {
-      router.push(prevHref);
-    }
-  };
-
-  const handleNext = () => {
-    if (nextHref) {
-      if (allGroupsSelected) {
-        router.push(nextHref);
-      } else {
-        alert("모든 그룹을 선택하세요.");
-      }
-    }
-  };
 
   useEffect(() => {
     console.log(selectedValues);
@@ -107,16 +93,16 @@ const RadioLayout = ({
           );
         }
       })}
-      {/* <RDStepNavButton
+      <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="LetterSelect/"
-        nextHref="life/"
+        prevHref={prevHref}
+        nextHref={nextHref}
         nextType="button"
         checkedStates={allGroupsSelected}
-      /> */}
+      />
 
-      <BottomButton sx={{ gap: "18px" }}>
+      {/* <BottomButton sx={{ gap: "18px" }}>
         <Button size="large" onClick={handlePrev} variant="outlined">
           이전
         </Button>
@@ -124,7 +110,7 @@ const RadioLayout = ({
         <Button size="large" onClick={handleNext} variant="contained" fullWidth>
           다음
         </Button>
-      </BottomButton>
+      </BottomButton> */}
     </ValueRoot>
   );
 };

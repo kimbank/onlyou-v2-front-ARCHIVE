@@ -1,11 +1,11 @@
-import { targetingCategories } from "@/constants/me";
+import { meCategories } from "@/constants/me";
 import { useMemo } from "react";
 import ChipLayout from "../Common/ChipLayout";
 import { useRouter } from "next/navigation";
 
 
 const Index = () => {
-const radioGroupsData = useMemo(() => targetingCategories.appearance, []);
+const radioGroupsData = useMemo(() => meCategories.personality, []);
 //  const handleNext = () => {
 //    if (allGroupsSelected) {
 //      router.push("character/");
@@ -15,11 +15,11 @@ const radioGroupsData = useMemo(() => targetingCategories.appearance, []);
 //  };
     return (
       <ChipLayout
-        title="외모 정보 입력하기"
-        stepNumber="4"
+        title="성격 정보 입력하기"
+        stepNumber="3"
         radioGroupsData={radioGroupsData}
-        nextHref={"dating/"}
-        prevHref={"character/"}
+        prevHref={"life/"}
+        nextHref={"appearance/"}
       />
     );
 }

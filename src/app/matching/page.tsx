@@ -14,7 +14,7 @@ import { styled } from "@mui/material";
 const MatchingIndex = () => {
   const router = useRouter();
   const handleHref = () => {
-    router.push('application/value');
+    router.push('apply/me/value');
   };
   return (
     <>
