@@ -7,7 +7,6 @@ import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
-import BottomButtonContainer from "@/components/BottomButton/BottomButtonRoot";
 
 import { useSelector, useDispatch } from 'react-redux';
 // import { setTargetingField } from "@/store/targetingSlice";
@@ -18,24 +17,26 @@ import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
-import { useEffect } from "react";
 
 
 const TargetingPage = () => {
-  const { isModalOpen: isOptionOpen, openModal: openOptionModal, closeModal: closeOptionModal } = useModal();
+  const {
+    isModalOpen: isOptionOpen,
+    openModal: openOptionModal,
+    closeModal: closeOptionModal,
+  } = useModal();
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
+
   console.log(targetingState);
 
-  const isTargetingEmpty = Object.keys(targetingState).every((field: string) => {
-    return targetingState[field].priority === null;
-  });
-
-  useEffect(()=>{
-    console.log("isTargetingEmpty", isTargetingEmpty);
-  })
+  const isTargetingEmpty = Object.keys(targetingState).every(
+    (field: string) => {
+      return targetingState[field].priority === null;
+    }
+  );
 
   return (
     <>
@@ -113,6 +114,7 @@ const TargetingPage = () => {
         prevHref="/apply/me/other"
         nextHref="/apply/targeting/details"
         nextType="button"
+        checkedStates={!isTargetingEmpty}
       />
     </>
   );

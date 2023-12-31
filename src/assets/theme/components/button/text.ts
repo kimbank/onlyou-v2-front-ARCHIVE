@@ -2,12 +2,12 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { white } = colors;
+const { white,black } = colors;
 const { size } = typography;
 
 const buttonText = {
   base: {
-    color: white.main,
+    color:black,
     boxShadow: "none",
     display:"flex",
     flexDirection :"flex-start",
@@ -45,6 +45,7 @@ const buttonText = {
   },
 
   large: {
+    color:black,
     padding: 0,
     fontSize: size.sm,
     height:"20px !important",

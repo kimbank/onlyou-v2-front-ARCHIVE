@@ -64,6 +64,8 @@ const DetailsPage = () => {
     }
   }
 
+const allGroupsSelected =
+  checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
   return (
     <>
@@ -126,9 +128,10 @@ const DetailsPage = () => {
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="LetterSelect/"
-        nextHref="LetterWhite/"
+        prevHref="/apply/targeting"
+        onClick={handleNext}
         nextType="button"
+        checkedStates={allGroupsSelected}
       />
       <TestDrawer
         title={

@@ -17,16 +17,16 @@ export default function ApplicationLayout({
     const pathname = usePathname();
      const currentPage = useMemo(() => {
      const pageMap: { [key: string]: number } = {
-       "apply/me/value": 1,
-       "apply/me/life": 2,
-       "apply/me/character": 3,
-       "apply/me/appearance": 4,
-       "apply/me/dating": 5,
-       "apply/me/other": 6,
-       "apply/targeting": 7,
-       "apply/targeting/details": 8,
-       "apply/letter/select": 9,
-       "apply/letter/write": 10,
+       "/apply/me/value": 1,
+       "/apply/me/life": 2,
+       "/apply/me/character": 3,
+       "/apply/me/appearance": 4,
+       "/apply/me/dating": 5,
+       "/apply/me/other": 6,
+       "/apply/targeting": 7,
+       "/apply/targeting/details": 8,
+       "/apply/letter/select": 9,
+       "/apply/letter/write": 10,
      };
        return pageMap[pathname] || 1; 
      }, [pathname]);
@@ -38,9 +38,10 @@ export default function ApplicationLayout({
 
   const transition = useTransitionSelect();
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("pathname", pathname);
-  })
+    console.log("progress", progress);
+  }, [pathname, progress]);
   return (
     <ThemeProvider theme={theme}>
       {/* <Transitions pageKey={pathname} transition={transition}> */}
