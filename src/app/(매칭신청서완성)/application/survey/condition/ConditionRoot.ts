@@ -2,7 +2,7 @@ import colors from "@/assets/theme/base/colors";
 import { Container, styled } from "@mui/material";
 
 export default styled(Container)(({ theme }) => {
-    const {primary ,info} = colors
+    const {primary ,} = colors
     
     return {
       display: 'flex',

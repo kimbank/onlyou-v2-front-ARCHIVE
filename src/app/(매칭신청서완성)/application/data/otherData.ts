@@ -1,3 +1,16 @@
+
+interface RadioOption {
+  value: string;
+  label: string;
+}
+
+interface RadioGroup {
+  title: string;
+  options: RadioOption[];
+}
+
+
+
 export const otherRadioGroups: RadioGroup[] = [
   {
     title: "만나기 전 정보",

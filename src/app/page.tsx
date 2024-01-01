@@ -1,10 +1,9 @@
 "use client";
 import { theme } from "@/assets";
 import { ThemeProvider } from "@emotion/react";
-import { Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 import { useState } from "react";
-import RDButton from "../components/RDButton/RDButton";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -55,42 +54,26 @@ export default function Home() {
               </Link> */}
             </Container>
             {/* 샘플페이지 */}
-
             {/* <SwipeableEdgeDrawer clicked={showModal} setClicked={setShowModal}>
               <h1>모달입니다.</h1>
               <br />
               <br />
             </SwipeableEdgeDrawer> */}
             <button onClick={() => setShowModal(true)}>모달 후보</button>
-
-            <h1>다음은 버튼입니다.</h1>
-            <RDButton variant="contained" color="primary" sx={{ flex: 1 }}>
-              취소
-            </RDButton>
-            <RDButton
-              size="large"
-              variant="contained"
-              color="primary"
-              sx={{ flex: 1 }}
-              disabled={true}
-            >
-              취소
-            </RDButton>
-            <RDButton
-              variant="outlined"
-              color="primary"
-              size="large"
-            >
-              <Typography variant="h3" color="primary">
-                취소
-              </Typography>
-            </RDButton>
-            <RDButton variant="text" color="primary" size="small">
-              <Typography variant="h1">취소</Typography>
-            </RDButton>
-            <RDButton variant="text" color="primary" size="small">
-              <Typography variant="h1">취소</Typography>
-            </RDButton>
+            <h1>다음은 버튼입니다.</h1>{" "}
+            <Button>
+              버튼입니다
+            </Button>
+            <Button color="primary" variant="contained">
+              버튼입니다
+            </Button>
+            <Button color="secondary" variant="contained">
+              세컨버튼입니다
+            </Button>
+            <Button size="medium" variant="outlined">
+              버튼입니다
+            </Button>
+            <Button disabled>버튼이요</Button>
             {/* <MainButton buttonName={buttonTitle + "MainButton"} />
             <SubButton buttonName={buttonTitle + "SubButton"} />
             <MainHalfButton buttonName={buttonTitle + "MainHalfButton"} />

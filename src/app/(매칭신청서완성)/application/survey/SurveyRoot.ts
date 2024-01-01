@@ -2,7 +2,7 @@ import colors from "@/assets/theme/base/colors";
 import { Container, styled } from "@mui/material";
 
 export default styled(Container)(({ theme }) => {
-    const {primary ,info} = colors
+    const {primary ,primary_lighten2} = colors
     
     return {
       display: 'flex',
@@ -25,14 +25,14 @@ export default styled(Container)(({ theme }) => {
       '.box': {
         position: 'absolute',
         left: 0,
-        color: primary.Primary_lighten2,
+        color: primary_lighten2,
       },
       '.check': {
         position: 'absolute',
         left: 4,
         bottom: '1px',
         marginRight: '10px',
-        color: primary.main,
+        color: primary,
         fontSize: '24px',
       },
     };

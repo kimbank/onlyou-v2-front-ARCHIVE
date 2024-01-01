@@ -19,15 +19,15 @@ export function InfoText({ children,  bgColor,}: Props) {
 }
 
 const InfoTextRoot = styled(Box)(({  bgColor }: Props) => {
-  const { info } = colors;
+  const { primary_lighten3 ,gray5 } = colors;
   return {
-      borderRadius: "6px",
-      backgroundColor: bgColor === "primary" ? info.main : info.focus,
-      padding: "16px 12px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-start",
-      width: "100%",
-      gap: "8px",
+    borderRadius: "6px",
+    backgroundColor: bgColor === "primary" ? primary_lighten3 : gray5,
+    padding: "16px 12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    gap: "8px",
   };
 });

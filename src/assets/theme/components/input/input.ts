@@ -1,7 +1,7 @@
 import colors from "../../base/colors";
 import typography from "../../base/typography";
 
-const { info, disabled, dark, primary } = colors;
+const {  gray3, primary ,black} = colors;
 const { size } = typography;
 
 // types
@@ -11,9 +11,9 @@ const input: Types = {
   styleOverrides: {
     root: {
       fontSize: size.sm,
-      color: dark.main,
+      color: black,
       width: "100%",
-      border: `1px solid ${disabled.focus}`,
+      border: `1px solid ${gray3}`,
       borderRadius: "6px",
       padding: "8px 16px",
 

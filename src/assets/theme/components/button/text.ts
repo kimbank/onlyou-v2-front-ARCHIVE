@@ -2,19 +2,17 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const {white, info, secondary, transparent } = colors;
+const { white,black } = colors;
 const { size } = typography;
 
 const buttonText = {
   base: {
-    backgroundColor: transparent.main,
-    minHeight: pxToRem(40),
-    color: white.main,
+    color:black,
     boxShadow: "none",
-    padding: `${pxToRem(10)} ${pxToRem(24)}`,
+    display:"flex",
+    flexDirection :"flex-start",
 
     "&:hover": {
-      backgroundColor: transparent.main,
       boxShadow: "none",
     },
 
@@ -47,37 +45,31 @@ const buttonText = {
   },
 
   large: {
-    minHeight: pxToRem(47),
-    padding: `${pxToRem(12)} ${pxToRem(28)}`,
+    color:black,
+    padding: 0,
     fontSize: size.sm,
-
+    height:"20px !important",
     "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
     },
   },
 
   primary: {
-    color: info.main,
 
     "&:hover": {
-      color: info.main,
     },
 
     "&:focus:not(:hover)": {
-      color: info.focus,
       boxShadow: "none",
     },
   },
 
   secondary: {
-    color: secondary.main,
 
     "&:hover": {
-      color: secondary.main,
     },
 
     "&:focus:not(:hover)": {
-      color: secondary.focus,
       boxShadow: "none",
     },
   },

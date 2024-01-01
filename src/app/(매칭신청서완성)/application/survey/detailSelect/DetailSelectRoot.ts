@@ -3,7 +3,7 @@ import { ViewColumn } from "@mui/icons-material";
 import { Container, styled } from "@mui/material";
 
 export default styled(Container)(({ theme }) => {
-  const { primary, info, dark, gray } = colors;
+  const { black } = colors;
   return {
     ".button": {
       display: "flex",
@@ -55,11 +55,11 @@ export default styled(Container)(({ theme }) => {
       marginTop: "12px",
     },
     ".MuiTooltip-tooltip": {
-      backgroundColor: dark.main,
+      backgroundColor: black,
       color: "white",
     },
     ".tooltip": {
-      backgroundColor: dark.main,
+      backgroundColor: black,
       color: "black",
     },
     ".tooltip-text": {

@@ -7,7 +7,6 @@ import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
-import BottomButtonContainer from "@/components/BottomButton/BottomButtonRoot";
 
 import { useSelector, useDispatch } from 'react-redux';
 // import { setTargetingField } from "@/store/targetingSlice";
@@ -17,24 +16,30 @@ import useModal from "@/hooks/useModal";
 import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
+import { StepButton } from "@/components/Button/StepButton";
 
 
 const TargetingPage = () => {
-  const { isModalOpen: isOptionOpen, openModal: openOptionModal, closeModal: closeOptionModal } = useModal();
+  const {
+    isModalOpen: isOptionOpen,
+    openModal: openOptionModal,
+    closeModal: closeOptionModal,
+  } = useModal();
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
+
   console.log(targetingState);
 
-  const isTargetingEmpty = Object.keys(targetingState).every((field: string) => {
-    return targetingState[field].priority === null;
-  });
-
+  const isTargetingEmpty = Object.keys(targetingState).every(
+    (field: string) => {
+      return targetingState[field].priority === null;
+    }
+  );
 
   return (
     <>
-      <ProgressHeader />
       <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
@@ -46,7 +51,9 @@ const TargetingPage = () => {
         <Box className="content-box">
           <Box className="subtitle-box">
             <Typography variant="subtitle1">기본 반영 조건</Typography>
-            <Typography variant="body2">선택하지 않아도 기본으로 반영되는 조건이에요.</Typography>
+            <Typography variant="body2">
+              선택하지 않아도 기본으로 반영되는 조건이에요.
+            </Typography>
           </Box>
           <Box>
             <InfoText>
@@ -61,40 +68,54 @@ const TargetingPage = () => {
           </Box>
         </Box>
         <Box className="content-box">
-          {
-            isTargetingEmpty ? (
-              <>
-                <Box className="subtitle-box">
-                  <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
-                  <Typography variant="body2">우선순위가 높을 수록 반영될 확률이 높아져요.</Typography>
-                </Box>
-                <Button variant="outlined" sx={{ minHeight: "34px", maxHeight: "34px" }} onClick={openOptionModal}>
-                  이상형 조건 추가하기 +
-                </Button>
-              </>
-            ) : (
-              <>
-                <Box className="subtitle-box">
-                  <Typography variant="subtitle1">1~3순위 조건 선택하기</Typography>
-                  <Typography variant="body2">꼭 반영되었으면 하는 이상형 조건을 선택해 주세요.</Typography>
-                </Box>
-                <OptionCard />
-                <Button variant="outlined" sx={{ minHeight: "34px", maxHeight: "34px" }} onClick={openOptionModal}>
-                  이상형 조건 변경하기
-                </Button>
-              </>
-            )
-          }
+          {isTargetingEmpty ? (
+            <>
+              <Box className="subtitle-box">
+                <Typography variant="subtitle1">
+                  1~3순위 조건 선택하기
+                </Typography>
+                <Typography variant="body2">
+                  우선순위가 높을 수록 반영될 확률이 높아져요.
+                </Typography>
+              </Box>
+              <Button
+                variant="outlined"
+                sx={{ minHeight: "34px", maxHeight: "34px" }}
+                onClick={openOptionModal}
+              >
+                이상형 조건 추가하기 +
+              </Button>
+            </>
+          ) : (
+            <>
+              <Box className="subtitle-box">
+                <Typography variant="subtitle1">
+                  1~3순위 조건 선택하기
+                </Typography>
+                <Typography variant="body2">
+                  꼭 반영되었으면 하는 이상형 조건을 선택해 주세요.
+                </Typography>
+              </Box>
+              <OptionCard />
+              <Button
+                variant="outlined"
+                sx={{ minHeight: "34px", maxHeight: "34px" }}
+                onClick={openOptionModal}
+              >
+                이상형 조건 변경하기
+              </Button>
+            </>
+          )}
         </Box>
       </TargetingRoot>
-      <BottomButtonContainer>
-        <Link href={"/"} style={{width: "100%"}} passHref>
-          <Button variant="outlined">이전</Button>
-        </Link>
-        <Link href={"/apply/targeting/details"} style={{width: "100%"}} passHref>
-          <Button variant="contained" size="large">다음</Button>
-        </Link>
-      </BottomButtonContainer>
+      <StepButton
+        prevText="이전"
+        nextText="다음"
+        prevHref="/apply/me/other"
+        nextHref="/apply/targeting/details"
+        nextType="button"
+        checkedStates={!isTargetingEmpty}
+      />
     </>
   );
 }

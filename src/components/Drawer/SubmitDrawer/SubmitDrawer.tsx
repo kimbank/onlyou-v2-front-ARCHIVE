@@ -1,5 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
-import RDButton from "../../RDButton/RDButton";
+import { Box, Container, Typography ,Button} from "@mui/material";
 
 import { useRouter } from "next/navigation";
 import DrawerFrame from "../DrawerFrame";
@@ -49,14 +48,14 @@ export const SubmitDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
         </DrawerContent>
         <DrawerButton>
           <Container className="drawer-buttons">
-            <RDButton
+            <Button
               color="primary"
               variant="contained"
               onClick={handleCompleteClick}
               size="large"
             >
               <Typography variant="body1">이상형 정보 입력하기</Typography>
-            </RDButton>
+            </Button>
           </Container>
         </DrawerButton>
       </SubmitDrawerRoot>

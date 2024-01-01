@@ -1,18 +1,19 @@
 import { theme } from "@/assets";
+import colors from "@/assets/theme/base/colors";
 import { styled } from "@mui/material";
 
 interface infoTextProps {
   shadow: boolean;
 }
-const { palette } = theme;
-const { info, primary, white } = palette;
+
+const { primary, primary_lighten1, white } = colors;
 export default styled("div")(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
-    backgroundColor: info.main,
+    backgroundColor: primary_lighten1,
     borderRadius: "12px",
     gap: "23px",
     height: "342px",
@@ -33,7 +34,6 @@ export default styled("div")(({ theme }) => {
       justifyContent: "space-around",
       alignItems: "center",
       padding: 0,
-      
     },
 
     ".timeline-item": {
@@ -58,15 +58,15 @@ export default styled("div")(({ theme }) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: primary.main,
+      backgroundColor: primary,
       fontSize: "12px",
-      color: white.main,
+      color: white,
       borderRadius: "50%",
       marginBottom: theme.spacing(1),
     },
 
     ".timeline-content": {
-      color: primary.main,
+      color: primary,
       whiteSpace: "nowrap",
     },
 

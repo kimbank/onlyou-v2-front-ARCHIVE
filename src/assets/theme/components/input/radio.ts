@@ -1,7 +1,7 @@
 import colors from "../../base/colors";
 import pxToRem from "../../functions/pxToRem";
 
-const { transparent, info, primary } = colors;
+const { primary } = colors;
 
 // types
 type Types = any;
@@ -16,7 +16,7 @@ const radio: Types = {
         borderRadius: "50%",
       },
       "&.Mui-checked .MuiSvgIcon-root": {
-        color: primary.main,
+        color: primary?.main,
       },
 
       "&:after": {
@@ -35,14 +35,14 @@ const radio: Types = {
       },
 
       "&:hover": {
-        backgroundColor: transparent.main,
+        opcity: 0.75,
       },
       "&.Mui-checked": {
         color: "#000000 !important",
       },
 
       "&.Mui-focusVisible": {
-        border: `1 solid ${primary.main} !important`,
+        border: `1 solid ${primary?.main} !important`,
       },
     },
   },

@@ -1,5 +1,4 @@
 "use client";
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import {
     Box,
     Divider,
@@ -15,13 +14,10 @@ import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import { tooltipTitle } from "./Data/tooltipData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import RDButton from "@/components/RDButton/RDButton";
 import { CapitalRegionLocation, IncheonLocation, KyeongkiLocation, SeoulLocation } from "./Data/locationData";
 import { RDChip } from "@/components/RDChip";
-import { interestRadioGroups, lifeRadioGroups } from "../../data/lifeData";
-import { characterchipGroups } from "../../data/characterData";
-import RDCheckButton from "@/components/Button/RDCheckButton";
 const Index = () => {
+
     const [value, setValue] = useState([1980, 2004]);
     const [selectedChip1, setSelectedChip1] = useState<string[]>([]);
     const [selectedChip2, setSelectedChip2] = useState<string[]>([]);
@@ -36,17 +32,6 @@ const Index = () => {
       >([]);
     const [CapitalOptions, setCapitalOptions] = useState<string[]>([]);
   const [CapitalChecked, setCapitalChecked] = useState(false);
-
-    const chipGroups1 = useMemo(() => characterchipGroups, []);
-    const chipGroups2 = useMemo(() => interestRadioGroups, []);
-const allChips = useMemo(
-  () => [...chipGroups1, ...chipGroups2],
-  [chipGroups1, chipGroups2]
-);
-const allLocations = useMemo(
-  () => [...SeoulLocation, ...KyeongkiLocation, ...IncheonLocation],
-  [SeoulLocation, KyeongkiLocation, IncheonLocation]
-);
 
      const handleOptionClick = (
        value: string,
@@ -109,25 +94,25 @@ const handleChipClick = (
   });
 };
 
-const allButtonSelected =
-  allLocations.every((group) =>
-    group.options.some(
-      (option) =>
-        selectedSeoulOptions.includes(option.value) ||
-        selectedKyeongkiOptions.includes(option.value) ||
-        selectedIncheonOptions.includes(option.value)
-    )
-  ) || CapitalOptions.length > 0; 
-const allChipsSelected = allChips.every((group) =>
-  group.options.some(
-    (option) =>
-      selectedChip1.includes(option.value) &&
-      selectedChip2.includes(option.value)
-  )
-);
+// const allButtonSelected =
+//   allLocations.every((group) =>
+//     group.options.some(
+//       (option) =>
+//         selectedSeoulOptions.includes(option.value) ||
+//         selectedKyeongkiOptions.includes(option.value) ||
+//         selectedIncheonOptions.includes(option.value)
+//     )
+//   ) || CapitalOptions.length > 0; 
+// const allChipsSelected = allChips.every((group) =>
+//   group.options.some(
+//     (option :any) =>
+//       selectedChip1.includes(option.value) &&
+//       selectedChip2.includes(option.value)
+//   )
+// );
 
 
-  const allGroupsSelected = allButtonSelected && allChipsSelected;
+//   const allGroupsSelected = allButtonSelected && allChipsSelected;
 
   return (
     <DetailSelectRoot>
@@ -172,17 +157,17 @@ const allChipsSelected = allChips.every((group) =>
           </Box>
         </Tooltip>
         <Box className="period-box">
-          <RDCheckButton
+          {/* <RDCheckButton
             color="light"
             variant="contained"
             size="large"
             label="수도권 내 상관없음"
             onClick={handleCapitalClick}
             checked={CapitalChecked}
-          />
+          /> */}
         </Box>
       </Box>
-      <Box>
+      {/* <Box>
         {allLocations.map((group) => (
           <Box key={group.title} className="info-box">
             <Typography variant="subtitle2">{group.title}</Typography>
@@ -228,11 +213,11 @@ const allChipsSelected = allChips.every((group) =>
       </Box>
       <Divider className="divider" />
       <Box className="info-box">
-         {chipGroups1.map((group) => (
+         {chipGroups1.map((group:any) => (
           <Box key={group.title}>
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="chip">
-              {group.options.map((option) => (
+              {group.options.map((option :any) => (
                 <RDChip
                   key={option.value}
                   label={option.label}
@@ -248,11 +233,11 @@ const allChipsSelected = allChips.every((group) =>
       </Box>
       <Divider className="divider" />
       <Box className="info-box">
-         {chipGroups2.map((group) => (
+         {chipGroups2.map((group :any)  => (
           <Box key={group.title}>
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="chip">
-              {group.options.map((option) => (
+              {group.options.map((option :any) => (
                 <RDChip
                   key={option.value}
                   label={option.label}
@@ -266,9 +251,6 @@ const allChipsSelected = allChips.every((group) =>
           </Box>
         ))}
       </Box>
-        <RDButton>
-            <Typography>저장</Typography>
-        </RDButton>
       {/* <RDStepNavButton
         prevText="이전"
         nextText="다음"

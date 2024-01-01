@@ -1,6 +1,6 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { StepButton } from "@/components/Button/StepButton";
 import { Checkbox } from "@/components/CheckBox/CheckBox";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/checkboxSlice";
@@ -46,11 +46,11 @@ const Index = () => {
           />
         ))}
       </Container>
-      <RDStepNavButton
+      <StepButton
         prevText="이전"
         nextText="다음"
         prevHref="LetterSelect/"
-        nextHref="LetterWhite/"
+        nextHref="write/"
         nextType="button"
         checkedStates={selectComplete}
       />

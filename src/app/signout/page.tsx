@@ -1,9 +1,7 @@
 "use client"
 
-import { styled, Box, Typography } from "@mui/material";
+import { styled, Box, Typography, Button } from "@mui/material";
 import EmptyHeader from "@/components/Header/EmptyHeader";
-import RDButton from "@/components/RDButton/RDButton";
-
 
 const SignoutPage = () => {
 
@@ -12,9 +10,9 @@ const SignoutPage = () => {
       <EmptyHeader />
       <SignoutRoot id="content">
         <Typography variant="h1">로그아웃이 완료되었습니다.</Typography>
-        <RDButton variant="contained" color="primary" size="large">
+        <Button variant="contained" color="primary" size="large">
           <Typography variant="button">메인 페이지로 돌아가기</Typography>
-        </RDButton>
+        </Button>
       </SignoutRoot>
     </>
   );

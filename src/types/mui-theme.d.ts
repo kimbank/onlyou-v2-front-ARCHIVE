@@ -1,63 +1,27 @@
 import { Theme } from "@mui/material";
 
-interface ColorsTypes {
-  main: string;
-  focus: string;
-}
 
 declare module "@mui/material/styles" {
   interface Theme {
     functions: any;
   }
+    interface ColorType {
+      main: string | any;
+    }
 
   interface Palette {
-    background:
-      | {
-          default: string;
-          sidenav?: string;
-          card?: string;
-        }
-      | any;
-    white:
-      | {
-          main: string;
-          focus: string;
-        }
-      | any;
-    text:
-      | {
-          main: string;
-          focus: string;
-          primary?: string;
-          secondary?: string;
-          disabled?: string;
-        }
-      | any;
-    transparent:
-      | {
-          main: string;
-        }
-      | any;
-    black:
-      | {
-          light: string;
-          main: string;
-          focus: string;
-        }
-      | any;
-    primary: ColorsTypes | any;
-    secondary: ColorsTypes | any;
-    info: ColorsTypes | any;
-    success: ColorsTypes | any;
-    warning: ColorsTypes | any;
-    error: ColorsTypes | any;
-    light: ColorsTypes | any;
-    dark: ColorsTypes | any;
-    gray:
-      | {
-          [key: string | number]: string;
-        }
-      | any;
+    white?: ColorType;
+    black?: ColorType;
+    primary?: ColorType;
+    primary_darken?: ColorType;
+    primary_lighten1?: ColorType;
+    primary_lighten2?: ColorType;
+    primary_lighten3?: ColorType;
+    gray1?: ColorType;
+    gray2?: ColorType;
+    gray3?: ColorType;
+    gray4?: ColorType;
+    gray5?: ColorType;
   }
 
   interface TypographyVariants {

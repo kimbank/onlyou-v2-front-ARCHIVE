@@ -1,6 +1,6 @@
 import colors from "../../base/colors";
 
-const { gray, white, dark } = colors;
+const {  white, black,gray4 } = colors;
 
 // types
 type Types = any;
@@ -9,10 +9,10 @@ const tabs: Types = {
   styleOverrides: {
     root: {
       position: "relative",
-      backgroundColor: white.main,
+      backgroundColor: white,
       minHeight: "unset",
-      color: `${dark.main} !important`,
-      borderBottom: `1px solid ${gray["400"]}`,
+      color: `${black} !important`,
+      borderBottom: `1px solid ${gray4}`,
     },
 
     flexContainer: {
@@ -32,8 +32,8 @@ const tabs: Types = {
       "&.MuiTabs-indicator": {
         width: "100%",
         background: "none",
-        color: `${dark.main} !important`,
-        borderBottom: `4px solid ${dark.main}`,
+        color: `${black} !important`,
+        borderBottom: `4px solid ${black}`,
       },
     },
   },

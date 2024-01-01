@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { FormControlLabel } from "@mui/material";
 import colors from "@/assets/theme/base/colors";
 
-const { info, primary, disabled } = colors;
+const { primary, primary_lighten3, gray4, gray5 } = colors;
 export const StyledFormControlLabel = styled(FormControlLabel)(
   ({ theme, checked }) => ({
     display: "flex",
@@ -12,19 +12,17 @@ export const StyledFormControlLabel = styled(FormControlLabel)(
     marginBottom: "2px",
     marginLeft: 0,
     marginRight: 0,
-    border: checked
-      ? `1px solid ${primary.main}`
-      : `1px solid ${disabled.focus}`,
+    border: checked ? `1px solid ${primary}` : `1px solid ${gray4}`,
     borderRadius: "6px",
-    backgroundColor: checked ? info.main : "transparent",
+    backgroundColor: checked ? primary_lighten3 : "transparent",
     "&:hover": {
-      backgroundColor: info.focus,
+      backgroundColor: gray5,
     },
     "&:focus, &:focus-within": {
       backgroundColor: checked
-        ? `${info.main} !important`
-        : `${info.focus} !important`,
-      outline: `2px solid ${info.focus} !important`,
+        ? `${primary_lighten3} !important`
+        : `${gray5} !important`,
+      outline: `2px solid ${gray5} !important`,
     },
   })
 );

@@ -1,12 +1,11 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
+import { StepButton } from "@/components/Button/StepButton";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import RDButton from "@/components/RDButton/RDButton";
 import { RootState } from "@/store/store";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Box, Container, TextareaAutosize, Typography, styled } from "@mui/material";
+import { Box, Button, Container, TextareaAutosize, Typography, styled } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,7 +32,7 @@ const Index = () => {
   //조건 만족시 읽기 전용모드
   const [onlyRead, setOnlyRead] = useState<boolean[]>(
     checkedItems.map(() => false)
-  );
+  ); 
   //텍스트 박스 글자 30자이하 유효성검사
   const [textVaild, setTextValid] = useState<boolean[]>(
     checkedItems.map(() => false)
@@ -123,27 +122,25 @@ const Index = () => {
 
               {lettertexts[index].length > 0 ? (
                 <>
-                  <RDButton
+                  <Button
                     variant="contained"
-                    size="small"
-                    color="primary"
                     onClick={toggleEditMode(index)}
                   >
-                    <Typography variant="body2">
+                    <Typography color="white" variant="body2">
                       {onlyRead[index] ? "수정하기" : "저장하기"}
                     </Typography>
-                  </RDButton>
+                  </Button>
                 </>
               ) : (
-                <RDButton variant="contained" size="small" disabled={true}>
+                <Button variant="contained" disabled>
                   <Typography variant="body2">저장하기</Typography>
-                </RDButton>
+                </Button>
               )}
             </Container>
           </Box>
         ))}
       </Container>
-      <RDStepNavButton
+      <StepButton
         prevText="이전"
         nextText="신청서 제출하기"
         prevHref="LetterSelect/"

@@ -1,7 +1,3 @@
-import colors from "./colors";
-
-const { info } = colors;
-
 const globals = {
   html: {
     scrollBehavior: "smooth",

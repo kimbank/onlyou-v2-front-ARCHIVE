@@ -1,50 +1,54 @@
 import { styled, Button } from "@mui/material";
 import { ChevronRightRounded } from "@mui/icons-material";
 import { style } from "@mui/system";
+import colors from "@/assets/theme/base/colors";
+import contained from "@/assets/theme/components/button/contained";
 
 interface Props {
   children: React.ReactNode;
   variant?: "default" | "contained" | "outlined";
+  color?: "primary" | "secondary";
   onClick?: () => void;
 }
 
 const Menu = ({
   children,
-  variant = "default",
-  onClick = (() => {}),
+  variant = "contained",
+  color = "secondary",
+  onClick = () => {},
 }: Props) => {
   return (
-    <StyledButton
+    <MenuRoot
+      color={color === "primary" ? "primary" : "secondary"}
+      variant={variant === "outlined" ? "outlined" : "contained"}
       size="large"
-      endIcon={<ChevronRightRounded />}
+      endIcon={
+        <ChevronRightRounded fontSize="large" sx={{ fontSize: "24px !important" }} />
+      }
       onClick={onClick}
     >
       {children}
-    </StyledButton>
+    </MenuRoot>
   );
 };
 
-const StyledButton = styled(Button)({
-  // height: "64px",
-  // justifyContent: "space-between",
-  // padding: "0px 16px 0px 20px",
-  // width: "100%",
-  // color: "#5C5F63 !important",
-  // fontSize: "16px",
-  // fontWeight: "400",
-  // lineHeight: "100%",
+const MenuRoot = styled(Button)(({color }) => {
 
-  // backgroundColor: "#F1F3F6",
+    return {
+      height: "64px",
+      justifyContent: "space-between",
+      padding: "0px 16px 0px 20px",
+      width: "100%",
 
-  // ":hover": {
-  //   color: "#F1F3F6",
-  //   backgroundColor: "#D3D6DB",
-  // },
+      ":hover": {
+        backgroundColor: "#D3D6DB",
+      },
 
-  // ":focus": {
-  //   color: "#5C5F63",
-  //   backgroundColor: "#F1F3F6",
-  // },
-});
+      ":focus": {
+        backgroundColor: "#F1F3F6",
+      },
+    };
+  }
+);
 
 export default Menu;

@@ -8,7 +8,7 @@ interface infoTextProps {
   marginB?: "bottom" | "none";
   bgColor?: "primary" | "secondary";
 }
-const { info } = colors;
+const { primary_lighten3, gray5 } = colors;
 
 export default styled("div")<infoTextProps>(({
   theme,
@@ -24,7 +24,7 @@ export default styled("div")<infoTextProps>(({
     justifyContent: align === "center" ? "center" : "flex-start",
     flexDicetion: "colmun",
     borderRadius: "8px",
-    backgroundColor: bgColor === "primary" ? info.focus : info.main,
+    backgroundColor: bgColor === "primary" ? gray5 : primary_lighten3,
     padding: "12px 16px",
     width: "100%",
     gap: "8px",

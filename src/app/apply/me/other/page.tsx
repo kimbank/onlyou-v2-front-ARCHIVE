@@ -1,15 +1,18 @@
 "use client";
 
-import { RDStepNavButton } from "@/components/Button/RDStepButton";
 import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer/SubmitDrawer";
 import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Typography,Button } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { otherRadioGroups } from "../data/otherData";
+import { otherRadioGroups } from "../../../(매칭신청서완성)/application/data/otherData";
 import OtherRoot from "./OtherRoot";
+import BottomButton from "@/components/BottomButton/Container";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { StepButton } from "@/components/Button/StepButton";
 
 const Index = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
@@ -17,6 +20,7 @@ const Index = () => {
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+      const router = useRouter();
 
   const handleOpenDrawer = () => {
     setDrawerOpen(true);
@@ -48,6 +52,14 @@ const Index = () => {
     console.log("radioGroups", radioGroups);
     console.log("allGroupsSelected", allGroupsSelected);
   }, [selectedValues, radioGroups, allGroupsSelected]);
+
+        const handleNext = () => {
+          if (allGroupsSelected) {
+           handleOpenDrawer()
+          } else {
+            alert("모든 그룹을 선택하세요.");
+          }
+        };
 
   return (
     <OtherRoot>
@@ -109,16 +121,20 @@ const Index = () => {
           </Typography>
         </InfoBox>
       </Box>
-      <RDStepNavButton
+      <StepButton
         prevText="이전"
         nextText="다음"
         prevHref="dating/"
+        onClick={handleNext}
         nextType="button"
         checkedStates={allGroupsSelected}
-        onClick={handleOpenDrawer}
         tips
       />
-      <SubmitDrawer nextHref="/apply/targeting" open={drawerOpen} onClose={handleCloseDrawer} />
+      <SubmitDrawer
+        nextHref="/apply/targeting"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+      />
     </OtherRoot>
   );
 };

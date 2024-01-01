@@ -3,7 +3,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 
 
-const { black, light ,dark} = colors;
+const { black} = colors;
 const { size } = typography;
 
 type Types = any;
@@ -23,7 +23,7 @@ const tooltip: Types = {
       maxWidth: "480px",
       height: "384px",
       backgroundColor: "#f1f3f6",
-      color: dark.main,
+      color: black,
       textAlign: "left",
       borderRadius: "6px",
       border: "1px solid #999DA3",

@@ -3,7 +3,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 
 const { size, fontWeightRegular } = typography;
-const { dark, white } = colors;
+const { black } = colors;
 
 // types
 type Types = any;
@@ -24,10 +24,10 @@ const tab: Types = {
       fontWeight: fontWeightRegular,
       textTransform: "none",
       lineHeight: "inherit",
-      color: `${dark.main} !important`,
+      color: `${black} !important`,
       opacity: "1 !important",
       "&.Mui-selected": {
-        color: `${dark.main} !important`,
+        color: `${black} !important`,
         fontWeight: "bold",
         "&.MuiTabs-indicator": {
           width: "100%",

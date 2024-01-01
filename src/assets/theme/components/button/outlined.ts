@@ -2,47 +2,30 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { transparent, light, info, secondary,primary } = colors;
+const { primary, white, primary_lighten3 } = colors;
 const { size } = typography;
 
 const outlined = {
-  small: {
-    minHeight: "34px",
+  default: {
+    height: "34px",
     width: "auto",
-    padding: '8px 12px',
+    padding: "8px 12px",
     fontSize: size.xs,
-    border: `1px solid ${primary.main}`,
-    "&:hover": {
-      opacity: 0.75,
-      backgroundColor: transparent.main,
-      boxShadow: `0 4px 4px rgba(0, 0, 0, 0.3)`,
-    },
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(12)} !important`,
-    },
-  },
-  medium: {
-    minHeight: "52px",
-    // width: "50%",
-    // padding: `${pxToRem(12)} ${pxToRem(28)}`,
-    // fontSize: size.sm,
-    color: `${primary.main}`,
-    border: `1px solid ${primary.main}`,
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(22)} !important`,
-    },
+    borderRadius: "6px",
+    border: `1px solid ${primary}`,
+    color: primary,
   },
   large: {
     width: "100%",
     minHeight: "52px",
-    color: `${primary.main}`,
-    borderColor: light.main,
-    padding: `${pxToRem(10)} ${pxToRem(24)}`,
-    border: `1px solid ${primary.main}`,
+    color: primary?.main,
+    borderColor: primary?.main,
+    padding: "8px",
+    border: `1px solid ${primary?.main}`,
 
     "&:hover": {
       opacity: 0.75,
-      backgroundColor: transparent.main,
+      backgroundColor: primary_lighten3,
     },
 
     "& .material-icon, .material-icons-round, svg": {
@@ -51,20 +34,25 @@ const outlined = {
   },
 
   primary: {
-    backgroundColor: transparent.main,
-    borderColor: info.main,
-
-    "&:hover": {
-      backgroundColor: transparent.main,
+    "&.MuiButton-root": {
+      backgroundColor: primary,
+      "&:hover": {
+        backgroundColor: primary_lighten3,
+      },
+      "&:focus": {
+        backgroundColor: primary_lighten3,
+      },
     },
   },
 
   secondary: {
-    backgroundColor: transparent.main,
-    borderColor: secondary.main,
+    backgroundColor: primary,
+    color: primary?.main,
+    border: `1px solid ${primary?.main}`,
 
     "&:hover": {
-      backgroundColor: transparent.main,
+      opacity: 0.75,
+      border: `1px solid ${primary?.main}`,
     },
   },
 };

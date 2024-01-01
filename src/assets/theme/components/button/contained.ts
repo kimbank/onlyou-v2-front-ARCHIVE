@@ -2,54 +2,30 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { white, info, secondary } = colors;
+const { primary, primary_darken , white ,gray2,gray5} = colors;
 const { size } = typography;
 
 const contained = {
-  small: {
-    minHeight: "34px",
+  default: {
+    height: "34px",
     width: "auto",
-    padding: '8px 12px',
+    padding: "8px 12px",
     fontSize: size.xs,
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(12)} !important`,
-    },
+    borderRadius: "6px",
+    color: white,
   },
 
-  medium: {
-    minHeight: "52px",
-    width: "50%",
-    padding: `${pxToRem(12)} ${pxToRem(28)}`,
-    fontSize: size.sm,
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(22)} !important`,
-    },
-  },
-
-  primary: {
-    backgroundColor: info.main,
-
-    "&:hover": {
-      backgroundColor: info.main,
-    },
-
-    "&:focus:not(:hover)": {
-      backgroundColor: "",
-    },
-  },
   large: {
-    backgroundColor: "#F70",
     width: "100%",
     minHeight: "52px",
-    color: "#FFF",
+    backgroundColor: primary,
+    color: white,
     padding: "8px",
-
     fontSize: "16px",
     fontStyle: "normal",
     fontWeight: "600",
     lineHeight: "100%",
+    textAlign: "center",
 
     "&:hover, :focus": {
       backgroundColor: "#F16416",
@@ -58,24 +34,36 @@ const contained = {
     "&:active, &:active:focus, &:active:hover": {
       backgroundColor: "#F16416",
     },
+    "&.Mui-disabled": {
+      backgroundColor: primary,
+    },
+  },
 
-    // "& .material-icon, .material-icons-round, svg": {
-    //   fontSize: `${pxToRem(16)} !important`,
-    // },
+  primary: {
+    backgroundColor: primary,
+
+    "&:hover": {
+      backgroundColor: primary_darken,
+    },
+
+    "&:focus:not(:hover)": {
+      backgroundColor: "",
+    },
   },
 
   secondary: {
-    backgroundColor: "#F1F3F6",
-    color: "#5C5F63",
-
-    "&:hover": {
-      backgroundColor: "#F16416",
-      color: "#fff",
+    "&.MuiButton-root": {
+      backgroundColor: gray5,
+      color: gray2,
+      "&:hover": {
+        backgroundColor: primary,
+        color: gray2,
+      },
     },
 
     "&:focus:not(:hover)": {
       backgroundColor: "#F16416",
-      color: "#fff",
+      color: gray2,
     },
   },
 };
