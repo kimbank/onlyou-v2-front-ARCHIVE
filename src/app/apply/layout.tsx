@@ -38,10 +38,6 @@ export default function ApplicationLayout({
 
   const transition = useTransitionSelect();
 
-  useEffect(() => {
-    console.log("pathname", pathname);
-    console.log("progress", progress);
-  }, [pathname, progress]);
   return (
     <ThemeProvider theme={theme}>
       {/* <Transitions pageKey={pathname} transition={transition}> */}
@@ -52,8 +48,8 @@ export default function ApplicationLayout({
           sx={{
             width: "100%",
             backgroundColor: "#fff",
-            padding: "48px 0",
-            paddingBottom: "90px",
+            padding: "48px 0px",
+            paddingBottom: "110px",
           }}
         >
           {children}

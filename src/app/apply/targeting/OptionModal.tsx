@@ -89,12 +89,21 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
                         }
                         return (
                           <Button
+                            color={
+                              buttonPriority !== priority
+                                ? "secondary"
+                                : "primary"
+                            }
                             key={option.name}
                             className={buttonStyle}
-                            onClick={() => handleOptionClick(option.name)}>
-                              {buttonPriority && buttonPriority !== priority && `${buttonPriority} | `} {option.label}
+                            onClick={() => handleOptionClick(option.name)}
+                          >
+                            {buttonPriority &&
+                              buttonPriority !== priority &&
+                              `${buttonPriority} | `}{" "}
+                            {option.label}
                           </Button>
-                        )
+                        );
                       })
                     }
                   </Box>
@@ -105,7 +114,7 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
           {/* <button onClick={onClose}>닫기</button> */}
         </Root>
         <BottomButton>
-          <Button variant="outlined" onClick={onClose}>저장하기</Button>
+          <Button variant="contained" size="large" onClick={onClose}>저장하기</Button>
         </BottomButton>
       </div>
     </Modal>
@@ -147,23 +156,15 @@ const Root = styled("div")({
   //   padding: "8px 12px",
   // },
 
-  ".btn-plain": {
-    backgroundColor: "#F1F3F6",
-    color: "#5C5F63 !important",
-    fontWeight: "400",
-    border: "1px solid #F1F3F6",
-  },
-
-  ".btn-selected": {
-    backgroundColor: "#F70",
-    color: "#fff",
-    fontWeight: "700",
-    border: "1px solid #F70",
-  },
-
+  // ".btn-plain": {
+  //   backgroundColor: "#F1F3F6",
+  //   color: "#5C5F63 !important",
+  //   fontWeight: "400",
+  //   border: "1px solid #F1F3F6",
+  // },
   ".btn-prior-selected": {
-    backgroundColor: "#fff",
-    color: "#f70",
+    backgroundColor: "#fff !important",
+    color: "#f70 !important",
     fontWeight: "700",
     border: "1px solid #F70",
   },

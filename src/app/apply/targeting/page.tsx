@@ -17,6 +17,7 @@ import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
+import { fontSize } from "@mui/system";
 
 
 const TargetingPage = () => {
@@ -29,14 +30,16 @@ const TargetingPage = () => {
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
-
-  console.log(targetingState);
-
   const isTargetingEmpty = Object.keys(targetingState).every(
     (field: string) => {
-      return targetingState[field].priority === null;
+      const targetingField = targetingState[field];
+       if (targetingField.priority === null || targetingField.priority === 0){
+        return true;
+       }
     }
   );
+    console.log("targetingState", targetingState);
+      console.log("isTargetingEmpty", isTargetingEmpty);
 
   return (
     <>
@@ -83,7 +86,10 @@ const TargetingPage = () => {
                 sx={{ minHeight: "34px", maxHeight: "34px" }}
                 onClick={openOptionModal}
               >
-                이상형 조건 추가하기 +
+                <Typography variant="subtitle2">
+                  {" "}
+                  이상형 조건 추가하기 <span style={{fontSize:"18px",marginLeft:"8px"}}>+</span>
+                </Typography>
               </Button>
             </>
           ) : (
