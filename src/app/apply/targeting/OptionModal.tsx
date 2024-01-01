@@ -14,19 +14,32 @@ import useModal from "@/hooks/useModal";
 
 const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
   const [priority, setPriority] = useState(1);
-  const { isModalOpen: isAlertOpen, openModal: openAlertModal, closeModal: closeAlertModal } = useModal();
+  const {
+    isModalOpen: isAlertOpen,
+    openModal: openAlertModal,
+    closeModal: closeAlertModal,
+  } = useModal();
   const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+
+  const titles = ["1순위 조건", "2순위 조건", "3순위 조건"];
+  const conditions = [
+    "최대 2개",
+    "최대 4개",
+    "최대 4개"
+  ];
 
   const handleTabsChange = (event: any, newValue: number) => {
     setPriority(newValue);
   };
 
   const handleOptionClick = (optionName: string) => {
-    const currentPriorityCount = Object.keys(targetingState).filter((field: string) => {
-      return targetingState[field].priority === priority;
-    });
+    const currentPriorityCount = Object.keys(targetingState).filter(
+      (field: string) => {
+        return targetingState[field].priority === priority;
+      }
+    );
     const targetingOption = targetingState[optionName];
     if (targetingOption.priority === priority) {
       dispatch(setTargetingPriority({ field: optionName, priority: null }));
@@ -48,37 +61,51 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
 
   return (
     <>
-    <AlertModal title={alertTitle} complete={"이해했어요!"} isModalOpen={isAlertOpen} onModalClose={closeAlertModal} onComplete={closeAlertModal} />
-    <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
-      <div id="page" style={{ height: "100vh" }}>
-        <EmptyHeader />
-        <Root id="content">
-          <Box className="title-box">
-            <Typography variant="h1">1순위 반영 조건</Typography>
-            <Typography variant="body1">꼭 맞춰줬으면 하는 조건을 <strong>'최대 2개’</strong> 골라주세요</Typography>
-          </Box>
-          <Tabs
-            variant="fullWidth"
-            value={priority}
-            onChange={handleTabsChange}
-            textColor="primary"
-            indicatorColor="primary">
+      <AlertModal
+        title={alertTitle}
+        complete={"이해했어요!"}
+        isModalOpen={isAlertOpen}
+        onModalClose={closeAlertModal}
+        onComplete={closeAlertModal}
+      />
+      <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
+        <div id="page" style={{ height: "100vh" }}>
+          <EmptyHeader />
+          <Root id="content">
+            <Box className="title-box">
+              <Typography variant="h1">{titles[priority - 1]}</Typography>
+              <Typography variant="body1">
+                꼭 맞춰줬으면 하는 조건을
+                <strong>"{conditions[priority - 1]}"</strong>
+                골라주세요.,
+              </Typography>
+            </Box>
+            <Tabs
+              variant="fullWidth"
+              value={priority}
+              onChange={handleTabsChange}
+              textColor="primary"
+              indicatorColor="primary"
+            >
               <Tab label="1순위" value={1} />
               <Tab label="2순위" value={2} />
               <Tab label="3순위" value={3} />
-          </Tabs>
-          <Typography variant="body2">*다른 회원 분들은 평균 6개의 조건을 설정했어요.</Typography>
-          {
-            Object.keys(targetingCategories).map((category: string) => {
-              if (category === "default")
-              return;
+            </Tabs>
+            <Typography variant="body2">
+              *다른 회원 분들은 평균 6개의 조건을 설정했어요.
+            </Typography>
+            {Object.keys(targetingCategories).map((category: string) => {
+              if (category === "default") return;
               return (
                 <Box key={category} className="category-box">
-                  <Typography variant="subtitle1">{targetingCategories[category].label}</Typography>
+                  <Typography variant="subtitle1">
+                    {targetingCategories[category].label}
+                  </Typography>
                   <Box className="options-box">
-                    {
-                      targetingCategories[category].options.map((option: any) => {
-                        const buttonPriority = targetingState[option.name].priority;
+                    {targetingCategories[category].options.map(
+                      (option: any) => {
+                        const buttonPriority =
+                          targetingState[option.name].priority;
                         let buttonStyle = "";
                         if (buttonPriority === priority) {
                           buttonStyle = "btn-selected";
@@ -104,22 +131,23 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
                             {option.label}
                           </Button>
                         );
-                      })
-                    }
+                      }
+                    )}
                   </Box>
                 </Box>
-              )}
-            )
-          }
-          {/* <button onClick={onClose}>닫기</button> */}
-        </Root>
-        <BottomButton>
-          <Button variant="contained" size="large" onClick={onClose}>저장하기</Button>
-        </BottomButton>
-      </div>
-    </Modal>
+              );
+            })}
+            {/* <button onClick={onClose}>닫기</button> */}
+          </Root>
+          <BottomButton>
+            <Button variant="contained" size="large" onClick={onClose}>
+              저장하기
+            </Button>
+          </BottomButton>
+        </div>
+      </Modal>
     </>
-  )
+  );
 }
 
 const Root = styled("div")({
@@ -156,12 +184,6 @@ const Root = styled("div")({
   //   padding: "8px 12px",
   // },
 
-  // ".btn-plain": {
-  //   backgroundColor: "#F1F3F6",
-  //   color: "#5C5F63 !important",
-  //   fontWeight: "400",
-  //   border: "1px solid #F1F3F6",
-  // },
   ".btn-prior-selected": {
     backgroundColor: "#fff !important",
     color: "#f70 !important",

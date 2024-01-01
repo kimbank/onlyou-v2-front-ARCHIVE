@@ -32,6 +32,8 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
     }
   }
 
+  console.log("optionState", optionState);
+
   return (
     <>
       <AlertModal title={alertTitle} complete={"이해했어요!"} isModalOpen={isAlertOpen} onModalClose={closeAlertModal} onComplete={closeAlertModal} />

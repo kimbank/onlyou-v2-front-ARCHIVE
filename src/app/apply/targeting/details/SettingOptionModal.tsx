@@ -20,6 +20,7 @@ import SliderOption from "./SettingSliderOption";
 import BottomConainer from "@/components/BottomButton/Container";
 
 import jongsung from "@/utils/jongsung";
+import SettingChipOption from "./SettingChipOption";
 
 
 
@@ -53,19 +54,24 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
     });
     return options.map((option: string, idx: number) => (
       <>
-        { idx !== 0 && <Divider /> }
+        {idx !== 0 && <Divider />}
         <OptionItem key="option" onClick={() => {}}>
           <Typography variant="subtitle1">
             {/* {targetingAllOptions[option].label} */}
             {optionTitle(option)}
           </Typography>
           <span>
-            {
-              targetingAllOptions[option].targeting === "slider" ? <SliderOption optionName={targetingAllOptions[option].name} /> :
-              targetingAllOptions[option].targeting === "radio" ? <>Error</> :
-              targetingAllOptions[option].targeting === "button" ? <ButtonOption optionName={targetingAllOptions[option].name} /> :
+            {targetingAllOptions[option].targeting === "slider" ? (
+              <SliderOption optionName={targetingAllOptions[option].name} />
+            ) : targetingAllOptions[option].targeting === "radio" ? (
+              <>Error</>
+            ) : targetingAllOptions[option].targeting === "button" ? (
+              <ButtonOption optionName={targetingAllOptions[option].name} />
+            ) : targetingAllOptions[option].targeting === "chip" ? (
+              <SettingChipOption optionName={targetingAllOptions[option].name} />
+            ) : (
               <></>
-            }
+            )}
           </span>
         </OptionItem>
       </>
