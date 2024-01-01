@@ -1,8 +1,7 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
-import RDButton from "@/components/RDButton/RDButton";
 import SaveInfo from "./SaveInfo";
 import StepInfo from "./StepInfo";
 
@@ -33,9 +32,9 @@ const Index = () => {
           </Typography>
         </InfoBox> */}
         <SaveInfo />
-        <RDButton variant="contained" color="primary" size="large">
+        <Button variant="contained" color="primary" size="large">
           <Typography variant="button">매칭신청서 완성하기</Typography>
-        </RDButton>
+        </Button>
       </Box>
     </MatchingRoot>
   );

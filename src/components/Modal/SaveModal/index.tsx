@@ -1,5 +1,4 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import RDButton from "../../RDButton/RDButton";
 import ModalFrame from "../ModalFrame";
 import ModalButton from "../modalItem/ModalButton";
 import ModalContent from "../modalItem/ModalContent";

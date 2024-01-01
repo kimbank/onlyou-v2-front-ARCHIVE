@@ -23,7 +23,13 @@
 // interface SelectedOptionsType {
 //   [key: string]: string[]; 
 // }
-// const Index = () => {
+const Index = () => {
+
+    return(
+        <div>
+            <div>리턴</div>
+        </div>
+    )
 //    const [selectedTab, setSelectedTab] = useState<number>(0);
 //   const [selectedOptions, setSelectedOptions] = useState<{
 //     [key: number]: string[];
@@ -134,6 +140,6 @@
 //       <RDStepNavButton prevText="이전" nextText="다음" prevHref="/application/survey" nextHref="character/" nextType="button" checkedStates={allGroupsSelected}/>
 //     </ConditionRoot>
 //   );
-// };
+};
 
-// export default Index;
+export default Index;

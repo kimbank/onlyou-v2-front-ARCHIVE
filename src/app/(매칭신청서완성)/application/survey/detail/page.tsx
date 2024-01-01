@@ -11,9 +11,14 @@
 // import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 
-// const Index = () => {
+const Index = () => {
 
- 
+    
+     return(
+        <div>
+            <div>리턴</div>
+        </div>
+    )
 //   return (
 //     <DetailRoot>
 //       <Box className="title-box">
@@ -101,6 +106,6 @@
 //       />
 //     </DetailRoot>
 //   );
-// };
+};
 
-// export default Index;
+export default Index;

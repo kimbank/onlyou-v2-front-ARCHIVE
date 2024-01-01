@@ -32,7 +32,7 @@ const Index = () => {
   //조건 만족시 읽기 전용모드
   const [onlyRead, setOnlyRead] = useState<boolean[]>(
     checkedItems.map(() => false)
-  );
+  ); 
   //텍스트 박스 글자 30자이하 유효성검사
   const [textVaild, setTextValid] = useState<boolean[]>(
     checkedItems.map(() => false)

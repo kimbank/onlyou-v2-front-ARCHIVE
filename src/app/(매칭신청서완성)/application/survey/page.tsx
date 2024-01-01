@@ -10,7 +10,13 @@
 // import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 // import { RDStepNavButton } from "@/components/Button/RDStepButton";
 // import { useRouter } from "next/navigation";
-// const Index = () => {
+const Index = () => {
+
+        return(
+        <div>
+            <div>리턴</div>
+        </div>
+    )
 //   const router = useRouter();
 //   const handleHref =() =>{
 //     router.push('survey/condition/')
@@ -48,6 +54,6 @@
 //         <RDStepNavButton prevText="이전" prevHref="other/" nextText="다음" />
 //       </SurveyRoot>
 //     );
-// }
+}
 
-// export default Index;
+export default Index;

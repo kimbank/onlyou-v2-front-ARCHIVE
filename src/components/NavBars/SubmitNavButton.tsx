@@ -1,6 +1,5 @@
-import { Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import RDButton from "../RDButton/RDButton";
 import { Box, styled } from "@mui/material";
 
 
@@ -24,15 +23,14 @@ export default function SubmitNavButton({
 
   return (
     <SubmitNavButtonRoot>
-        <RDButton
+        <Button
           size="large"
           variant="contained"
           color="primary"
-          className="button"
           onClick={handleNextClick}
         >
           <Typography>{submitText}</Typography>
-        </RDButton>
+        </Button>
     </SubmitNavButtonRoot>
   );
 }

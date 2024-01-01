@@ -6,14 +6,14 @@ interface infoTextProps {
   shadow: boolean;
 }
 
-const { primary, Primary_lighten1, white } = colors;
+const { primary, primary_lighten1, white } = colors;
 export default styled("div")(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
-    backgroundColor: Primary_lighten1,
+    backgroundColor: primary_lighten1,
     borderRadius: "12px",
     gap: "23px",
     height: "342px",
