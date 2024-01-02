@@ -4,33 +4,38 @@ import Container from '@mui/material/Container';
 import EmptyHeader from '@/components/Header/EmptyHeader';
 import { useState } from 'react';
 
-import { signinCodeSend, signinCodeVerify } from '@/api/auth';
+import { signinCodeSend, signinCodeVerify } from '@/actions/signin';
 
 import { Box, TextField, Button, Typography } from '@mui/material';
 
+import useTimer from '@/hooks/useTimer';
+import UTCtoKST from '@/utils/utc2kst';
 
 import { get } from "@/actions/test";
 
 const Home = () => {
+  const { totalSeconds, restart } = useTimer("");
+  console.log(new Date().toISOString());
+
   async function handleSubmit(event: any) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    let res;
     if (data.get("code") == "") {
-      res = await signinCodeSend(data.get("mobileNumber"), "000000");
+      const res = await signinCodeSend(data.get("mobileNumber"));
+      // restart(res.expiryTimestamp);
+      // console.log(res.expiryTimestamp);
+      console.log(res)
     } else {
-      res = await signinCodeVerify(data.get("mobileNumber"), data.get("code"));
+      const res = await signinCodeVerify(data.get("mobileNumber"), data.get("code"));
+      console.log(res);
     }
-
-    console.log(res);
   }
 
   return (
     <>
       <EmptyHeader />
       <div id="content">
-        <button onClick={() => get()}>button</button>
         <Typography variant="h1">
           로그인하기
           <Typography variant="body2">
@@ -58,6 +63,9 @@ const Home = () => {
             id="code"
             autoComplete="current-password"
           />
+          <Button
+          variant='outlined'
+          >{totalSeconds}</Button>
           <Button
             type="submit"
             variant="contained"

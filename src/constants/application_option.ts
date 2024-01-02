@@ -79,7 +79,7 @@ export const residence: Option = {
 // 직장 유형 : 선택 반영
 export const jobType: Option = {
   name: "jobType",
-  label: "직업",
+  label: "직장 유형",
   me: "dropdown",
   targeting: "button",
 
