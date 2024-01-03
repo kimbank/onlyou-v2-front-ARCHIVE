@@ -35,7 +35,7 @@ export const TargetDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
               <br />
              조금만 힘내요!
             </Typography>
-            <CloseIcon onClick={onClose} />
+            <CloseIcon sx={{cursor:"pointer"}} onClick={onClose} />
           </Box>
         </DrawerTitle>
         <DrawerContent>

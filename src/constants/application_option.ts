@@ -36,7 +36,7 @@ export interface Option {
   options: { [key: string]: string };
 }
 
-interface GroupedOption extends Omit<Option, "options"> {
+export interface GroupedOption extends Omit<Option, "options"> {
   options: { [group: string]: { [key: string]: string } };
 }
 

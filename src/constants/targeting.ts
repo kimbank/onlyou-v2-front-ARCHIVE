@@ -4,21 +4,21 @@ import * as option from "./application_option";
 /** 이상형 타겟팅 */
 interface TargetingOptions {
   /** 이상형 타겟팅 선지 */
-  [key: string]: (option.Option | option.RangeOption)[];
+  [key: string]: (option.Option | option.RangeOption | option.GroupedOption)[];
 }
 
 /** 모든 이상형 타겟팅 */
 interface TargetingAllOptions {
   /** 모든 이상형 타겟팅 선지 */
-  [key: string]: option.Option | option.RangeOption;
+  [key: string]: option.Option | option.RangeOption | option.GroupedOption;
 }
 
 interface AllOptions {
-  [key: string]: option.Option;
+  [key: string]: option.Option | option.GroupedOption;
 }
 
 interface AllRangeOptions {
-  [key: string]: option.RangeOption;
+  [key: string]: option.RangeOption | option.GroupedOption;
 }
 
 /** 이상형 타겟팅 카테고리 */
@@ -27,8 +27,8 @@ interface TargetingCategories {
   [key: string]: {
     name: string;
     label: string;
-    options: (option.Option | option.RangeOption)[];
-  }
+    options: (option.Option | option.RangeOption | option.GroupedOption)[];
+  };
 }
 
 

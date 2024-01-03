@@ -34,6 +34,24 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     }
   }
 
+    const renderOptionButtons = (group :string) => {
+      return Object.keys(allOption[group]).map((optionKey: string) => (
+        <Button
+          sx={{height:"34px",width:"100%"}}
+          key={optionKey}
+          variant="contained"
+          color={
+            optionState.data.includes(Number(optionKey))
+              ? "primary"
+              : "secondary"
+          }
+          onClick={() => handleOptionClick(Number(optionKey))}
+        >
+          {allOption[group][optionKey]}
+        </Button>
+      ));
+    };
+
 
 
      const [open, setOpen] = useState(false);
@@ -59,44 +77,52 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
       <Root>
         <Box>
           <Tooltip
-            className="tooltlp"
+            className="tooltip"
             title={tooltipTitle()}
             open={open}
             onClick={handleTooltipToggle}
             arrow
             placement="bottom-start"
           >
-            <Box className="tooltip-text">
+            <Box>
               <Button variant="text" size="large">
-                <InfoOutlinedIcon />
-                <Typography variant="body3">지역 상세 설명 보기</Typography>
+                <InfoOutlinedIcon className="tooltip-icon" />
+                <Typography className="tooltip-text" variant="body3">
+                  지역 상세 설명 보기
+                </Typography>
               </Button>
             </Box>
           </Tooltip>
         </Box>
         <Box className="button-box">
-          {Object.keys(allOption).map((group: string) => (
-            <Box className="button-box" key={group}>
-              <Typography variant="body2">{group}</Typography>
-              <Box className="button">
-              {Object.keys(allOption[group]).map((optionKey: string) => (
-                <Button
-
-                  key={optionKey}
-                  variant="contained"
-                  color={
-                    optionState.data.includes(Number(optionKey))
-                      ? "primary"
-                      : "secondary"
-                  }
-                  onClick={() => handleOptionClick(Number(optionKey))}
-                >
-                  {allOption[group][optionKey]}
-                </Button>
-              ))}
-              </Box>
+          {allOption["기타"] && (
+            <Box className="button-box" key="기타">
+              <Box className="button">{renderOptionButtons("기타")}</Box>
             </Box>
-          ))}
+          )}
+          {Object.keys(allOption)
+            .filter((group) => group !== "기타")
+            .map((group: string) => (
+              <Box className="button-box" key={group}>
+                <Typography variant="subtitle2">{group}</Typography>
+                <Box className="button">
+                  {Object.keys(allOption[group]).map((optionKey: string) => (
+                    <Button
+                      key={optionKey}
+                      variant="contained"
+                      color={
+                        optionState.data.includes(Number(optionKey))
+                          ? "primary"
+                          : "secondary"
+                      }
+                      onClick={() => handleOptionClick(Number(optionKey))}
+                    >
+                      {allOption[group][optionKey]}
+                    </Button>
+                  ))}
+                </Box>
+              </Box>
+            ))}
         </Box>
       </Root>
     </>
@@ -118,6 +144,19 @@ const Root = styled(Box)({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: "9px",
+  },
+  ".tooltip": {
+    marginBottom: "17px",
+    display: "flex",
+    justifyContents: "flex-start",
+    gap: "4px",
+  },
+  ".tooltip-icon": {
+    width: "18px",
+    marginRight: "4px",
+  },
+  ".tooltip-text": {
+    textDecoration: "underline",
   },
 });
 

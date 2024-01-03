@@ -36,7 +36,7 @@ export const SubmitDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
               <br />
               이상형을 알려주세요!
             </Typography>
-            <CloseIcon onClick={onClose} />
+            <CloseIcon sx={{cursor:"pointer"}} onClick={onClose} />
           </Box>
         </DrawerTitle>
         <DrawerContent>
