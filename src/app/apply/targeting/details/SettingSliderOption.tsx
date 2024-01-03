@@ -5,11 +5,12 @@ import { Slider, Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setTargetingRangeField } from "@/store/targetingSlice";
 import { allRangeOptions } from "@/constants/targeting";
+import { RangeOption } from "@/constants/application_option";
 
 const SettingSliderOption = ({ optionName }: { optionName: string }) => {
   const dispatch = useDispatch();
   const { from, to } = useSelector((state: RootState) => state.targeting[optionName]);
-  const { from: min, to: max } = allRangeOptions[optionName];
+  const { from: min, to: max } = allRangeOptions[optionName] as RangeOption;
   const [value, setValue] = useState<number[]>([from ? from : min, to ? to : max]);
 
   console.log("rerenderd");

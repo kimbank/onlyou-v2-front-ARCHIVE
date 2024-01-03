@@ -135,6 +135,11 @@ const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
                   key={group.label}
                   className={isVisible ? "chip visible" : "chip"}
                 >
+                  <Box className="chip-text">
+                    <Typography variant="subtitle2">
+                      {index + 1}.{group.label}
+                    </Typography>
+                  </Box>
                   {Object.keys(options).map((option: string) => (
                     <Chip
                       key={option}
@@ -211,6 +216,10 @@ const Root = styled(Container)(({ theme }) => {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
+    },
+    ".chip-text":{
+      width:"100%",
+      marginBottom:"4px",
     },
   };
 });

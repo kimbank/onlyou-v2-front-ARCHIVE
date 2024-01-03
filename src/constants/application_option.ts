@@ -27,7 +27,7 @@ export interface Option {
   /** 내정보 방식 */
   me: "button" | "dropdown" | "checkbox" | "radio" | "slider";
   /** 타게팅 방식 */
-  targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider";
+  targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip";
   /** 최대 선택 가능 갯수 */
   me_limit?: number;
   targeting_limit?: number;
@@ -36,6 +36,9 @@ export interface Option {
   options: { [key: string]: string };
 }
 
+export interface GroupedOption extends Omit<Option, "options"> {
+  options: { [group: string]: { [key: string]: string } };
+}
 
 // 생년월일(나이) : 무조건 반영
 export const birthYear: RangeOption = {
@@ -50,36 +53,43 @@ export const birthYear: RangeOption = {
 
 
 // 거주지 : 무조건 반영
-export const residence: Option = {
+export const residence: GroupedOption = {
   name: "residence",
-  label: "거주지",
+  label: "선호하는 거주지를 모두 설정해주세요",
   me: "dropdown",
-  targeting: "button",
-
+  targeting: "chip",
   options: {
-    0: "서울 동부",
-    1: "서울 서부",
-    2: "서울 남부",
-    3: "서울 북부",
-    4: "경기 중부",
-    5: "경기 북서부",
-    6: "경기 북동부",
-    7: "경기 북부",
-    8: "경기 남부",
-    9: "경기 남서부",
-    10: "경기 남동부",
-    11: "경기 중부",
-    12: "인천 서부",
-    13: "인천 동부",
-    14: "수도권 내 상관 없음",
-  }
-}
+    서울: {
+      0: "서울 동부",
+      1: "서울 서부",
+      2: "서울 남부",
+      3: "서울 북부",
+    },
+    경기: {
+      4: "경기 중부",
+      5: "경기 북서부",
+      6: "경기 북동부",
+      7: "경기 북부",
+      8: "경기 남부",
+      9: "경기 남서부",
+      10: "경기 남동부",
+      11: "경기 중부",
+    },
+    인천: {
+      12: "인천 서부",
+      13: "인천 동부",
+    },
+    기타: {
+      14: "수도권 내 상관 없음",
+    },
+  },
+};
 
 
 // 직장 유형 : 선택 반영
 export const jobType: Option = {
   name: "jobType",
-  label: "직업",
+  label: "직장 유형",
   me: "dropdown",
   targeting: "button",
 

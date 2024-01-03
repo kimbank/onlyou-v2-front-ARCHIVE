@@ -17,6 +17,7 @@ import BottomButton from "@/components/BottomButton/Container";
 import Esitimate from "./Estimate";
 import Menu from "@/components/Button/Menu";
 import { StepButton } from "@/components/Button/StepButton";
+import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
@@ -24,13 +25,28 @@ const DetailsPage = () => {
   const { isModalOpen: isNextOpen, openModal: openNextModal, closeModal: closeNextModal } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleOpenDrawer = () => {
+      setDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+      setDrawerOpen(false);
+    };
+        const handleNext = () => {
+          if (allGroupsSelected) {
+            handleOpenDrawer();
+          } else {
+            alert("모든 그룹을 선택하세요.");
+          }
+        };
 
   function openSettingModalByPriority(priority: number) {
     setPriority(priority);
     openSettingModal();
   }
 
-  const rightArrow = <ChevronRightRounded style={{fontSize :"24px"}} />;
   function checkFillStatus(priority: number) {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
@@ -50,19 +66,6 @@ const DetailsPage = () => {
   }
 
   const fillStatus = checkFillStatus(0) && checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
-  function handleNext() {
-    if (fillStatus) {
-      if (isNextOpen) {
-        closeNextModal();
-        window.location.href = "/application/LetterSelect";
-        return;
-      }
-      // alert("다음 페이지로 이동합니다.");
-      openNextModal();
-    } else {
-      alert("모든 조건을 선택해주세요.");
-    }
-  }
 
 const allGroupsSelected =
   checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
@@ -82,46 +85,35 @@ const allGroupsSelected =
           </Typography>
         </div>
         <div className="content-body">
-          <MenuButton
+          <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(0)}
             variant={checkFillStatus(0) ? "outlined" : "contained"}
           >
-            기본 반영 상세 조건
-          </MenuButton>
-          <MenuButton
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(1)}
-            variant={checkFillStatus(1) ? "outlined" : "contained"}
-          >
-            1순위 상세 조건
-          </MenuButton>
+            <Typography>기본 반영 상세 조건</Typography>
+          </Menu>
           <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(1)}
             variant={checkFillStatus(1) ? "outlined" : "contained"}
           >
-            1순위 상세 조건
+            <Typography> 1순위 상세 조건</Typography>
           </Menu>
-          <MenuButton
-            size="large"
+          <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(2)}
             variant={checkFillStatus(2) ? "outlined" : "contained"}
           >
-            2순위 상세 조건
-          </MenuButton>
-          <MenuButton
+            <Typography> 2순위 상세 조건</Typography>
+          </Menu>
+          <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(3)}
             variant={checkFillStatus(3) ? "outlined" : "contained"}
           >
-            3순위 상세 조건
-          </MenuButton>
+            <Typography> 3순위 상세 조건</Typography>
+          </Menu>
+
           <Esitimate />
         </div>
       </ContentRoot>
@@ -133,21 +125,11 @@ const allGroupsSelected =
         nextType="button"
         checkedStates={allGroupsSelected}
       />
-      <TestDrawer
-        title={
-          <>
-            이제 마지막 단계에요
-            <br />
-            조금만 힘내요!
-          </>
-        }
-        body={<>딱 맞는 이상형 꼭 찾아드릴게요.</>}
-        open={isNextOpen}
-        complete="편지 작성하기"
-        onComplete={handleNext}
-        onClose={closeNextModal}
-        // sx={nextModalSX}
-      ></TestDrawer>
+      <TargetDrawer
+        nextHref="/apply/letter/select"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+      />
     </>
   );
 }
@@ -184,3 +166,33 @@ const MenuButton = styled(Button)((props) => {
 });
 
 export default DetailsPage;
+
+          {
+            /* <MenuButton
+            color={checkFillStatus(0) ? "primary" : "secondary"}
+            endIcon={rightArrow}
+            onClick={() => openSettingModalByPriority(1)}
+            variant={checkFillStatus(1) ? "outlined" : "contained"}
+          >
+            1순위 상세 조건
+          </MenuButton> */
+          }
+          {
+            /* <MenuButton
+            size="large"
+            color={checkFillStatus(0) ? "primary" : "secondary"}
+            endIcon={rightArrow}
+            onClick={() => openSettingModalByPriority(2)}
+            variant={checkFillStatus(2) ? "outlined" : "contained"}
+          >
+            2순위 상세 조건
+          </MenuButton>
+          <MenuButton
+            color={checkFillStatus(0) ? "primary" : "secondary"}
+            endIcon={rightArrow}
+            onClick={() => openSettingModalByPriority(3)}
+            variant={checkFillStatus(3) ? "outlined" : "contained"}
+          >
+            3순위 상세 조건
+          </MenuButton> */
+          }

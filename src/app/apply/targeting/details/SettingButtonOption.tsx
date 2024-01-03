@@ -32,24 +32,37 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
     }
   }
 
+  console.log("optionState", optionState);
+
   return (
     <>
-      <AlertModal title={alertTitle} complete={"이해했어요!"} isModalOpen={isAlertOpen} onModalClose={closeAlertModal} onComplete={closeAlertModal} />
+      <AlertModal
+        title={alertTitle}
+        complete={"이해했어요!"}
+        isModalOpen={isAlertOpen}
+        onModalClose={closeAlertModal}
+        onComplete={closeAlertModal}
+      />
       <Root>
-        {
-          Object.keys(allOption).map((option: string) => (
+        {Object.keys(allOption).map((option: string) => {
+          const labelValue = allOption[option];
+          return (
             <Chip
               key={option}
-              label={allOption[option]}
+              label={typeof labelValue === "string" ? labelValue : ""}
               variant="filled"
-              color={optionState.data.includes(Number(option)) ? "primary" : "default"}
+              color={
+                optionState.data.includes(Number(option))
+                  ? "primary"
+                  : "default"
+              }
               onClick={() => handleOptionClick(Number(option))}
             />
-          ))
-        }
+          );
+        })}
       </Root>
     </>
-  )
+  );
 }
 
 const Root = styled("div")({

@@ -102,7 +102,7 @@ const NavigationRoot = styled("div")(() => {
     },
 
     "& .MuiBottomNavigationAction-label": {
-      fontFamily: "Pretandard",
+      fontFamily: "Pretendard",
       fontSize: "14px",
       fontStyle: "normal",
       fontWeight: "400",
@@ -111,7 +111,7 @@ const NavigationRoot = styled("div")(() => {
     },
 
     "& .Mui-selected": {
-      fontFamily: "Pretandard",
+      fontFamily: "Pretendard",
       fontSize: "14px",
       fontStyle: "normal",
       fontWeight: "600",
