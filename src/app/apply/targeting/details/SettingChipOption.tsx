@@ -23,13 +23,13 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const ascending = (a: number, b: number) => a - b;
 
   function handleOptionClick(idx: number) {
-    if (optionState.data.includes(idx)) { // 이미 선택된 경우
+    if (optionState.data.includes(idx)) {
       dispatch(setTargetingDataField({ field: optionName, data: optionState.data.filter((data: number) => data !== idx) }));
     } else if (limit && optionState.data.length >= limit) {
       setAlertTitle(`최대 ${limit}개 까지 선택할 수 있어요`);
       openAlertModal();
       return;
-    } else { // 새롭게 선택하는 경우
+    } else { 
       dispatch(setTargetingDataField({ field: optionName, data: [...optionState.data, idx].sort(ascending) }));
     }
   }
