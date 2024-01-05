@@ -48,10 +48,23 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
     return hangeul;
   }
 
+
   const RenderOptions = () => {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
     });
+
+        if (options.length === 0) {
+          return (
+            <EmptyBox>
+              <Typography variant="body1" color="gray3">
+                선택한 {priority}순위 조건이 없어요
+              </Typography>
+              <Image src="/targetEmpty.png" alt="empty" width={84} height={84}/>
+            </EmptyBox>
+          );
+        }
+
     return options.map((option: string, idx: number) => (
       <>
         {idx !== 0 && <Divider />}
@@ -142,6 +155,15 @@ const ResultBox = styled("div")({
 const GapDiv = styled("div")({
   height: "12px",
   width: "100%",
+});
+
+const EmptyBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  justifyContent: "center",
+  height:"100%",
+  gap:"20px",
 });
 
 export default SettingOptionModal;

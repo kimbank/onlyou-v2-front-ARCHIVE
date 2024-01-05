@@ -40,6 +40,11 @@ const handlePrevClick = () => {
   };
 
   //   const checkedCount = checkedStates?.filter(Boolean).length ?? 0;
+  let isDisabled = !checkedStates; // 기본적으로는 checkedStates만 고려
+  if (tips) {
+    // Tipbox가 존재하는 경우 추가적인 조건 고려
+    isDisabled = !(checkedStates && checkboxChecked);
+  }
   return (
     <StepButtonRoot>
       {tips && (
@@ -49,17 +54,13 @@ const handlePrevClick = () => {
         />
       )}
       <Box className="button-box">
-        <Button
-          size="large"
-          variant="outlined"
-          onClick={handlePrevClick}
-        >
+        <Button size="large" variant="outlined" onClick={handlePrevClick}>
           <Typography variant="body1">{prevText}</Typography>
         </Button>
         <Button
           size="large"
           variant="contained"
-          disabled={!checkedStates}
+          disabled={isDisabled}
           onClick={handleNextClick}
         >
           <Typography variant="body1">{nextText}</Typography>
