@@ -49,7 +49,7 @@ export default function ApplicationLayout({
             width: "100%",
             backgroundColor: "#fff",
             padding: "48px 0px",
-            paddingBottom: "110px",
+            paddingBottom: "130px",
           }}
         >
           {children}

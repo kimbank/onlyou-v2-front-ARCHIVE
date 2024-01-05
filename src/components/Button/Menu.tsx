@@ -1,3 +1,5 @@
+"use client";
+
 import { styled, Button } from "@mui/material";
 import { ChevronRightRounded } from "@mui/icons-material";
 import { style } from "@mui/system";
@@ -9,6 +11,7 @@ interface Props {
   variant?: "default" | "contained" | "outlined";
   color?: "primary" | "secondary";
   onClick?: () => void;
+  className?:string;
 }
 
 const Menu = ({
@@ -23,7 +26,10 @@ const Menu = ({
       variant={variant === "outlined" ? "outlined" : "contained"}
       size="large"
       endIcon={
-        <ChevronRightRounded fontSize="large" sx={{ fontSize: "24px !important" }} />
+        <ChevronRightRounded
+          fontSize="large"
+          sx={{ fontSize: "24px !important" }}
+        />
       }
       onClick={onClick}
     >
@@ -32,23 +38,21 @@ const Menu = ({
   );
 };
 
-const MenuRoot = styled(Button)(({color }) => {
+const MenuRoot = styled(Button)(({ color }) => {
+  return {
+    height: "64px",
+    justifyContent: "space-between",
+    padding: "0px 16px 0px 20px",
+    width: "100%",
 
-    return {
-      height: "64px",
-      justifyContent: "space-between",
-      padding: "0px 16px 0px 20px",
-      width: "100%",
+    ":hover": {
+      backgroundColor: "#D3D6DB",
+    },
 
-      ":hover": {
-        backgroundColor: "#D3D6DB",
-      },
-
-      ":focus": {
-        backgroundColor: "#F1F3F6",
-      },
-    };
-  }
-);
+    ":focus": {
+      backgroundColor: "#F1F3F6",
+    },
+  };
+});
 
 export default Menu;
