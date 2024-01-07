@@ -3,32 +3,30 @@
 import { Box, Container, Typography, colors, styled } from "@mui/material";
 import { Profile } from "./components/profile";
 import Menu from "@/components/Button/Menu";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { fetchMyInfo } from "@/actions/fetchMyInfo";
 
 const Index = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const loadMyInfo = async () => {
+      try {
+        const data = await fetchMyInfo();
+        console.log("data", data);
+      } catch (error) {
+        console.error("error", error);
+        alert("로그인이 필요합니다");
+        router.push("/signin");
+      }
+    };
+    loadMyInfo();
+  }, [router]);
+
   return (
     <MyinfoRoot>
-      <Box>
-        <Typography variant="h1">내 정보</Typography>
-      </Box>
-      <Profile />
-      <Box className="menu-box">
-        <Typography variant="subtitle1">매칭 신청서 수정하기</Typography>
-        <Menu className="menu">
-          <Typography variant="body1">내 정보 수정하기</Typography>
-        </Menu>
-        <Menu className="menu">
-          <Typography variant="body1">이상형 정보 수정하기</Typography>
-        </Menu>
-        <Menu className="menu">
-          <Typography variant="body1">인증 뱃지 수정하기</Typography>
-        </Menu>
-        <Menu className="menu">
-          <Typography variant="body1">사진 수정하기</Typography>
-        </Menu>
-        <Menu className="menu">
-          <Typography variant="body1">편지 수정하기</Typography>
-        </Menu>
-      </Box>
+      <Box>마이인포</Box>
     </MyinfoRoot>
   );
 };
@@ -37,14 +35,14 @@ export default Index;
 
 const MyinfoRoot = styled(Container)(() => {
   return {
-    ".menu-box":{
-        display:"flex",
-        flexDirection:"column",
-        gap:"8px",
+    ".menu-box": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "8px",
     },
-    ".menu":{
-        minHeight:"34px !important",
-        height:"34px !important"
-    }
+    ".menu": {
+      minHeight: "34px !important",
+      height: "34px !important",
+    },
   };
 });
