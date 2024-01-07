@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import EmptyHeader from "@/components/Header/EmptyHeader";
 import { useEffect, useState } from "react";
 
-import { signinCodeSend, signinCodeVerify } from "@/actions/signin";
+import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
 import { Box, TextField, Button, Typography } from "@mui/material";
 
