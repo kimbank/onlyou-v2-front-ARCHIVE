@@ -194,11 +194,14 @@ const Root = styled(Container)(({ theme }) => {
       visibility: "hidden",
       transition:
         "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.5s",
+      height: 0,
+      overflow: "hidden",
     },
     ".value-radio.visible": {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
+      height: "auto", 
     },
     ".chip": {
       display: "flex",
@@ -217,9 +220,9 @@ const Root = styled(Container)(({ theme }) => {
       transform: "translateY(0)",
       visibility: "visible",
     },
-    ".chip-text":{
-      width:"100%",
-      marginBottom:"4px",
+    ".chip-text": {
+      width: "100%",
+      marginBottom: "4px",
     },
   };
 });
