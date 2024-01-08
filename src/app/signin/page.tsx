@@ -13,6 +13,7 @@ import UTCtoKST from "@/utils/utc2kst";
 
 import { get } from "@/actions/test";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Home = () => {
   const { totalSeconds, restart } = useTimer("200");
@@ -112,6 +113,9 @@ const Home = () => {
           )}
         </Box>
       </div>
+          <Button onClick={() => {axios.get("http://118.103.220.96:8080/test")}}>
+            test
+          </Button>
     </>
   );
 };
