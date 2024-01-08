@@ -1,7 +1,9 @@
-import { Radio, Typography } from "@mui/material";
+"use client";
+
+import colors from "@/assets/theme/base/colors";
+import { FormControlLabel, Radio, styled, Typography } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
 import { useState } from "react";
-import { StyledFormControlLabel } from "./RDRadioRoot";
 
 interface option {
   id?: string;
@@ -13,6 +15,7 @@ interface optionsProps {
   options: option[];
   onChange: (value: string) => void;
 }
+const { primary, primary_lighten3, gray4, gray5 } = colors;
 
 const RDRadioInput = ({ options, onChange }: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
@@ -30,14 +33,14 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
       sx={{ gap: "8px" }}
     >
       {options.map((option, index) => (
-        <StyledFormControlLabel
+        <LabelRoot
           key={index}
           className="radio-box"
           value={option.value}
           checked={selectedValue === option.value}
           control={<Radio />}
           label={
-            <Typography variant="body1" sx={{ maxWidth: "281px" }}>
+            <Typography variant="body1" className="typography-label">
               {option.label}
             </Typography>
           }
@@ -48,3 +51,31 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
 };
 
 export default RDRadioInput;
+
+const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  minHeight: "24px",
+  marginBottom: "2px",
+  marginLeft: 0,
+  marginRight: 0,
+  border: checked ? `1px solid ${primary}` : `1px solid ${gray4}`,
+  borderRadius: "6px",
+  backgroundColor: checked ? primary_lighten3 : "transparent",
+  "&:hover": {
+    backgroundColor: gray5,
+  },
+  "&:focus, &:focus-within": {
+    backgroundColor: checked
+      ? `${primary_lighten3} !important`
+      : `${gray5} !important`,
+    outline: `2px solid ${gray5} !important`,
+  },
+  ".typography-label": {
+    maxWidth: "100%",
+    [theme.breakpoints.down(400)]: {
+      maxWidth: "281px",
+    },
+  },
+}));
