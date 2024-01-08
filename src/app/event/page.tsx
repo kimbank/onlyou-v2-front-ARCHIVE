@@ -9,7 +9,7 @@ const Index = () => {
   return (
     <>
       <HomeHeader />
-      <EventRoot>
+      <EventRoot id="content">
         <Box className="event-box">
           <Typography variant="h1" className="event-title">
             프립 후기 이벤트
@@ -17,12 +17,12 @@ const Index = () => {
           <Typography variant="body2" className="event-text">
             많은 분을 모셔 정확도를 올릴 수 있도록
             <br />
-            프립 후기를 작성해 주세요!
+            <strong>프립 후기</strong>를 작성해 주세요!
           </Typography>
           <Typography variant="body2">
             작성 후 문자로 인증해주시면,
             <br />
-            스타벅스 기프티콘을 드립니다!
+            <strong>스타벅스 기프티콘</strong>을 드립니다!
           </Typography>
           <Image
             src="/images/event/starbucks.png"
@@ -45,9 +45,9 @@ const Index = () => {
             연애 골인 이벤트
           </Typography>
           <Typography variant="body2">
-            ONLYou를 통해 연애에 골인하신 스토리를 들려주세요.
+            <strong>ONLYou</strong>를 통해 연애에 골인하신 스토리를 들려주세요.
             <br />
-            보답으로 아웃백 상품권을 드려요!
+            보답으로 <strong>아웃백 상품권</strong>을 드려요!
           </Typography>
           <Image
             src="/images/event/outback.png"
@@ -79,7 +79,6 @@ const EventRoot = styled(Container)(({ theme }) => {
     display: "flex",
     flexDirection: "column",
     gap: "20px",
-    padding: " 48px 24px",
     paddingBottom: "60px",
     alignItems: "center",
     overflow: "scroll",

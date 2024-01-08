@@ -72,10 +72,4 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
       : `${gray5} !important`,
     outline: `2px solid ${gray5} !important`,
   },
-  ".typography-label": {
-    maxWidth: "100%",
-    [theme.breakpoints.down(400)]: {
-      maxWidth: "281px",
-    },
-  },
 }));
