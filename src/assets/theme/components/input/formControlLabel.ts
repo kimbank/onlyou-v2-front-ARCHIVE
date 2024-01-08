@@ -29,7 +29,6 @@ const formControlLabel: Types = {
       color: black,
       lineHeight: 1,
       transform: "translateY(1)",
-
       "&.Mui-disabled": {
         color: black,
       },

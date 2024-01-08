@@ -57,7 +57,6 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
   flexDirection: "row",
   alignItems: "center",
   minHeight: "24px",
-  marginBottom: "2px",
   marginLeft: 0,
   marginRight: 0,
   border: checked ? `1px solid ${primary}` : `1px solid ${gray4}`,
