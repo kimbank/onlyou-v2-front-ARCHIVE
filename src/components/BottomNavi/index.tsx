@@ -11,7 +11,6 @@ import AgreementIcon from "@mui/icons-material/MarkunreadOutlined";
 import EventIcon from "@mui/icons-material/LocalActivityOutlined";
 import MyInfoIcon from "@mui/icons-material/PersonOutlineOutlined";
 
-
 export default function Navigation({ recent }: any) {
   const pathname = usePathname();
   const [value, setValue] = React.useState(pathname.split("/")[1]);
@@ -22,45 +21,43 @@ export default function Navigation({ recent }: any) {
 
   return (
     <NavigationRoot>
-      <BottomNavigation
-        value={value}
-        onChange={handleChange}>
-          {/* <Link href="/matching" passHref className="next-link"> */}
-            <BottomNavigationAction
-              href="/matching"
-              label="매칭"
-              value="matching"
-              icon={<MatchingIcon />}
-              showLabel
-            />
-          {/* </Link> */}
-          {/* <Link href="/agreement" passHref className="next-link"> */}
-            <BottomNavigationAction
-              href="/agreement"
-              label="성사"
-              value="agreement"
-              icon={<AgreementIcon />}
-              showLabel
-            />
-          {/* </Link> */}
-          {/* <Link href="/board" passHref className="next-link"> */}
-            <BottomNavigationAction
-              href="/event"
-              label="이벤트"
-              value="board"
-              icon={<EventIcon />}
-              showLabel
-            />
-          {/* </Link> */}
-          {/* <Link href="/my_info" passHref className="next-link"> */}
-            <BottomNavigationAction
-              href="/myinfo"
-              label="내 정보"
-              value="my_info"
-              icon={<MyInfoIcon />}
-              showLabel
-            />
-          {/* </Link> */}
+      <BottomNavigation value={value} onChange={handleChange}>
+        {/* <Link href="/matching" passHref className="next-link"> */}
+        <BottomNavigationAction
+          href="/matching"
+          label="매칭"
+          value="matching"
+          icon={<MatchingIcon />}
+          showLabel
+        />
+        {/* </Link> */}
+        {/* <Link href="/agreement" passHref className="next-link"> */}
+        <BottomNavigationAction
+          href="/agreement"
+          label="성사"
+          value="agreement"
+          icon={<AgreementIcon />}
+          showLabel
+        />
+        {/* </Link> */}
+        {/* <Link href="/board" passHref className="next-link"> */}
+        <BottomNavigationAction
+          href="/event"
+          label="이벤트"
+          value="event"
+          icon={<EventIcon />}
+          showLabel
+        />
+        {/* </Link> */}
+        {/* <Link href="/my_info" passHref className="next-link"> */}
+        <BottomNavigationAction
+          href="/myinfo"
+          label="내 정보"
+          value="my_info"
+          icon={<MyInfoIcon />}
+          showLabel
+        />
+        {/* </Link> */}
       </BottomNavigation>
     </NavigationRoot>
   );
@@ -84,12 +81,12 @@ const NavigationRoot = styled("div")(() => {
       height: "72px",
       width: "100%",
       maxWidth: "480px",
-      
+
       display: "flex",
       "-webkit-box-align": "center",
       alignItems: "center",
       "-webkit-box-pack": "center",
-      justifyContent: "center"
+      justifyContent: "center",
     },
 
     "& .MuiBottomNavigationAction-root": {
