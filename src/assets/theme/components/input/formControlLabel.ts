@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, black , gray3 } = colors;
+const { primary, black, gray3 } = colors;
 const { size, fontWeightBold } = typography;
 
 // types
@@ -12,11 +12,13 @@ const formControlLabel: Types = {
   styleOverrides: {
     root: {
       display: "block",
-      minHeight: pxToRem(24),
-      marginBottom: pxToRem(2),
+      minHeight: "24px",
+      marginBottom: "2px",
       border: `1px solid ${primary?.main}`,
       borderRadius: "6px",
-                
+      padding: "8px 0px 8px 16px",
+      maxHeight: "62px",
+      gap: "8px",
       "&:hover": {
         backgroundColor: gray3,
       },
@@ -28,7 +30,7 @@ const formControlLabel: Types = {
       fontWeight: fontWeightBold,
       color: black,
       lineHeight: 1,
-      transform: `translateY(${pxToRem(1)})`,
+      transform: "translateY(1)",
 
       "&.Mui-disabled": {
         color: black,

@@ -9,6 +9,8 @@ type Types = any;
 const radio: Types = {
   styleOverrides: {
     root: {
+      width: "24px",
+      height: "24px",
       "& .MuiSvgIcon-root": {
         width: "24px",
         height: "24px",
@@ -23,8 +25,6 @@ const radio: Types = {
         transition: "opacity 250ms ease-in-out",
         content: `""`,
         position: "absolute",
-        width: pxToRem(14),
-        height: pxToRem(14),
         borderRadius: "50%",
         opacity: 0,
         left: 0,

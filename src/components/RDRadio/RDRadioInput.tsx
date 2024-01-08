@@ -37,7 +37,7 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
           checked={selectedValue === option.value}
           control={<Radio />}
           label={
-            <Typography variant="body1" sx={{ paddingRight: "8px" }}>
+            <Typography variant="body1" sx={{ maxWidth: "281px" }}>
               {option.label}
             </Typography>
           }
