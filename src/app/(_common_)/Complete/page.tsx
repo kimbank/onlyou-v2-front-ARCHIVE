@@ -8,6 +8,7 @@ const Index = () => {
   return (
     //추후에 매칭신청서 작성완료 부분을 인자로 받아 Complete템플릿 공통으로 사용예정
     <>
+      <CloseHeader href="/" />
       <CompleteRoot>
         <Image
           src="/complete_1080x1080.png"
@@ -21,7 +22,7 @@ const Index = () => {
           <br />꼭 맞는 인연을 찾아드릴게요!
         </Typography>
       </CompleteRoot>
-      <SubmitNavButton submitText="매칭으로 이동하기" submitHref="/matching" />
+      <SubmitNavButton submitText="매칭 홈으로" submitHref="/matching" />
     </>
   );
 };
@@ -29,6 +30,7 @@ const Index = () => {
 export default Index;
 
 import { styled } from "@mui/material";
+import CloseHeader from "@/components/Header/CloseHeader";
 
 const CompleteRoot = styled("div")(({ theme }) => {
   return {
@@ -36,18 +38,17 @@ const CompleteRoot = styled("div")(({ theme }) => {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: "10px",
     height: "100%",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
 
-    ".complete-title": {
-      fontWeight: "bold",
-      textAlign: "center",
+    "& > :nth-child(2)": {
+      marginTop: "16px",
     },
-    ".complete-caption": {
+    "& > :nth-child(3)": {
+      marginTop: "8px",
       textAlign: "center",
     },
   };

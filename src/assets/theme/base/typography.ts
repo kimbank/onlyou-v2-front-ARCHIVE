@@ -103,7 +103,6 @@ interface Types {
     lineHeight: string;
   };
 
-
   /* legacy */
   overline: {
     fontFamily: string;
@@ -158,7 +157,7 @@ const typography: Types = {
   subtitle1: {
     fontFamily: "Pretendard",
     fontSize: "16px",
-    fontWeight: baseProperties.fontWeightBold,
+    fontWeight: 600,
     lineHeight: "150%",
   },
 
@@ -239,7 +238,6 @@ const typography: Types = {
     lineHeight: "140%",
   },
 
-
   /* legacy */
   overline: {
     fontFamily: baseProperties.fontFamily,
@@ -263,8 +261,7 @@ const typography: Types = {
   /* ****** */
 };
 
-
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface TypographyVariants {
     body3: React.CSSProperties;
     button_medium: React.CSSProperties;
@@ -308,7 +305,6 @@ declare module "@mui/material/Typography" {
   }
 }
 
-
 /* ************************* */
 /* way of adding new variant */
 /* ************************* */
@@ -329,7 +325,5 @@ declare module "@mui/material/Typography" {
 //   }
 // }
 /* ************************* */
-
-
 
 export default typography;

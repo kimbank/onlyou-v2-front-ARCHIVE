@@ -11,31 +11,30 @@ interface CheckboxProps {
   checked: boolean;
 }
 
-export function Checkbox({
-  onClick,
-  buttonName,
-  checked,
-}: CheckboxProps) {
+export function Checkbox({ onClick, buttonName, checked }: CheckboxProps) {
   return (
-      <CheckboxRoot className="checkbox-button" onClick={onClick} checked={checked}>
-        <CheckBox className="checkbox"/>
-        <Typography variant="body2" className="label">
-          {buttonName}
-        </Typography>
-      </CheckboxRoot>
+    <CheckboxRoot
+      className="checkbox-button"
+      onClick={onClick}
+      checked={checked}
+    >
+      <CheckBox className="checkbox" />
+      <Typography variant="body2" className="label">
+        {buttonName}
+      </Typography>
+    </CheckboxRoot>
   );
 }
-const CheckboxRoot = styled(Button)(({ checked } :CheckboxProps ) => {
-  
-  const { primary ,white ,gray2,gray4 , gray5,black} = colors
+const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
+  const { primary, white, gray2, gray4, gray5, black } = colors;
   return {
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
     border: `1px solid ${checked ? primary?.main : "none"}`,
-    borderRadius: "8px",
-    height: "33px",
+    borderRadius: "6px",
+    height: "40px",
     padding: "8px 12px",
     backgroundColor: checked ? white : gray5,
     gap: "10px",
@@ -56,5 +55,7 @@ const CheckboxRoot = styled(Button)(({ checked } :CheckboxProps ) => {
     ".label": {
       color: checked ? black : gray2,
       textAlign: "left",
+      fontWeight: checked ? "600" : "normal",
     },
-  };});
+  };
+});

@@ -34,11 +34,7 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
         </ModalContent>
         <ModalButton>
           <Box className="modal-buttons">
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={onClose}
-            >
+            <Button color="primary" variant="outlined" onClick={onClose}>
               <Typography variant="body2">다시 작성하기</Typography>
             </Button>
             <Button
@@ -68,7 +64,7 @@ const LetterModalRoot = styled(Box)(({ theme }) => {
     height: 133,
     gap: "12px",
     "& > :nth-child(3)": {
-      marginTop:"8px",
+      marginTop: "8px",
     },
     ".modal-buttons": {
       display: "flex",

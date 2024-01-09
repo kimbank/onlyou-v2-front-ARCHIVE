@@ -33,7 +33,7 @@ const Index = () => {
         <InfoOutlinedIcon color="primary" />
         <Typography variant="body2" className="caption">
           질문을 <strong>최소 3개 </strong>
-          골라주세요
+          골라주세요.
         </Typography>
       </InfoText>
       <Container className="letter-box">
@@ -64,8 +64,14 @@ const LetterRoot = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
-    gap: "15px",
+    "& > :nth-child(1)": {
+      marginBottom: "8px",
+    },
+    "& > :nth-child(2)": {
+      marginBottom: "16px",
+    },
     ".letter-box": {
+      marginTop: "16px",
       display: "flex",
       flexDirection: "column",
       gap: "10px",

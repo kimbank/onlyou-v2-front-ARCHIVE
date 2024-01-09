@@ -55,7 +55,7 @@ export const StepButton = ({
       )}
       <Box className="button-box">
         <Button size="large" variant="outlined" onClick={handlePrevClick}>
-          <Typography variant="body1">{prevText}</Typography>
+          <Typography variant="subtitle1">{prevText}</Typography>
         </Button>
         <Button
           size="large"
@@ -63,7 +63,7 @@ export const StepButton = ({
           disabled={isDisabled}
           onClick={handleNextClick}
         >
-          <Typography variant="body1">{nextText}</Typography>
+          <Typography variant="subtitle1">{nextText}</Typography>
         </Button>
       </Box>
     </StepButtonRoot>

@@ -111,6 +111,7 @@ const Index = () => {
                 minHeight: "140px",
                 border: "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
                 color: onlyRead[index] ? "gray" : "black",
+                resize: "none",
               }}
               onChange={handleTextChange(index)}
               readOnly={onlyRead[index]}
@@ -130,14 +131,14 @@ const Index = () => {
               {lettertexts[index].length > 0 ? (
                 <>
                   <Button variant="contained" onClick={toggleEditMode(index)}>
-                    <Typography color="white" variant="body2">
+                    <Typography color="white" variant="subtitle2">
                       {onlyRead[index] ? "수정하기" : "저장하기"}
                     </Typography>
                   </Button>
                 </>
               ) : (
                 <Button variant="contained" disabled>
-                  <Typography variant="body2">저장하기</Typography>
+                  <Typography variant="subtitle2">저장하기</Typography>
                 </Button>
               )}
             </Container>
