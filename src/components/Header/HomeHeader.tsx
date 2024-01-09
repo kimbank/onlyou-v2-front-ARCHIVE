@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -11,7 +13,6 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { Box } from "@mui/material";
 
 import HeaderRoot from "./HeaderRoot";
-
 
 export const HomeHeader = () => {
   const [hoverNoti, setHoverNoti] = useState(false);
@@ -50,7 +51,7 @@ export const HomeHeader = () => {
               className="chat-box"
             >
               {hoverChat ? (
-                <ChatBubbleIcon color="primary"  />
+                <ChatBubbleIcon color="primary" />
               ) : (
                 <ChatBubbleOutlineIcon color="primary" />
               )}

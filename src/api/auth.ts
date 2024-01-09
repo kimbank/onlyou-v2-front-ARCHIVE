@@ -15,13 +15,17 @@ const getUrl = (path: string) => {
 
 export const signinCodeSend = async (mobileNumber: FormDataEntryValue | null, code?: FormDataEntryValue | null) => {
   const url = getUrl("/api/login/send");
-  const response = await axios.post(url, { mobileNumber: mobileNumber, code: "000000" });
+  const response = await axios.post(url, { mobileNumber: mobileNumber, code: "000000" }, {
+    withCredentials: true,
+  });
   return response.data;
 }
 
 
 export const signinCodeVerify = async (mobileNumber: FormDataEntryValue | null, code?: FormDataEntryValue | null) => {
   const url = getUrl("/api/login/verify");
-  const response = await axios.post(url, { mobileNumber: mobileNumber, code: code });
+  const response = await axios.post(url, { mobileNumber: mobileNumber, code: code }, {
+    withCredentials: true,
+  });
   return response.data;
 }

@@ -2,7 +2,6 @@ import { Button, Container, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Box, styled } from "@mui/material";
 
-
 interface SubmitNavButtonProps {
   submitText: string;
   submitHref: string;
@@ -23,18 +22,17 @@ export default function SubmitNavButton({
 
   return (
     <SubmitNavButtonRoot>
-        <Button
-          size="large"
-          variant="contained"
-          color="primary"
-          onClick={handleNextClick}
-        >
-          <Typography>{submitText}</Typography>
-        </Button>
+      <Button
+        size="large"
+        variant="contained"
+        color="primary"
+        onClick={handleNextClick}
+      >
+        <Typography variant="subtitle1">{submitText}</Typography>
+      </Button>
     </SubmitNavButtonRoot>
   );
 }
-
 
 const SubmitNavButtonRoot = styled(Box)(({ theme }) => {
   return {
@@ -49,9 +47,9 @@ const SubmitNavButtonRoot = styled(Box)(({ theme }) => {
     maxWidth: "480px",
     borderTop: "1px solid #B2B0AE",
     padding: "12px 24px",
-    margin : 'auto',
-    "&.MuiBox-root":{
-      margin:0,
-    }
+    margin: "auto",
+    "&.MuiBox-root": {
+      margin: 0,
+    },
   };
 });

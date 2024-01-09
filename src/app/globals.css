@@ -2,14 +2,22 @@ body {
   display: blcok;
   margin: 0;
   padding: 0;
-  font-family: Pretendard, /* 메인 폰트 */
-                -apple-system, BlinkMacSystemFont, /* iOS, 맥OS 대응 */
-                Roboto, /* 안드로이드 대응 */
-                "Segoe UI", /* 윈도우 대응 */
-                Arial, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", /* 기타 OS 대응 */
-                "Apple Color Emoji", /* 애플 이모지 대응 */
-                "Segoe UI Emoji", "Segoe UI Symbol", /* 윈도우 이모지 대응 */
-                sans-serif; /* 모든 기기 대응 */
+  font-family:
+    Pretendard,
+    /* 메인 폰트 */ -apple-system,
+    BlinkMacSystemFont,
+    /* iOS, 맥OS 대응 */ Roboto,
+    /* 안드로이드 대응 */ "Segoe UI",
+    /* 윈도우 대응 */ Arial,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    /* 기타 OS 대응 */ "Apple Color Emoji",
+    /* 애플 이모지 대응 */ "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    /* 윈도우 이모지 대응 */ sans-serif; /* 모든 기기 대응 */
   font-weight: 400;
   font-size: 16px;
   font-style: normal;
@@ -29,14 +37,22 @@ div {
   -webkit-box-align: center;
   align-items: center;
   width: 100%;
-  font-family: Pretendard, /* 메인 폰트 */
-                -apple-system, BlinkMacSystemFont, /* iOS, 맥OS 대응 */
-                Roboto, /* 안드로이드 대응 */
-                "Segoe UI", /* 윈도우 대응 */
-                Arial, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", /* 기타 OS 대응 */
-                "Apple Color Emoji", /* 애플 이모지 대응 */
-                "Segoe UI Emoji", "Segoe UI Symbol", /* 윈도우 이모지 대응 */
-                sans-serif; /* 모든 기기 대응 */
+  font-family:
+    Pretendard,
+    /* 메인 폰트 */ -apple-system,
+    BlinkMacSystemFont,
+    /* iOS, 맥OS 대응 */ Roboto,
+    /* 안드로이드 대응 */ "Segoe UI",
+    /* 윈도우 대응 */ Arial,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    /* 기타 OS 대응 */ "Apple Color Emoji",
+    /* 애플 이모지 대응 */ "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    /* 윈도우 이모지 대응 */ sans-serif; /* 모든 기기 대응 */
 }
 
 #page {
@@ -51,7 +67,7 @@ div {
 
 #content {
   width: 100%;
-  padding: 48px 24px 120px 24px;
+  padding: 48px 24px 60px 24px;
 }
 
 a {
@@ -76,7 +92,6 @@ a {
     text-decoration: none;
   }
 }
-
 
 /* 현재 사용 폰트: Pretendard */
 /* 현재 사용 굵기: 400(regular), 600(semi-bold), 700(bold) */
@@ -104,17 +119,23 @@ http://scripts.sil.org/OFL
 } */
 
 @font-face {
-	font-family: 'Pretendard';
-	font-weight: 700;
-	font-display: swap;
-	src: local('Pretendard Bold'), url(/fonts/woff2/Pretendard-Bold.woff2) format('woff2'), url(/fonts/woff/Pretendard-Bold.woff) format('woff');
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Pretendard Bold"),
+    url(/fonts/woff2/Pretendard-Bold.woff2) format("woff2"),
+    url(/fonts/woff/Pretendard-Bold.woff) format("woff");
 }
 
 @font-face {
-	font-family: 'Pretendard';
-	font-weight: 600;
-	font-display: swap;
-	src: local('Pretendard SemiBold'), url(/fonts/woff2/Pretendard-SemiBold.woff2) format('woff2'), url(/fonts/woff/Pretendard-SemiBold.woff) format('woff');
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local("Pretendard SemiBold"),
+    url(/fonts/woff2/Pretendard-SemiBold.woff2) format("woff2"),
+    url(/fonts/woff/Pretendard-SemiBold.woff) format("woff");
 }
 
 /* @font-face {
@@ -125,10 +146,13 @@ http://scripts.sil.org/OFL
 } */
 
 @font-face {
-	font-family: 'Pretendard';
-	font-weight: 400;
-	font-display: swap;
-	src: local('Pretendard Regular'), url(/fonts/woff2/Pretendard-Regular.woff2) format('woff2'), url(/fonts/woff/Pretendard-Regular.woff) format('woff');
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Pretendard Regular"),
+    url(/fonts/woff2/Pretendard-Regular.woff2) format("woff2"),
+    url(/fonts/woff/Pretendard-Regular.woff) format("woff");
 }
 
 /* @font-face {

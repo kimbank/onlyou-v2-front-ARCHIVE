@@ -26,14 +26,14 @@ export const StepButton = ({
   const router = useRouter();
   const [checkboxChecked, setCheckboxChecked] = useState(false);
 
-const handlePrevClick = () => {
-  if (prevHref) {
-    router.push(prevHref);
-  }
-};
+  const handlePrevClick = () => {
+    if (prevHref) {
+      router.push(`${prevHref}?type=init`);
+    }
+  };
   const handleNextClick = () => {
     if (nextHref) {
-      router.push(nextHref);
+      router.push(`${nextHref}?type=init`);
     } else if (onClick) {
       onClick();
     }
@@ -55,7 +55,7 @@ const handlePrevClick = () => {
       )}
       <Box className="button-box">
         <Button size="large" variant="outlined" onClick={handlePrevClick}>
-          <Typography variant="body1">{prevText}</Typography>
+          <Typography variant="subtitle1">{prevText}</Typography>
         </Button>
         <Button
           size="large"
@@ -63,7 +63,7 @@ const handlePrevClick = () => {
           disabled={isDisabled}
           onClick={handleNextClick}
         >
-          <Typography variant="body1">{nextText}</Typography>
+          <Typography variant="subtitle1">{nextText}</Typography>
         </Button>
       </Box>
     </StepButtonRoot>
@@ -88,8 +88,8 @@ const StepButtonRoot = styled("div")(({ theme }) => {
     padding: "12px 24px 20px 24px",
     justifyContent: "space-between",
     // tips적용
-    flexDirection: "column",  
-    gap:"26px",
+    flexDirection: "column",
+    gap: "26px",
     ".button-box": {
       width: "100%",
       display: "flex",
@@ -100,4 +100,3 @@ const StepButtonRoot = styled("div")(({ theme }) => {
     },
   };
 });
-

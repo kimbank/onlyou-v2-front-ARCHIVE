@@ -13,11 +13,9 @@ const formControlLabel: Types = {
     root: {
       display: "block",
       minHeight: "24px",
-      marginBottom: "2px",
       border: `1px solid ${primary?.main}`,
       borderRadius: "6px",
-      padding: "8px 0px 8px 16px",
-      maxHeight: "62px",
+      padding: "8px 16px 8px 16px",
       gap: "8px",
       "&:hover": {
         backgroundColor: gray3,
@@ -31,7 +29,6 @@ const formControlLabel: Types = {
       color: black,
       lineHeight: 1,
       transform: "translateY(1)",
-
       "&.Mui-disabled": {
         color: black,
       },

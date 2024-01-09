@@ -57,7 +57,6 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
   flexDirection: "row",
   alignItems: "center",
   minHeight: "24px",
-  marginBottom: "2px",
   marginLeft: 0,
   marginRight: 0,
   border: checked ? `1px solid ${primary}` : `1px solid ${gray4}`,
@@ -71,11 +70,5 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
       ? `${primary_lighten3} !important`
       : `${gray5} !important`,
     outline: `2px solid ${gray5} !important`,
-  },
-  ".typography-label": {
-    maxWidth: "100%",
-    [theme.breakpoints.down(400)]: {
-      maxWidth: "281px",
-    },
   },
 }));

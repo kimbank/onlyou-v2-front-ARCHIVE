@@ -2,7 +2,7 @@
 
 import Container from "@mui/material/Container";
 import EmptyHeader from "@/components/Header/EmptyHeader";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
@@ -13,24 +13,40 @@ import UTCtoKST from "@/utils/utc2kst";
 
 import { get } from "@/actions/test";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+
+interface UseTimerResult {
+  totalSeconds: number;
+  restart: (expiryTimestamp: Date | string) => void;
+}
+
+interface SigninCodeSendResponse {
+  success: boolean;
+  expiryTimestamp: string;
+}
 
 const Home = () => {
-  const { totalSeconds, restart } = useTimer("200");
+  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
   const [isCodeSent, setIsCodeSent] = useState(false);
+
   const router = useRouter();
 
-  async function handleSendCode(event: any) {
+  async function handleSendCode(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     if (data.get("code") === "") {
-      const res = await signinCodeSend(data.get("mobileNumber"));
-      console.log("res", res);
+      const res = (await signinCodeSend(
+        data.get("mobileNumber")
+      )) as SigninCodeSendResponse;
+      console.log("resrs", res);
       setIsCodeSent(true);
-      if (res.success) {
-        setIsCodeSent(true);
-        restart(res.expiryTimestamp);
-      }
+      const expiryTime = new Date(res.expiryTimestamp);
+      const currentTime = new Date();
+      const secondsLeft = (expiryTime.getTime() - currentTime.getTime()) / 1000;
+      const futureTime = new Date(currentTime.getTime() + secondsLeft * 1000);
+      restart(futureTime);
+      console.log("insideSeconds", totalSeconds);
     }
   }
 
@@ -59,10 +75,6 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    console.log("isCodeSent", isCodeSent);
-  }, [isCodeSent]);
-
   return (
     <>
       <EmptyHeader />
@@ -88,6 +100,20 @@ const Home = () => {
             autoComplete="user_id"
             autoFocus
           />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {isCodeSent ? (
+              <Button variant="contained">{totalSeconds}</Button>
+            ) : (
+              <Button type="submit" variant="contained">
+                인증번호 전송
+              </Button>
+            )}
+          </Box>
           <TextField
             margin="normal"
             required
@@ -98,18 +124,15 @@ const Home = () => {
             id="code"
             autoComplete="current-password"
           />
-          {isCodeSent ? (
-            <Button variant="outlined">{totalSeconds}</Button>
-          ) : (
-            <Button type="submit" variant="contained">
-              인증번호 전송
-            </Button>
-          )}
-          {isCodeSent && (
-            <Button type="submit" variant="contained">
-              로그인하기
-            </Button>
-          )}
+
+          <Button
+            size="large"
+            type="submit"
+            variant="contained"
+            disabled={!isCodeSent}
+          >
+            로그인하기
+          </Button>
         </Box>
       </div>
     </>
@@ -136,8 +159,11 @@ export default Home;
 //     console.log(res);
 //   }
 // }
-// // {
-//   "token": {
-//     "newAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODU3MTZlNmM3MmJlZTU4OTZmNTIyYSIsImdlbmRlciI6dHJ1ZSwiaWF0IjoxNzA0NTcyOTI3LCJleHAiOjE3MDQ1NzQ3MjcsImF1ZCI6Im9ubHlvdSIsImlzcyI6InRlc3QifQ.LW4SiESd3k66R9nsgDFcW5vBYwidUgVEyB4Rx-x5Z2w",
-//     "newRefreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnZW5kZXIiOnRydWUsImlhdCI6MTcwNDU3MjkyNywiZXhwIjoxNzA2Mzg3MzI3LCJhdWQiOiJvbmx5b3UiLCJpc3MiOiJ0ZXN0In0.ESJPGuAey_AOm3fdQgBbKaYXG3eY7mYOQZrcjh6rOto"
-// }
+
+// res.expiryTimestamp을 2024-01-09T07:14:56.176Z 기준으로
+// const expiryTime = new Date(res.expiryTimestamp).getTime();
+// const currentTime = new Date().getTime();
+// const secondsLeft = Math.floor((expiryTime - currentTime) / 1000);
+
+// restart(secondsLeft > 180 ? 180 : secondsLeft);
+// 작성해준 코드 설명해주고 시간값으로 변환해서 상세하게 알려줘

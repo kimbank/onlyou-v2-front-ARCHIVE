@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Box, Button, Typography } from "@mui/material";
 import HomeHeader from "@/components/Header/HomeHeader";
@@ -9,11 +9,10 @@ import SaveInfo from "./SaveInfo";
 
 import { styled } from "@mui/material";
 
-
 const MatchingIndex = () => {
   const router = useRouter();
   const handleHref = () => {
-    router.push('apply/me/value');
+    router.push("application/me/value?type=init");
   };
   return (
     <>
