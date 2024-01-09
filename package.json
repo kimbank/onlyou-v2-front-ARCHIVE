@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy:dev": "next start -p 3001",
+    "start:dev": "next start -p 3001",
+
+    "deploy:dev": "pm2 start npm --name 'dev-front' -- run start:dev",
+    "update:dev": "pm2 delete dev-front && npm run build && npm run deploy:dev",
+
     "lint": "next lint"
   },
   "dependencies": {
