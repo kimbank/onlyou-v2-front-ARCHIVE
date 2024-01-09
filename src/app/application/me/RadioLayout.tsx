@@ -1,12 +1,11 @@
 "use client";
 
-import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { Box, Button, Container, Typography, styled } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import BottomButton from "@/components/BottomButton/Container";
-import { useRouter } from "next/navigation";
-import { Option, RangeOption } from "@/constants/application_option";
 import { StepButton } from "@/components/Button/StepButton";
+import RDRadioInput from "@/components/RDRadio/RDRadioInput";
+import { Option, RangeOption } from "@/constants/application_option";
+import { Box, Button, Container, styled, Typography } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 interface RadioLayoutProps {
   title: string;
@@ -31,7 +30,9 @@ const RadioLayout = ({
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const type = searchParams.get("type");
 
   const radioGroups = useMemo(() => radioGroupsData, []);
 
@@ -41,8 +42,7 @@ const RadioLayout = ({
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group) => group.name === groupTitle) +
-      1;
+      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -93,14 +93,18 @@ const RadioLayout = ({
           );
         }
       })}
-      <StepButton
-        prevText="이전"
-        nextText="다음"
-        prevHref={prevHref}
-        nextHref={nextHref}
-        nextType="button"
-        checkedStates={allGroupsSelected}
-      />
+      {type === "init" ? (
+        <StepButton
+          prevText="이전"
+          nextText="다음"
+          prevHref={prevHref}
+          nextHref={nextHref}
+          nextType="button"
+          checkedStates={allGroupsSelected}
+        />
+      ) : (
+        <Button>저장하기</Button>
+      )}
     </ValueRoot>
   );
 };

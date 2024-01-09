@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { targetingCategories, targetingOptions } from "@/constants/targeting";
 import SettingOptionModal from "./SettingOptionModal";
 import { ChevronRightRounded } from "@mui/icons-material";
@@ -21,26 +21,34 @@ import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
-  const { isModalOpen: isSettingOpen, openModal: openSettingModal, closeModal: closeSettingModal } = useModal();
-  const { isModalOpen: isNextOpen, openModal: openNextModal, closeModal: closeNextModal } = useModal();
+  const {
+    isModalOpen: isSettingOpen,
+    openModal: openSettingModal,
+    closeModal: closeSettingModal,
+  } = useModal();
+  const {
+    isModalOpen: isNextOpen,
+    openModal: openNextModal,
+    closeModal: closeNextModal,
+  } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-    const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const handleOpenDrawer = () => {
-      setDrawerOpen(true);
-    };
+  const handleOpenDrawer = () => {
+    setDrawerOpen(true);
+  };
 
-    const handleCloseDrawer = () => {
-      setDrawerOpen(false);
-    };
-        const handleNext = () => {
-          if (allGroupsSelected) {
-            handleOpenDrawer();
-          } else {
-            alert("모든 그룹을 선택하세요.");
-          }
-        };
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+  };
+  const handleNext = () => {
+    if (allGroupsSelected) {
+      handleOpenDrawer();
+    } else {
+      alert("모든 그룹을 선택하세요.");
+    }
+  };
 
   function openSettingModalByPriority(priority: number) {
     setPriority(priority);
@@ -52,11 +60,13 @@ const DetailsPage = () => {
       return targetingState[field].priority === priority;
     });
     for (let option of options) {
-      if (targetingState[option]?.data) { // default option
+      if (targetingState[option]?.data) {
+        // default option
         if (targetingState[option].data.length === 0) {
           return false;
         }
-      } else { // range option
+      } else {
+        // range option
         if (!targetingState[option].from || !targetingState[option].to) {
           return false;
         }
@@ -65,10 +75,14 @@ const DetailsPage = () => {
     return true;
   }
 
-  const fillStatus = checkFillStatus(0) && checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
+  const fillStatus =
+    checkFillStatus(0) &&
+    checkFillStatus(1) &&
+    checkFillStatus(2) &&
+    checkFillStatus(3);
 
-const allGroupsSelected =
-  checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
+  const allGroupsSelected =
+    checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
   return (
     <>
@@ -120,19 +134,19 @@ const allGroupsSelected =
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="/apply/targeting"
+        prevHref="/application/targeting"
         onClick={handleNext}
         nextType="button"
         checkedStates={allGroupsSelected}
       />
       <TargetDrawer
-        nextHref="/apply/letter/select"
+        nextHref="/application/letter/select"
         open={drawerOpen}
         onClose={handleCloseDrawer}
       />
     </>
   );
-}
+};
 
 const ContentRoot = styled("div")({
   display: "flex",
@@ -144,7 +158,7 @@ const ContentRoot = styled("div")({
     flexDirection: "column",
     gap: "8px",
   },
-  
+
   ".content-body": {
     display: "flex",
     flexDirection: "column",
@@ -162,13 +176,13 @@ const MenuButton = styled(Button)((props) => {
 
     fontSize: "16px",
     fontWeight: props.variant === "outlined" ? "600" : "400",
-  }
+  };
 });
 
 export default DetailsPage;
 
-          {
-            /* <MenuButton
+{
+  /* <MenuButton
             color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
             onClick={() => openSettingModalByPriority(1)}
@@ -176,9 +190,9 @@ export default DetailsPage;
           >
             1순위 상세 조건
           </MenuButton> */
-          }
-          {
-            /* <MenuButton
+}
+{
+  /* <MenuButton
             size="large"
             color={checkFillStatus(0) ? "primary" : "secondary"}
             endIcon={rightArrow}
@@ -195,4 +209,4 @@ export default DetailsPage;
           >
             3순위 상세 조건
           </MenuButton> */
-          }
+}

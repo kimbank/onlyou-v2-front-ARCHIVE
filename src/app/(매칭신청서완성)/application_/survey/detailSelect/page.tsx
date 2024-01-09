@@ -1,65 +1,62 @@
 "use client";
-import {
-    Box,
-    Divider,
-    Skeleton,
-    Slider,
-
-    Typography
-} from "@mui/material";
+import { Box, Divider, Skeleton, Slider, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 
 import DetailSelectRoot from "./DetailSelectRoot";
-import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses, TooltipProps } from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
 import { tooltipTitle } from "./Data/tooltipData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { CapitalRegionLocation, IncheonLocation, KyeongkiLocation, SeoulLocation } from "./Data/locationData";
+import {
+  CapitalRegionLocation,
+  IncheonLocation,
+  KyeongkiLocation,
+  SeoulLocation,
+} from "./Data/locationData";
 import { RDChip } from "@/components/RDChip";
 const Index = () => {
-
-    const [value, setValue] = useState([1980, 2004]);
-    const [selectedChip1, setSelectedChip1] = useState<string[]>([]);
-    const [selectedChip2, setSelectedChip2] = useState<string[]>([]);
-    const [selectedSeoulOptions, setSelectedSeoulOptions] = useState<
-        string[]
-      >([]);
-    const [selectedKyeongkiOptions, setSelectedKyeongkiOptions] = useState<
-        string[]
-      >([]);
-    const [selectedIncheonOptions, setSelectedIncheonOptions] = useState<
-        string[]
-      >([]);
-    const [CapitalOptions, setCapitalOptions] = useState<string[]>([]);
+  const [value, setValue] = useState([1980, 2004]);
+  const [selectedChip1, setSelectedChip1] = useState<string[]>([]);
+  const [selectedChip2, setSelectedChip2] = useState<string[]>([]);
+  const [selectedSeoulOptions, setSelectedSeoulOptions] = useState<string[]>(
+    []
+  );
+  const [selectedKyeongkiOptions, setSelectedKyeongkiOptions] = useState<
+    string[]
+  >([]);
+  const [selectedIncheonOptions, setSelectedIncheonOptions] = useState<
+    string[]
+  >([]);
+  const [CapitalOptions, setCapitalOptions] = useState<string[]>([]);
   const [CapitalChecked, setCapitalChecked] = useState(false);
 
-     const handleOptionClick = (
-       value: string,
-       location: "Seoul" | "Kyeongki" | "Incheon"
-     ) => {
-       let setSelectedOptions;
-       switch (location) {
-         case "Seoul":
-           setSelectedOptions = setSelectedSeoulOptions;
-           break;
-         case "Kyeongki":
-           setSelectedOptions = setSelectedKyeongkiOptions;
-           break;
-         case "Incheon":
-           setSelectedOptions = setSelectedIncheonOptions;
-           break;
-         default:
-           return;
-       }
+  const handleOptionClick = (
+    value: string,
+    location: "Seoul" | "Kyeongki" | "Incheon"
+  ) => {
+    let setSelectedOptions;
+    switch (location) {
+      case "Seoul":
+        setSelectedOptions = setSelectedSeoulOptions;
+        break;
+      case "Kyeongki":
+        setSelectedOptions = setSelectedKyeongkiOptions;
+        break;
+      case "Incheon":
+        setSelectedOptions = setSelectedIncheonOptions;
+        break;
+      default:
+        return;
+    }
 
-       setSelectedOptions((prevSelectedOptions) => {
-         if (prevSelectedOptions.includes(value)) {
-           return prevSelectedOptions.filter((option) => option !== value);
-         } else {
-           return [...prevSelectedOptions, value];
-         }
-       });
-     };
+    setSelectedOptions((prevSelectedOptions) => {
+      if (prevSelectedOptions.includes(value)) {
+        return prevSelectedOptions.filter((option) => option !== value);
+      } else {
+        return [...prevSelectedOptions, value];
+      }
+    });
+  };
   const handleCapitalClick = () => {
     setCapitalChecked(!CapitalChecked);
     if (!CapitalChecked) {
@@ -72,47 +69,46 @@ const Index = () => {
     }
   };
 
-  const handleChange = (event :any, newValue : any) => {
+  const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
-   const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
 
-   const handleTooltipToggle = () => {
-     setOpen(!open); 
-   };
+  const handleTooltipToggle = () => {
+    setOpen(!open);
+  };
 
-const handleChipClick = (
-  value: string,
-  setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>
-) => {
-  setSelectedOptions((prev) => {
-    if (prev.includes(value)) {
-      return prev.filter((option) => option !== value);
-    } else {
-      return [...prev, value];
-    }
-  });
-};
+  const handleChipClick = (
+    value: string,
+    setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setSelectedOptions((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((option) => option !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
+  };
 
-// const allButtonSelected =
-//   allLocations.every((group) =>
-//     group.options.some(
-//       (option) =>
-//         selectedSeoulOptions.includes(option.value) ||
-//         selectedKyeongkiOptions.includes(option.value) ||
-//         selectedIncheonOptions.includes(option.value)
-//     )
-//   ) || CapitalOptions.length > 0; 
-// const allChipsSelected = allChips.every((group) =>
-//   group.options.some(
-//     (option :any) =>
-//       selectedChip1.includes(option.value) &&
-//       selectedChip2.includes(option.value)
-//   )
-// );
+  // const allButtonSelected =
+  //   allLocations.every((group) =>
+  //     group.options.some(
+  //       (option) =>
+  //         selectedSeoulOptions.includes(option.value) ||
+  //         selectedKyeongkiOptions.includes(option.value) ||
+  //         selectedIncheonOptions.includes(option.value)
+  //     )
+  //   ) || CapitalOptions.length > 0;
+  // const allChipsSelected = allChips.every((group) =>
+  //   group.options.some(
+  //     (option :any) =>
+  //       selectedChip1.includes(option.value) &&
+  //       selectedChip2.includes(option.value)
+  //   )
+  // );
 
-
-//   const allGroupsSelected = allButtonSelected && allChipsSelected;
+  //   const allGroupsSelected = allButtonSelected && allChipsSelected;
 
   return (
     <DetailSelectRoot>
@@ -173,7 +169,7 @@ const handleChipClick = (
             <Typography variant="subtitle2">{group.title}</Typography>
             <Box className="location-box">
               {group.options.map((option) => (
-                <RDCheckButton
+                <heckButton
                   key={option.value}
                   label={option.label}
                   size="small"

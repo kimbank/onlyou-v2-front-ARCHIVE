@@ -134,7 +134,7 @@ const Other = () => {
         tips
       />
       <SubmitDrawer
-        nextHref="/apply/targeting"
+        nextHref="/application/targeting"
         open={drawerOpen}
         onClose={handleCloseDrawer}
       />

@@ -1,16 +1,15 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 // import { setTargetingField } from "@/store/targetingSlice";
-
 
 import useModal from "@/hooks/useModal";
 import OptionModal from "./OptionModal";
@@ -18,7 +17,6 @@ import OptionModal from "./OptionModal";
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
 import { fontSize } from "@mui/system";
-
 
 const TargetingPage = () => {
   const {
@@ -33,13 +31,13 @@ const TargetingPage = () => {
   const isTargetingEmpty = Object.keys(targetingState).every(
     (field: string) => {
       const targetingField = targetingState[field];
-       if (targetingField.priority === null || targetingField.priority === 0){
+      if (targetingField.priority === null || targetingField.priority === 0) {
         return true;
-       }
+      }
     }
   );
-    console.log("targetingState", targetingState);
-      console.log("isTargetingEmpty", isTargetingEmpty);
+  console.log("targetingState", targetingState);
+  console.log("isTargetingEmpty", isTargetingEmpty);
 
   return (
     <>
@@ -88,7 +86,8 @@ const TargetingPage = () => {
               >
                 <Typography variant="subtitle2">
                   {" "}
-                  이상형 조건 추가하기 <span style={{fontSize:"18px",marginLeft:"8px"}}>+</span>
+                  이상형 조건 추가하기{" "}
+                  <span style={{ fontSize: "18px", marginLeft: "8px" }}>+</span>
                 </Typography>
               </Button>
             </>
@@ -117,13 +116,13 @@ const TargetingPage = () => {
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="/apply/me/other"
-        nextHref="/apply/targeting/details"
+        prevHref="/application/me/other"
+        nextHref="/application/targeting/details"
         nextType="button"
         checkedStates={!isTargetingEmpty}
       />
     </>
   );
-}
+};
 
 export default TargetingPage;

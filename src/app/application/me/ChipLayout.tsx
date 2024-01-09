@@ -7,9 +7,10 @@ import {
   Typography,
   styled,
   Chip,
+  Button,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Option, RangeOption } from "@/constants/application_option";
 import { StepButton } from "@/components/Button/StepButton";
 
@@ -25,7 +26,6 @@ interface ChipLayoutProps {
   prevHref: string;
 }
 
-
 const ChipLayout = ({
   title,
   stepNumber,
@@ -40,6 +40,9 @@ const ChipLayout = ({
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+  const searchParams = useSearchParams();
+
+  const type = searchParams.get("type");
   const radioGroups = useMemo(() => radioGroupsData, [radioGroupsData]);
   const handleRadioChange = (groupTitle: string, value: string) => {
     setSelectedValues((prevValues) => ({
@@ -47,8 +50,7 @@ const ChipLayout = ({
       [groupTitle]: value,
     }));
     const nextIndex =
-      radioGroups.options.findIndex((group) => group.name === groupTitle) +
-      1;
+      radioGroups.options.findIndex((group) => group.name === groupTitle) + 1;
 
     if (
       nextIndex > activeGroupIndex &&
@@ -89,8 +91,8 @@ const ChipLayout = ({
   const allChipGroupsSelected =
     Object.keys(selectedChips).length > 0 &&
     Object.values(selectedChips).every((chips) => chips.length > 0);
-    
-const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
+
+  const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
 
   return (
     <Root>
@@ -159,14 +161,18 @@ const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
           }
         }
       })}
-      <StepButton
-        prevText="이전"
-        nextText="다음"
-        prevHref={prevHref}
-        nextHref={nextHref}
-        nextType="button"
-        checkedStates={allGroupsSelected}
-      />
+      {type === "init" ? (
+        <StepButton
+          prevText="이전"
+          nextText="다음"
+          prevHref={prevHref}
+          nextHref={nextHref}
+          nextType="button"
+          checkedStates={allGroupsSelected}
+        />
+      ) : (
+        <Button>저장하기</Button>
+      )}
     </Root>
   );
 };
@@ -201,7 +207,7 @@ const Root = styled(Container)(({ theme }) => {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
-      height: "auto", 
+      height: "auto",
     },
     ".chip": {
       display: "flex",
