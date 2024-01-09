@@ -56,7 +56,6 @@ export default function ApplicationLayout({
           sx={{
             width: "100%",
             backgroundColor: "#fff",
-            padding: "48px 0px",
             paddingBottom: "130px",
           }}
         >

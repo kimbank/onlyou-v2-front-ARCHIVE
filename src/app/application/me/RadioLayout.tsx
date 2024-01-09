@@ -6,6 +6,7 @@ import { Option, RangeOption } from "@/constants/application_option";
 import { Box, Button, Container, styled, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import BottomButton from "@/components/BottomButton/Next";
 
 interface RadioLayoutProps {
   title: string;
@@ -55,44 +56,42 @@ const RadioLayout = ({
     (group) => selectedValues[group.name] != null
   );
 
-  useEffect(() => {
-    console.log(selectedValues);
-  });
-
   return (
-    <ValueRoot>
-      <Box className="title-box">
-        <Typography variant="subtitle2">
-          <strong>{stepNumber}</strong>/6
-        </Typography>
-        <Typography variant="h1">{title}</Typography>
-      </Box>
-      {radioGroups.options.map((group, index) => {
-        if ("options" in group && group.options) {
-          const options = group.options as { [key: string]: string };
-          return (
-            <Container
-              key={group.label}
-              className={
-                index <= activeGroupIndex
-                  ? "value-radio visible"
-                  : "value-radio"
-              }
-            >
-              <Typography variant="subtitle2">
-                {index + 1}.{group.label}
-              </Typography>
-              <RDRadioInput
-                onChange={(id: string) => handleRadioChange(group.name, id)}
-                options={Object.keys(options).map((key) => ({
-                  value: key,
-                  label: options[key],
-                }))}
-              />
-            </Container>
-          );
-        }
-      })}
+    <>
+      <ValueRoot id="content">
+        <Box className="title-box">
+          <Typography variant="subtitle2">
+            <strong>{stepNumber}</strong>/6
+          </Typography>
+          <Typography variant="h1">{title}</Typography>
+        </Box>
+        {radioGroups.options.map((group, index) => {
+          if ("options" in group && group.options) {
+            const options = group.options as { [key: string]: string };
+            return (
+              <Container
+                key={group.label}
+                className={
+                  index <= activeGroupIndex
+                    ? "value-radio visible"
+                    : "value-radio"
+                }
+              >
+                <Typography variant="subtitle2">
+                  {index + 1}.{group.label}
+                </Typography>
+                <RDRadioInput
+                  onChange={(id: string) => handleRadioChange(group.name, id)}
+                  options={Object.keys(options).map((key) => ({
+                    value: key,
+                    label: options[key],
+                  }))}
+                />
+              </Container>
+            );
+          }
+        })}
+      </ValueRoot>
       {type === "init" ? (
         <StepButton
           prevText="이전"
@@ -103,9 +102,13 @@ const RadioLayout = ({
           checkedStates={allGroupsSelected}
         />
       ) : (
-        <Button>저장하기</Button>
+        <BottomButton>
+          <Button variant="contained" size="large">
+            저장하기
+          </Button>
+        </BottomButton>
       )}
-    </ValueRoot>
+    </>
   );
 };
 export default RadioLayout;

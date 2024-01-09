@@ -23,7 +23,7 @@ const Index = () => {
   const selectComplete = checkedStates.filter(Boolean).length >= 3;
 
   return (
-    <LetterRoot>
+    <LetterRoot id="content">
       <Typography variant="h1">편지 질문 선택하기</Typography>
       <Typography variant="body1">
         질문을 고르고 선택한 질문에 답변하며 <br />

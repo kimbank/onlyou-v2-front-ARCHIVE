@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Option, RangeOption } from "@/constants/application_option";
 import { StepButton } from "@/components/Button/StepButton";
-
+import BottomButton from "@/components/BottomButton/Next";
 interface ChipLayoutProps {
   title: string;
   stepNumber: string;
@@ -95,72 +95,74 @@ const ChipLayout = ({
   const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
 
   return (
-    <Root>
-      <Box className="title-box">
-        <Typography variant="subtitle2">
-          <strong>{stepNumber}</strong>/6
-        </Typography>
-        <Typography variant="h1">{title}</Typography>
-      </Box>
-      {radioGroups.options.map((group, index) => {
-        const isLastIndex = index === radioGroups.options.length - 1;
-        const isVisible = index <= activeGroupIndex;
-        if ("options" in group && group.options) {
-          const options = group.options as { [key: string]: string };
+    <>
+      <Root id="content">
+        <Box className="title-box">
+          <Typography variant="subtitle2">
+            <strong>{stepNumber}</strong>/6
+          </Typography>
+          <Typography variant="h1">{title}</Typography>
+        </Box>
+        {radioGroups.options.map((group, index) => {
+          const isLastIndex = index === radioGroups.options.length - 1;
+          const isVisible = index <= activeGroupIndex;
+          if ("options" in group && group.options) {
+            const options = group.options as { [key: string]: string };
 
-          if (!isLastIndex) {
-            return (
-              <Box
-                key={group.label}
-                className={
-                  index <= activeGroupIndex
-                    ? "value-radio visible"
-                    : "value-radio"
-                }
-              >
-                <Typography variant="subtitle2">
-                  {index + 1}.{group.label}
-                </Typography>
-                <RDRadioInput
-                  onChange={(id: string) => handleRadioChange(group.name, id)}
-                  options={Object.keys(options).map((key) => ({
-                    value: key,
-                    label: options[key],
-                  }))}
-                />
-              </Box>
-            );
-          } else {
-            if (isLastIndex) {
+            if (!isLastIndex) {
               return (
                 <Box
                   key={group.label}
-                  className={isVisible ? "chip visible" : "chip"}
+                  className={
+                    index <= activeGroupIndex
+                      ? "value-radio visible"
+                      : "value-radio"
+                  }
                 >
-                  <Box className="chip-text">
-                    <Typography variant="subtitle2">
-                      {index + 1}.{group.label}
-                    </Typography>
-                  </Box>
-                  {Object.keys(options).map((option: string) => (
-                    <Chip
-                      key={option}
-                      label={options[option]}
-                      variant="filled"
-                      color={
-                        selectedChips[group.name]?.includes(option)
-                          ? "primary"
-                          : "default"
-                      }
-                      onClick={() => handleChipClick(group.name, option)}
-                    />
-                  ))}
+                  <Typography variant="subtitle2">
+                    {index + 1}.{group.label}
+                  </Typography>
+                  <RDRadioInput
+                    onChange={(id: string) => handleRadioChange(group.name, id)}
+                    options={Object.keys(options).map((key) => ({
+                      value: key,
+                      label: options[key],
+                    }))}
+                  />
                 </Box>
               );
+            } else {
+              if (isLastIndex) {
+                return (
+                  <Box
+                    key={group.label}
+                    className={isVisible ? "chip visible" : "chip"}
+                  >
+                    <Box className="chip-text">
+                      <Typography variant="subtitle2">
+                        {index + 1}.{group.label}
+                      </Typography>
+                    </Box>
+                    {Object.keys(options).map((option: string) => (
+                      <Chip
+                        key={option}
+                        label={options[option]}
+                        variant="filled"
+                        color={
+                          selectedChips[group.name]?.includes(option)
+                            ? "primary"
+                            : "default"
+                        }
+                        onClick={() => handleChipClick(group.name, option)}
+                      />
+                    ))}
+                  </Box>
+                );
+              }
             }
           }
-        }
-      })}
+        })}
+      </Root>
       {type === "init" ? (
         <StepButton
           prevText="이전"
@@ -171,9 +173,13 @@ const ChipLayout = ({
           checkedStates={allGroupsSelected}
         />
       ) : (
-        <Button>저장하기</Button>
+        <BottomButton>
+          <Button variant="contained" size="large">
+            저장하기
+          </Button>
+        </BottomButton>
       )}
-    </Root>
+    </>
   );
 };
 export default ChipLayout;

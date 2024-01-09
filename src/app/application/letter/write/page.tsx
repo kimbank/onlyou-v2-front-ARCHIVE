@@ -5,7 +5,14 @@ import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Box, Button, Container, TextareaAutosize, Typography, styled } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  TextareaAutosize,
+  Typography,
+  styled,
+} from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -16,7 +23,7 @@ const Index = () => {
   const checkedStates = useSelector(
     (state: RootState) => state.checkbox.checkedItems
   );
-    useEffect(() => console.log("pathname", pathname));
+  useEffect(() => console.log("pathname", pathname));
   //리덕스에서 불러온 checkedStates중 true만 반환
   const checkedItems = checkedStates
     .map((checkbox, index) =>
@@ -32,7 +39,7 @@ const Index = () => {
   //조건 만족시 읽기 전용모드
   const [onlyRead, setOnlyRead] = useState<boolean[]>(
     checkedItems.map(() => false)
-  ); 
+  );
   //텍스트 박스 글자 30자이하 유효성검사
   const [textVaild, setTextValid] = useState<boolean[]>(
     checkedItems.map(() => false)
@@ -69,17 +76,17 @@ const Index = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-//true 반환시 다음페이지 활성화 
+  //true 반환시 다음페이지 활성화
   const isAllChecked = onlyRead.every((state) => state === true);
 
   return (
-    <LetterRoot>
+    <LetterRoot id="content">
       <Typography variant="h1">
         📝 <br />
         이제 편지를 작성해 볼까요?
       </Typography>
       <InfoText bgColor="primary">
-        <InfoOutlinedIcon color="primary"/>
+        <InfoOutlinedIcon color="primary" />
         <Typography variant="body2" className="caption">
           편지를 정성스레 쓸 수록 성사율이 올라가요!
         </Typography>
@@ -122,10 +129,7 @@ const Index = () => {
 
               {lettertexts[index].length > 0 ? (
                 <>
-                  <Button
-                    variant="contained"
-                    onClick={toggleEditMode(index)}
-                  >
+                  <Button variant="contained" onClick={toggleEditMode(index)}>
                     <Typography color="white" variant="body2">
                       {onlyRead[index] ? "수정하기" : "저장하기"}
                     </Typography>
