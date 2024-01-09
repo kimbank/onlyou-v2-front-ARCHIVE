@@ -60,7 +60,7 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
               <Typography variant="body1" color="gray3">
                 선택한 {priority}순위 조건이 없어요
               </Typography>
-              <Image src="/targetEmpty.png" alt="empty" width={84} height={84}/>
+              <Image src="/icons/empty.svg" alt="empty" width={84} height={84}/>
             </EmptyBox>
           );
         }

@@ -5,13 +5,10 @@ import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import WatermarkedImage from "@/components/WatermarkImage";
 
-import useAuthedSWR from "@/hooks/swr/authedSWR";
-
 import axios from "axios";
 
 
 const PreviewPage = () => {
-  const { user, error } = useAuthedSWR("/test/token");
 
   const handleCookie = async () => {
     // const res = await axios.get("https://test.onlyou.co.kr/test/cookies", {

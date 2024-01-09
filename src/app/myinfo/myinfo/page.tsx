@@ -5,7 +5,7 @@ import { Profile } from "./components/profile";
 import Menu from "@/components/Button/Menu";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { fetchMyInfo } from "@/actions/fetchMyInfo";
+// import { fetchMyInfo } from "@/actions/fetchMyInfo";
 
 const Index = () => {
   const router = useRouter();
@@ -13,8 +13,8 @@ const Index = () => {
   useEffect(() => {
     const loadMyInfo = async () => {
       try {
-        const data = await fetchMyInfo();
-        console.log("data", data);
+        // const data = await fetchMyInfo();
+        // console.log("data", data);
       } catch (error) {
         console.error("error", error);
         alert("로그인이 필요합니다");
