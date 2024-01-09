@@ -1,7 +1,7 @@
 import { Box, Divider, Typography, styled } from "@mui/material"
 
 
-export const tooltipTitle =() =>{ 
+export const tooltipTitle = () =>{ 
     return (
       <TooltipTitleRoot>
         <Typography variant="body3">

@@ -14,27 +14,27 @@ export default function ApplicationLayout({
 }: {
   children: React.ReactNode;
 }) {
-    const pathname = usePathname();
-     const currentPage = useMemo(() => {
-     const pageMap: { [key: string]: number } = {
-       "/apply/me/value": 1,
-       "/apply/me/life": 2,
-       "/apply/me/character": 3,
-       "/apply/me/appearance": 4,
-       "/apply/me/dating": 5,
-       "/apply/me/other": 6,
-       "/apply/targeting": 7,
-       "/apply/targeting/details": 8,
-       "/apply/letter/select": 9,
-       "/apply/letter/write": 10,
-     };
-       return pageMap[pathname] || 1; 
-     }, [pathname]);
+  const pathname = usePathname();
+  const currentPage = useMemo(() => {
+    const pageMap: { [key: string]: number } = {
+      "/apply/me/value": 1,
+      "/apply/me/life": 2,
+      "/apply/me/character": 3,
+      "/apply/me/appearance": 4,
+      "/apply/me/dating": 5,
+      "/apply/me/other": 6,
+      "/apply/targeting": 7,
+      "/apply/targeting/details": 8,
+      "/apply/letter/select": 9,
+      "/apply/letter/write": 10,
+    };
+    return pageMap[pathname] || 1;
+  }, [pathname]);
 
-       const progress = useMemo(() => {
-         const totalPages = 10;
-         return (currentPage / totalPages) * 100;
-       }, [currentPage]);
+  const progress = useMemo(() => {
+    const totalPages = 10;
+    return (currentPage / totalPages) * 100;
+  }, [currentPage]);
 
   const transition = useTransitionSelect();
 

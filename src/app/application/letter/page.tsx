@@ -1,9 +1,14 @@
 "use client"
 
+import { useRouter } from "next/router";
+
 const Letter = () => {
+  const router = useRouter();
+
+  router.push("/application/letter/select");
+
   return (
     <div>
-      <h1>Letter</h1>
     </div>
   )
 }

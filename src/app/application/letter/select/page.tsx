@@ -57,9 +57,8 @@ const Index = () => {
     </LetterRoot>
   );
 };
+
 export default Index;
-
-
 
 const LetterRoot = styled(Container)(({ theme }) => {
   return {

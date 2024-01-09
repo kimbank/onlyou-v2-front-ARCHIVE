@@ -1,11 +1,13 @@
 "use client";
 
-import HomeHeader from "@/components/Header/HomeHeader";
-import { Box, Button, Container, styled, Typography } from "@mui/material";
-import BottomNavi from "@/components/BottomNavi";
-import colors from "@/assets/theme/base/colors";
 import Image from "next/image";
-const Index = () => {
+import colors from "@/assets/theme/base/colors";
+
+import { Box, Button, Container, styled, Typography } from "@mui/material";
+import HomeHeader from "@/components/Header/HomeHeader";
+import BottomNavi from "@/components/BottomNavi";
+
+const EventPage = () => {
   return (
     <>
       <HomeHeader />
@@ -71,7 +73,7 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default EventPage;
 
 const EventRoot = styled(Container)(({ theme }) => {
   const { primary_lighten3, white } = colors;

@@ -1,7 +1,9 @@
-import { meCategories } from "@/constants/me";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import RadioLayout from "../Common/RadioLayout";
+
+import { meCategories } from "@/constants/me";
+import RadioLayout from "../RadioLayout";
+
 
 const Index = () => {
   const radioGroupsData = useMemo(() => meCategories.datingstyle, []);
@@ -22,4 +24,5 @@ const Index = () => {
     />
   );
 };
+
 export default Index;

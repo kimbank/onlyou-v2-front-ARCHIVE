@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Index = () => {
-   const pathname = usePathname();
+  const pathname = usePathname();
   const [modalOpen, setModalOpen] = useState(false);
   const checkedStates = useSelector(
     (state: RootState) => state.checkbox.checkedItems
@@ -152,6 +152,7 @@ const Index = () => {
     </LetterRoot>
   );
 };
+
 export default Index;
 
 const LetterRoot = styled(Container)(({ theme }) => {

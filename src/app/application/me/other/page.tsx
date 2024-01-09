@@ -1,26 +1,29 @@
 "use client";
 
-import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer/SubmitDrawer";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
+import { Box, Container, Divider, Typography, Button } from "@mui/material";
+import { TipsAndUpdatesOutlined } from "@mui/icons-material";
+
+import { otherRadioGroups } from "@/constants/me";
+
+import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer";
 import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
-import { Box, Container, Divider, Typography,Button } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { otherRadioGroups } from "../../../(매칭신청서완성)/application/data/otherData";
-import OtherRoot from "./OtherRoot";
-import BottomButton from "@/components/BottomButton/Container";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { StepButton } from "@/components/Button/StepButton";
 
-const Index = () => {
+import OtherRoot from "./OtherRoot";
+//
+
+const Other = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
-      const router = useRouter();
+  const router = useRouter();
 
   const handleOpenDrawer = () => {
     setDrawerOpen(true);
@@ -53,13 +56,13 @@ const Index = () => {
     console.log("allGroupsSelected", allGroupsSelected);
   }, [selectedValues, radioGroups, allGroupsSelected]);
 
-        const handleNext = () => {
-          if (allGroupsSelected) {
-           handleOpenDrawer()
-          } else {
-            alert("모든 그룹을 선택하세요.");
-          }
-        };
+  const handleNext = () => {
+    if (allGroupsSelected) {
+      handleOpenDrawer();
+    } else {
+      alert("모든 그룹을 선택하세요.");
+    }
+  };
 
   return (
     <OtherRoot>
@@ -95,7 +98,7 @@ const Index = () => {
 
         <InfoBox align="left" textAlign="left" marginB="none" bgColor="primary">
           <Box className="info-box">
-            <TipsAndUpdatesOutlinedIcon className="info-icon" />
+            <TipsAndUpdatesOutlined className="info-icon" />
             <Typography variant="subtitle2">카카오톡 아이디 찾기</Typography>
           </Box>
           <Divider sx={{ my: 1 }} />
@@ -110,7 +113,7 @@ const Index = () => {
           bgColor="secondary"
         >
           <Box className="info-box">
-            <TipsAndUpdatesOutlinedIcon className="info-icon" />
+            <TipsAndUpdatesOutlined className="info-icon" />
             <Typography variant="subtitle2">카카오톡 검색 허용하기</Typography>
           </Box>
           <Divider sx={{ my: 1 }} />
@@ -138,4 +141,5 @@ const Index = () => {
     </OtherRoot>
   );
 };
-export default Index;
+
+export default Other;
