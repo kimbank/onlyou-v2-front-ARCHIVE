@@ -32,7 +32,7 @@ export const SubmitDrawer = ({
   return (
     <DrawerFrame open={open} onClose={onClose}>
       <SubmitDrawerRoot>
-        <Typography variant="h1" sx={{ display: "inline" }}>
+        <Typography variant="h1" sx={{ display: "inline", maxWidth: "calc(100% - 36px)" }}>
           이제 회원님의
           <br />
           이상형을 알려주세요!
@@ -41,7 +41,7 @@ export const SubmitDrawer = ({
           원하는 이상형 조건을 1, 2, 3순위 별로 선택해요
         </Typography>
         <CloseRoundedIcon
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", fontSize: "28px" }}
           className="drawer-icon"
           onClick={onClose}
         />
@@ -68,7 +68,7 @@ const SubmitDrawerRoot = styled(Box)(({ theme }) => {
     flexDirection: "column",
     margin: "0",
     gap: "16px",
-    paddingTop: "16px",
+    padding: "16px 0",
     justifyContent: "flex-start",
     maxWidth: "480px",
 

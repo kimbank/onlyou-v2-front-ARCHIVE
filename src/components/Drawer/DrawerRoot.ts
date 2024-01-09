@@ -13,11 +13,7 @@ export default styled(SwipeableDrawer)(({ theme }) => {
       margin: "auto",
       borderTopLeftRadius: "12px",
       borderTopRightRadius: "12px",
-      height: "245px",
-
-      "& button": {
-        marginTop: "16px",
-      },
+      maxHeight: "90vh",
     },
   };
 });

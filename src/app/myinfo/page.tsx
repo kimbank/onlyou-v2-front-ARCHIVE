@@ -20,7 +20,7 @@ import Modal from '@/components/Modal/legacy';
 import HomeHeader from "@/components/Header/HomeHeader";
 import BottomNavi from "@/components/BottomNavi";
 
-import { useMyinfo } from '@/hooks';
+import { useMyinfo } from '@/api/hooks/useMyinfo';
 
 
 const MyInfo = () => {
@@ -73,7 +73,6 @@ const MyInfo = () => {
   return (
     !isLoading &&
     <>
-      <HomeHeader />
       <div id="content">
         <DangerNotification alertMessage={alertMessage} visible={visible} setVisible={setVisible} />
 
@@ -81,9 +80,8 @@ const MyInfo = () => {
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
-          paddingBottom: '80px',
         }}> 
-          <Typography className='heading2'>내 정보</Typography>
+          <Typography variant='h1'>내 정보</Typography>
           {/*백엔드로 구현되는 부분인거 같아 오렌지색 박스 안의 부분은
               건들이지 않았습니다.*/}
           <Container disableGutters sx={{
@@ -124,7 +122,7 @@ const MyInfo = () => {
             {/* 생년월일 */}
             <Typography className='basic-gray' sx={{display: 'flex', verticalAlign: 'center'}}>
               <Image src={Birth} width={20} style={{marginRight: '10px'}} alt="나이"/>
-              {myInfo?.date_birth ? myInfo?.date_birth : "????"}년생
+              {myInfo?.dateBirth ? myInfo?.dateBirth : "????"}년생
             </Typography>
           </Container>
 
