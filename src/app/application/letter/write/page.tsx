@@ -4,7 +4,7 @@ import { StepButton } from "@/components/Button/StepButton";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { RootState } from "@/store/store";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import {
   Box,
   Button,
@@ -86,7 +86,7 @@ const Index = () => {
         이제 편지를 작성해 볼까요?
       </Typography>
       <InfoText bgColor="primary">
-        <InfoOutlinedIcon color="primary" />
+        <ReportGmailerrorredIcon color="primary" />
         <Typography variant="body2" className="caption">
           편지를 정성스레 쓸 수록 성사율이 올라가요!
         </Typography>

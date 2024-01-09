@@ -7,7 +7,7 @@ import { toggle } from "@/store/checkboxSlice";
 import { RootState } from "@/store/store";
 import { Box, Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
 
 const Index = () => {
@@ -30,7 +30,7 @@ const Index = () => {
         편지를 완성해보아요!
       </Typography>
       <InfoText bgColor="primary">
-        <InfoOutlinedIcon color="primary" />
+        <ReportGmailerrorredIcon color="primary" />
         <Typography variant="body2" className="caption">
           질문을 <strong>최소 3개 </strong>
           골라주세요.
