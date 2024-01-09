@@ -28,6 +28,7 @@ interface SigninCodeSendResponse {
 const Home = () => {
   const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
   const [isCodeSent, setIsCodeSent] = useState(false);
+
   const router = useRouter();
 
   async function handleSendCode(event: FormEvent<HTMLFormElement>) {
@@ -99,6 +100,20 @@ const Home = () => {
             autoComplete="user_id"
             autoFocus
           />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {isCodeSent ? (
+              <Button variant="contained">{totalSeconds}</Button>
+            ) : (
+              <Button type="submit" variant="contained">
+                인증번호 전송
+              </Button>
+            )}
+          </Box>
           <TextField
             margin="normal"
             required
@@ -109,27 +124,17 @@ const Home = () => {
             id="code"
             autoComplete="current-password"
           />
-          {isCodeSent ? (
-            <Button variant="outlined">{totalSeconds}</Button>
-          ) : (
-            <Button type="submit" variant="contained">
-              인증번호 전송
-            </Button>
-          )}
-          {isCodeSent && (
-            <Button type="submit" variant="contained">
-              로그인하기
-            </Button>
-          )}
+
+          <Button
+            size="large"
+            type="submit"
+            variant="contained"
+            disabled={!isCodeSent}
+          >
+            로그인하기
+          </Button>
         </Box>
       </div>
-      <Button
-        onClick={() => {
-          axios.get("http://118.103.220.96:8080/test");
-        }}
-      >
-        test
-      </Button>
     </>
   );
 };
