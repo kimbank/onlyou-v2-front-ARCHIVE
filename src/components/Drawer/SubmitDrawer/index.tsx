@@ -62,3 +62,5 @@ export const SubmitDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
     </DrawerFrame>
   );
 };
+
+export default SubmitDrawer;
