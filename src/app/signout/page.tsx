@@ -11,7 +11,7 @@ const SignoutPage = () => {
   const router = useRouter();
 
   const handleGoBack = async () => {
-    await axios.post("/signout");
+    await axios.get("/signout");
     router.push("/");
   };
 
