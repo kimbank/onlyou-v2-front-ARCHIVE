@@ -3,18 +3,21 @@ import { styled, SwipeableDrawer } from "@mui/material";
 export default styled(SwipeableDrawer)(({ theme }) => {
   return {
     ".MuiDrawer-paperAnchorBottom": {
-      borderRadius: "12px 12px 0px 0px",
-      maxWidth: "480px",
-      margin: "auto",
+      display: "flex",
       width: "100%",
-      maxHeight: "245px",
-    },
-    ".Drawer-box": {
-      position: "relative",
-      height: 245,
-      boxShadow: 24,
+      maxWidth: "480px",
       padding: "24px 24px 20px 24px",
-      borderRadius: "10px",
+      alignItems: "flex-start",
+      alignContent: "flex-start",
+      gap: "16px",
+      margin: "auto",
+      borderTopLeftRadius: "12px",
+      borderTopRightRadius: "12px",
+      height: "245px",
+
+      "& button": {
+        marginTop: "16px",
+      },
     },
   };
 });

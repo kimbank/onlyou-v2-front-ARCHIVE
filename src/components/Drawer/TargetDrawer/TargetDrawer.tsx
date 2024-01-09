@@ -1,20 +1,25 @@
-import { Box, Container, Typography ,Button,styled} from "@mui/material";
+import { Box, Container, Typography, Button, styled } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 import DrawerFrame from "../DrawerFrame";
 import DrawerButton from "../DrawerItem/DrawerButton";
 import DrawerContent from "../DrawerItem/DrawerContent";
 import DrawerTitle from "../DrawerItem/DrawerTitle";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 interface DrawerProps {
   children?: React.ReactNode;
   open: boolean;
   onClose: () => void;
-  nextHref?:string;
+  nextHref?: string;
 }
 
-export const TargetDrawer = ({ children, open, onClose, nextHref }: DrawerProps) => {
+export const TargetDrawer = ({
+  children,
+  open,
+  onClose,
+  nextHref,
+}: DrawerProps) => {
   const router = useRouter();
 
   const handleCompleteClick = () => {
@@ -33,9 +38,9 @@ export const TargetDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
             <Typography variant="h1">
               이제 마지막 단계에요
               <br />
-             조금만 힘내요!
+              조금만 힘내요!
             </Typography>
-            <CloseIcon sx={{cursor:"pointer"}} onClick={onClose} />
+            <CloseRoundedIcon sx={{ cursor: "pointer" }} onClick={onClose} />
           </Box>
         </DrawerTitle>
         <DrawerContent>
@@ -61,7 +66,6 @@ export const TargetDrawer = ({ children, open, onClose, nextHref }: DrawerProps)
     </DrawerFrame>
   );
 };
-
 
 const DrawerRoot = styled(Container)(({ theme }) => {
   return {
