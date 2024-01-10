@@ -17,11 +17,11 @@ export default function ModalFrame({ open, onClose, children }: ModalProps) {
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: 345,
+          height: 174,
           bgcolor: "background.paper",
           boxShadow: 24,
           padding: "20px",
           borderRadius: "6px",
-
         }}
       >
         {children}

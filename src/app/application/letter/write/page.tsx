@@ -148,7 +148,7 @@ const Index = () => {
       <StepButton
         prevText="이전"
         nextText="신청서 제출하기"
-        prevHref="LetterSelect/"
+        prevHref="select/"
         nextType="button"
         onClick={handleOpenModal}
         checkedStates={isAllChecked}

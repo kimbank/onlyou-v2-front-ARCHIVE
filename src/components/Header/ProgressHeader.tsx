@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import LogoIcon from "public/icons/logo.svg";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 
-
 import { Box, LinearProgress } from "@mui/material";
 
 import HeaderRoot from "./HeaderRoot";
 import { SaveModal } from "../Modal/SaveModal";
+import useModal from "@/hooks/useModal";
 
 export const ProgressHeader = ({
   progress,
@@ -18,14 +18,7 @@ export const ProgressHeader = ({
   href?: string;
   progress?: number;
 }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-    const handleOpenModal = () => {
-      setModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-      setModalOpen(false);
-    };
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   return (
     <HeaderRoot>
@@ -42,16 +35,13 @@ export const ProgressHeader = ({
             />
           </Link>
 
-          <CloseIcon
-            className="closeIcon"
-            onClick={handleOpenModal}
-          />
+          <CloseIcon className="closeIcon" onClick={openModal} />
         </header>
         <Box sx={{ width: "100%" }}>
           <LinearProgress variant="determinate" value={progress} />
         </Box>
       </div>
-      <SaveModal open={modalOpen} onClose={handleCloseModal} />
+      <SaveModal open={isModalOpen} onClose={closeModal} />
     </HeaderRoot>
   );
 };

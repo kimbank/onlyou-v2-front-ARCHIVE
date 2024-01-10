@@ -33,18 +33,10 @@ const DetailsPage = () => {
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleOpenDrawer = () => {
-    setDrawerOpen(true);
-  };
-
-  const handleCloseDrawer = () => {
-    setDrawerOpen(false);
-  };
   const handleNext = () => {
     if (allGroupsSelected) {
-      handleOpenDrawer();
+      openNextModal();
     } else {
       alert("모든 그룹을 선택하세요.");
     }
@@ -140,9 +132,9 @@ const DetailsPage = () => {
         checkedStates={allGroupsSelected}
       />
       <TargetDrawer
-        nextHref="/application/letter/select"
-        open={drawerOpen}
-        onClose={handleCloseDrawer}
+        nextHref="/application/letter/select?type=init"
+        open={isNextOpen}
+        onClose={closeNextModal}
       />
     </>
   );

@@ -1,19 +1,20 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
-import { Box, Container, Divider, Typography, Button } from "@mui/material";
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
+import { Box, Button, Container, Divider, Typography } from "@mui/material";
 
 import { otherRadioGroups } from "@/constants/me";
 
+import BottomButton from "@/components/BottomButton/Next";
+import { StepButton } from "@/components/Button/StepButton";
 import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer";
 import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
-import { StepButton } from "@/components/Button/StepButton";
-import BottomButton from "@/components/BottomButton/Next";
+import useModal from "@/hooks/useModal";
 import OtherRoot from "./OtherRoot";
 //
 
@@ -22,16 +23,8 @@ const Other = () => {
     {}
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const router = useRouter();
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const handleOpenDrawer = () => {
-    setDrawerOpen(true);
-  };
-
-  const handleCloseDrawer = () => {
-    setDrawerOpen(false);
-  };
   const searchParams = useSearchParams();
 
   const type = searchParams.get("type");
@@ -53,19 +46,11 @@ const Other = () => {
     (group) => selectedValues[group.title] != null
   );
 
-  useEffect(() => {
-    console.log("selectedValues", selectedValues);
-    console.log("radioGroups", radioGroups);
-    console.log("allGroupsSelected", allGroupsSelected);
-  }, [selectedValues, radioGroups, allGroupsSelected]);
-
-  const handleNext = () => {
-    if (allGroupsSelected) {
-      handleOpenDrawer();
-    } else {
-      alert("모든 그룹을 선택하세요.");
-    }
-  };
+  // useEffect(() => {
+  //   console.log("selectedValues", selectedValues);
+  //   console.log("radioGroups", radioGroups);
+  //   console.log("allGroupsSelected", allGroupsSelected);
+  // }, [selectedValues, radioGroups, allGroupsSelected]);
 
   return (
     <>
@@ -143,16 +128,16 @@ const Other = () => {
       </OtherRoot>
 
       <SubmitDrawer
-        nextHref="/application/targeting"
-        open={drawerOpen}
-        onClose={handleCloseDrawer}
+        nextHref="/application/targeting?type=init"
+        open={isModalOpen}
+        onClose={closeModal}
       />
       {type === "init" ? (
         <StepButton
           prevText="이전"
           nextText="다음"
           prevHref="dating/"
-          onClick={handleNext}
+          onClick={openModal}
           nextType="button"
           checkedStates={allGroupsSelected}
           tips

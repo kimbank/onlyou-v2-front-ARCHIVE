@@ -221,6 +221,7 @@ const Root = styled(Container)(({ theme }) => {
       flexWrap: "wrap",
       gap: "8px",
       paddingTop: "12px",
+      height: 0,
       opacity: 0,
       transform: "translateY(20px)",
       visibility: "hidden",
@@ -231,6 +232,7 @@ const Root = styled(Container)(({ theme }) => {
       opacity: 1,
       transform: "translateY(0)",
       visibility: "visible",
+      height: "auto",
     },
     ".chip-text": {
       width: "100%",

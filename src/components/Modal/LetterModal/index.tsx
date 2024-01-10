@@ -35,14 +35,14 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
         <ModalButton>
           <Box className="modal-buttons">
             <Button color="primary" variant="outlined" onClick={onClose}>
-              <Typography variant="body2">다시 작성하기</Typography>
+              <Typography variant="subtitle2">다시 작성하기</Typography>
             </Button>
             <Button
               color="primary"
               variant="contained"
               onClick={handleCompleteClick}
             >
-              <Typography color="white" variant="body2">
+              <Typography color="white" variant="subtitle2">
                 제출하기
               </Typography>
             </Button>

@@ -22,24 +22,30 @@ const outlined = {
     borderColor: primary?.main,
     padding: "8px",
     border: `1px solid ${primary?.main}`,
-
-    "&:hover": {
-      opacity: 0.75,
+    "&:focus:not(:hover)": {
+      backgroundColor: primary_lighten3,
+      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+    },
+    "&:active, &:active:focus, &:active:hover": {
       backgroundColor: primary_lighten3,
     },
 
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(16)} !important`,
+    "&:hover": {
+      opacity: 0.75,
+      border: `1px solid ${primary?.main}`,
     },
   },
 
   primary: {
+    backgroundColor: primary,
+    color: primary?.main,
+    border: `1px solid ${primary?.main}`,
+    "&:hover": {
+      backgroundColor: primary_lighten3,
+    },
     "&.MuiButton-root": {
       backgroundColor: primary,
       "&:hover": {
-        backgroundColor: primary_lighten3,
-      },
-      "&:focus": {
         backgroundColor: primary_lighten3,
       },
     },
@@ -49,10 +55,11 @@ const outlined = {
     backgroundColor: primary,
     color: primary?.main,
     border: `1px solid ${primary?.main}`,
-
-    "&:hover": {
-      opacity: 0.75,
-      border: `1px solid ${primary?.main}`,
+    "&.MuiButton-root": {
+      backgroundColor: primary,
+      "&:hover": {
+        backgroundColor: primary_lighten3,
+      },
     },
   },
 };

@@ -11,7 +11,7 @@ interface Props {
   variant?: "default" | "contained" | "outlined";
   color?: "primary" | "secondary";
   onClick?: () => void;
-  className?:string;
+  className?: string;
 }
 
 const Menu = ({
