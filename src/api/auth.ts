@@ -1,31 +1,15 @@
-import axios from 'axios';
-
-// const BASE_URL = process.env.NODE_ENV === "development" ?
-//   "" : process.env.NEXT_PUBLIC_V2_BACK_URL;
-
-const BASE_URL = process.env.NEXT_PUBLIC_V2_BACK_URL;
-
-const getUrl = (path: string) => {
-  if (process.env.NODE_ENV === "development") {
-    return path;
-  }
-  return BASE_URL + path;
-}
+import { plainAxios } from './base/axisoInstance';
 
 
 export const signinCodeSend = async (mobileNumber: FormDataEntryValue | null, code?: FormDataEntryValue | null) => {
-  const url = getUrl("/api/login/send");
-  const response = await axios.post(url, { mobileNumber: mobileNumber, code: "000000" }, {
-    withCredentials: true,
-  });
-  return response.data;
+  const path = "/api/login/send";
+  const res = await plainAxios.post(path, { mobileNumber: mobileNumber, code: "000000" });
+  return res.data;
 }
 
 
 export const signinCodeVerify = async (mobileNumber: FormDataEntryValue | null, code?: FormDataEntryValue | null) => {
-  const url = getUrl("/api/login/verify");
-  const response = await axios.post(url, { mobileNumber: mobileNumber, code: code }, {
-    withCredentials: true,
-  });
-  return response.data;
+  const path = "/api/login/verify";
+  const res = await plainAxios.post(path, { mobileNumber: mobileNumber, code: code });
+  return res.data;
 }

@@ -2,20 +2,20 @@ import axios from 'axios';
 
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const log = (message: string, url?: string): void => {
+const log = (message: string, path?: string): void => {
   if (IS_DEV) {
-    console.log(`@@@@@@${message}${url ? " url: " + url : ''}`);
+    console.log(`@@@@@@${message}${path ? " path: " + path : ''}`);
   }
 }
 
-export const authedInstance = axios.create({
+export const authedAxios = axios.create({
   baseURL: IS_DEV ? undefined
     : process.env.NEXT_PUBLIC_V2_BACK_URL,
   
   withCredentials: true // 쿠키를 사용하기 위해 필요
 });
 
-export const plainInstance = axios.create({
+export const plainAxios = axios.create({
   baseURL: IS_DEV ? undefined
     : process.env.NEXT_PUBLIC_V2_BACK_URL,
   
@@ -23,7 +23,7 @@ export const plainInstance = axios.create({
 });
 
 // 응답 인터셉터 추가
-authedInstance.interceptors.response.use(
+authedAxios.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
@@ -35,7 +35,10 @@ authedInstance.interceptors.response.use(
 
       if (refreshTokens) {
         log('access 토큰 리프레시 성공!!!!', originalRequest.url);
-        return authedInstance(originalRequest);
+        return authedAxios(originalRequest);
+      } else {
+        alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
+        window.location.href = '/signout';
       }
 
       log('access 토큰 리프레시 실패', originalRequest.url);
@@ -47,4 +50,4 @@ authedInstance.interceptors.response.use(
   }
 );
 
-export default authedInstance;
+export default authedAxios;

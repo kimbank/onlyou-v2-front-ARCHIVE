@@ -53,7 +53,7 @@ export default function Navigation({ recent }: any) {
         <BottomNavigationAction
           href="/myinfo"
           label="내 정보"
-          value="my_info"
+          value="myinfo"
           icon={<MyInfoIcon />}
           showLabel
         />

@@ -28,7 +28,7 @@ const DrawerComp = ({
         <Image src={CancelIcon} alt="close" />
       </span>
       <div className="drawer-content">
-        <Typography variant="h1">{title}</Typography>
+        <Typography variant="h1" className="drawer-content-title">{title}</Typography>
         <Typography variant="body1">{body}</Typography>
         </div>
       <Button variant="contained" size="large" onClick={onComplete}>
@@ -59,6 +59,10 @@ const StyledDrawer = styled(Drawer)({
     padding: "16px 0px",
     flexDirection: "column",
     gap: "16px",
+
+    "& .drawer-content-title": {
+      maxWidth: "calc(100% - 36px)",
+    },
   },
 
   "& .close-icon": {
