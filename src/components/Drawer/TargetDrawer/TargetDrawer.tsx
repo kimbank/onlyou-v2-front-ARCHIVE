@@ -1,11 +1,9 @@
-import { Box, Container, Typography, Button, styled } from "@mui/material";
+import { Button, Container, styled, Typography } from "@mui/material";
 
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useRouter } from "next/navigation";
 import DrawerFrame from "../DrawerFrame";
 import DrawerButton from "../DrawerItem/DrawerButton";
-import DrawerContent from "../DrawerItem/DrawerContent";
-import DrawerTitle from "../DrawerItem/DrawerTitle";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 interface DrawerProps {
   children?: React.ReactNode;
@@ -33,36 +31,33 @@ export const TargetDrawer = ({
   return (
     <DrawerFrame open={open} onClose={onClose}>
       <DrawerRoot>
-        <DrawerTitle>
-          <Box className="drawer-title">
-            <Typography variant="h1">
-              이제 마지막 단계에요
-              <br />
-              조금만 힘내요!
-            </Typography>
-            <CloseRoundedIcon sx={{ cursor: "pointer" }} onClick={onClose} />
-          </Box>
-        </DrawerTitle>
-        <DrawerContent>
-          <Container className="drawer-contents">
-            <Typography variant="body1">
-              딱 맞는 이상형 꼭 찾아드릴게요.
-            </Typography>
-          </Container>
-        </DrawerContent>
-        <DrawerButton>
-          <Container className="drawer-buttons">
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={handleCompleteClick}
-              size="large"
-            >
-              <Typography variant="body1">편지 작성하기</Typography>
-            </Button>
-          </Container>
-        </DrawerButton>
+        <Typography
+          variant="h1"
+          sx={{ display: "inline", maxWidth: "calc(100% - 36px)" }}
+        >
+          이제 마지막 단계에요
+          <br />
+          조금만 힘내요!
+        </Typography>
+        <Typography variant="body1" sx={{ display: "inline" }}>
+          딱 맞는 이상형 꼭 찾아드릴게요.
+        </Typography>
+        <CloseRoundedIcon
+          sx={{ cursor: "pointer", fontSize: "28px" }}
+          className="drawer-icon"
+          onClick={onClose}
+        />
       </DrawerRoot>
+      <DrawerButton>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleCompleteClick}
+          size="large"
+        >
+          <Typography variant="subtitle1">편지 작성하기</Typography>
+        </Button>
+      </DrawerButton>
     </DrawerFrame>
   );
 };
@@ -71,31 +66,21 @@ const DrawerRoot = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
-    margin: "auto",
+    margin: "0",
     gap: "16px",
-    padding: "16px 0px 0px 0px ",
+    padding: "16px 0",
+    justifyContent: "flex-start",
     maxWidth: "480px",
+
     [theme.breakpoints.up("sm")]: {
       paddingLeft: 0,
       paddingRight: 0,
     },
-    ".drawer-title": {
-      display: "flex",
-      justifyContent: "space-between",
-      padding: 0,
-    },
-    ".drawer-contents": {
-      display: "flex",
-      flexDirection: "column",
-      padding: 0,
-      paddingBottom: "16px",
-    },
-    ".drawer-buttons": {
-      width: "100%",
-      padding: 0,
-      display: "flex",
-      gap: "8px",
-      justifyContent: "flex-end",
+
+    ".drawer-icon": {
+      position: "absolute",
+      top: "24px",
+      right: "24px",
     },
   };
 });
