@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 interface ModalProps {
   children?: React.ReactNode;
-  open: boolean;
+  open: any;
   onClose: () => void;
 }
 
@@ -23,26 +23,24 @@ export const SaveModal = ({ children, open, onClose }: ModalProps) => {
       <SaveModalRoot>
         <ModalTitle>
           <Typography variant="subtitle1">
-            저장되지 않은 조건 변경이 있어요
+            매칭 신청서 작성을 중단하시겠어요?
           </Typography>
         </ModalTitle>
         <ModalContent>
           <Box className="modal-contents">
-            <Typography variant="body2">저장하지 않고 나가시겠어요?</Typography>
+            <Typography variant="body2">
+              이전 단계까지의 모든 내용이 저장되며,
+              <br />
+              언제든 이어 작성하실 수 있어요!
+            </Typography>
           </Box>
         </ModalContent>
         <ModalButton>
           <Box className="modal-buttons">
-            <Button
-              variant="outlined"
-              onClick={onClose}
-            >
+            <Button variant="outlined" onClick={onClose}>
               <Typography variant="body2">취소</Typography>
             </Button>
-            <Button
-              variant="contained"
-              onClick={handleCompleteClick}
-            >
+            <Button variant="contained" onClick={handleCompleteClick}>
               <Typography color="white" variant="body2">
                 저장하고 나가기
               </Typography>

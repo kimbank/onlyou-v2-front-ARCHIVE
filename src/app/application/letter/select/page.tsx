@@ -49,7 +49,7 @@ const Index = () => {
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="LetterSelect/"
+        prevHref="/application/targeting/details"
         nextHref="write/"
         nextType="button"
         checkedStates={selectComplete}

@@ -27,10 +27,6 @@ const outlined = {
       opacity: 0.75,
       backgroundColor: primary_lighten3,
     },
-
-    "& .material-icon, .material-icons-round, svg": {
-      fontSize: `${pxToRem(16)} !important`,
-    },
   },
 
   primary: {
