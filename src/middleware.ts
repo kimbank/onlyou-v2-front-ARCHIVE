@@ -60,8 +60,8 @@ export async function middleware(req: NextRequest) {
       domain: process.env.TOKEN_COOKIE_DOMAIN ? process.env.TOKEN_COOKIE_DOMAIN : undefined,
     });
 
-    res.cookies.delete('access'); // access 토큰 삭제
-    res.cookies.delete('refresh'); // refresh 토큰 삭제
+    // res.cookies.delete('access'); // access 토큰 삭제
+    // res.cookies.delete('refresh'); // refresh 토큰 삭제
 
     return res;
   }
