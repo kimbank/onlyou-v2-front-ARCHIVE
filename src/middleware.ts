@@ -43,6 +43,22 @@ export async function middleware(req: NextRequest) {
   /* 쿠키 삭제로 로그아웃 처리 */
   if (REQ_URL.startsWith("/signout")) {
     const res = NextResponse.next();
+    console.log(req.cookies.getAll())
+
+    res.cookies.set({
+      name: 'access',
+      value: '',
+      maxAge: 0,
+      path: '/',
+      domain: process.env.TOKEN_COOKIE_DOMAIN ? process.env.TOKEN_COOKIE_DOMAIN : undefined,
+    });
+    res.cookies.set({
+      name: 'refresh',
+      value: '',
+      maxAge: 0,
+      path: '/',
+      domain: process.env.TOKEN_COOKIE_DOMAIN ? process.env.TOKEN_COOKIE_DOMAIN : undefined,
+    });
 
     res.cookies.delete('access'); // access 토큰 삭제
     res.cookies.delete('refresh'); // refresh 토큰 삭제
