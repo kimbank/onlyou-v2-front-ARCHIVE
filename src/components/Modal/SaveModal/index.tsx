@@ -38,10 +38,10 @@ export const SaveModal = ({ children, open, onClose }: ModalProps) => {
         <ModalButton>
           <Box className="modal-buttons">
             <Button variant="outlined" onClick={onClose}>
-              <Typography variant="body2">취소</Typography>
+              <Typography variant="subtitle2">취소</Typography>
             </Button>
             <Button variant="contained" onClick={handleCompleteClick}>
-              <Typography color="white" variant="body2">
+              <Typography color="white" variant="subtitle2">
                 저장하고 나가기
               </Typography>
             </Button>

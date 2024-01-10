@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, primary_darken , white ,gray2,gray5} = colors;
+const { primary, primary_darken, white, gray2, gray5 } = colors;
 const { size } = typography;
 
 const contained = {
@@ -31,9 +31,6 @@ const contained = {
       backgroundColor: "#F16416",
     },
 
-    "&:active, &:active:focus, &:active:hover": {
-      backgroundColor: "#F16416",
-    },
     "&.Mui-disabled": {
       backgroundColor: primary,
     },
@@ -56,13 +53,12 @@ const contained = {
       backgroundColor: gray5,
       color: gray2,
       "&:hover": {
-        backgroundColor: primary,
+        boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
         color: gray2,
       },
     },
-
     "&:focus:not(:hover)": {
-      backgroundColor: "#F16416",
+      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
       color: gray2,
     },
   },

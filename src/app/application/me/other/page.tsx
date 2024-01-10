@@ -128,7 +128,7 @@ const Other = () => {
       </OtherRoot>
 
       <SubmitDrawer
-        nextHref="/application/targeting"
+        nextHref="/application/targeting?type=init"
         open={isModalOpen}
         onClose={closeModal}
       />

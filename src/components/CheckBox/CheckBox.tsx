@@ -35,7 +35,7 @@ const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
     border: `1px solid ${checked ? primary?.main : "none"}`,
     borderRadius: "6px",
     height: "40px",
-    padding: "8px 12px",
+    padding: "10px 12px",
     backgroundColor: checked ? white : gray5,
     gap: "10px",
     "&:hover": {
@@ -45,12 +45,12 @@ const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
       backgroundColor: checked ? white : gray5,
     },
     ".checkbox": {
-      width: 20,
-      height: 20,
+      width: 26.67,
+      height: 26.67,
       backgroundColor: checked ? white : gray5,
       color: checked ? primary?.main : gray4,
-      border: "none",
       textAlign: "left",
+      border: 0,
     },
     ".label": {
       color: checked ? black : gray2,

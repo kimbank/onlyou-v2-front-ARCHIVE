@@ -15,8 +15,8 @@ interface Props {
   disabled?: boolean;
   sx?: any;
 }
-  const { gray3, gray4 } = colors;
-  
+const { gray3, gray4 } = colors;
+
 const SampleButton = ({
   children,
   variant = "contained",
@@ -24,28 +24,27 @@ const SampleButton = ({
   size = "medium",
   startIcon = null,
   endIcon = null,
-  onClick = (() => {}),
+  onClick = () => {},
   disabled = false,
   sx = null,
 }: Props) => {
   let COLOR = {};
   let SIZE = {};
 
-
-  switch(color) {
-    case("primary"):
+  switch (color) {
+    case "primary":
       COLOR = colorPrimary;
       break;
-    case("secondary"):
+    case "secondary":
       COLOR = colorSecondary;
       break;
   }
 
-  switch(size) {
-    case("medium"):
+  switch (size) {
+    case "medium":
       SIZE = sizeMedium;
       break;
-    case("large"):
+    case "large":
       SIZE = sizeLarge;
       break;
   }
@@ -59,7 +58,6 @@ const SampleButton = ({
   if (variant === "default") {
     COLOR = { ...COLOR, variantDefault };
   }
-
 
   const StyledButton = styled(Button)({
     /** color */
@@ -79,7 +77,7 @@ const SampleButton = ({
       {children}
     </StyledButton>
   );
-}
+};
 
 const sizeMedium = {
   // display: "inline-flex",
@@ -92,9 +90,9 @@ const sizeMedium = {
   fontSize: "14px",
   fontStyle: "normal",
   fontWeight: "600",
-  lineHeight: "100%", /* 14px */
+  lineHeight: "100%" /* 14px */,
   textAlign: "center",
-}
+};
 
 const sizeLarge = {
   // display: "flex",
@@ -109,9 +107,9 @@ const sizeLarge = {
   fontSize: "16px",
   fontStyle: "normal",
   fontWeight: "600",
-  lineHeight: "100%", /* 14px */
+  lineHeight: "100%" /* 14px */,
   textAlign: "center",
-}
+};
 
 const colorPrimary = {
   backgroundColor: "#f70",
@@ -123,8 +121,8 @@ const colorPrimary = {
   ".Mui-disabled": {
     backgroundColor: "#999DA3",
     color: "#D3D6DB",
-  }
-}
+  },
+};
 const colorSecondary = {
   backgroundColor: "#FFD9B7",
   color: "#FFD9B7",
@@ -136,8 +134,8 @@ const colorSecondary = {
   ".Mui-disabled": {
     backgroundColor: "#999DA3",
     color: "#D3D6DB",
-  }
-}
+  },
+};
 
 const variantDefault = {
   backgroundColor: "#F1F3F6",
