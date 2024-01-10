@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import targetingSlice from "./targetingSlice";
-import checkboxReducer from "./checkboxSlice";
+import LetterValueSlice from "./letterValueSlice";
 import pathReducer from "./path";
-import chipsStoreReducer from './chipsStore';
+import chipsStoreReducer from "./chipsStore";
 
 export const store = configureStore({
   reducer: {
     targeting: targetingSlice,
     chips: chipsStoreReducer,
-    checkbox: checkboxReducer,
+    letter: LetterValueSlice,
     path: pathReducer,
   },
 });
