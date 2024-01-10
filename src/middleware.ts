@@ -43,7 +43,7 @@ export async function middleware(req: NextRequest) {
   /* 쿠키 삭제로 로그아웃 처리 */
   if (REQ_URL.startsWith("/signout")) {
     const res = NextResponse.next();
-    console.log(req.cookies.getAll())
+    // console.log(req.cookies.getAll())
 
     res.cookies.set({
       name: 'access',
