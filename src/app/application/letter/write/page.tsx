@@ -3,6 +3,7 @@
 import { StepButton } from "@/components/Button/StepButton";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
+import { letterValue } from "@/constants/letter";
 import { RootState } from "@/store/store";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import {
@@ -13,36 +14,38 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Index = () => {
-  const pathname = usePathname();
-  const [modalOpen, setModalOpen] = useState(false);
-  const checkedStates = useSelector(
-    (state: RootState) => state.checkbox.checkedItems
+  const router = useRouter();
+  const step = useSelector((state: RootState) => state.letter.step);
+  const letterValues = useSelector(
+    (state: RootState) => state.letter.letterValue
   );
-  useEffect(() => console.log("pathname", pathname));
-  //리덕스에서 불러온 checkedStates중 true만 반환
-  const checkedItems = checkedStates
-    .map((checkbox, index) =>
-      checkbox.checked ? { index, name: checkbox.name } : null
-    )
-    .filter((item) => item !== null);
+  const questions = letterValue.options;
+
+  useEffect(() => {
+    if (step < 1) {
+      alert("잘못된 접근입니다.");
+      router.push("/application/letter/select?type=init");
+    }
+  }, [step, router]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //인풋박스 텍스트 갯수
   const [lettertexts, setLetterTexts] = useState<string[]>(
-    checkedItems.map(() => "")
+    letterValues.map(() => "")
   );
 
   //조건 만족시 읽기 전용모드
   const [onlyRead, setOnlyRead] = useState<boolean[]>(
-    checkedItems.map(() => false)
+    letterValues.map(() => false)
   );
   //텍스트 박스 글자 30자이하 유효성검사
   const [textVaild, setTextValid] = useState<boolean[]>(
-    checkedItems.map(() => false)
+    letterValues.map(() => false)
   );
 
   // 텍스트박스 하단 저장하기 토글함수
@@ -93,10 +96,10 @@ const Index = () => {
       </InfoText>
 
       <Container className="letter-box">
-        {checkedItems.map((item, index) => (
+        {letterValues.map((key, index) => (
           <Box key={index}>
             <Typography className="letter-title" variant="subtitle2">
-              {index + 1}.{item?.name}
+              {index + 1}.{questions[key]}
             </Typography>
             <TextareaAutosize
               className="text-area"

@@ -3,24 +3,48 @@
 import { StepButton } from "@/components/Button/StepButton";
 import { Checkbox } from "@/components/CheckBox/CheckBox";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import { toggle } from "@/store/checkboxSlice";
+import { toggle } from "@/store/letterValueSlice";
 import { RootState } from "@/store/store";
 import { Box, Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
+import { letterValue } from "@/constants/letter";
+import { useEffect, useState } from "react";
+
+const MockupLetter = {
+  "0": "0번 편지입니다.",
+  "5": "5번 편지입니다.",
+  "9": "9번 편지입니다.",
+};
 
 const Index = () => {
   const dispatch = useDispatch();
-  const checkedStates = useSelector(
-    (state: RootState) => state.checkbox.checkedItems
+
+  const letterValues = useSelector(
+    (state: RootState) => state.letter.letterValue
   );
 
-  const handleCheckboxClick = (index: number) => {
-    dispatch(toggle(index));
-  };
+  const letterOptions = Object.entries(letterValue.options);
+  const [letter, setLetter] = useState({});
 
-  const selectComplete = checkedStates.filter(Boolean).length >= 3;
+  useEffect(() => {
+    const res = MockupLetter;
+    Object.keys(res).map((item) => {
+      console.log("item22", item);
+      dispatch(toggle(item));
+    });
+    console.log("letter", letter);
+  }, []);
+
+  // 수정하기기능 구현 첫 렌더링 시 (MockupLetter --> 서버에서 입력되어있는 값을 렌더링해서
+  // select에 체크가 되어있어야됨  )
+
+  const handleCheckboxClick = (key: string) => {
+    dispatch(toggle(key));
+  };
+  const selectComplete =
+    Object.values(letterValues).filter(Boolean).length >= 3;
 
   return (
     <LetterRoot id="content">
@@ -37,15 +61,20 @@ const Index = () => {
         </Typography>
       </InfoText>
       <Container className="letter-box">
-        {checkedStates.map((checkbox, index) => (
+        {letterOptions.map(([key, name]) => (
           <Checkbox
-            key={index}
-            buttonName={checkbox.name}
-            onClick={() => handleCheckboxClick(index)}
-            checked={checkbox.checked}
+            key={key}
+            buttonName={name}
+            onClick={() => handleCheckboxClick(key)}
+            checked={letterValues.includes(key)}
           />
         ))}
       </Container>
+      <button
+        onClick={() => {
+          console.log("letter22", letter);
+        }}
+      ></button>
       <StepButton
         prevText="이전"
         nextText="다음"
