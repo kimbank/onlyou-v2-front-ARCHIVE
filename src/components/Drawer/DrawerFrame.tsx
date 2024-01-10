@@ -22,7 +22,7 @@ export default function DrawerFrame({
       onOpen={onOpen || (() => {})}
       onClose={onClose || (() => {})}
     >
-      <Container className="Drawer-box">{children}</Container>
+      {children}
     </DrawerRoot>
   );
 }

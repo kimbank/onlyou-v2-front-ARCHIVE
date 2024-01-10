@@ -2,53 +2,53 @@ import colors from "@/assets/theme/base/colors";
 import { Container, styled } from "@mui/material";
 
 export default styled(Container)(() => {
-    const { primary, primary_lighten2 } = colors;
-    
-    return {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '24px',
+  const { primary, primary_lighten2 } = colors;
 
-      '.title-box': {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-      },
+  return {
+    display: "flex",
+    flexDirection: "column",
+    gap: "24px",
 
-      '.subtitle-box': {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '2px',
-      },
+    ".title-box": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "8px",
+    },
 
-      '.content-box': {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-      },
+    ".subtitle-box": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "2px",
+    },
 
-      '.check-icon': {
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        width: '18px',
-        height: '16px',
-        marginRight: '14px',
-      },
+    ".content-box": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "16px",
+    },
 
-      '.box': {
-        position: 'absolute',
-        left: 0,
-        color: primary_lighten2,
-      },
+    ".check-icon": {
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      width: "18px",
+      height: "16px",
+      marginRight: "14px",
+    },
 
-      '.check': {
-        position: 'absolute',
-        left: 4,
-        bottom: '1px',
-        marginRight: '10px',
-        color: primary?.main,
-        fontSize: '24px',
-      },
-    };
-})
+    ".box": {
+      position: "absolute",
+      left: 0,
+      color: primary_lighten2,
+    },
+
+    ".check": {
+      position: "absolute",
+      left: 4,
+      bottom: "1px",
+      marginRight: "10px",
+      color: primary?.main,
+      fontSize: "24px",
+    },
+  };
+});

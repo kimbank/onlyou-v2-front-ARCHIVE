@@ -17,24 +17,28 @@ const GUEST_PAGE = [
   '/signup', // 회원가입
 ]
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const REQ_URL = req.nextUrl.pathname;
   const USER = req.cookies.has('refresh');
 
-  /*  */
-  // if (USER) { // 로그인 상태
-  //   for (const PAGE of GUEST_PAGE) {
-  //     if (REQ_URL.startsWith(PAGE)) {
-  //       return NextResponse.redirect(new URL('/matching', req.url))
-  //     }
-  //   }
-  // } else { // 비로그인 상태
-  //   for (const PAGE of USER_PAGE) {
-  //     if (REQ_URL.startsWith(PAGE)) {
-  //       return NextResponse.redirect(new URL('/signin', req.url))
-  //     }
-  //   }
-  // }
+  /* 유저, 게스트 여부에 따라 분기 */
+  if (USER) { // 로그인 상태
+    for (const PAGE of GUEST_PAGE) {
+      if (REQ_URL.startsWith(PAGE)) {
+        return NextResponse.redirect(new URL('/matching', req.url))
+      }
+    }
+  } else { // 비로그인 상태
+    for (const PAGE of USER_PAGE) {
+      if (REQ_URL.startsWith(PAGE)) {
+        return NextResponse.redirect(new URL('/signin', req.url))
+      }
+    }
+  }
+
+  if (REQ_URL === "/") {
+    return NextResponse.redirect(new URL('/matching', req.url))
+  }
 
   /* 쿠키 삭제로 로그아웃 처리 */
   if (REQ_URL.startsWith("/signout")) {

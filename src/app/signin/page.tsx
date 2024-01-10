@@ -11,7 +11,6 @@ import { Box, TextField, Button, Typography } from "@mui/material";
 import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
 
-import { get } from "@/actions/test";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
