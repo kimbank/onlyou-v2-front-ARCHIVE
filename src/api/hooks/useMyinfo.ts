@@ -1,4 +1,3 @@
-import useSWR, { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
 import { authedFetcher } from '@/api/base/swrFetcher';
