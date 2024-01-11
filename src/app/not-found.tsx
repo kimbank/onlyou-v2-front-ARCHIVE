@@ -1,9 +1,11 @@
 "use client";
 
-import EmptyHeader from "@/components/Header/EmptyHeader";
-import { Button, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { Button, styled, Typography } from "@mui/material";
+import EmptyHeader from "@/components/Header/EmptyHeader";
+import NotFoundImage from "public/images/404.png";
 
 const Index = () => {
   const router = useRouter();
@@ -23,7 +25,7 @@ const Index = () => {
         <Typography color="gray2" variant="body2">
           Page not found
         </Typography>
-        <Image src="/images/img_404.png" alt="404" width={164} height={150} />
+        <Image src={NotFoundImage} alt="404" width={164} height={150} />
         <Button onClick={toHome}>
           <Typography variant="subtitle1">홈으로 돌아가기</Typography>
         </Button>
