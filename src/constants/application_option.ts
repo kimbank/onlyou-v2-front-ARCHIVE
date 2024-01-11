@@ -5,7 +5,7 @@ export interface RangeOption {
   /** 한국 명 */
   label: string;
   /** 내정보 방식 */
-  me: "text" | "radio" | "button" | "dropdown" | "none";
+  me: "slider";
   /** 타게팅 방식 */
   targeting: "radio" | "button" | "dropdown" | "slider" | "none";
   /** 최대 선택 가능 갯수 */
@@ -25,7 +25,7 @@ export interface Option {
   /** 한국 명 */
   label: string;
   /** 내정보 방식 */
-  me: "button" | "dropdown" | "checkbox" | "radio" | "slider";
+  me: "text" | "radio" | "chip" | "slider" | "none";
   /** 타게팅 방식 */
   targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip";
   /** 최대 선택 가능 갯수 */
@@ -44,7 +44,7 @@ export interface GroupedOption extends Omit<Option, "options"> {
 export const birthYear: RangeOption = {
   name: "birthYear",
   label: "나이",
-  me: "radio",
+  me: "slider",
   targeting: "slider",
 
   from: 1980, // 최소 생년월일
@@ -56,7 +56,7 @@ export const birthYear: RangeOption = {
 export const residence: GroupedOption = {
   name: "residence",
   label: "선호하는 거주지를 모두 설정해주세요",
-  me: "dropdown",
+  me: "radio",
   targeting: "chip",
   options: {
     서울: {
@@ -90,7 +90,7 @@ export const residence: GroupedOption = {
 export const jobType: Option = {
   name: "jobType",
   label: "직장 유형",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -117,7 +117,7 @@ export const jobType: Option = {
 export const salary: Option = {
   name: "salary",
   label: "연봉",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -139,7 +139,7 @@ export const salary: Option = {
 export const height: RangeOption = {
   name: "height",
   label: "키",
-  me: "dropdown",
+  me: "slider",
   targeting: "slider",
   
   from: 150, // 최소 키
@@ -151,7 +151,7 @@ export const height: RangeOption = {
 export const university: Option = {
   name: "university",
   label: "대학",
-  me: "button",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -183,7 +183,7 @@ export const divorce: Option = {
 export const workType: Option = {
   name: "workType",
   label: "근무형태",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -231,7 +231,7 @@ export const drinking: Option = {
 export const interest: Option = {
   name: "interest",
   label: "관심사",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   options: {
@@ -396,7 +396,7 @@ export const impromptu_plan: Option = {
 export const personalityCharm: Option = {
   name: "personalityCharm",
   label: "성격 매력",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   me_limit: 3,
@@ -568,7 +568,7 @@ export const bodyType: Option = {
 export const externalCharm: Option = {
   name: "externalCharm",
   label: "외적 매력",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   me_limit: 3,
