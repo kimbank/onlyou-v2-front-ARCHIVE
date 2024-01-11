@@ -12,7 +12,7 @@ import { styled } from "@mui/material";
 const MatchingIndex = () => {
   const router = useRouter();
   const handleHref = () => {
-    router.push("application/me/value?type=init");
+    router.push("application/me/values?type=init");
   };
   return (
     <>

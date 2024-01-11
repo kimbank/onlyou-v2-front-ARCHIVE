@@ -51,6 +51,7 @@ const RadioLayout = ({
     ) {
       setActiveGroupIndex(nextIndex);
     }
+    console.log("selectedValues", selectedValues);
   };
   const allGroupsSelected = radioGroups.options.every(
     (group) => selectedValues[group.name] != null
@@ -111,14 +112,14 @@ const RadioLayout = ({
     </>
   );
 };
+
 export default RadioLayout;
 
-const ValueRoot = styled(Container)(({ theme }) => {
+const ValueRoot = styled('div')(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
     gap: "24px",
-    padding: " 0 24px",
     ".title-box": {
       gap: "0px",
     },

@@ -116,7 +116,7 @@ const TargetingPage = () => {
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="/application/me/other"
+        prevHref="/application/me/etc"
         nextHref="/application/targeting/details"
         nextType="button"
         checkedStates={!isTargetingEmpty}
