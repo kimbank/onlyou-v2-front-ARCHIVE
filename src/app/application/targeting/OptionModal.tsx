@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { setTargetingPriority } from "@/store/targetingSlice";
 import { RootState } from "@/store/store";
 
-import { styled, Modal, Typography, Box, Tabs, Tab, Button } from "@mui/material";
+import {
+  styled,
+  Modal,
+  Typography,
+  Box,
+  Tabs,
+  Tab,
+  Button,
+} from "@mui/material";
 import EmptyHeader from "@/components/Header/EmptyHeader";
 import BottomButton from "@/components/BottomButton/Next";
 import { targetingCategories } from "@/constants/targeting";
@@ -11,8 +19,7 @@ import { targetingCategories } from "@/constants/targeting";
 import AlertModal from "@/components/Modal/Default";
 import useModal from "@/hooks/useModal";
 
-
-const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
+const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
   const {
     isModalOpen: isAlertOpen,
@@ -24,11 +31,7 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
   const targetingState = useSelector((state: RootState) => state.targeting);
 
   const titles = ["1순위 조건", "2순위 조건", "3순위 조건"];
-  const conditions = [
-    "최대 2개",
-    "최대 4개",
-    "최대 4개"
-  ];
+  const conditions = ["최대 2개", "최대 4개", "최대 4개"];
 
   const handleTabsChange = (event: any, newValue: number) => {
     setPriority(newValue);
@@ -127,8 +130,17 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
                           >
                             {buttonPriority &&
                               buttonPriority !== priority &&
-                              `${buttonPriority} | `}{" "}
-                            {option.label}
+                              `${buttonPriority} | `}
+                            <Typography
+                              variant={
+                                buttonPriority === priority ||
+                                (buttonPriority && buttonPriority !== priority)
+                                  ? "subtitle2"
+                                  : "body2"
+                              }
+                            >
+                              {option.label}
+                            </Typography>
                           </Button>
                         );
                       }
@@ -148,23 +160,23 @@ const OptionModal = ({ open, onClose }: { open: any, onClose: any }) => {
       </Modal>
     </>
   );
-}
+};
 
 const Root = styled("div")({
   height: "calc(100vh - 146px)",
   backgroundColor: "#fff",
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px',
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
 
-  overflowX: 'hidden',
-  overflowY: 'scroll',
-  paddingBottom: '36px',
+  overflowX: "hidden",
+  overflowY: "scroll",
+  paddingBottom: "36px",
 
   ".title-box": {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
   },
 
   ".category-box": {
@@ -208,7 +220,7 @@ const Root = styled("div")({
 
   "& .MuiTabs-indicator": {
     height: "4px",
-  }
+  },
 });
 
 export default OptionModal;

@@ -26,7 +26,7 @@ export function Checkbox({
       disabled={disabled}
     >
       {disabled ? (
-        <DoDisturbAltIcon className="disabled" />
+        <DoDisturbAltIcon className="disabled-icon" />
       ) : (
         <CheckBox className="checkbox" />
       )}
@@ -69,9 +69,9 @@ const CheckboxRoot = styled(Button)(({ checked, disabled }: CheckboxProps) => {
       textAlign: "left",
       border: 0,
     },
-    ".disabled": {
-      width: 26.67,
-      height: 26.67,
+    ".disabled-icon": {
+      width: 16,
+      height: 16,
     },
     ".label": {
       color: disabled ? white : checked ? black : gray2,

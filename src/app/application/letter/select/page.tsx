@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/CheckBox/CheckBox";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/letterValueSlice";
 import { RootState } from "@/store/store";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
