@@ -93,27 +93,29 @@ const DetailsPage = () => {
         <div className="content-body">
           <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(0)}
+            onClick={() => {
+              openSettingModalByPriority(0);
+            }}
             variant={checkFillStatus(0) ? "outlined" : "contained"}
           >
             <Typography>기본 반영 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(1) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(1)}
             variant={checkFillStatus(1) ? "outlined" : "contained"}
           >
             <Typography> 1순위 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(2) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(2)}
             variant={checkFillStatus(2) ? "outlined" : "contained"}
           >
             <Typography> 2순위 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(3) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(3)}
             variant={checkFillStatus(3) ? "outlined" : "contained"}
           >

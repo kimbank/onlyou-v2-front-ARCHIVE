@@ -18,6 +18,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import AlertModal from "@/components/Modal/Default";
 import useModal from "@/hooks/useModal";
 import { residence } from "@/constants/application_option";
+import colors from "@/assets/theme/base/colors";
 
 const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
         }
         onClick={() => handleOptionClick(Number(optionKey))}
       >
-        {allOption[group][optionKey]}
+        <Typography variant="body2">{allOption[group][optionKey]}</Typography>
       </Button>
     ));
   };
@@ -79,10 +80,6 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const handleTooltipToggle = () => {
     setOpen(!open);
   };
-
-  console.log("optionState", optionState);
-  console.log("allOption", allOption);
-  console.log("allOption2", Object.keys(allOption));
 
   return (
     <>
@@ -106,7 +103,11 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
             <Box>
               <Button variant="text" size="large">
                 <InfoOutlinedIcon className="tooltip-icon" />
-                <Typography className="tooltip-text" variant="body3">
+                <Typography
+                  className="tooltip-text"
+                  variant="body3"
+                  color="gray2"
+                >
                   지역 상세 설명 보기
                 </Typography>
               </Button>
@@ -136,7 +137,9 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       }
                       onClick={() => handleOptionClick(Number(optionKey))}
                     >
-                      {allOption[group][optionKey]}
+                      <Typography variant="body2">
+                        {allOption[group][optionKey]}
+                      </Typography>
                     </Button>
                   ))}
                 </Box>
@@ -148,35 +151,39 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   );
 };
 
-const Root = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  flexWrap: "wrap",
-  ".button-box": {
+const Root = styled(Box)(() => {
+  const { gray2 } = colors;
+  return {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    gap: "12px",
-  },
-  ".button": {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: "9px",
-  },
-  ".tooltip": {
-    marginBottom: "17px",
-    display: "flex",
-    justifyContents: "flex-start",
-    gap: "4px",
-  },
-  ".tooltip-icon": {
-    width: "18px",
-    marginRight: "4px",
-  },
-  ".tooltip-text": {
-    textDecoration: "underline",
-  },
+    ".button-box": {
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "wrap",
+      gap: "12px",
+    },
+    ".button": {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: "9px",
+    },
+    ".tooltip": {
+      marginBottom: "17px",
+      display: "flex",
+      justifyContents: "flex-start",
+      gap: "4px",
+    },
+    ".tooltip-icon": {
+      width: "18px",
+      marginRight: "4px",
+      color: gray2,
+    },
+    ".tooltip-text": {
+      textDecoration: "underline",
+    },
+  };
 });
 
 export const tooltipTitle = () => {
