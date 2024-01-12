@@ -26,22 +26,31 @@ const Index = () => {
   );
 
   const letterOptions = Object.entries(letterValue.options);
+  const [disabledLetters, setDisabledLetters] = useState<
+    Record<string, boolean>
+  >({});
+
   const [letter, setLetter] = useState({});
 
   useEffect(() => {
     const res = MockupLetter;
-    Object.keys(res).map((item) => {
-      console.log("item22", item);
+    const newDisabledLetters = { ...disabledLetters };
+
+    Object.keys(res).forEach((item) => {
       dispatch(toggle(item));
+      newDisabledLetters[item] = true;
     });
-    console.log("letter", letter);
+
+    setDisabledLetters(newDisabledLetters);
   }, []);
 
   // 수정하기기능 구현 첫 렌더링 시 (MockupLetter --> 서버에서 입력되어있는 값을 렌더링해서
   // select에 체크가 되어있어야됨  )
 
   const handleCheckboxClick = (key: string) => {
-    dispatch(toggle(key));
+    if (!disabledLetters[key]) {
+      dispatch(toggle(key));
+    }
   };
   const selectComplete =
     Object.values(letterValues).filter(Boolean).length >= 3;
@@ -67,14 +76,10 @@ const Index = () => {
             buttonName={name}
             onClick={() => handleCheckboxClick(key)}
             checked={letterValues.includes(key)}
+            disabled={disabledLetters[key]}
           />
         ))}
       </Container>
-      <button
-        onClick={() => {
-          console.log("letter22", letter);
-        }}
-      ></button>
       <StepButton
         prevText="이전"
         nextText="다음"
