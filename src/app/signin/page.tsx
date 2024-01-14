@@ -119,15 +119,15 @@ const Home = () => {
             id="code"
             autoComplete="current-password"
           />
+          <Button
+            size="large"
+            type="submit"
+            variant="contained"
+            disabled={!isCodeSent}
+          >
+            로그인
+          </Button>
         </Box>
-        <Button
-          size="large"
-          type="submit"
-          variant="contained"
-          disabled={!isCodeSent}
-        >
-          로그인
-        </Button>
       </LoginRoot>
     </>
   );
@@ -160,10 +160,8 @@ const LoginRoot = styled(Box)({
       padding: "16px 17px",
     },
   },
-  ".profile-wrapper": {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
+  "& Button": {
+    marginTop: 8,
   },
 });
 
