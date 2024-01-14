@@ -23,6 +23,8 @@ import DormancySwitch from "./DormancySwitch";
 import ProfileCard from "./ProfileCard";
 import Menu from "./Menu";
 import { MannerMenu } from "./MannerMenu";
+import { MyinfoDivider } from "./MyinfoDivider";
+import { Status } from "./Status";
 
 const Myinfo = () => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -43,24 +45,24 @@ const Myinfo = () => {
         />
         <MyinfoRoot>
           <Typography variant="h1">내 정보</Typography>
-
           <Box className="profile-wrapper">
             <ProfileCard />
             <MannerMenu />
-            <DormancySwitch />
+            <MyinfoDivider />
+            <Status />
+            <MyinfoDivider />
+            {/* <DormancySwitch /> */}
           </Box>
-
           <Menu />
-
-          <a href="/signout" style={{ color: "gray" }}>
-            로그아웃
-          </a>
-          <a
-            href="https://g8h7y7g082m.typeform.com/to/BZedJjPX"
-            style={{ color: "gray" }}
-          >
-            회원 탈퇴
-          </a>
+          <Box className="signout">
+            <a href="/signout">
+              <Typography variant="body2">로그아웃</Typography>
+            </a>
+            <p>|</p>
+            <a href="https://g8h7y7g082m.typeform.com/to/BZedJjPX">
+              <Typography variant="body2">회원 탈퇴</Typography>
+            </a>
+          </Box>
         </MyinfoRoot>
       </div>
       <BottomNavi />
@@ -77,6 +79,12 @@ const MyinfoRoot = styled("div")({
     display: "flex",
     flexDirection: "column",
     gap: "20px",
+  },
+  ".signout": {
+    display: "flex",
+    flexDirection: "row",
+    margin: "auto",
+    gap: "74px",
   },
 });
 

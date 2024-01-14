@@ -37,9 +37,7 @@ const Menu = ({
         }
         onClick={onClick}
       >
-        <Typography variant="body1">
-          {children}
-        </Typography>
+        <Typography variant="body1">{children}</Typography>
       </MenuRoot>
     </Link>
   );
@@ -50,7 +48,7 @@ const MenuRoot = styled(Button)(() => {
     height: "44px",
     minHeight: "44px",
     justifyContent: "space-between",
-    padding: "0px 16px 0px 20px",
+    padding: "16px 16px 16px 20px",
     width: "100%",
 
     ":hover": {

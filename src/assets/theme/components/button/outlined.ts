@@ -2,7 +2,7 @@ import colors from "../../base/colors";
 import typography from "../../base/typography";
 import pxToRem from "../../functions/pxToRem";
 
-const { primary, white, primary_lighten3 } = colors;
+const { primary, white, primary_lighten3, gray2, gray4, gray5 } = colors;
 const { size } = typography;
 
 const outlined = {
@@ -52,14 +52,11 @@ const outlined = {
   },
 
   secondary: {
-    backgroundColor: primary,
-    color: primary?.main,
-    border: `1px solid ${primary?.main}`,
-    "&.MuiButton-root": {
-      backgroundColor: primary,
-      "&:hover": {
-        backgroundColor: primary_lighten3,
-      },
+    border: `1px solid ${gray4} !important`,
+    color: `${gray2} !important`,
+    "&:hover": {
+      backgroundColor: gray5,
+      border: `1px solid ${gray4}`,
     },
   },
 };

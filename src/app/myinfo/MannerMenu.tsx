@@ -27,8 +27,12 @@ export const MannerMenu = ({ children }: any) => {
   return (
     <CertifyRoot>
       <Box className="manner-title">
-        <Typography variant="subtitle1">매너온도</Typography>
-        <Typography variant="subtitle2">{manner}</Typography>
+        <Typography color="gray1" variant="subtitle1">
+          매너온도
+        </Typography>
+        <Typography color="gray1" variant="subtitle2">
+          {manner}
+        </Typography>
       </Box>
       <Box>
         <Tooltip
@@ -62,7 +66,6 @@ const CertifyRoot = styled(Box)(() => {
   return {
     gap: "8px",
     borderRadius: "4px",
-    padding: "2px 6px",
     display: "flex",
     flexDirection: "column",
     height: 52,
