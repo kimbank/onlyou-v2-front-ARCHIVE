@@ -6,7 +6,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { Box, TextField, Button, Typography, styled } from "@mui/material";
 
 import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
@@ -77,44 +77,40 @@ const Home = () => {
   return (
     <>
       <EmptyHeader />
-      <div id="content">
+      <LoginRoot id="content">
         <Typography variant="h1">
-          로그인하기
+          로그인
           <Typography variant="body2">
-            로그인을 위해 전화번호를 인증해주세요.
+            로그인을 위해 휴대폰번호를 인증해 주세요
           </Typography>
         </Typography>
         <Box
+          className="form"
           component="form"
           onSubmit={isCodeSent ? handleVerifyCode : handleSendCode}
           noValidate
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="mobileNumber"
-            label="전화번호"
-            name="mobileNumber"
-            autoComplete="user_id"
-            autoFocus
-          />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
+          <Box className="number">
+            <TextField
+              required
+              fullWidth
+              id="mobileNumber"
+              label="전화번호"
+              name="mobileNumber"
+              autoComplete="user_id"
+              autoFocus
+            />
             {isCodeSent ? (
-              <Button variant="contained">{totalSeconds}</Button>
+              <Button variant="contained">
+                <Typography variant="subtitle2">{totalSeconds}</Typography>
+              </Button>
             ) : (
               <Button type="submit" variant="contained">
-                인증번호 전송
+                <Typography variant="subtitle2">인증번호 전송</Typography>
               </Button>
             )}
           </Box>
           <TextField
-            margin="normal"
             required
             fullWidth
             name="code"
@@ -123,22 +119,53 @@ const Home = () => {
             id="code"
             autoComplete="current-password"
           />
-
-          <Button
-            size="large"
-            type="submit"
-            variant="contained"
-            disabled={!isCodeSent}
-          >
-            로그인하기
-          </Button>
         </Box>
-      </div>
+        <Button
+          size="large"
+          type="submit"
+          variant="contained"
+          disabled={!isCodeSent}
+        >
+          로그인
+        </Button>
+      </LoginRoot>
     </>
   );
 };
 
 export default Home;
+
+const LoginRoot = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  "& p": {
+    marginTop: 8,
+  },
+  ".form": {
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  ".number": {
+    display: "flex",
+    flexShrink: 0,
+    alignItems: "center",
+    gap: 8,
+    height: " auto",
+    "& Button": {
+      height: "56px",
+      minWidth: 108,
+      whiteSpace: "nowrap",
+      padding: "16px 17px",
+    },
+  },
+  ".profile-wrapper": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
+});
 
 // console.log(new Date().toISOString());
 

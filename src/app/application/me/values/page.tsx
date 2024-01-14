@@ -1,27 +1,26 @@
-"use client"
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
-import BottomButton from "../BottomButton"
-
+import BottomButton from "../BottomButton";
 
 const ValuesAPI = {
-  "statusCode": 200,
-  "message": "Find Success",
-  "data": {
-      "nickname": "뱅크",
-      "values": {
-          "fillStatus": 2,
-          "marriageValues": 0,
-          "oppositeSexFriendValues": 0,
-          "politicalValues": 0,
-          "consumptionValues": 0,
-          "careerFamilyValues": 0,
-          "childrenValues": 0
-      }
-  }
-}
+  statusCode: 200,
+  message: "Find Success",
+  data: {
+    nickname: "뱅크",
+    values: {
+      fillStatus: 2,
+      marriageValues: 0,
+      oppositeSexFriendValues: 0,
+      politicalValues: 0,
+      consumptionValues: 0,
+      careerFamilyValues: 0,
+      childrenValues: 0,
+    },
+  },
+};
 
 interface ValuesData {
   fillStatus: number | null;
@@ -43,25 +42,27 @@ const ValuesPage = () => {
     politicalValues: null,
     consumptionValues: null,
     careerFamilyValues: null,
-    childrenValues: null
+    childrenValues: null,
   });
   const isInit = searchParams.get("type") === "init";
-  const isCompleteFillData = Object.values(valuesData).every((value) => value !== null);
+  const isCompleteFillData = Object.values(valuesData).every(
+    (value) => value !== null
+  );
 
   useEffect(() => {
     const { values } = ValuesAPI.data;
     setValuesData(values);
-  }, [])
+  }, []);
 
   async function handleNext() {
     if (isInit) {
-      router.push("/application/me/lifestyle?type=init")
+      router.push("/application/me/lifestyle?type=init");
     }
   }
 
   async function handlePrev() {
     if (isInit) {
-      router.push("/matching")
+      router.push("/matching");
     }
   }
 

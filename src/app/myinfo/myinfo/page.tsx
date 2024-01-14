@@ -1,48 +1,80 @@
 "use client";
 
-import { Box, Container, Typography, colors, styled } from "@mui/material";
-import { Profile } from "./components/profile";
-import Menu from "@/components/Button/Menu";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-// import { fetchMyInfo } from "@/actions/fetchMyInfo";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
-const Index = () => {
-  const router = useRouter();
+import { styled, Box, Container, Typography } from "@mui/material";
+import Error from "@/components/error";
 
-  useEffect(() => {
-    const loadMyInfo = async () => {
-      try {
-        // const data = await fetchMyInfo();
-        // console.log("data", data);
-      } catch (error) {
-        console.error("error", error);
-        alert("로그인이 필요합니다");
-        router.push("/signin");
-      }
-    };
-    loadMyInfo();
-  }, [router]);
+import {
+  Certification,
+  DangerNotification,
+} from "@/components/Notification/legacy";
+import { MainButton, SubMiniFullButton } from "@/components/Button/legacy";
+import { DormantToggle } from "@/components/Toggle";
+import Modal from "@/components/Modal/legacy";
+
+import HomeHeader from "@/components/Header/HomeHeader";
+import BottomNavi from "@/components/BottomNavi";
+
+import { useMyinfo } from "@/api/hooks/useMyinfo";
+import ProfileCard from "../ProfileCard";
+import DormancySwitch from "../DormancySwitch";
+import Menu from "../Menu";
+
+const Myinfo = () => {
+  const [alertMessage, setAlertMessage] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  const { myInfo, isLoading, isError } = useMyinfo();
+
+  if (isError) return <Error />;
 
   return (
-    <MyinfoRoot>
-      <Box>마이인포</Box>
-    </MyinfoRoot>
+    <>
+      <HomeHeader />
+      <div id="content">
+        <DangerNotification
+          alertMessage={alertMessage}
+          visible={visible}
+          setVisible={setVisible}
+        />
+        <MyinfoRoot>
+          <Typography variant="h1">내 정보</Typography>
+
+          <Box className="profile-wrapper">
+            <ProfileCard />
+            <DormancySwitch />
+          </Box>
+
+          <Menu />
+
+          <a href="/signout" style={{ color: "gray" }}>
+            로그아웃
+          </a>
+          <a
+            href="https://g8h7y7g082m.typeform.com/to/BZedJjPX"
+            style={{ color: "gray" }}
+          >
+            회원 탈퇴
+          </a>
+        </MyinfoRoot>
+      </div>
+      <BottomNavi />
+    </>
   );
 };
 
-export default Index;
+const MyinfoRoot = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
 
-const MyinfoRoot = styled(Container)(() => {
-  return {
-    ".menu-box": {
-      display: "flex",
-      flexDirection: "column",
-      gap: "8px",
-    },
-    ".menu": {
-      minHeight: "34px !important",
-      height: "34px !important",
-    },
-  };
+  ".profile-wrapper": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
 });
+
+export default Myinfo;
