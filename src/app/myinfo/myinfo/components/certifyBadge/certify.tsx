@@ -3,28 +3,23 @@
 import colors from "@/assets/theme/base/colors";
 import { Box, Typography, styled } from "@mui/material";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
-export const Certify = () => {
+export const Certify = ({ children }: any) => {
   return (
     <CertifyRoot>
-        <VerifiedRoundedIcon color="primary"/>
-        <Typography variant="subtitle3" color="primary">신분 인증</Typography>
+      <Typography variant="subtitle3" color="primary">
+        {children}
+      </Typography>
     </CertifyRoot>
   );
 };
 
-
-
 const CertifyRoot = styled(Box)(() => {
-  const { white } = colors;
+  const { primary_lighten3 } = colors;
   return {
-    width: "97px",
-    height:"32px",
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor:white,
+    backgroundColor: primary_lighten3,
     gap: "8px",
     borderRadius: "4px",
-    padding: "12px 6px 12px 6px",
-    alignItems:"center",
+    padding: "2px 6px",
+    alignItems: "center",
   };
 });
