@@ -139,6 +139,7 @@ const LoginRoot = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "24px",
+
   "& p": {
     marginTop: 8,
   },
@@ -146,7 +147,11 @@ const LoginRoot = styled(Box)({
     display: "flex",
     flexDirection: "column",
     gap: 16,
+    "& > Button:last-child": {
+      marginTop: 8,
+    },
   },
+
   ".number": {
     display: "flex",
     flexShrink: 0,
@@ -159,9 +164,6 @@ const LoginRoot = styled(Box)({
       whiteSpace: "nowrap",
       padding: "16px 17px",
     },
-  },
-  "& Button": {
-    marginTop: 8,
   },
 });
 
