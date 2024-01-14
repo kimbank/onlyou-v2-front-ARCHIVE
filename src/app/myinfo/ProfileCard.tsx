@@ -8,7 +8,7 @@ import Birth from "public/icons/birth.svg";
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 import colors from "@/assets/theme/base/colors";
 import { Box, Button, styled, Typography } from "@mui/material";
-import { Certify } from "./certify";
+import { Certify } from "./Certify";
 
 const { gray4, black, primary_lighten1 } = colors;
 
