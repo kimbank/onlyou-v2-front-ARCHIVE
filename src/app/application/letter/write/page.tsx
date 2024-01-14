@@ -97,7 +97,7 @@ const Index = () => {
 
       <Container className="letter-box">
         {letterValues.map((key, index) => (
-          <Box key={index}>
+          <Box className="letter-write" key={index}>
             <Typography className="letter-title" variant="subtitle2">
               {index + 1}.{questions[key]}
             </Typography>
@@ -119,9 +119,9 @@ const Index = () => {
               onChange={handleTextChange(index)}
               readOnly={onlyRead[index]}
             />
-            <Container className="letter-box-values">
+            <Box className="caption-box">
               <Typography variant="caption">
-                글자 수 /
+                글자 수 /&nbsp;
                 <Typography
                   variant="caption"
                   color={textVaild[index] ? "red" : "inherit"}
@@ -130,7 +130,8 @@ const Index = () => {
                 </Typography>
                 자
               </Typography>
-
+            </Box>
+            <Container className="letter-box-values">
               {lettertexts[index].length > 0 ? (
                 <>
                   <Button variant="contained" onClick={toggleEditMode(index)}>
@@ -179,10 +180,18 @@ const LetterRoot = styled(Container)(({ theme }) => {
         paddingBottom: "6px",
       },
     },
+    ".letter-write": {
+      position: "relative",
+      "& .caption-box": {
+        position: "absolute",
+        bottom: 52,
+        marginLeft: "16px",
+      },
+    },
     ".letter-box-values": {
       display: "flex",
       width: "100%",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
       padding: "0",
     },
   };
