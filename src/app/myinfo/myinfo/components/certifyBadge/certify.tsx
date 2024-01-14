@@ -20,6 +20,8 @@ const CertifyRoot = styled(Box)(() => {
     gap: "8px",
     borderRadius: "4px",
     padding: "2px 6px",
+    display: "flex",
     alignItems: "center",
+    height: 21,
   };
 });

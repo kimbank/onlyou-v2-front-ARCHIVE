@@ -69,7 +69,6 @@ const ProfileCardRoot = styled("div")({
   borderRadius: "8px",
   border: `1px solid ${primary_lighten1}`,
   padding: "20px",
-
   display: "inline-flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -78,8 +77,9 @@ const ProfileCardRoot = styled("div")({
 
 const ProfileCertification = styled("div")({
   display: "flex",
-  gap: 16,
+  gap: 8,
   alignItems: "center",
+  height: 21,
   "& Box": {},
 });
 
@@ -104,11 +104,13 @@ const ProfileInfo = styled("div")({
       flexDirection: "column",
       gap: 4,
       "> div": {
+        display: "flex",
+        justifyContent: "center",
         border: `1px solid ${gray4}`,
-        flexDirection: "column",
         padding: "2px 6px",
         borderRadius: 4,
         width: 47,
+        height: 21,
         textAlign: "center",
         whiteSpace: "nowrap",
       },
