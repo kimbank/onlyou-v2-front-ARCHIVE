@@ -2,8 +2,7 @@ import Fade from "@mui/material/Fade";
 import colors from "../../base/colors";
 import typography from "../../base/typography";
 
-
-const { black} = colors;
+const { black } = colors;
 const { size } = typography;
 
 type Types = any;
@@ -19,9 +18,11 @@ const tooltip: Types = {
       display: "flex",
       flexDirection: "column",
       margin: "auto",
+      marginTop: "16px",
       width: "90%",
       maxWidth: "480px",
-      height: "384px",
+      height: "auto",
+      Maxheight: "384px",
       backgroundColor: "#f1f3f6",
       color: black,
       textAlign: "left",

@@ -1,8 +1,7 @@
 "use client";
 
 import colors from "@/assets/theme/base/colors";
-import { Box, Typography, styled } from "@mui/material";
-import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
+import { Box, styled, Typography } from "@mui/material";
 export const Certify = ({ children }: any) => {
   return (
     <CertifyRoot>
