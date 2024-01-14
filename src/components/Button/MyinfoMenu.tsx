@@ -1,11 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { styled, Button, Typography } from "@mui/material";
 import { ChevronRightRounded } from "@mui/icons-material";
-import { style } from "@mui/system";
-import colors from "@/assets/theme/base/colors";
-import contained from "@/assets/theme/components/button/contained";
+import { Button, styled, Typography } from "@mui/material";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;

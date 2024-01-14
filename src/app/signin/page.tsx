@@ -100,25 +100,30 @@ const Home = () => {
               autoComplete="user_id"
               autoFocus
             />
-            {isCodeSent ? (
-              <Button variant="contained">
-                <Typography variant="subtitle2">{totalSeconds}</Typography>
-              </Button>
-            ) : (
-              <Button type="submit" variant="contained">
-                <Typography variant="subtitle2">인증번호 전송</Typography>
-              </Button>
-            )}
+            <Button type="submit" variant="contained">
+              <Typography variant="subtitle2">인증번호 전송</Typography>
+            </Button>
           </Box>
-          <TextField
-            required
-            fullWidth
-            name="code"
-            label="인증번호"
-            type="code"
-            id="code"
-            autoComplete="current-password"
-          />
+          <Box className="verify">
+            <TextField
+              required
+              fullWidth
+              name="code"
+              label="인증번호"
+              type="code"
+              id="code"
+              autoComplete="current-password"
+            />
+            <Box className="verifyCode">
+              {isCodeSent ? (
+                <Typography color="primary" variant="subtitle2">
+                  {totalSeconds}
+                </Typography>
+              ) : (
+                ""
+              )}
+            </Box>
+          </Box>
           <Button
             size="large"
             type="submit"
@@ -163,6 +168,16 @@ const LoginRoot = styled(Box)({
       minWidth: 108,
       whiteSpace: "nowrap",
       padding: "16px 17px",
+    },
+  },
+  ".verify": {
+    position: "relative",
+    ".verifyCode": {
+      position: "absolute",
+      top: "50%",
+      right: 0,
+      marginRight: "16px",
+      transform: "translateY(-50%)",
     },
   },
 });
