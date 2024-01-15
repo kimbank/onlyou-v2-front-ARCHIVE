@@ -40,7 +40,7 @@ const NotfoundRoot = styled("div")(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    paddingTop: "160px",
     alignItems: "center",
     height: "100vh",
     "& > :nth-child(1)": {
