@@ -3,16 +3,15 @@
 import BottomNavi from "@/components/BottomNavi";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { Box, styled } from "@mui/material";
-import { Before } from "./Before";
-import { Consist } from "./Consist";
+import { Consist } from "../Consist";
 
 const agreementPage = () => {
   return (
     <>
       <HomeHeader />
       <AgreemenRoot id="content">
-        <Before />
-        {/* <Consist /> */}
+        {/* <Before /> */}
+        <Consist />
       </AgreemenRoot>
       <BottomNavi />
     </>

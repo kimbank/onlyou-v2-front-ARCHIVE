@@ -1,6 +1,6 @@
 import { Box, Button, styled, Typography } from "@mui/material";
 
-import LogoIcon from "public/images/agreement/logo.svg";
+import CircleIcon from "public/icons/circleLogo.svg";
 import Image from "next/image";
 import ConsistCard from "./ConsistCard";
 
@@ -22,7 +22,7 @@ export const Consist = () => {
         <ConsistCard />
       </Box>
       <Box className="caption">
-        <Image src={LogoIcon} alt="logo" width={24} height={24} />
+        <Image src={CircleIcon} alt="logo" width={24} height={24} />
         <Typography variant="body2">
           만남을 잘 이어가고 계신가요?
           <br />

@@ -33,6 +33,7 @@ const BeforeRoot = styled(Box)(() => {
       textAlign: "center",
       height: "250px",
       marginTop: "16px",
+      borderRadius: "8px",
     },
   };
 });
