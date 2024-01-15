@@ -1,29 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { styled, Box, Container, Typography } from "@mui/material";
 import Error from "@/components/error";
+import { Box, styled, Typography } from "@mui/material";
 
-import {
-  Certification,
-  DangerNotification,
-} from "@/components/Notification/legacy";
-import { MainButton, SubMiniFullButton } from "@/components/Button/legacy";
-import { DormantToggle } from "@/components/Toggle";
-import Modal from "@/components/Modal/legacy";
+import { DangerNotification } from "@/components/Notification/legacy";
 
-import HomeHeader from "@/components/Header/HomeHeader";
 import BottomNavi from "@/components/BottomNavi";
+import HomeHeader from "@/components/Header/HomeHeader";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 
 import DormancyToggle from "./DormancyToggle";
-import ProfileCard from "./ProfileCard";
-import Menu from "./Menu";
 import { MannerMenu } from "./MannerMenu";
+import Menu from "./Menu";
 import { MyinfoDivider } from "./MyinfoDivider";
+import ProfileCard from "./ProfileCard";
 import { Status } from "./Status";
 
 const Myinfo = () => {
