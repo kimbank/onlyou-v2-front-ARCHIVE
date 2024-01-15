@@ -19,7 +19,7 @@ import BottomNavi from "@/components/BottomNavi";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 
-import DormancySwitch from "./DormancySwitch";
+import DormancyToggle from "./DormancyToggle";
 import ProfileCard from "./ProfileCard";
 import Menu from "./Menu";
 import { MannerMenu } from "./MannerMenu";
@@ -51,9 +51,11 @@ const Myinfo = () => {
             <MyinfoDivider />
             <Status />
             <MyinfoDivider />
-            {/* <DormancySwitch /> */}
           </Box>
           <Menu />
+          <MyinfoDivider />
+          <DormancyToggle />
+          <MyinfoDivider />
           <Box className="signout">
             <a href="/signout">
               <Typography variant="body2">로그아웃</Typography>

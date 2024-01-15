@@ -1,12 +1,14 @@
-import { styled, Button, Skeleton } from '@mui/material';
+import { styled, Button, Skeleton, Typography } from '@mui/material';
 import { useMyinfo } from '@/api/hooks/useMyinfo';
 import { switchDormancy } from '@/api/myinfo';
 import useModal from '@/hooks/useModal';
 
 import Drawer from "@/components/Drawer"
+import Toggle from "@/components/Toggle/iOS";
+import Backdrop from '@/components/Backdrop';
 
 const DormancySwitch = () => {
-  const { myInfo, isLoading, mutate } = useMyinfo();
+  const { myInfo, isLoading, mutate, isMutating } = useMyinfo();
   const { isModalOpen, openModal, closeModal } = useModal();
 
   async function handleDormancy() {
@@ -26,21 +28,18 @@ const DormancySwitch = () => {
 
   return (
     <>
-      {isLoading ?
-        <DormancySwitchSkeleton variant="rectangular" animation="wave" height={40} /> :
-        <DormancySwitchRoot>
-          {myInfo?.dormant ? // 휴면상태일 때
-            <>
-              <OffButton onClick={() => {openModal()}}>매칭 활성화</OffButton>
-              <OnButton>휴면</OnButton>
-            </> : // 휴면상태가 아닐 때
-            <>
-              <OnButton>매칭 활성화</OnButton>
-              <OffButton onClick={() => {openModal()}}>휴면</OffButton>
-            </>
-          }
-        </DormancySwitchRoot>
-      }
+      <Backdrop open={isMutating} />
+      <DormancyMenuRoot>
+        <span>
+          <Typography variant="subtitle1">
+            매칭 활성화하기
+          </Typography>
+          <Typography variant="body1">
+            현재 프로필을 받아 볼 수 있어요.
+          </Typography>
+        </span>
+        <Toggle checked={myInfo?.dormant} onChange={handleDormancy} onClick={() => {}} />
+      </DormancyMenuRoot>
       <Drawer
         title={"휴면 전환을 해제 하시겠습니까?"}
         body={myInfo?.dormant ? `${myInfo?.dormant}에 휴면되었습니다.` : "휴면 전환을 하면 매칭이 불가능해집니다."}
@@ -53,9 +52,10 @@ const DormancySwitch = () => {
   )
 }
 
-const DormancySwitchRoot = styled('div')({
-  borderRadius: '6px',
-  backgroundColor: '#D3D6DB',
+const DormancyMenuRoot = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   width: '100%',
   height: '40px',
   overflow: 'hidden',
@@ -63,7 +63,7 @@ const DormancySwitchRoot = styled('div')({
   animation: 'ease-in-out 0.3s',
 });
 
-const DormancySwitchSkeleton = styled(Skeleton)({
+const DormancyMenuSkeleton = styled(Skeleton)({
   borderRadius: '6px',
   backgroundColor: '#D3D6DB',
 });
