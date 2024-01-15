@@ -12,7 +12,7 @@ import colors from "@/assets/theme/base/colors";
 import { Box, Button, styled, Typography } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import { Certify } from "@/app/myinfo/Certify";
+import { Certify } from "./Certify";
 
 const { gray4, black, primary_lighten1 } = colors;
 const ConsistAPI = {
@@ -107,9 +107,6 @@ const ConsistCard = () => {
             프로필 상세보기
           </Typography>
         </DetailButton>
-        <SirenButton>
-          <Image src={Siren} alt="siren" width={18} height={18} />
-        </SirenButton>
       </Box>
     </ProfileCardRoot>
   );
@@ -196,21 +193,6 @@ const ProfileDetail = styled("div")({
 
 const DetailButton = styled(Button)({
   padding: "8px 12px",
-});
-
-const SirenButton = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "6px",
-  width: "34px",
-  height: "34px",
-  backgroundColor: "#FFE1DD",
-  cursor: "pointer",
-  "&:hover": {
-    opacity: 0.75,
-    boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
-  },
 });
 
 export default ConsistCard;
