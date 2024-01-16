@@ -4,6 +4,7 @@ import { StepButton } from "@/components/Button/StepButton";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { letterValue } from "@/constants/letter";
+import useModal from "@/hooks/useModal";
 import { RootState } from "@/store/store";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import {
@@ -25,6 +26,7 @@ const Index = () => {
     (state: RootState) => state.letter.letterValue
   );
   const questions = letterValue.options;
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   useEffect(() => {
     if (step < 1) {
@@ -32,7 +34,6 @@ const Index = () => {
       router.push("/application/letter/select?type=init");
     }
   }, [step, router]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   //인풋박스 텍스트 갯수
   const [lettertexts, setLetterTexts] = useState<string[]>(
@@ -72,13 +73,6 @@ const Index = () => {
       setLetterTexts(newTextValues);
     };
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
   //true 반환시 다음페이지 활성화
   const isAllChecked = onlyRead.every((state) => state === true);
 
@@ -154,10 +148,10 @@ const Index = () => {
         nextText="신청서 제출하기"
         prevHref="select/"
         nextType="button"
-        onClick={handleOpenModal}
+        onClick={openModal}
         checkedStates={isAllChecked}
       />
-      <LetterModal open={modalOpen} onClose={handleCloseModal} />
+      <LetterModal open={isModalOpen} onClose={closeModal} />
     </LetterRoot>
   );
 };

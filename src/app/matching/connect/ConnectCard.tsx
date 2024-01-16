@@ -1,66 +1,24 @@
 import Image from "next/image";
 
-import verified from "public/icons/verified.svg";
-import Job from "public/icons/job.svg";
-import Home from "public/icons/home.svg";
 import Birth from "public/icons/birth.svg";
+import Home from "public/icons/home.svg";
+import Job from "public/icons/job.svg";
 import Kakao from "public/icons/kakao.svg";
-import Siren from "public/images/agreement/siren.png";
+import verified from "public/icons/verified.svg";
 
-import { useMyinfo } from "@/api/hooks/useMyinfo";
 import colors from "@/assets/theme/base/colors";
 import { Box, Button, styled, Typography } from "@mui/material";
 
-import { useEffect, useState } from "react";
 import { Certify } from "./Certify";
+import { ConsistData } from "./Connect";
 
 const { gray4, black, primary_lighten1 } = colors;
-const ConsistAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    values: {
-      dateBirth: 2001,
-      dormant: null,
-      education: "전문대",
-      jobType: "Test",
-      nickname: "male_Test2",
-      residence: "인천",
-      kakaoId: "inguk",
-    },
-  },
-};
 
-interface ConsistData {
-  dateBirth: number | null;
-  dormant: number | null;
-  education: string | null;
-  jobType: string | null;
-  nickname: string | null;
-  residence: string | null;
-  kakaoId: string | null;
+interface CardProps {
+  data: ConsistData;
 }
 
-const ConsistCard = () => {
-  const [consistData, setConsistData] = useState<ConsistData>({
-    dateBirth: null,
-    dormant: null,
-    education: null,
-    jobType: null,
-    nickname: null,
-    residence: null,
-    kakaoId: null,
-  });
-
-  useEffect(() => {
-    const { values } = ConsistAPI.data;
-    setConsistData(values);
-    console.log("values", values);
-  }, []);
-  const { myInfo, isLoading, isError } = useMyinfo();
-
-  console.log("myInfo", myInfo);
-
+const ConsistCard = ({ data }: CardProps) => {
   return (
     <ProfileCardRoot>
       <ProfileCertification>
@@ -77,28 +35,28 @@ const ConsistCard = () => {
         <Box>
           <Box className="profileImage" />
           <Box>
-            <Typography variant="subtitle1">{consistData?.nickname}</Typography>
+            <Typography variant="subtitle1">{data?.nickname}</Typography>
           </Box>
         </Box>
       </ProfileInfo>
       <ProfileDetail>
         <span className="item">
           <Image src={Job} width={20} alt="직장" />
-          <Typography variant="body2">{consistData?.jobType}</Typography>
+          <Typography variant="body2">{data?.jobType}</Typography>
         </span>
         <span className="item">
           <Image src={Home} width={20} alt="거주지" />
-          <Typography variant="body2">{consistData?.residence}</Typography>
+          <Typography variant="body2">{data?.residence}</Typography>
         </span>
         <span className="item">
           <Image src={Birth} width={20} alt="나이" />
-          <Typography variant="body2">{consistData?.dateBirth}</Typography>
+          <Typography variant="body2">{data?.dateBirth}</Typography>
         </span>
         <span className="item">
           <Box>
-            <Image src={Kakao} width={15} height={13.75} alt="나이" />
+            <Image src={Kakao} width={15} height={13.75} alt="카카오" />
           </Box>
-          <Typography variant="body2">{consistData?.kakaoId}</Typography>
+          <Typography variant="body2">{data?.kakaoId}</Typography>
         </span>
       </ProfileDetail>
       <Box className="button-box">
