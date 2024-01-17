@@ -12,7 +12,7 @@ import { Box, Button, styled, Typography } from "@mui/material";
 import { Certify } from "./Certify";
 import { ConsistData } from "./Connect";
 import useModal from "@/hooks/useModal";
-import { ProfileModal } from "./ProfileModal";
+import { TargetProfileCard } from "./TargetProfileCard";
 
 const { gray4, black, primary_lighten1 } = colors;
 
@@ -25,7 +25,7 @@ const ConsistCard = ({ data }: CardProps) => {
 
   return (
     <>
-      <ProfileModal open={isModalOpen} onClose={closeModal} data={data} />
+      <TargetProfileCard open={isModalOpen} onClose={closeModal} data={data} />
       <ProfileCardRoot>
         <ProfileCertification>
           <Image src={verified} width={20} height={20} alt="verified" />

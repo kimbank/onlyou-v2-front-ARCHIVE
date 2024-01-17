@@ -56,15 +56,15 @@ export const TargetingInfo: InfoData = {
       dateBirth: 1998,
       me: {
         firstPriority: {
-          label: "1순위 조건",
+          label: "관심사",
           values: ["운동", "종교"],
         },
         secondPriority: {
-          label: "2순위 조건",
+          label: "내적 매력",
           values: ["성격", "이미지"],
         },
         thirdPriority: {
-          label: "3순위 조건",
+          label: "외적 매력",
           values: ["커리어", "정치성향"],
         },
       },
