@@ -12,10 +12,10 @@ import HomeHeader from "@/components/Header/HomeHeader";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 
+import { FullDivider } from "../../components/Dividers/FullDivider";
 import DormancyToggle from "./DormancyToggle";
 import { MannerMenu } from "./MannerMenu";
 import Menu from "./Menu";
-import { MyinfoDivider } from "./MyinfoDivider";
 import ProfileCard from "./ProfileCard";
 import { Status } from "./Status";
 
@@ -41,14 +41,14 @@ const Myinfo = () => {
           <Box className="profile-wrapper">
             <ProfileCard />
             <MannerMenu />
-            <MyinfoDivider />
+            <FullDivider />
             <Status />
-            <MyinfoDivider />
+            <FullDivider />
           </Box>
           <Menu />
-          <MyinfoDivider />
+          <FullDivider />
           <DormancyToggle />
-          <MyinfoDivider />
+          <FullDivider />
           <Box className="signout">
             <a href="/signout">
               <Typography variant="body2">로그아웃</Typography>

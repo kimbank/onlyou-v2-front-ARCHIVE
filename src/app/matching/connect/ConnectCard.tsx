@@ -11,6 +11,8 @@ import { Box, Button, styled, Typography } from "@mui/material";
 
 import { Certify } from "./Certify";
 import { ConsistData } from "./Connect";
+import useModal from "@/hooks/useModal";
+import { ProfileModal } from "./ProfileModal";
 
 const { gray4, black, primary_lighten1 } = colors;
 
@@ -19,54 +21,63 @@ interface CardProps {
 }
 
 const ConsistCard = ({ data }: CardProps) => {
-  return (
-    <ProfileCardRoot>
-      <ProfileCertification>
-        <Image src={verified} width={20} height={20} alt="verified" />
-        <Certify>
-          <Typography variant="body3">신분 인증</Typography>
-        </Certify>
-        <Certify>
-          <Typography variant="body3">직장 인증</Typography>
-        </Certify>
-      </ProfileCertification>
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-      <ProfileInfo>
-        <Box>
-          <Box className="profileImage" />
+  return (
+    <>
+      <ProfileModal open={isModalOpen} onClose={closeModal} data={data} />
+      <ProfileCardRoot>
+        <ProfileCertification>
+          <Image src={verified} width={20} height={20} alt="verified" />
+          <Certify>
+            <Typography variant="body3">신분 인증</Typography>
+          </Certify>
+          <Certify>
+            <Typography variant="body3">직장 인증</Typography>
+          </Certify>
+        </ProfileCertification>
+
+        <ProfileInfo>
           <Box>
-            <Typography variant="subtitle1">{data?.nickname}</Typography>
+            <Box className="profileImage" />
+            <Box>
+              <Typography variant="subtitle1">{data?.nickname}</Typography>
+            </Box>
           </Box>
+        </ProfileInfo>
+        <ProfileDetail>
+          <span className="item">
+            <Image src={Job} width={20} alt="직장" />
+            <Typography variant="body2">{data?.jobType}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Home} width={20} alt="거주지" />
+            <Typography variant="body2">{data?.residence}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Birth} width={20} alt="나이" />
+            <Typography variant="body2">{data?.dateBirth}</Typography>
+          </span>
+          <span className="item">
+            <Box>
+              <Image src={Kakao} width={15} height={13.75} alt="카카오" />
+            </Box>
+            <Typography variant="body2">{data?.kakaoId}</Typography>
+          </span>
+        </ProfileDetail>
+        <Box className="button-box">
+          <DetailButton
+            variant="contained"
+            color="secondary"
+            onClick={openModal}
+          >
+            <Typography variant="body2" color="gray2">
+              프로필 상세보기
+            </Typography>
+          </DetailButton>
         </Box>
-      </ProfileInfo>
-      <ProfileDetail>
-        <span className="item">
-          <Image src={Job} width={20} alt="직장" />
-          <Typography variant="body2">{data?.jobType}</Typography>
-        </span>
-        <span className="item">
-          <Image src={Home} width={20} alt="거주지" />
-          <Typography variant="body2">{data?.residence}</Typography>
-        </span>
-        <span className="item">
-          <Image src={Birth} width={20} alt="나이" />
-          <Typography variant="body2">{data?.dateBirth}</Typography>
-        </span>
-        <span className="item">
-          <Box>
-            <Image src={Kakao} width={15} height={13.75} alt="카카오" />
-          </Box>
-          <Typography variant="body2">{data?.kakaoId}</Typography>
-        </span>
-      </ProfileDetail>
-      <Box className="button-box">
-        <DetailButton variant="contained" color="secondary">
-          <Typography variant="body2" color="gray2">
-            프로필 상세보기
-          </Typography>
-        </DetailButton>
-      </Box>
-    </ProfileCardRoot>
+      </ProfileCardRoot>
+    </>
   );
 };
 

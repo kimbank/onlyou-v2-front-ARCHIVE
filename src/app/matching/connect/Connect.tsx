@@ -10,6 +10,12 @@ import useModal from "@/hooks/useModal";
 import { useSearchParams } from "next/navigation";
 import colors from "@/assets/theme/base/colors";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import {
+  InfoOption,
+  LetterData,
+  LetterOption,
+  TargetingInfo,
+} from "./ProfileData";
 
 const UserStatus = {
   RECEIVE: "receive",
@@ -29,6 +35,8 @@ const ConsistAPI = {
       nickname: "male_Test2",
       residence: "인천",
       kakaoId: "inguk",
+      letterOptions: LetterData.options,
+      targetingOptions: TargetingInfo.options,
     },
   },
 };
@@ -41,6 +49,8 @@ export interface ConsistData {
   nickname: string | null;
   residence: string | null;
   kakaoId: string | null;
+  letterOptions: LetterOption[];
+  targetingOptions: InfoOption[];
 }
 
 const { primary_lighten3 } = colors;
@@ -58,6 +68,8 @@ export const Connect = () => {
     nickname: null,
     residence: null,
     kakaoId: null,
+    letterOptions: [],
+    targetingOptions: [],
   });
 
   useEffect(() => {
@@ -213,6 +225,9 @@ const ConnectRoot = styled(Box)(() => {
       backgroundColor: "#FAE100",
       color: "#371D1E",
       "&:hover": {
+        backgroundColor: "#FAE100 !important",
+      },
+      "&:focus:not(:hover)": {
         backgroundColor: "#FAE100 !important",
       },
     },

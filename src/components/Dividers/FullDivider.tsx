@@ -2,7 +2,7 @@
 
 import colors from "@/assets/theme/base/colors";
 import { Box, styled } from "@mui/material";
-export const MyinfoDivider = () => {
+export const FullDivider = () => {
   return <DividerRoot />;
 };
 

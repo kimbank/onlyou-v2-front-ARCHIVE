@@ -1,7 +1,7 @@
 import { styled, Box, Typography } from "@mui/material";
 
 import MenuButton from "@/components/Button/MyinfoMenu";
-import { MyinfoDivider } from "./MyinfoDivider";
+import { FullDivider } from "../../components/Dividers/FullDivider";
 
 const Menu = () => {
   return (
@@ -48,7 +48,7 @@ const Menu = () => {
           </Typography>
         </MenuButton>
       </Box>
-      <MyinfoDivider />
+      <FullDivider />
       <Box className="menu-wrapper">
         <Typography
           variant="subtitle1"
