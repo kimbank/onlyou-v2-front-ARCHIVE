@@ -1,14 +1,10 @@
 "use client";
 
-import { theme } from "@/assets";
 import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import { useTransitionSelect } from "@/hooks/useTransitionSelect";
-import { ThemeProvider } from "@emotion/react";
-import { Container } from "@mui/material";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-
 
 export default function ApplicationLayout({
   children,
@@ -18,7 +14,6 @@ export default function ApplicationLayout({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-
 
   const pageMap: { [key: string]: number } = {
     "/application/me/values": 1,
@@ -51,7 +46,7 @@ export default function ApplicationLayout({
       ) : (
         <HomeHeader />
       )}
-      
+
       {children}
     </>
   );

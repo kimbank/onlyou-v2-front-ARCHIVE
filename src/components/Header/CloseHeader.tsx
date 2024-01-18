@@ -6,9 +6,13 @@ import CloseIcon from "@mui/icons-material/CloseRounded";
 
 import HeaderRoot from "./HeaderRoot";
 
-
-export const CloseHeader = ({ href = "/" }: { href: string }) => {
-
+export const CloseHeader = ({
+  href = "/",
+  onClose,
+}: {
+  href: string;
+  onClose?: () => void;
+}) => {
   return (
     <HeaderRoot>
       <div className="header-container">
@@ -24,7 +28,7 @@ export const CloseHeader = ({ href = "/" }: { href: string }) => {
             />
           </Link>
           <Link href={href} style={{ fontSize: "28px" }}>
-            <CloseIcon fontSize="inherit" />
+            <CloseIcon onClick={onClose} fontSize="inherit" />
           </Link>
         </header>
       </div>
