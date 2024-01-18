@@ -1,116 +1,167 @@
-import colors from "@/assets/theme/base/colors";
-import CloseIcon from "@mui/icons-material/CloseRounded";
-import { Box, Modal, styled, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
-import { ConsistData } from "./Connect";
-import { InfoTab } from "./tabs/InfoTab";
-import { LetterTab } from "./tabs/LetterTab";
+import Image from "next/image";
 
-interface TargetProfileCardProps {
-  open: boolean;
-  onClose: () => void;
+import Birth from "public/icons/birth.svg";
+import Home from "public/icons/home.svg";
+import Job from "public/icons/job.svg";
+import Kakao from "public/icons/kakao.svg";
+import verified from "public/icons/verified.svg";
+
+import colors from "@/assets/theme/base/colors";
+import { Box, Button, styled, Typography } from "@mui/material";
+
+import { Certify } from "./Certify";
+import { ConsistData } from "./Connect";
+import useModal from "@/hooks/useModal";
+import { TargetProfileModal } from "./TargetProfileModal";
+
+const { gray4, black, primary_lighten1 } = colors;
+
+interface CardProps {
   data: ConsistData;
 }
 
-export const TargetProfileCard = ({
-  open,
-  onClose,
-  data,
-}: TargetProfileCardProps) => {
-  const [priority, setPriority] = useState(1);
-  const titles = ["편지가 도착했어요", "자세한 정보에요", "사진이에요"];
+const TargetProfileCard = ({ data }: CardProps) => {
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const handleTabsChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setPriority(newValue);
-  };
   return (
-    <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
-      <div id="page">
-        <Root id="content">
-          <CloseIcon className="close-button" onClick={onClose} />
-          <Typography variant="h1">
-            {data?.nickname}님의 <br />
-            {titles[priority - 1]}
-          </Typography>
-          <Tabs
-            variant="fullWidth"
-            value={priority}
-            onChange={handleTabsChange}
-            textColor="primary"
-            indicatorColor="primary"
-          >
-            <Tab label="편지" value={1} />
-            <Tab label="상세정보" value={2} />
-            <Tab label="사진" value={3} />
-          </Tabs>
-          {priority === 1 && <LetterTab data={data} />}
-          {priority === 2 && <InfoTab data={data} />}
-          {priority === 3 && (
-            <Box className="picture-box">
-              <Box className="picture"></Box>
-              <Box className="picture"></Box>
+    <>
+      <TargetProfileModal open={isModalOpen} onClose={closeModal} data={data} />
+      <ProfileCardRoot>
+        <ProfileCertification>
+          <Image src={verified} width={20} height={20} alt="verified" />
+          <Certify>
+            <Typography variant="body3">신분 인증</Typography>
+          </Certify>
+          <Certify>
+            <Typography variant="body3">직장 인증</Typography>
+          </Certify>
+        </ProfileCertification>
+
+        <ProfileInfo>
+          <Box>
+            <Box className="profileImage" />
+            <Box>
+              <Typography variant="subtitle1">{data?.nickname}</Typography>
             </Box>
-          )}
-        </Root>
-      </div>
-    </Modal>
+          </Box>
+        </ProfileInfo>
+        <ProfileDetail>
+          <span className="item">
+            <Image src={Job} width={20} alt="직장" />
+            <Typography variant="body2">{data?.jobType}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Home} width={20} alt="거주지" />
+            <Typography variant="body2">{data?.residence}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Birth} width={20} alt="나이" />
+            <Typography variant="body2">{data?.dateBirth}</Typography>
+          </span>
+          <span className="item">
+            <Box>
+              <Image src={Kakao} width={15} height={13.75} alt="카카오" />
+            </Box>
+            <Typography variant="body2">{data?.kakaoId}</Typography>
+          </span>
+        </ProfileDetail>
+        <Box className="button-box">
+          <DetailButton
+            variant="contained"
+            color="secondary"
+            onClick={openModal}
+          >
+            <Typography variant="body2" color="gray2">
+              프로필 상세보기
+            </Typography>
+          </DetailButton>
+        </Box>
+      </ProfileCardRoot>
+    </>
   );
 };
-const Root = styled(Box)({
-  height: "100vh",
-  backgroundColor: "#fff",
-  display: "flex",
-  flexDirection: "column",
-  gap: "24px",
-  overflowX: "hidden",
-  overflowY: "scroll",
-  paddingBottom: "36px",
-  position: "relative",
-  ".close-button": {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    cursor: "pointer",
-    marginTop: "24px",
-    marginRight: "24px",
-  },
 
-  ".caption": {
-    marginBottom: "16px",
-  },
-  ".picture-box": {
+const ProfileCardRoot = styled("div")({
+  borderRadius: "8px",
+  border: `1px solid ${primary_lighten1}`,
+  padding: "20px",
+  display: "inline-flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: "16px",
+  ".button-box": {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     gap: "16px",
   },
-  ".picture": {
-    height: "200px",
-    backgroundColor: "#484848",
-    borderRadius: "6px",
-  },
-  ".btn-prior-selected": {
-    backgroundColor: "#fff !important",
-    color: "#f70 !important",
-    fontWeight: "700",
-    border: "1px solid #F70",
-  },
+});
 
-  "& .MuiTabs-root": {
-    width: "calc(100% + 24*2)",
-    margin: "0 -24px",
-    overflow: "unset",
-  },
+const ProfileCertification = styled("div")({
+  display: "flex",
+  gap: 8,
+  alignItems: "center",
+  height: 21,
+  "& Box": {},
+});
 
-  "& .MuiTab-root": {
-    fontWeight: "400",
-    borderBottom: "1px solid #D3D6DB",
+const ProfileInfo = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: 12,
+  ".profileImage": {
+    width: 56,
+    height: 56,
+    borderRadius: "50%",
+    backgroundColor: black,
   },
-
-  "& .Mui-selected": {
-    fontWeight: "700",
-  },
-
-  "& .MuiTabs-indicator": {
-    height: "4px",
+  "> div": {
+    display: "flex",
+    flexDirection: "row",
+    gap: 16,
+    "> div": {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: 4,
+      "> div": {
+        display: "flex",
+        justifyContent: "center",
+        border: `1px solid ${gray4}`,
+        padding: "2px 6px",
+        borderRadius: 4,
+        width: 47,
+        height: 21,
+        textAlign: "center",
+        whiteSpace: "nowrap",
+      },
+    },
   },
 });
+
+const ProfileDetail = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: 12,
+  ".item": {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: "8px",
+    "&> div": {
+      width: "20px",
+      height: "20px",
+      textAlign: "center",
+      borderRadius: "4px",
+      backgroundColor: "#FAE100",
+    },
+  },
+  "&> span:last-child": {
+    marginTop: 4,
+  },
+});
+
+const DetailButton = styled(Button)({
+  padding: "8px 12px",
+});
+
+export default TargetProfileCard;

@@ -12,13 +12,13 @@ import { Certify } from "./Certify";
 
 const { gray4, black, primary_lighten1 } = colors;
 
-const ProfileCard = () => {
+const MyinfoProfileCard = () => {
   const { myInfo, isLoading, isError } = useMyinfo();
 
   const manner = "36.5도";
 
   return (
-    <ProfileCardRoot>
+    <MyinfoProfileCardRoot>
       <ProfileCertification>
         <Image src={verified} width={20} height={20} alt="verified" />
         <Certify>
@@ -61,11 +61,11 @@ const ProfileCard = () => {
           프로필 상세보기
         </Typography>
       </DetailButton>
-    </ProfileCardRoot>
+    </MyinfoProfileCardRoot>
   );
 };
 
-const ProfileCardRoot = styled("div")({
+const MyinfoProfileCardRoot = styled("div")({
   borderRadius: "8px",
   border: `1px solid ${primary_lighten1}`,
   padding: "20px",
@@ -133,4 +133,4 @@ const DetailButton = styled(Button)({
   padding: "8px 12px",
 });
 
-export default ProfileCard;
+export default MyinfoProfileCard;

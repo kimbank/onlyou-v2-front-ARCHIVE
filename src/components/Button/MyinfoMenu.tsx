@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
-  href: string;
+  href?: string;
   variant?: "default" | "contained" | "outlined";
   color?: "primary" | "secondary";
   onClick?: () => void;
@@ -21,7 +21,7 @@ const Menu = ({
   onClick = () => {},
 }: Props) => {
   return (
-    <Link href={href} style={{ width: "100%" }}>
+    <Link href={href ?? ""} style={{ width: "100%" }}>
       <MenuRoot
         color={color === "primary" ? "primary" : "secondary"}
         variant={variant === "outlined" ? "outlined" : "contained"}

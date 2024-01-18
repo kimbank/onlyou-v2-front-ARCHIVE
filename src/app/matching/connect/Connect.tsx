@@ -2,7 +2,7 @@ import { Box, Button, styled, Typography } from "@mui/material";
 
 import Stopwatch from "public/icons/stopwatch.svg";
 import Image from "next/image";
-import ConnectCard from "./ConnectCard";
+import TargetProfileCard from "./TargetProfileCard";
 import { useEffect, useState } from "react";
 import Kakao from "public/icons/kakao.svg";
 import KakaoDrawer from "@/components/Drawer/KakaoDrawer";
@@ -126,7 +126,7 @@ export const Connect = () => {
         </Typography>
       </Typography>
       <Box className="profile-box">
-        <ConnectCard data={consistData} />
+        <TargetProfileCard data={consistData} />
       </Box>
       <Box className="caption">
         <Box>

@@ -16,7 +16,7 @@ import { FullDivider } from "../../components/Dividers/FullDivider";
 import DormancyToggle from "./DormancyToggle";
 import { MannerMenu } from "./MannerMenu";
 import Menu from "./Menu";
-import ProfileCard from "./ProfileCard";
+import MyinfoProfileCard from "./MyinfoProfileCard";
 import { Status } from "./Status";
 
 const Myinfo = () => {
@@ -39,7 +39,7 @@ const Myinfo = () => {
         <MyinfoRoot>
           <Typography variant="h1">내 정보</Typography>
           <Box className="profile-wrapper">
-            <ProfileCard />
+            <MyinfoProfileCard />
             <MannerMenu />
             <FullDivider />
             <Status />
