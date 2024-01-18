@@ -3,6 +3,70 @@ import CloseIcon from "@mui/icons-material/CloseRounded";
 import { Box, Modal, styled, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 
+
+const UserDataAll = {
+  "statusCode": 200,
+  "message": "Find Success",
+  "data": {
+      "nickname": "뱅크",
+      "appearance": { // 외모
+          "fillStatus": 2,
+          "animalImage": 1,
+          "doubleEyelid": 0,
+          "bodyType": 0,
+          "externalCharm": [
+              0,
+              3
+          ],
+          "tattoo": 0
+      },
+      "datingstyle": { // 연애 스타일
+          "fillStatus": 2,
+          "preferredDate": 0,
+          "preferredContactMethod": 0,
+          "loveInitiative": 0,
+          "datingFrequency": 0,
+          "contactStyle": 0,
+          "conflictResolutionMethod": 0
+      },
+      "lifestyle": { // 생활
+          "fillStatus": 2,
+          "workType": 0,
+          "smoking": 0,
+          "drinking": 0,
+          "interest": [
+              0,
+              1,
+              4,
+              5
+          ],
+          "numberDating": 0,
+          "athleticLife": 0,
+          "religion": 0
+      },
+      "personality": { // 성격
+          "fillStatus": 2,
+          "extrovert_introvert": 0,
+          "intuition_reality": 0,
+          "emotion_reason": 0,
+          "impromptu_plan": 0,
+          "personalityCharm": [
+              3,
+              4
+          ]
+      },
+      "values": { // 가치관
+        "fillStatus": 2,
+        "marriageValues": 0,
+        "oppositeSexFriendValues": 0,
+        "politicalValues": 0,
+        'consumptionValues': 0,
+        "careerFamilyValues": 0,
+        "childrenValues": 0,
+      },
+  }
+}
+
 interface ModifyModalProps {
   open: boolean;
   onClose: () => void;
