@@ -1,23 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import ProgressHeader from "@/components/Header/ProgressHeader";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { targetingCategories, targetingOptions } from "@/constants/targeting";
-import SettingOptionModal from "./SettingOptionModal";
-import { ChevronRightRounded } from "@mui/icons-material";
 import useModal from "@/hooks/useModal";
-import { styled, Button, Typography, Drawer } from "@mui/material";
+import { Button, styled, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import SettingOptionModal from "./SettingOptionModal";
 
-import TestDrawer from "@/components/Drawer";
-
-import BottomButton from "@/components/BottomButton/Container";
-import Esitimate from "./Estimate";
 import Menu from "@/components/Button/Menu";
 import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
+import Esitimate from "./Estimate";
+import { useSearchParams } from "next/navigation";
+import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
@@ -33,7 +28,8 @@ const DetailsPage = () => {
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
   const handleNext = () => {
     if (allGroupsSelected) {
       openNextModal();
@@ -85,12 +81,28 @@ const DetailsPage = () => {
       />
       <ContentRoot id="content">
         <div className="content-title">
-          <Typography variant="h1">각 조건을 상세히 지정해 주세요.</Typography>
-          <Typography variant="body1">
-            상세한 설정에 따라 예상 매칭 주기를 알려드려요
-          </Typography>
+          {!isInit ? (
+            <Typography variant="h1">조건 상세 설정 수정하기</Typography>
+          ) : (
+            <>
+              <Typography variant="h1">
+                각 조건을 상세히 지정해 주세요.
+              </Typography>
+              <Typography variant="body1">
+                상세한 설정에 따라 예상 매칭 주기를 알려드려요
+              </Typography>
+            </>
+          )}
         </div>
         <div className="content-body">
+          {!isInit && (
+            <Button sx={{ width: "100%" }} variant="contained">
+              <SwapHorizRoundedIcon
+                sx={{ width: "18px", height: "18px", marginRight: "8px" }}
+              />
+              <Typography variant="subtitle2">우선순위 변경하기</Typography>
+            </Button>
+          )}
           <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
             onClick={() => {

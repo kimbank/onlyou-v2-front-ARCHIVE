@@ -11,6 +11,7 @@ import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
 import { letterValue } from "@/constants/letter";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const MockupLetter = {
   "0": "0번 편지입니다.",
@@ -31,6 +32,8 @@ const Index = () => {
   >({});
 
   const [letter, setLetter] = useState({});
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
 
   useEffect(() => {
     const res = MockupLetter;

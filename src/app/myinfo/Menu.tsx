@@ -40,7 +40,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => openModalWithTab(2)}
+            href="/application/targeting/details"
           >
             <Typography variant="body2" color="black">
               이상형 정보 수정하기
@@ -67,7 +67,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => openModalWithTab(5)}
+            href="/application/letter/write"
           >
             <Typography variant="body2" color="black">
               편지 수정하기

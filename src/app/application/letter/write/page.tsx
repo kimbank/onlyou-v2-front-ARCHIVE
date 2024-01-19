@@ -7,6 +7,7 @@ import { letterValue } from "@/constants/letter";
 import useModal from "@/hooks/useModal";
 import { RootState } from "@/store/store";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import {
   Box,
   Button,
@@ -15,25 +16,41 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLetterValues, toggle } from "@/store/letterValueSlice";
+import { FullDivider } from "@/components/Dividers/FullDivider";
 
 const Index = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const step = useSelector((state: RootState) => state.letter.step);
   const letterValues = useSelector(
     (state: RootState) => state.letter.letterValue
   );
   const questions = letterValue.options;
   const { isModalOpen, openModal, closeModal } = useModal();
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+
+  const mockLetterValues = ["0", "3", "4"];
+  const mockAnswers = [
+    "현재 책을 읽고 있어요.",
+    "친구들과의 즐거운 순간들이 매력적이라고 해요.",
+    "주말마다 등산을 즐깁니다.",
+  ];
 
   useEffect(() => {
-    if (step < 1) {
+    console.log("letterValues", letterValues);
+    if (!isInit) {
+      dispatch(setLetterValues(mockLetterValues));
+      setLetterTexts(mockAnswers);
+    } else if (isInit && step < 1) {
       alert("잘못된 접근입니다.");
       router.push("/application/letter/select?type=init");
     }
-  }, [step, router]);
+  }, [step, router, isInit, dispatch]);
 
   //인풋박스 텍스트 갯수
   const [lettertexts, setLetterTexts] = useState<string[]>(
@@ -76,20 +93,63 @@ const Index = () => {
   //true 반환시 다음페이지 활성화
   const isAllChecked = onlyRead.every((state) => state === true);
 
+  const handleDelete = (index: number) => {
+    setLetterTexts(lettertexts.map((text, idx) => (idx === index ? "" : text)));
+  };
+  const handleSelect = () => {
+    mockLetterValues.forEach((value) => {
+      dispatch(toggle(value));
+    });
+
+    // select/ 페이지로 이동
+    router.push("select/");
+  };
   return (
     <LetterRoot id="content">
-      <Typography variant="h1">
-        📝 <br />
-        이제 편지를 작성해 볼까요?
-      </Typography>
+      {isInit ? (
+        <Typography variant="h1">
+          📝 <br />
+          이제 편지를 작성해 볼까요?
+        </Typography>
+      ) : (
+        <Typography variant="h1">
+          편지 수정하기
+          <br />
+          <Typography variant="body1">
+            질문과 답변을 추가하거나 삭제할 수 있어요
+          </Typography>
+        </Typography>
+      )}
       <InfoText bgColor="primary">
         <ReportGmailerrorredIcon color="primary" />
-        <Typography variant="body2" className="caption">
-          편지를 정성스레 쓸 수록 성사율이 올라가요!
-        </Typography>
+        {isInit ? (
+          <Typography variant="body2" className="caption">
+            "편지를 정성스레 쓸 수록 성사율이 올라가요!
+          </Typography>
+        ) : (
+          <Typography variant="body2">
+            <strong>최소 3개</strong> 이상의 편지를 필수로 작성하셔야해요.
+          </Typography>
+        )}
       </InfoText>
 
       <Container className="letter-box">
+        {isInit ? (
+          <div></div>
+        ) : (
+          <Button
+            sx={{ width: "100% !important" }}
+            variant="outlined"
+            color="primary"
+            onClick={handleSelect}
+          >
+            <AddRoundedIcon
+              sx={{ width: "18px", height: "18px", marginRight: "8px" }}
+            />
+            <Typography variant="subtitle2">질문 추가하기</Typography>
+          </Button>
+        )}
+        {!isInit && <FullDivider />}
         {letterValues.map((key, index) => (
           <Box className="letter-write" key={index}>
             <Typography className="letter-title" variant="subtitle2">
@@ -112,6 +172,7 @@ const Index = () => {
               }}
               onChange={handleTextChange(index)}
               readOnly={onlyRead[index]}
+              value={lettertexts[index] || ""}
             />
             <Box className="caption-box">
               <Typography variant="caption">
@@ -120,13 +181,20 @@ const Index = () => {
                   variant="caption"
                   color={textVaild[index] ? "red" : "inherit"}
                 >
-                  {lettertexts[index].length}
+                  {lettertexts[index]?.length || 0}
                 </Typography>
                 자
               </Typography>
             </Box>
             <Container className="letter-box-values">
-              {lettertexts[index].length > 0 ? (
+              {isInit ? (
+                <div></div>
+              ) : (
+                <Button color="secondary" onClick={() => handleDelete(index)}>
+                  삭제하기
+                </Button>
+              )}
+              {lettertexts[index]?.length > 0 ? (
                 <>
                   <Button variant="contained" onClick={toggleEditMode(index)}>
                     <Typography color="white" variant="subtitle2">
@@ -140,17 +208,25 @@ const Index = () => {
                 </Button>
               )}
             </Container>
+            {!isInit && (
+              <Box sx={{ marginTop: "16px" }}>
+                <FullDivider />
+              </Box>
+            )}
           </Box>
         ))}
       </Container>
-      <StepButton
-        prevText="이전"
-        nextText="신청서 제출하기"
-        prevHref="select/"
-        nextType="button"
-        onClick={openModal}
-        checkedStates={isAllChecked}
-      />
+      {isInit && (
+        <StepButton
+          prevText="이전"
+          nextText="신청서 제출하기"
+          prevHref="select/"
+          nextType="button"
+          onClick={openModal}
+          checkedStates={isAllChecked}
+        />
+      )}
+
       <LetterModal open={isModalOpen} onClose={closeModal} />
     </LetterRoot>
   );
@@ -178,7 +254,7 @@ const LetterRoot = styled(Container)(({ theme }) => {
       position: "relative",
       "& .caption-box": {
         position: "absolute",
-        bottom: 52,
+        bottom: 76,
         marginLeft: "16px",
       },
     },
@@ -187,6 +263,7 @@ const LetterRoot = styled(Container)(({ theme }) => {
       width: "100%",
       justifyContent: "flex-end",
       padding: "0",
+      gap: "16px",
     },
   };
 });

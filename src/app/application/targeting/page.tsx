@@ -17,6 +17,7 @@ import OptionModal from "./OptionModal";
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
 import { fontSize } from "@mui/system";
+import { useSearchParams } from "next/navigation";
 
 const TargetingPage = () => {
   const {
@@ -27,6 +28,8 @@ const TargetingPage = () => {
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
 
   const isTargetingEmpty = Object.keys(targetingState).every(
     (field: string) => {
