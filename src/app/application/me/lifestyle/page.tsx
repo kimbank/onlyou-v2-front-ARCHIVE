@@ -30,7 +30,7 @@ const LifestyleAPI = {
 }
 
 interface LifestyleData {
-  fillStatus: number | null;
+  // fillStatus: number | null;
   workType: number | null;
   smoking: number | null;
   drinking: number | null;
@@ -45,7 +45,7 @@ const LifestylePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [lifestyleData, setLifestyleData] = useState<LifestyleData>({
-    fillStatus: null,
+    // fillStatus: null,
     workType: null,
     smoking: null,
     drinking: null,
@@ -58,8 +58,8 @@ const LifestylePage = () => {
   const isCompleteFillData = Object.values(lifestyleData).every((value) => value !== null);
 
   useEffect(() => {
-    const { lifestyle } = LifestyleAPI.data;
-    setLifestyleData(lifestyle);
+    // const { lifestyle } = LifestyleAPI.data;
+    // setLifestyleData(lifestyle);
   }, [])
 
   async function handleNext() {

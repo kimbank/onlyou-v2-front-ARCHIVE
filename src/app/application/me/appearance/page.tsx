@@ -26,7 +26,7 @@ const AppearanceAPI = {
 }
 
 interface AppearanceData {
-  fillStatus: number | null;
+  // fillStatus: number | null;
   animalImage: number | null;
   doubleEyelid: number | null;
   bodyType: number | null;
@@ -38,7 +38,7 @@ const AppearancePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [appearanceData, setAppearanceData] = useState<AppearanceData>({
-    fillStatus: null,
+    // fillStatus: null,
     animalImage: null,
     doubleEyelid: null,
     bodyType: null,
@@ -49,8 +49,8 @@ const AppearancePage = () => {
   const isCompleteFillData = Object.values(appearanceData).every((value) => value !== null);
 
   useEffect(() => {
-    const { appearance } = AppearanceAPI.data;
-    setAppearanceData(appearance);
+    // const { appearance } = AppearanceAPI.data;
+    // setAppearanceData(appearance);
   }, [])
 
 

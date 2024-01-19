@@ -24,7 +24,7 @@ const DatingStyleAPI = {
 }
 
 interface DatingStyleData {
-  fillStatus: number | null;
+  // fillStatus: number | null;
   preferredDate: number | null;
   preferredContactMethod: number | null;
   loveInitiative: number | null;
@@ -37,7 +37,7 @@ const DatingStylePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [datingStyleData, setDatingStyleData] = useState<DatingStyleData>({
-    fillStatus: null,
+    // fillStatus: null,
     preferredDate: null,
     preferredContactMethod: null,
     loveInitiative: null,
@@ -49,8 +49,8 @@ const DatingStylePage = () => {
   const isCompleteFillData = Object.values(datingStyleData).every((value) => value !== null);
 
   useEffect(() => {
-    const { datingstyle } = DatingStyleAPI.data;
-    setDatingStyleData(datingstyle);
+    // const { datingstyle } = DatingStyleAPI.data;
+    // setDatingStyleData(datingstyle);
   }, [])
 
   async function handleNext() {

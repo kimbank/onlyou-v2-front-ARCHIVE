@@ -23,7 +23,7 @@ const ValuesAPI = {
 };
 
 interface ValuesData {
-  fillStatus: number | null;
+  // fillStatus: number | null;
   marriageValues: number | null;
   oppositeSexFriendValues: number | null;
   politicalValues: number | null;
@@ -36,7 +36,7 @@ const ValuesPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [valuesData, setValuesData] = useState<ValuesData>({
-    fillStatus: null,
+    // fillStatus: null,
     marriageValues: null,
     oppositeSexFriendValues: null,
     politicalValues: null,
@@ -50,8 +50,8 @@ const ValuesPage = () => {
   );
 
   useEffect(() => {
-    const { values } = ValuesAPI.data;
-    setValuesData(values);
+    // const { values } = ValuesAPI.data;
+    // setValuesData(values);
   }, []);
 
   async function handleNext() {

@@ -26,7 +26,7 @@ const PersonalityAPI = {
 }
 
 interface PersonalityData {
-  fillStatus: number | null;
+  // fillStatus: number | null;
   extrovert_introvert: number | null;
   intuition_reality: number | null;
   emotion_reason: number | null;
@@ -38,7 +38,7 @@ const PersonalityPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [personalityData, setPersonalityData] = useState<PersonalityData>({
-    fillStatus: null,
+    // fillStatus: null,
     extrovert_introvert: null,
     intuition_reality: null,
     emotion_reason: null,
@@ -49,8 +49,8 @@ const PersonalityPage = () => {
   const isCompleteFillData = Object.values(personalityData).every((value) => value !== null);
 
   useEffect(() => {
-    const { personality } = PersonalityAPI.data;
-    setPersonalityData(personality);
+    // const { personality } = PersonalityAPI.data;
+    // setPersonalityData(personality);
   }, [])
 
   async function handleNext() {
