@@ -1,9 +1,8 @@
-import { styled, Zoom, Typography, Box } from "@mui/material";
 import { meCategories } from "@/constants/me";
+import { styled, Typography } from "@mui/material";
 
-import RadioOptions from "./RadioOptions";
 import ChipOptions from "./ChipOptions";
-import { useEffect } from "react";
+import RadioOptions from "./RadioOptions";
 
 interface OptionsListProps {
   optionName:

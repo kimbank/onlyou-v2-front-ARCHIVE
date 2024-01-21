@@ -56,10 +56,13 @@ const CheckboxRoot = styled(Button)(({ checked, disabled }: CheckboxProps) => {
       border: `1px solid ${gray3}`,
     },
     "&:hover": {
-      backgroundColor: checked ? white : gray5,
+      backgroundColor: checked ? white : white,
+    },
+    "&:focus:not(:hover)": {
+      backgroundColor: checked ? white : white,
     },
     "&:focus, &:focus-within": {
-      backgroundColor: checked ? white : gray5,
+      backgroundColor: checked ? white : white,
     },
     ".checkbox": {
       width: 26.67,

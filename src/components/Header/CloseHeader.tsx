@@ -10,9 +10,17 @@ export const CloseHeader = ({
   href = "/",
   onClose,
 }: {
-  href: string;
+  href?: string;
   onClose?: () => void;
 }) => {
+  const handleClick = (event: React.MouseEvent) => {
+    if (onClose) {
+      event.preventDefault();
+      event.stopPropagation();
+      onClose();
+    }
+  };
+
   return (
     <HeaderRoot>
       <div className="header-container">
@@ -28,7 +36,7 @@ export const CloseHeader = ({
             />
           </Link>
           <Link href={href} style={{ fontSize: "28px" }}>
-            <CloseIcon onClick={onClose} fontSize="inherit" />
+            <CloseIcon onClick={handleClick} fontSize="inherit" />
           </Link>
         </header>
       </div>

@@ -26,7 +26,7 @@ const MachingCard = () => {
         </Box>
       </Box>
       <Divider />
-      <Typography color="gray2" variant="body2">
+      <Typography variant="body2">
         예상매칭주기 : <strong>9일+</strong>
       </Typography>
     </MachingCardRoot>

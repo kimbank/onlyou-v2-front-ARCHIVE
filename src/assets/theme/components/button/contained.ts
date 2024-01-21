@@ -18,8 +18,6 @@ const contained = {
   large: {
     width: "100%",
     minHeight: "52px",
-    backgroundColor: primary,
-    color: white,
     padding: "8px",
     fontSize: "16px",
     fontStyle: "normal",
@@ -38,6 +36,7 @@ const contained = {
 
   primary: {
     backgroundColor: primary,
+    color: white,
 
     "&:hover": {
       backgroundColor: primary_darken,

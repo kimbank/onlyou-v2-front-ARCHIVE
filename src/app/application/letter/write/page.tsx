@@ -65,9 +65,17 @@ const Index = () => {
   const [textVaild, setTextValid] = useState<boolean[]>(
     letterValues.map(() => false)
   );
+  const updateTextValid = (index: number, newText: string) => {
+    const isValid = newText.length <= 30;
+    setTextValid((prevTextValid) =>
+      prevTextValid.map((item, idx) => (idx === index ? !isValid : item))
+    );
+  };
 
   // 텍스트박스 하단 저장하기 토글함수
   const toggleEditMode = (checkedIndex: number) => () => {
+    updateTextValid(checkedIndex, lettertexts[checkedIndex]);
+
     if (lettertexts[checkedIndex].length >= 30) {
       const newReadOnlyStates = [...onlyRead];
       newReadOnlyStates[checkedIndex] = !newReadOnlyStates[checkedIndex];
@@ -82,13 +90,21 @@ const Index = () => {
     }
   };
 
-  const handleTextChange =
-    (checkedIndex: number) =>
-    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const newTextValues = [...lettertexts];
-      newTextValues[checkedIndex] = event.target.value;
-      setLetterTexts(newTextValues);
-    };
+  const handleTextChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const newText = event.target.value;
+    const newTextValues = [...lettertexts];
+    newTextValues[index] = newText;
+    setLetterTexts(newTextValues);
+
+    if (newText.length > 30) {
+      setTextValid((prev) =>
+        prev.map((val, idx) => (idx === index ? false : val))
+      );
+    }
+  };
 
   //true 반환시 다음페이지 활성화
   const isAllChecked = onlyRead.every((state) => state === true);
@@ -124,7 +140,7 @@ const Index = () => {
         <ReportGmailerrorredIcon color="primary" />
         {isInit ? (
           <Typography variant="body2" className="caption">
-            "편지를 정성스레 쓸 수록 성사율이 올라가요!
+            편지를 정성스레 쓸 수록 성사율이 올라가요!
           </Typography>
         ) : (
           <Typography variant="body2">
@@ -170,7 +186,7 @@ const Index = () => {
                 color: onlyRead[index] ? "gray" : "black",
                 resize: "none",
               }}
-              onChange={handleTextChange(index)}
+              onChange={(e) => handleTextChange(e, index)}
               readOnly={onlyRead[index]}
               value={lettertexts[index] || ""}
             />

@@ -9,17 +9,15 @@ export const Status = ({ children }: any) => {
         이용권
       </Typography>
       <Box className="status-title">
-        <Typography color="gray1" variant="body2">
-          매너온도
+        <Typography color="gray2" variant="subtitle2">
+          사용 현황
         </Typography>
-        <Typography color="gray1" variant="body2">
-          사용이 N회 남았어요
-        </Typography>
+        <Typography variant="body2">사용이 N회 남았어요</Typography>
       </Box>
       <Divider />
       <Box className="status-title">
-        <Typography color="gray1" variant="body2">
-          매너온도
+        <Typography color="gray2" variant="subtitle2">
+          추가 구매
         </Typography>
         <Button>
           <Typography variant="body2">구매하기</Typography>

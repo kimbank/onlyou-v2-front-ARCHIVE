@@ -51,7 +51,7 @@ export const MannerMenu = ({ children }: any) => {
                 variant="body2"
                 color="gray2"
               >
-                지역 상세 설명 보기
+                매너온도의 기준이 무엇인가요?
               </Typography>
             </Button>
           </Box>

@@ -109,7 +109,7 @@ const Home = () => {
               required
               fullWidth
               name="code"
-              label="인증번호"
+              label="인증번호 6자리"
               type="code"
               id="code"
               autoComplete="current-password"

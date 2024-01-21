@@ -16,18 +16,18 @@ const MachingLoading = () => {
         인연을 찾는 중...
       </Typography>
       <Box className="loading-box">
-        <Box className="loading"></Box>
+        <Box className="loading top" />
         <Box className="item">
           <Image src={Job} width={20} alt="직장" />
-          <Box className="loading"></Box>
+          <Box className="loading" />
         </Box>
         <Box className="item">
           <Image src={Home} width={20} alt="거주지" />
-          <Box className="loading"></Box>
+          <Box className="loading" />
         </Box>
         <Box className="item">
           <Image src={Birth} width={20} alt="나이" />
-          <Box className="loading"></Box>
+          <Box className="loading" />
         </Box>
       </Box>
     </MachingLoadingRoot>
@@ -55,6 +55,9 @@ const MachingLoadingRoot = styled(Box)(() => {
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
+      },
+      ".top": {
+        borderRadius: "6px",
       },
       ".loading:nth-child(1)": {
         backgroundColor: `white !important`,

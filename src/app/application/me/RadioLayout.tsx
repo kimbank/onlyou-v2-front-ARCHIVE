@@ -115,7 +115,7 @@ const RadioLayout = ({
 
 export default RadioLayout;
 
-const ValueRoot = styled('div')(({ theme }) => {
+const ValueRoot = styled("div")(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",

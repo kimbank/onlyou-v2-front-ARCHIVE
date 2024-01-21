@@ -3,6 +3,7 @@
 import BottomButton from "@/components/BottomButton/Next";
 import { Button, Typography } from "@mui/material";
 import Image from "next/image";
+import CompleteLogo from "public/images/application/complete.png";
 const Index = () => {
   const router = useRouter();
 
@@ -15,12 +16,7 @@ const Index = () => {
     <>
       <CloseHeader href="/" />
       <CompleteRoot>
-        <Image
-          src="/complete_1080x1080.png"
-          alt="complete"
-          width={176}
-          height={176}
-        />
+        <Image src={CompleteLogo} alt="complete" width={176} height={176} />
         <Typography variant="h1">매칭신청서 작성완료</Typography>
         <Typography variant="body1">
           작성하느라 수고하셨어요

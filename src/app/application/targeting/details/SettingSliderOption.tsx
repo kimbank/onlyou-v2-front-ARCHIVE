@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Slider, Box, Typography } from "@mui/material";
 
@@ -9,19 +8,32 @@ import { RangeOption } from "@/constants/application_option";
 
 const SettingSliderOption = ({ optionName }: { optionName: string }) => {
   const dispatch = useDispatch();
-  const { from, to } = useSelector((state: RootState) => state.targeting[optionName]);
+  const { from, to } = useSelector(
+    (state: RootState) => state.targeting[optionName]
+  );
   const { from: min, to: max } = allRangeOptions[optionName] as RangeOption;
-  const [value, setValue] = useState<number[]>([from ? from : min, to ? to : max]);
+  const [value, setValue] = useState<number[]>([
+    from ? from : min,
+    to ? to : max,
+  ]);
 
-  console.log("rerenderd");
-
+  console.log("value", value);
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
-  const handleChangeComitted = async (event: any, newValue: number | number[]) => {
+  const handleChangeComitted = async (
+    event: any,
+    newValue: number | number[]
+  ) => {
     newValue = newValue as number[];
-    dispatch(setTargetingRangeField({ field: optionName, from: value[0], to: value[1] }));
+    dispatch(
+      setTargetingRangeField({
+        field: optionName,
+        from: value[0],
+        to: value[1],
+      })
+    );
   };
 
   return (
@@ -38,16 +50,19 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
           max={max}
         />
       </Box>
-      <span style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-        <Typography variant="caption">
-          {value[0]}년생
-        </Typography>
-        <Typography variant="caption">
-          {value[1]}년생
-        </Typography>
+      <span
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography variant="caption">{value[0]}년생</Typography>
+        <Typography variant="caption">{value[1]}년생</Typography>
       </span>
     </>
-  )
-}
+  );
+};
 
 export default SettingSliderOption;

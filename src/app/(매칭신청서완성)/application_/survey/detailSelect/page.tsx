@@ -136,7 +136,7 @@ const Index = () => {
       <Divider className="divider" />
       <Box className="content-box">
         <Typography variant="subtitle1">
-          선호하는 거주지를 모두 설정해 주세요.
+          선호하는 거주지를 <strong>모두</strong> 설정해 주세요.
         </Typography>
 
         <Tooltip

@@ -20,7 +20,7 @@ import AlertModal from "@/components/Modal/Default";
 import useModal from "@/hooks/useModal";
 import CloseHeader from "@/components/Header/CloseHeader";
 
-const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
+const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
   const {
     isModalOpen: isAlertOpen,
@@ -74,7 +74,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
       />
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
-          <CloseHeader onClose={onClose} />
+          <CloseHeader href="details/" onClose={onClose} />
           <Root id="content">
             <Box className="title-box">
               <Typography variant="h1">{titles[priority - 1]}</Typography>
@@ -95,9 +95,9 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
               <Tab label="2순위" value={2} />
               <Tab label="3순위" value={3} />
             </Tabs>
-            {/* <Typography variant="body2">
+            <Typography variant="body2">
               *다른 회원 분들은 평균 6개의 조건을 설정했어요.
-            </Typography> */}
+            </Typography>
             {Object.keys(targetingCategories).map((category: string) => {
               if (category === "default") return;
               return (
@@ -154,7 +154,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
           </Root>
           <BottomButton>
             <Button variant="contained" size="large" onClick={onClose}>
-              저장하기
+              <Typography variant="subtitle1">변경 완료</Typography>
             </Button>
           </BottomButton>
         </div>
@@ -224,4 +224,4 @@ const Root = styled("div")({
   },
 });
 
-export default OptionModal;
+export default ModifyOptionModal;

@@ -106,7 +106,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                 <Typography
                   className="tooltip-text"
                   variant="body3"
-                  color="gray2"
+                  color="gray"
                 >
                   지역 상세 설명 보기
                 </Typography>
@@ -117,7 +117,11 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
         <Box className="button-box">
           {allOption["기타"] && (
             <Box className="button-box" key="기타">
-              <Box className="button">{renderOptionButtons("기타")}</Box>
+              <Box className="button">
+                <Typography variant="h1" color="gray1">
+                  {renderOptionButtons("기타")}
+                </Typography>
+              </Box>
             </Box>
           )}
           {Object.keys(allOption)
@@ -137,7 +141,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       }
                       onClick={() => handleOptionClick(Number(optionKey))}
                     >
-                      <Typography variant="body2">
+                      <Typography variant="body2" color="gray1">
                         {allOption[group][optionKey]}
                       </Typography>
                     </Button>
@@ -162,8 +166,10 @@ const Root = styled(Box)(() => {
       flexDirection: "column",
       flexWrap: "wrap",
       gap: "12px",
+      width: "100%",
     },
     ".button": {
+      width: "100%",
       display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",

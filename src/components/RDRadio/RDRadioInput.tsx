@@ -18,7 +18,11 @@ interface optionsProps {
 }
 const { primary, primary_lighten3, gray4, gray5 } = colors;
 
-const RDRadioInput = ({ options, onChange, initialValue=null }: optionsProps) => {
+const RDRadioInput = ({
+  options,
+  onChange,
+  initialValue = null,
+}: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
 
   useEffect(() => {
@@ -70,7 +74,11 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
   borderRadius: "6px",
   backgroundColor: checked ? primary_lighten3 : "transparent",
   "&:hover": {
-    backgroundColor: gray5,
+    backgroundColor: checked ? primary_lighten3 : gray5,
+    opacity: 0.95,
+  },
+  "&:focus:not(:hover)": {
+    backgroundColor: primary_lighten3,
   },
   "&:focus, &:focus-within": {
     backgroundColor: checked

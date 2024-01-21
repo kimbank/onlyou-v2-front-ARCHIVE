@@ -1,3 +1,5 @@
+import React from "react";
+
 /** 범위형 선지 */
 export interface RangeOption {
   /** 영문 명 */
@@ -54,7 +56,7 @@ export const birthYear: RangeOption = {
 // 거주지 : 무조건 반영
 export const residence: GroupedOption = {
   name: "residence",
-  label: "선호하는 거주지를 모두 설정해주세요.",
+  label: "거주지",
   me: "radio",
   targeting: "chip",
   options: {

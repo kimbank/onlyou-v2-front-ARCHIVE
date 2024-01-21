@@ -1,4 +1,4 @@
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, Button, Collapse, styled, Typography } from "@mui/material";
 
 import Stopwatch from "public/icons/stopwatch.svg";
 import Image from "next/image";
@@ -80,7 +80,16 @@ export const Connect = () => {
   const handleGoBack = () => {
     console.log("만남성사");
   };
-  const { isModalOpen, openModal, closeModal } = useModal();
+  const {
+    isModalOpen: isCollapseOpen,
+    openModal: openCollapseModal,
+    closeModal: closeCollapseModal,
+  } = useModal(true);
+  const {
+    isModalOpen: isModalOpen,
+    openModal: openModal,
+    closeModal: closeModal,
+  } = useModal();
   const handleStatusChange = () => {
     setStatus((currentStatus) => {
       switch (currentStatus) {
@@ -99,17 +108,20 @@ export const Connect = () => {
   return (
     <ConnectRoot>
       {!isInit && (
-        <OriginModal>
-          <CloseIcon />
-          <Typography>
-            새롭게 추가된 조건인
-            <br />
-            <strong>연봉, 외향/내향, 외적 매력, 내적 매력</strong>을 채워주세요.
-          </Typography>
-          <Button variant="contained" color="primary">
-            내 정보 수정 바로가기
-          </Button>
-        </OriginModal>
+        <Collapse in={isCollapseOpen}>
+          <OriginModal>
+            <CloseIcon onClick={closeCollapseModal} />
+            <Typography>
+              새롭게 추가된 조건인
+              <br />
+              <strong>연봉, 외향/내향, 외적 매력, 내적 매력</strong>을
+              채워주세요.
+            </Typography>
+            <Button variant="contained" color="primary">
+              내 정보 수정 바로가기
+            </Button>
+          </OriginModal>
+        </Collapse>
       )}
       <Typography variant="h1">
         {status === UserStatus.MATCH

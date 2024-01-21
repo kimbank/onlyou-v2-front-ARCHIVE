@@ -16,16 +16,16 @@ import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import useModal from "@/hooks/useModal";
 import EtcRoot from "./EtcRoot";
-
+import colors from "@/assets/theme/base/colors";
 
 const EtcAPI = {
-  "statusCode": 200,
-  "message": "Find Success",
-  "data": {
-      "nickname": "뱅크"
-  }
-}
-
+  statusCode: 200,
+  message: "Find Success",
+  data: {
+    nickname: "뱅크",
+  },
+};
+const { gray2 } = colors;
 
 const Etc = () => {
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
@@ -33,7 +33,7 @@ const Etc = () => {
   );
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const { isModalOpen, openModal, closeModal } = useModal();
-
+  const [kakaoId, setKakaoId] = useState("");
   const searchParams = useSearchParams();
 
   const type = searchParams.get("type");
@@ -51,9 +51,15 @@ const Etc = () => {
       setActiveGroupIndex(nextIndex);
     }
   };
-  const allGroupsSelected = radioGroups.every(
-    (group) => selectedValues[group.title] != null
-  );
+  const handleKakaoIdChange = (event: any) => {
+    setKakaoId(event.target.value);
+  };
+  const allGroupsSelected = useMemo(() => {
+    return (
+      radioGroups.every((group) => selectedValues[group.title] != null) &&
+      kakaoId.trim() !== ""
+    );
+  }, [radioGroups, selectedValues, kakaoId]);
 
   // useEffect(() => {
   //   console.log("selectedValues", selectedValues);
@@ -66,7 +72,8 @@ const Etc = () => {
       <EtcRoot id="content">
         <Box className="title-box">
           <Typography variant="subtitle2">
-            <strong>6</strong>/6
+            <strong>6</strong>
+            <span style={{ color: "#5C5F63" }}>/6</span>
           </Typography>
           <Typography variant="h1">기타 정보 입력하기</Typography>
         </Box>
@@ -90,6 +97,8 @@ const Etc = () => {
           <RDInput
             label="카카오톡 아이디"
             placeholder="카카오톡 아이디를 입력해주세요"
+            value={kakaoId}
+            onChange={handleKakaoIdChange}
           />
           <Typography variant="body2">
             *매칭 성사 시, 카카오톡 아이디가 교환되어요.

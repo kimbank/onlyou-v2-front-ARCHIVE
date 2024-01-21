@@ -14,7 +14,7 @@ const DivergePage = () => {
           <Typography variant="body2">
             고객님께서 다른 인연을 찾을 수 있도록
             <br />
-            최선으러 다해 매칭해 드릴게요.
+            최선을 다해 매칭해 드릴게요.
           </Typography>
         </Typography>
         <MachingLoading />

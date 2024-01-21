@@ -1,5 +1,6 @@
 "use client";
 
+import CloseHeader from "@/components/Header/CloseHeader";
 import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
 import { useTransitionSelect } from "@/hooks/useTransitionSelect";
@@ -44,7 +45,7 @@ export default function ApplicationLayout({
       {type === "init" ? (
         <ProgressHeader progress={progress} />
       ) : (
-        <HomeHeader />
+        <CloseHeader href="/myinfo" />
       )}
 
       {children}

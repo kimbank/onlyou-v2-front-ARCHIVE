@@ -29,7 +29,6 @@ const MatchingIndex = () => {
         </Box>
         <Box className="content">
           <StepInfo />
-          <SaveInfo />
           <Button
             variant="contained"
             color="primary"
@@ -38,6 +37,7 @@ const MatchingIndex = () => {
           >
             <Typography variant="button">매칭신청서 완성하기</Typography>
           </Button>
+          <SaveInfo />
         </Box>
       </MatchingRoot>
 

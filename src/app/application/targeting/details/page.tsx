@@ -10,9 +10,10 @@ import SettingOptionModal from "./SettingOptionModal";
 import Menu from "@/components/Button/Menu";
 import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
-import Esitimate from "./Estimate";
-import { useSearchParams } from "next/navigation";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
+import { useSearchParams } from "next/navigation";
+import Esitimate from "./Estimate";
+import ModifyOptionModal from "./ModifyOptionModal";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
@@ -25,6 +26,11 @@ const DetailsPage = () => {
     isModalOpen: isNextOpen,
     openModal: openNextModal,
     closeModal: closeNextModal,
+  } = useModal();
+  const {
+    isModalOpen: isModifyOpen,
+    openModal: openModifyModal,
+    closeModal: closeModifyModal,
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
@@ -42,24 +48,32 @@ const DetailsPage = () => {
     setPriority(priority);
     openSettingModal();
   }
-
   function checkFillStatus(priority: number) {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
     });
+
     for (let option of options) {
       if (targetingState[option]?.data) {
-        // default option
         if (targetingState[option].data.length === 0) {
           return false;
         }
+        if (
+          targetingState[option].from === undefined &&
+          targetingState[option].to === undefined
+        ) {
+          return true;
+        }
       } else {
-        // range option
-        if (!targetingState[option].from || !targetingState[option].to) {
+        if (
+          targetingState[option].from === undefined &&
+          targetingState[option].to === undefined
+        ) {
           return false;
         }
       }
     }
+
     return true;
   }
 
@@ -79,6 +93,7 @@ const DetailsPage = () => {
         onClose={closeSettingModal}
         priority={priority}
       />
+      <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
       <ContentRoot id="content">
         <div className="content-title">
           {!isInit ? (
@@ -96,7 +111,11 @@ const DetailsPage = () => {
         </div>
         <div className="content-body">
           {!isInit && (
-            <Button sx={{ width: "100%" }} variant="contained">
+            <Button
+              sx={{ width: "100%" }}
+              variant="contained"
+              onClick={openModifyModal}
+            >
               <SwapHorizRoundedIcon
                 sx={{ width: "18px", height: "18px", marginRight: "8px" }}
               />
@@ -107,6 +126,7 @@ const DetailsPage = () => {
             color={checkFillStatus(0) ? "primary" : "secondary"}
             onClick={() => {
               openSettingModalByPriority(0);
+              console.log("checkFillStatus", checkFillStatus(0));
             }}
             variant={checkFillStatus(0) ? "outlined" : "contained"}
           >
@@ -137,14 +157,17 @@ const DetailsPage = () => {
           <Esitimate />
         </div>
       </ContentRoot>
-      <StepButton
-        prevText="이전"
-        nextText="다음"
-        prevHref="/application/targeting"
-        onClick={handleNext}
-        nextType="button"
-        checkedStates={allGroupsSelected}
-      />
+      {isInit && (
+        <StepButton
+          prevText="이전"
+          nextText="다음"
+          prevHref="/application/targeting"
+          onClick={handleNext}
+          nextType="button"
+          checkedStates={allGroupsSelected}
+        />
+      )}
+
       <TargetDrawer
         nextHref="/application/letter/select?type=init"
         open={isNextOpen}
