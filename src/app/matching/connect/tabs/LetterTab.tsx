@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
-import Letter from "public/icons/letter.svg";
+import Letter from "public/icons/letter.png";
 import { ConsistData } from "../Connect";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export const LetterTab = ({ data }: Props) => {
   return (
-    <Root className="letter-tab">
+    <Root>
       {data.letterOptions.map((letter, index) => (
         <Box
           style={{
@@ -32,12 +32,12 @@ export const LetterTab = ({ data }: Props) => {
 };
 
 const Root = styled(Box)({
-  ".letter-tab": {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-  },
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
   ".letter-box": {
+    display: "flex",
+    gap: "12px",
     borderRadius: "8px",
     padding: "20px",
   },

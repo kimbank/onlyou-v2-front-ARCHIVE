@@ -44,21 +44,22 @@ export const MannerMenu = ({ children }: any) => {
             className="tooltip"
             title={tooltipTitle()}
             open={open}
-            onClick={handleTooltipToggle}
             arrow
             placement="bottom-start"
           >
-            <Box>
-              <Button variant="text" size="large">
-                <InfoOutlinedIcon className="tooltip-icon" />
-                <Typography
-                  className="tooltip-text"
-                  variant="body2"
-                  color="gray2"
-                >
-                  매너온도의 기준이 무엇인가요?
-                </Typography>
-              </Button>
+            <Box className="tooltip-box">
+              <InfoOutlinedIcon
+                className="tooltip-icon"
+                onClick={handleTooltipToggle}
+              />
+              <Typography
+                className="tooltip-text"
+                variant="body2"
+                color="gray2"
+                onClick={handleTooltipToggle}
+              >
+                매너온도의 기준이 무엇인가요?
+              </Typography>
             </Box>
           </Tooltip>
         </ClickAwayListener>
@@ -80,10 +81,21 @@ const CertifyRoot = styled(Box)(() => {
       flexDirection: "row",
       justifyContent: "space-between",
     },
+    ".tooltip-box": {
+      display: "flex",
+      width: "auto",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      "> p": {
+        cursor: "pointer",
+      },
+    },
     ".tooltip-icon": {
       width: "18px",
       marginRight: "4px",
       color: gray2,
+      cursor: "pointer",
     },
     ".tooltip-text": {
       textDecoration: "underline",

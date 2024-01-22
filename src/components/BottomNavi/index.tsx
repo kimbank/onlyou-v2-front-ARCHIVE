@@ -116,6 +116,7 @@ const NavigationRoot = styled("div")(() => {
       fontWeight: "600",
       color: "#FF7700",
       lineHeight: "140%",
+      animation: "colorChange 0.3s ease-in-out",
     },
   };
 });

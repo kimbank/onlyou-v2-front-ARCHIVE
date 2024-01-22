@@ -13,7 +13,7 @@ const FindPage = () => {
       <FindRoot id="content">
         <Typography variant="h1">
           인연을 찾는 중이에요.
-          <Typography variant="body2">
+          <Typography variant="body1">
             ONLYou는 느리더라도 정확한 매칭을 추구해요.
           </Typography>
         </Typography>
