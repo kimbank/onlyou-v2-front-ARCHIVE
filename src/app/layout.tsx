@@ -16,6 +16,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko-KR" translate="no">
       <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />

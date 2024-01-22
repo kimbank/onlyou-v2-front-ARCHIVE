@@ -1,24 +1,21 @@
-import { useState } from "react";
 import {
-  styled,
+  Box,
   Button,
   Divider,
-  Typography,
-  Box,
+  styled,
   Tooltip,
+  Typography,
 } from "@mui/material";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setTargetingPriority,
-  setTargetingDataField,
-} from "@/store/targetingSlice";
-import { allOptions, targetingAllOptions } from "@/constants/targeting";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import AlertModal from "@/components/Modal/Default";
-import useModal from "@/hooks/useModal";
-import { residence } from "@/constants/application_option";
 import colors from "@/assets/theme/base/colors";
+import AlertModal from "@/components/Modal/Default";
+import { residence } from "@/constants/application_option";
+import { allOptions } from "@/constants/targeting";
+import useModal from "@/hooks/useModal";
+import { setTargetingDataField } from "@/store/targetingSlice";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useDispatch, useSelector } from "react-redux";
 
 const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const dispatch = useDispatch();
@@ -58,7 +55,18 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
       );
     }
   }
-
+  const renderTooltip = (group: string) => {
+    switch (group) {
+      case "서울":
+        return tooltipSeoul();
+      case "경기":
+        return tooltipGyeonggi();
+      case "인천":
+        return tooltipIncheon();
+      default:
+        return null;
+    }
+  };
   const renderOptionButtons = (group: string) => {
     return Object.keys(allOption[group]).map((optionKey: string) => (
       <Button
@@ -70,7 +78,14 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
         }
         onClick={() => handleOptionClick(Number(optionKey))}
       >
-        <Typography variant="body2">{allOption[group][optionKey]}</Typography>
+        <Typography
+          variant="body2"
+          color={
+            optionState.data.includes(Number(optionKey)) ? "white" : "gray1"
+          }
+        >
+          {allOption[group][optionKey]}
+        </Typography>
       </Button>
     ));
   };
@@ -91,44 +106,36 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
         onComplete={closeAlertModal}
       />
       <Root>
-        <Box>
-          <Tooltip
-            className="tooltip"
-            title={tooltipTitle()}
-            open={open}
-            onClick={handleTooltipToggle}
-            arrow
-            placement="bottom-start"
-          >
-            <Box>
-              <Button variant="text" size="large">
-                <InfoOutlinedIcon className="tooltip-icon" />
-                <Typography
-                  className="tooltip-text"
-                  variant="body3"
-                  color="gray"
-                >
-                  지역 상세 설명 보기
-                </Typography>
-              </Button>
-            </Box>
-          </Tooltip>
-        </Box>
         <Box className="button-box">
           {allOption["기타"] && (
             <Box className="button-box" key="기타">
-              <Box className="button">
-                <Typography variant="h1" color="gray1">
-                  {renderOptionButtons("기타")}
-                </Typography>
-              </Box>
+              <Typography>{renderOptionButtons("기타")}</Typography>
             </Box>
           )}
           {Object.keys(allOption)
             .filter((group) => group !== "기타")
             .map((group: string) => (
               <Box className="button-box" key={group}>
-                <Typography variant="subtitle2">{group}</Typography>
+                <Box className="tooltip-box">
+                  <Typography variant="subtitle2">{group}</Typography>
+                  <Tooltip
+                    title={renderTooltip(group)}
+                    placement="bottom-end"
+                    arrow
+                    open={open}
+                    onClick={handleTooltipToggle}
+                  >
+                    <Box className="tooltip-content">
+                      <Typography
+                        className="tooltip-text"
+                        variant="body3"
+                        color="gray"
+                      >
+                        {group} 지역 상세보기
+                      </Typography>
+                    </Box>
+                  </Tooltip>
+                </Box>
                 <Box className="button">
                   {Object.keys(allOption[group]).map((optionKey: string) => (
                     <Button
@@ -141,7 +148,14 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       }
                       onClick={() => handleOptionClick(Number(optionKey))}
                     >
-                      <Typography variant="body2" color="gray1">
+                      <Typography
+                        variant="body2"
+                        color={
+                          optionState.data.includes(Number(optionKey))
+                            ? "white"
+                            : "gray1"
+                        }
+                      >
                         {allOption[group][optionKey]}
                       </Typography>
                     </Button>
@@ -175,16 +189,22 @@ const Root = styled(Box)(() => {
       flexWrap: "wrap",
       gap: "9px",
     },
+    ".tooltip-box": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    ".tooltip-content": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      cursor: "pointer",
+    },
     ".tooltip": {
       marginBottom: "17px",
       display: "flex",
-      justifyContents: "flex-start",
+      justifyContent: "flex-start",
       gap: "4px",
-    },
-    ".tooltip-icon": {
-      width: "18px",
-      marginRight: "4px",
-      color: gray2,
     },
     ".tooltip-text": {
       textDecoration: "underline",
@@ -192,14 +212,14 @@ const Root = styled(Box)(() => {
   };
 });
 
-export const tooltipTitle = () => {
+export const tooltipSeoul = () => {
   return (
     <TooltipTitleRoot>
       <Typography variant="body3">
         <strong>서울</strong>
       </Typography>
       <Divider />
-      <Typography className="content-box" variant="body3">
+      <Typography variant="body3">
         <strong>서울 동부</strong> : 동대문구, 중랑구, 광진구, 성동구, 강동구
         <br />
         <strong>서울 서부</strong> : 강서구, 영등포구, 양천구, 구로구, 금천구
@@ -211,19 +231,33 @@ export const tooltipTitle = () => {
         <strong>서울 중부</strong> : 은평구, 종로구, 서대문구, 마포구, 중구,
         용산구
       </Typography>
+    </TooltipTitleRoot>
+  );
+};
+
+export const tooltipGyeonggi = () => {
+  return (
+    <TooltipTitleRoot>
       <Typography variant="body3">
         <strong>경기</strong>
       </Typography>
       <Divider />
       <Typography variant="body3">
         <strong>경기 북서부</strong> : 파주, 김포, 고양 <br />
-        <strong>경기 북동부</strong> : 남양주, 가평, 구리 경기 북부 : 연천,
-        포천, 동두천, 양주, 의정부 <br />
+        <strong>경기 북동부</strong> : 남양주, 가평, 구리 <br />
+        <strong>경기 북부</strong> : 연천, 포천, 동두천, 양주, 의정부 <br />
         <strong>경기 남부</strong> : 평택, 안성, 오산, 화성, 용인 <br />
         <strong>경기 남서부</strong> : 부천, 광명, 시흥, 안산 <br />
         <strong>경기 남동부</strong> : 광주,이천, 여주, 양평, 하남 <br />
         <strong>경기 중부</strong> : 과천, 군포, 성남, 수원, 안양, 의왕
       </Typography>
+    </TooltipTitleRoot>
+  );
+};
+
+export const tooltipIncheon = () => {
+  return (
+    <TooltipTitleRoot>
       <Typography variant="body3">
         <strong>인천</strong>
       </Typography>
@@ -242,6 +276,8 @@ const TooltipTitleRoot = styled(Box)(() => {
     display: "flex",
     flexDirection: "column",
     gap: "8px",
+    width: "100%",
+
     ".content-box": {
       marginBottom: "4px",
     },

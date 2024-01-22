@@ -52,8 +52,10 @@ const SettingOptionModal = ({
     if (type === "chip") {
       return (
         <>
-          선호하는 {hangeul}
-          {jongsung(hangeul)} <strong>모두</strong> 설정해주세요.
+          <strong>
+            선호하는 {hangeul}
+            {jongsung(hangeul)} 모두 설정해주세요.
+          </strong>
         </>
       );
     }

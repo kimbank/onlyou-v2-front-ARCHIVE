@@ -15,10 +15,7 @@ const tooltip: Types = {
 
   styleOverrides: {
     tooltip: {
-      display: "flex",
-      flexDirection: "column",
-      width: "calc(100% - 48px)",
-      maxWidth: "480px",
+      width: "100%",
       maxHeight: "384px",
       height: "auto",
       backgroundColor: "#f1f3f6",
@@ -32,8 +29,8 @@ const tooltip: Types = {
 
     arrow: {
       position: "absolute",
-      left: 0,
-      transform: "translateX(50%) !important",
+      right: 0,
+      transform: "translateX(50%)) !important",
       color: "#f1f3f6",
       "&::before": {
         border: "1px solid #999DA3",

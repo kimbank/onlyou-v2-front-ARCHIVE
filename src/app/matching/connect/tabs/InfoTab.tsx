@@ -16,9 +16,9 @@ const { primary_lighten3, gray5 } = colors;
 export const InfoTab = ({ data }: Props) => {
   return (
     <Root>
-      <Typography className="caption" variant="body2" color="gray2">
+      {/* <Typography className="caption" variant="body2" color="gray2">
         *상대방이 설정한 1-3순위 조건만 프로필에 보여집니다.
-      </Typography>
+      </Typography> */}
       {data.targetingOptions.map((option, index) => (
         <Box className="info-tab" key={index}>
           <Box className="info-box">

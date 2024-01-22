@@ -48,12 +48,16 @@ const MenuRoot = styled(Button)(() => {
     padding: "16px 16px 16px 20px",
     width: "100%",
 
-    ":hover": {
+    "&:hover": {
+      border: "1px solid #5C5F63",
+      backgroundColor: "#D3D6DB",
+    },
+    "&:focus:not(:hover)": {
       backgroundColor: "#D3D6DB",
     },
 
-    ":focus": {
-      backgroundColor: "#F1F3F6",
+    "&:focus": {
+      backgroundColor: "#D3D6DB",
     },
   };
 });
