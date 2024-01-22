@@ -4,6 +4,7 @@ import colors from "@/assets/theme/base/colors";
 import {
   Box,
   Button,
+  ClickAwayListener,
   Divider,
   styled,
   Tooltip,
@@ -23,6 +24,9 @@ export const MannerMenu = ({ children }: any) => {
   const handleTooltipToggle = () => {
     setOpen(!open);
   };
+  const handleCloseTooltip = () => {
+    setOpen(false);
+  };
 
   return (
     <CertifyRoot>
@@ -35,27 +39,29 @@ export const MannerMenu = ({ children }: any) => {
         </Typography>
       </Box>
       <Box>
-        <Tooltip
-          className="tooltip"
-          title={tooltipTitle()}
-          open={open}
-          onClick={handleTooltipToggle}
-          arrow
-          placement="bottom-start"
-        >
-          <Box>
-            <Button variant="text" size="large">
-              <InfoOutlinedIcon className="tooltip-icon" />
-              <Typography
-                className="tooltip-text"
-                variant="body2"
-                color="gray2"
-              >
-                매너온도의 기준이 무엇인가요?
-              </Typography>
-            </Button>
-          </Box>
-        </Tooltip>
+        <ClickAwayListener onClickAway={handleCloseTooltip}>
+          <Tooltip
+            className="tooltip"
+            title={tooltipTitle()}
+            open={open}
+            onClick={handleTooltipToggle}
+            arrow
+            placement="bottom-start"
+          >
+            <Box>
+              <Button variant="text" size="large">
+                <InfoOutlinedIcon className="tooltip-icon" />
+                <Typography
+                  className="tooltip-text"
+                  variant="body2"
+                  color="gray2"
+                >
+                  매너온도의 기준이 무엇인가요?
+                </Typography>
+              </Button>
+            </Box>
+          </Tooltip>
+        </ClickAwayListener>
       </Box>
     </CertifyRoot>
   );
