@@ -1,23 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import ProgressHeader from "@/components/Header/ProgressHeader";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { targetingCategories, targetingOptions } from "@/constants/targeting";
-import SettingOptionModal from "./SettingOptionModal";
-import { ChevronRightRounded } from "@mui/icons-material";
 import useModal from "@/hooks/useModal";
-import { styled, Button, Typography, Drawer } from "@mui/material";
+import { Button, styled, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import SettingOptionModal from "./SettingOptionModal";
 
-import TestDrawer from "@/components/Drawer";
-
-import BottomButton from "@/components/BottomButton/Container";
-import Esitimate from "./Estimate";
 import Menu from "@/components/Button/Menu";
 import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
+import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
+import { useSearchParams } from "next/navigation";
+import Esitimate from "./Estimate";
+import ModifyOptionModal from "./ModifyOptionModal";
 
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
@@ -31,9 +27,15 @@ const DetailsPage = () => {
     openModal: openNextModal,
     closeModal: closeNextModal,
   } = useModal();
+  const {
+    isModalOpen: isModifyOpen,
+    openModal: openModifyModal,
+    closeModal: closeModifyModal,
+  } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
   const handleNext = () => {
     if (allGroupsSelected) {
       openNextModal();
@@ -46,24 +48,32 @@ const DetailsPage = () => {
     setPriority(priority);
     openSettingModal();
   }
-
   function checkFillStatus(priority: number) {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
     });
+
     for (let option of options) {
       if (targetingState[option]?.data) {
-        // default option
         if (targetingState[option].data.length === 0) {
           return false;
         }
+        if (
+          targetingState[option].from === undefined &&
+          targetingState[option].to === undefined
+        ) {
+          return true;
+        }
       } else {
-        // range option
-        if (!targetingState[option].from || !targetingState[option].to) {
+        if (
+          targetingState[option].from === undefined &&
+          targetingState[option].to === undefined
+        ) {
           return false;
         }
       }
     }
+
     return true;
   }
 
@@ -83,37 +93,61 @@ const DetailsPage = () => {
         onClose={closeSettingModal}
         priority={priority}
       />
+      <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
       <ContentRoot id="content">
         <div className="content-title">
-          <Typography variant="h1">각 조건을 상세히 지정해 주세요.</Typography>
-          <Typography variant="body1">
-            상세한 설정에 따라 예상 매칭 주기를 알려드려요
-          </Typography>
+          {!isInit ? (
+            <Typography variant="h1">조건 상세 설정 수정하기</Typography>
+          ) : (
+            <>
+              <Typography variant="h1">
+                각 조건을 상세히 지정해 주세요.
+              </Typography>
+              <Typography variant="body1">
+                상세한 설정에 따라 예상 매칭 주기를 알려드려요
+              </Typography>
+            </>
+          )}
         </div>
         <div className="content-body">
+          {!isInit && (
+            <Button
+              sx={{ width: "100%" }}
+              variant="contained"
+              onClick={openModifyModal}
+            >
+              <SwapHorizRoundedIcon
+                sx={{ width: "18px", height: "18px", marginRight: "8px" }}
+              />
+              <Typography variant="subtitle2">우선순위 변경하기</Typography>
+            </Button>
+          )}
           <Menu
             color={checkFillStatus(0) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(0)}
+            onClick={() => {
+              openSettingModalByPriority(0);
+              console.log("checkFillStatus", checkFillStatus(0));
+            }}
             variant={checkFillStatus(0) ? "outlined" : "contained"}
           >
             <Typography>기본 반영 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(1) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(1)}
             variant={checkFillStatus(1) ? "outlined" : "contained"}
           >
             <Typography> 1순위 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(2) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(2)}
             variant={checkFillStatus(2) ? "outlined" : "contained"}
           >
             <Typography> 2순위 상세 조건</Typography>
           </Menu>
           <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
+            color={checkFillStatus(3) ? "primary" : "secondary"}
             onClick={() => openSettingModalByPriority(3)}
             variant={checkFillStatus(3) ? "outlined" : "contained"}
           >
@@ -123,14 +157,17 @@ const DetailsPage = () => {
           <Esitimate />
         </div>
       </ContentRoot>
-      <StepButton
-        prevText="이전"
-        nextText="다음"
-        prevHref="/application/targeting"
-        onClick={handleNext}
-        nextType="button"
-        checkedStates={allGroupsSelected}
-      />
+      {isInit && (
+        <StepButton
+          prevText="이전"
+          nextText="다음"
+          prevHref="/application/targeting"
+          onClick={handleNext}
+          nextType="button"
+          checkedStates={allGroupsSelected}
+        />
+      )}
+
       <TargetDrawer
         nextHref="/application/letter/select?type=init"
         open={isNextOpen}

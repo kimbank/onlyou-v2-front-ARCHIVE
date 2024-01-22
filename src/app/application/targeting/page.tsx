@@ -85,8 +85,7 @@ const TargetingPage = () => {
                 onClick={openOptionModal}
               >
                 <Typography variant="subtitle2">
-                  {" "}
-                  이상형 조건 추가하기{" "}
+                  이상형 조건 추가하기
                   <span style={{ fontSize: "18px", marginLeft: "8px" }}>+</span>
                 </Typography>
               </Button>
@@ -107,7 +106,9 @@ const TargetingPage = () => {
                 sx={{ minHeight: "34px", maxHeight: "34px" }}
                 onClick={openOptionModal}
               >
-                이상형 조건 변경하기
+                <Typography variant="subtitle2">
+                  이상형 조건 변경하기
+                </Typography>
               </Button>
             </>
           )}
@@ -116,7 +117,7 @@ const TargetingPage = () => {
       <StepButton
         prevText="이전"
         nextText="다음"
-        prevHref="/application/me/other"
+        prevHref="/application/me/etc"
         nextHref="/application/targeting/details"
         nextType="button"
         checkedStates={!isTargetingEmpty}

@@ -1,15 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { styled, Button, Typography } from "@mui/material";
 import { ChevronRightRounded } from "@mui/icons-material";
-import { style } from "@mui/system";
-import colors from "@/assets/theme/base/colors";
-import contained from "@/assets/theme/components/button/contained";
+import { Button, styled, Typography } from "@mui/material";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
-  href: string;
+  href?: string;
   variant?: "default" | "contained" | "outlined";
   color?: "primary" | "secondary";
   onClick?: () => void;
@@ -24,7 +21,7 @@ const Menu = ({
   onClick = () => {},
 }: Props) => {
   return (
-    <Link href={href} style={{ width: "100%" }}>
+    <Link href={href ?? ""} style={{ width: "100%" }}>
       <MenuRoot
         color={color === "primary" ? "primary" : "secondary"}
         variant={variant === "outlined" ? "outlined" : "contained"}
@@ -37,9 +34,7 @@ const Menu = ({
         }
         onClick={onClick}
       >
-        <Typography variant="body1">
-          {children}
-        </Typography>
+        <Typography variant="body1">{children}</Typography>
       </MenuRoot>
     </Link>
   );
@@ -50,15 +45,19 @@ const MenuRoot = styled(Button)(() => {
     height: "44px",
     minHeight: "44px",
     justifyContent: "space-between",
-    padding: "0px 16px 0px 20px",
+    padding: "16px 16px 16px 20px",
     width: "100%",
 
-    ":hover": {
+    "&:hover": {
+      border: "1px solid #5C5F63",
+      backgroundColor: "#D3D6DB",
+    },
+    "&:focus:not(:hover)": {
       backgroundColor: "#D3D6DB",
     },
 
-    ":focus": {
-      backgroundColor: "#F1F3F6",
+    "&:focus": {
+      backgroundColor: "#D3D6DB",
     },
   };
 });

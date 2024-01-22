@@ -1,5 +1,5 @@
-
 import * as option from "./application_option";
+
 
 /** 이상형 타겟팅 */
 interface MeOptions {

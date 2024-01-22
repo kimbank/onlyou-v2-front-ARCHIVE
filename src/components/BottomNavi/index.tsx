@@ -52,7 +52,7 @@ export default function Navigation({ recent }: any) {
         {/* <Link href="/my_info" passHref className="next-link"> */}
         <BottomNavigationAction
           href="/myinfo"
-          label="내 정보"
+          label="내정보"
           value="myinfo"
           icon={<MyInfoIcon />}
           showLabel
@@ -116,6 +116,7 @@ const NavigationRoot = styled("div")(() => {
       fontWeight: "600",
       color: "#FF7700",
       lineHeight: "140%",
+      animation: "colorChange 0.3s ease-in-out",
     },
   };
 });

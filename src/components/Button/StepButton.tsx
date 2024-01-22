@@ -84,7 +84,7 @@ const StepButtonRoot = styled("div")(({ theme }) => {
     display: "flex",
     flexShrink: "0",
     background: "#FFF",
-    borderTop: "1px solid #B2B0AE",
+    borderTop: "1px solid #D3D6DB",
     padding: "12px 24px 20px 24px",
     justifyContent: "space-between",
     // tips적용

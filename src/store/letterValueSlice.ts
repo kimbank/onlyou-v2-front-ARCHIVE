@@ -24,10 +24,14 @@ export const LetterValueSlice = createSlice({
       }
       state.step = state.letterValue.length >= 3 ? 1 : 0;
     },
+    setLetterValues: (state, action: PayloadAction<string[]>) => {
+      state.letterValue = action.payload;
+      state.step = state.letterValue.length >= 3 ? 1 : 0;
+    },
   },
 });
 
-export const { toggle } = LetterValueSlice.actions;
+export const { toggle, setLetterValues } = LetterValueSlice.actions;
 export default LetterValueSlice.reducer;
 
 export const SelectedItemCount = (state: RootState) =>

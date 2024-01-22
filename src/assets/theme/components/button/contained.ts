@@ -18,8 +18,6 @@ const contained = {
   large: {
     width: "100%",
     minHeight: "52px",
-    backgroundColor: primary,
-    color: white,
     padding: "8px",
     fontSize: "16px",
     fontStyle: "normal",
@@ -38,6 +36,7 @@ const contained = {
 
   primary: {
     backgroundColor: primary,
+    color: white,
 
     "&:hover": {
       backgroundColor: primary_darken,
@@ -65,3 +64,20 @@ const contained = {
 };
 
 export default contained;
+
+// secondary:
+// "&.MuiButton-root": {
+//   backgroundColor: primary_lighten3,
+//   border: `1px solid ${primary_lighten3}`,
+//   color: primary?.main,
+
+//   "&:hover": {
+//     boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+//   },
+//   "&:focus:not(:hover)": {
+//     backgroundColor: primary_lighten3,
+//     boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+//   },
+//   "&:active, &:active:focus, &:active:hover": {
+//     backgroundColor: primary_lighten3,
+//   },

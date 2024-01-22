@@ -1,3 +1,5 @@
+import React from "react";
+
 /** 범위형 선지 */
 export interface RangeOption {
   /** 영문 명 */
@@ -5,7 +7,7 @@ export interface RangeOption {
   /** 한국 명 */
   label: string;
   /** 내정보 방식 */
-  me: "text" | "radio" | "button" | "dropdown" | "none";
+  me: "slider";
   /** 타게팅 방식 */
   targeting: "radio" | "button" | "dropdown" | "slider" | "none";
   /** 최대 선택 가능 갯수 */
@@ -25,7 +27,7 @@ export interface Option {
   /** 한국 명 */
   label: string;
   /** 내정보 방식 */
-  me: "button" | "dropdown" | "checkbox" | "radio" | "slider";
+  me: "text" | "radio" | "chip" | "slider" | "none";
   /** 타게팅 방식 */
   targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip";
   /** 최대 선택 가능 갯수 */
@@ -44,19 +46,18 @@ export interface GroupedOption extends Omit<Option, "options"> {
 export const birthYear: RangeOption = {
   name: "birthYear",
   label: "나이",
-  me: "radio",
+  me: "slider",
   targeting: "slider",
 
   from: 1980, // 최소 생년월일
-  to: 2004,   // 최대 생년월일
-}
-
+  to: 2004, // 최대 생년월일
+};
 
 // 거주지 : 무조건 반영
 export const residence: GroupedOption = {
   name: "residence",
-  label: "선호하는 거주지를 모두 설정해주세요",
-  me: "dropdown",
+  label: "거주지",
+  me: "radio",
   targeting: "chip",
   options: {
     서울: {
@@ -85,12 +86,11 @@ export const residence: GroupedOption = {
   },
 };
 
-
 // 직장 유형 : 선택 반영
 export const jobType: Option = {
   name: "jobType",
   label: "직장 유형",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -110,14 +110,14 @@ export const jobType: Option = {
     13: "연구소",
     14: "이직 준비 중",
     15: "기타(유치원, 병원 등)",
-  }
-}
+  },
+};
 
 // 연봉 : 선택 반영
 export const salary: Option = {
   name: "salary",
   label: "연봉",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -131,27 +131,25 @@ export const salary: Option = {
     7: "8천만 원 이상",
     8: "9천만 원 이상",
     9: "1억 원 이상",
-  }
-}
-
+  },
+};
 
 // 키 : 선택 반영
 export const height: RangeOption = {
   name: "height",
   label: "키",
-  me: "dropdown",
+  me: "slider",
   targeting: "slider",
-  
-  from: 150, // 최소 키
-  to: 190,   // 최대 키
-}
 
+  from: 150, // 최소 키
+  to: 190, // 최대 키
+};
 
 // 대학 : 선택 반영
 export const university: Option = {
   name: "university",
   label: "대학",
-  me: "button",
+  me: "radio",
   targeting: "button",
 
   options: {
@@ -159,10 +157,9 @@ export const university: Option = {
     1: "전문대",
     2: "일반 4년제 대학",
     3: "명문대",
-    4: "일류대"
-  }
-}
-
+    4: "일류대",
+  },
+};
 
 // 돌싱 여부 : 선택 반영
 export const divorce: Option = {
@@ -175,24 +172,22 @@ export const divorce: Option = {
   options: {
     0: "돌싱",
     1: "돌싱 아님",
-  }
-}
-
+  },
+};
 
 // 근무 형태 : 선택 반영
 export const workType: Option = {
   name: "workType",
   label: "근무형태",
-  me: "dropdown",
+  me: "radio",
   targeting: "button",
 
   options: {
     0: "교대 근무",
     1: "주 5일 or 주 4일",
     2: "기타(프리랜서, 자영업자 등)",
-  }
-}
-
+  },
+};
 
 // 흡연 경력 : 선택 반영
 export const smoking: Option = {
@@ -205,10 +200,9 @@ export const smoking: Option = {
     0: "비흡연",
     1: "전자담배만",
     2: "흡연",
-    3: "금연 중"
-  }
-}
-
+    3: "금연 중",
+  },
+};
 
 // 음주 생활 : 선택 반영
 export const drinking: Option = {
@@ -222,16 +216,15 @@ export const drinking: Option = {
     1: "어쩔 수 없을 때만 마셔요",
     2: "가끔 마셔요",
     3: "어느 정도 즐기는 편이에요",
-    4: "즐겨 마셔요"
-  }
-}
-
+    4: "즐겨 마셔요",
+  },
+};
 
 // 관심사 : 선택 반영
 export const interest: Option = {
   name: "interest",
   label: "관심사",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   options: {
@@ -255,10 +248,9 @@ export const interest: Option = {
     17: "사진/영상",
     18: "요리",
     19: "맛집/카페",
-    20: "애니메이션"
-  }
-}
-
+    20: "애니메이션",
+  },
+};
 
 // 연애 횟수 : 선택 반영
 export const numberDating: Option = {
@@ -272,10 +264,9 @@ export const numberDating: Option = {
     1: "1~2회",
     2: "3~4회",
     3: "5~6회",
-    4: "7회 이상"
-  }
-}
-
+    4: "7회 이상",
+  },
+};
 
 // 운동 생활 : 선택 반영
 export const athleticLife: Option = {
@@ -289,10 +280,9 @@ export const athleticLife: Option = {
     1: "어쩔 수 없을 때만 함",
     2: "가끔 함",
     3: "어느 정도 즐기는 편",
-    4: "즐겨 함"
-  }
-}
-
+    4: "즐겨 함",
+  },
+};
 
 // 반려 동물 : 선택 반영
 export const petAnimal: Option = {
@@ -305,10 +295,9 @@ export const petAnimal: Option = {
     0: "키우기 어렵습니다",
     1: "키우지 않으나 반려동물에 거부감은 없습니다",
     2: "한 마리 키웁니다",
-    3: "두 마리 이상 키웁니다"
-  }
-}
-
+    3: "두 마리 이상 키웁니다",
+  },
+};
 
 // 종교 : 선택 반영
 export const religion: Option = {
@@ -323,10 +312,9 @@ export const religion: Option = {
     2: "천주교",
     3: "불교",
     4: "원불교",
-    5: "기타"
-  }
-}
-
+    5: "기타",
+  },
+};
 
 // 외향/내향 : 선택 반영
 export const extrovert_introvert: Option = {
@@ -339,10 +327,9 @@ export const extrovert_introvert: Option = {
     0: "외향적이에요",
     1: "외향적인 편이에요",
     2: "내향적인 편이에요",
-    3: "내향적이에요"
-  }
-}
-
+    3: "내향적이에요",
+  },
+};
 
 // 직관/현실 : 선택 반영
 export const intuition_reality: Option = {
@@ -355,10 +342,9 @@ export const intuition_reality: Option = {
     0: "상상력이 풍부해요",
     1: "상상력이 풍부한 편이에요",
     2: "현실적인 편이에요",
-    3: "현실적이에요"
-  }
-}
-
+    3: "현실적이에요",
+  },
+};
 
 // 감성/이성 : 선택 반영
 export const emotion_reason: Option = {
@@ -371,10 +357,9 @@ export const emotion_reason: Option = {
     0: "감성이 풍부해요",
     1: "감성이 풍부한 편이에요",
     2: "이성적인 편이에요",
-    3: "이성적이에요"
-  }
-}
-
+    3: "이성적이에요",
+  },
+};
 
 // 즉흥/계획 : 선택 반영
 export const impromptu_plan: Option = {
@@ -387,16 +372,15 @@ export const impromptu_plan: Option = {
     0: "즉흥적이에요",
     1: "즉흥적인 편이에요",
     2: "계획적인 편이에요",
-    3: "계획적이에요"
-  }
-}
-
+    3: "계획적이에요",
+  },
+};
 
 // 성격 매력 : 선택 반영
 export const personalityCharm: Option = {
   name: "personalityCharm",
   label: "성격 매력",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   me_limit: 3,
@@ -418,10 +402,9 @@ export const personalityCharm: Option = {
     12: "다정한",
     13: "예의 바른",
     14: "털털한",
-    15: "가정적인"
-  }
-}
-
+    15: "가정적인",
+  },
+};
 
 // 결혼 가치관 : 선택 반영
 export const marriageValues: Option = {
@@ -433,10 +416,9 @@ export const marriageValues: Option = {
   options: {
     0: "비혼주의에요",
     1: "결혼은 원하지만 아직은 이르다고 생각해요",
-    2: "사랑한다면 3년 내로 결혼도 생각할 것 같아요"
-  }
-}
-
+    2: "사랑한다면 3년 내로 결혼도 생각할 것 같아요",
+  },
+};
 
 // 이성 친구 가치관 : 선택 반영
 export const oppositeSexFriendValues: Option = {
@@ -448,10 +430,9 @@ export const oppositeSexFriendValues: Option = {
   options: {
     0: "친한 친구라면 술, 영화도 괜찮아요",
     1: "식사, 커피 외에는 이해하기 어려워요",
-    2: "친한 친구라도 단둘이 만나는 것은 자제해야 해요"
-  }
-}
-
+    2: "친한 친구라도 단둘이 만나는 것은 자제해야 해요",
+  },
+};
 
 // 정치 성향 : 선택 반영
 export const politicalValues: Option = {
@@ -464,10 +445,9 @@ export const politicalValues: Option = {
     0: "관심 없어요",
     1: "진보에 가까워요",
     2: "보수에 가까워요",
-    3: "중도에 가까워요"
-  }
-}
-
+    3: "중도에 가까워요",
+  },
+};
 
 // 소비 가치관 : 선택 반영
 export const consumptionValues: Option = {
@@ -479,10 +459,9 @@ export const consumptionValues: Option = {
 
   options: {
     0: "조금 부족하더라도 편안한 미래를 위해 절약하고 싶어요",
-    1: "지금 아니면 못하는 것들에 충분히 투자하고 싶어요"
-  }
-}
-
+    1: "지금 아니면 못하는 것들에 충분히 투자하고 싶어요",
+  },
+};
 
 // 커리어와 가정 가치관 : 선택 반영
 export const careerFamilyValues: Option = {
@@ -494,10 +473,9 @@ export const careerFamilyValues: Option = {
   options: {
     0: "두 사람 모두 가정이 커리어보다 우선이었으면 해요",
     1: "두 사람 중 한 사람은 커리어보다 가정에 우선이었으면 해요",
-    2: "두 사람 모두 한 사람은 커리어보다 가정에 우선이었으면 해요"
-  }
-}
-
+    2: "두 사람 모두 한 사람은 커리어보다 가정에 우선이었으면 해요",
+  },
+};
 
 // 자녀 가치관 : 선택 반영
 export const childrenValues: Option = {
@@ -509,10 +487,9 @@ export const childrenValues: Option = {
   options: {
     0: "아직 모르겠어요",
     1: "원하지 않아요",
-    2: "미래에 갖고 싶어요"
-  }
-}
-
+    2: "미래에 갖고 싶어요",
+  },
+};
 
 // 동물 이미지 : 선택 반영
 export const animalImage: Option = {
@@ -527,10 +504,9 @@ export const animalImage: Option = {
     2: "여우",
     3: "곰돌이",
     4: "햄스터",
-    5: "공룡"
-  }
-}
-
+    5: "공룡",
+  },
+};
 
 // 쌍커풀 : 선택 반영
 export const doubleEyelid: Option = {
@@ -542,10 +518,9 @@ export const doubleEyelid: Option = {
   options: {
     0: "무쌍",
     1: "속쌍",
-    2: "유쌍"
-  }
-}
-
+    2: "유쌍",
+  },
+};
 
 // 체형 : 선택 반영
 export const bodyType: Option = {
@@ -559,16 +534,15 @@ export const bodyType: Option = {
     1: "표준",
     2: "통통",
     3: "탄탄",
-    4: "근육근육"
-  }
-}
-
+    4: "근육근육",
+  },
+};
 
 // 외적 매력 : 선택 반영
 export const externalCharm: Option = {
   name: "externalCharm",
   label: "외적 매력",
-  me: "button",
+  me: "chip",
   targeting: "button",
 
   me_limit: 3,
@@ -595,10 +569,9 @@ export const externalCharm: Option = {
     16: "귀여운 외모",
     17: "성숙한 외모",
     18: "건강미가 있어요",
-    19: "지적인 이미지에요"
-  }
-}
-
+    19: "지적인 이미지에요",
+  },
+};
 
 // 문신 유무 : 선택 반영
 export const tattoo: Option = {
@@ -610,10 +583,9 @@ export const tattoo: Option = {
   options: {
     0: "없음",
     1: "작은 문신 한 두 개",
-    2: "작은 문신 여러 개 혹은 큰 문신"
-  }
-}
-
+    2: "작은 문신 여러 개 혹은 큰 문신",
+  },
+};
 
 // 선호 데이트 : 선택 반영
 export const preferredDate: Option = {
@@ -625,10 +597,9 @@ export const preferredDate: Option = {
 
   options: {
     0: "정적인 데이트 선호",
-    1: "활동적인 데이트 선호"
-  }
-}
-
+    1: "활동적인 데이트 선호",
+  },
+};
 
 // 선호 연락 수단 : 선택 반영
 export const preferredContactMethod: Option = {
@@ -640,10 +611,9 @@ export const preferredContactMethod: Option = {
 
   options: {
     0: "전화를 더 선호해요",
-    1: "카톡을 더 선호해요"
-  }
-}
-
+    1: "카톡을 더 선호해요",
+  },
+};
 
 // 연애 주도성 : 선택 반영
 export const loveInitiative: Option = {
@@ -656,10 +626,9 @@ export const loveInitiative: Option = {
     0: "보통 따라간다",
     1: "가끔 리드한다",
     2: "종종 리드한다",
-    3: "주로 리드한다"
-  }
-}
-
+    3: "주로 리드한다",
+  },
+};
 
 // 데이트 빈도 : 선택 반영
 export const datingFrequency: Option = {
@@ -671,10 +640,9 @@ export const datingFrequency: Option = {
   options: {
     0: "일주일에 1번",
     1: "일주일에 2번",
-    2: "일주일에 3번 이상"
-  }
-}
-
+    2: "일주일에 3번 이상",
+  },
+};
 
 // 연락 스타일 : 선택 반영
 export const contactStyle: Option = {
@@ -686,10 +654,9 @@ export const contactStyle: Option = {
 
   options: {
     0: "시간 여유가 있고 서로 생각 날 때 연락했으면 해요",
-    1: "바쁘더라도 연락은 최대한 자주 하는 게 좋아요"
-  }
-}
-
+    1: "바쁘더라도 연락은 최대한 자주 하는 게 좋아요",
+  },
+};
 
 // 혼전 순결 : 선택 반영
 export const premaritalPurity: Option = {
@@ -701,10 +668,9 @@ export const premaritalPurity: Option = {
 
   options: {
     0: "관계도 연애의 중요한 요소라고 생각해요",
-    1: "결혼 전 관계는 원하지 않아요"
-  }
-}
-
+    1: "결혼 전 관계는 원하지 않아요",
+  },
+};
 
 // 갈등 해결 방식 : 선택 반영
 export const conflictResolutionMethod: Option = {
@@ -716,6 +682,6 @@ export const conflictResolutionMethod: Option = {
 
   options: {
     0: "시간을 가지고 감정을 진정시킨 후 이야기하는 게 좋아요",
-    1: "갈등은 바로 풀어야 해요"
-  }
-}
+    1: "갈등은 바로 풀어야 해요",
+  },
+};

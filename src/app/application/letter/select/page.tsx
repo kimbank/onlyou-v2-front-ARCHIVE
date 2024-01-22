@@ -5,12 +5,13 @@ import { Checkbox } from "@/components/CheckBox/CheckBox";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { toggle } from "@/store/letterValueSlice";
 import { RootState } from "@/store/store";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
 import { letterValue } from "@/constants/letter";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const MockupLetter = {
   "0": "0번 편지입니다.",
@@ -26,22 +27,33 @@ const Index = () => {
   );
 
   const letterOptions = Object.entries(letterValue.options);
+  const [disabledLetters, setDisabledLetters] = useState<
+    Record<string, boolean>
+  >({});
+
   const [letter, setLetter] = useState({});
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
 
   useEffect(() => {
     const res = MockupLetter;
-    Object.keys(res).map((item) => {
-      console.log("item22", item);
+    const newDisabledLetters = { ...disabledLetters };
+
+    Object.keys(res).forEach((item) => {
       dispatch(toggle(item));
+      newDisabledLetters[item] = true;
     });
-    console.log("letter", letter);
+
+    setDisabledLetters(newDisabledLetters);
   }, []);
 
   // 수정하기기능 구현 첫 렌더링 시 (MockupLetter --> 서버에서 입력되어있는 값을 렌더링해서
   // select에 체크가 되어있어야됨  )
 
   const handleCheckboxClick = (key: string) => {
-    dispatch(toggle(key));
+    if (!disabledLetters[key]) {
+      dispatch(toggle(key));
+    }
   };
   const selectComplete =
     Object.values(letterValues).filter(Boolean).length >= 3;
@@ -67,14 +79,10 @@ const Index = () => {
             buttonName={name}
             onClick={() => handleCheckboxClick(key)}
             checked={letterValues.includes(key)}
+            disabled={disabledLetters[key]}
           />
         ))}
       </Container>
-      <button
-        onClick={() => {
-          console.log("letter22", letter);
-        }}
-      ></button>
       <StepButton
         prevText="이전"
         nextText="다음"

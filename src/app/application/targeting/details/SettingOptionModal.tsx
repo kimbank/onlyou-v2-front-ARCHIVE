@@ -1,37 +1,47 @@
 import Image from "next/image";
 import LogoOutlined from "public/icons/logo_outlined.svg";
 
-import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { setTargetingPriority } from "@/store/targetingSlice";
 import { RootState } from "@/store/store";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { styled, Modal, Typography, Box, Button, Divider } from "@mui/material";
 import EmptyHeader from "@/components/Header/EmptyHeader";
-
-import { targetingCategories, targetingAllOptions } from "@/constants/targeting";
+import { Box, Button, Divider, Modal, styled, Typography } from "@mui/material";
 
 import AlertModal from "@/components/Modal/Default";
 import useModal from "@/hooks/useModal";
 
+import BottomConainer from "@/components/BottomButton/Container";
 import EstimateResult from "./EstimateResult";
 import ButtonOption from "./SettingButtonOption";
 import SliderOption from "./SettingSliderOption";
-import BottomConainer from "@/components/BottomButton/Container";
 
+import { targetingAllOptions } from "@/constants/targeting";
 import jongsung from "@/utils/jongsung";
 import SettingChipOption from "./SettingChipOption";
 
-
-
-const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: any, priority: number }) => {
-  const { isModalOpen: isAlertOpen, openModal: openAlertModal, closeModal: closeAlertModal } = useModal();
+const SettingOptionModal = ({
+  open,
+  onClose,
+  priority,
+}: {
+  open: any;
+  onClose: any;
+  priority: number;
+}) => {
+  const {
+    isModalOpen: isAlertOpen,
+    openModal: openAlertModal,
+    closeModal: closeAlertModal,
+  } = useModal();
   const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
-  
-  const categoryTitle = priority === 0 ? "기본 반영 조건 상세 설정" :`${priority}순위 반영 조건 상세 설정`;
+  const categoryTitle =
+    priority === 0
+      ? "기본 반영 조건 상세 설정"
+      : `${priority}순위 반영 조건 상세 설정`;
   function optionTitle(optionName: string) {
     const hangeul = targetingAllOptions[optionName].label;
     const type = targetingAllOptions[optionName].targeting;
@@ -39,49 +49,60 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
     if (type === "slider") {
       return `선호하는 ${hangeul}의 구간을 설정해주세요.`;
     }
-    if (type === "radio") {
-      return `선호하는 ${hangeul}${jongsung(hangeul)} 하나 설정해주세요.`;
+    if (type === "chip") {
+      return (
+        <>
+          <strong>
+            선호하는 {hangeul}
+            {jongsung(hangeul)} 모두 설정해주세요.
+          </strong>
+        </>
+      );
     }
     if (type === "button") {
-      return `선호하는 ${hangeul}${jongsung(hangeul)} 모두 선택해주세요.`;
+      return (
+        <>
+          선호하는 {hangeul}
+          {jongsung(hangeul)} <strong>최대 3개</strong> 선택해주세요.
+        </>
+      );
     }
     return hangeul;
   }
-
 
   const RenderOptions = () => {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
     });
 
-        if (options.length === 0) {
-          return (
-            <EmptyBox>
-              <Typography variant="body1" color="gray3">
-                선택한 {priority}순위 조건이 없어요
-              </Typography>
-              <Image src="/icons/empty.svg" alt="empty" width={84} height={84}/>
-            </EmptyBox>
-          );
-        }
+    if (options.length === 0) {
+      return (
+        <EmptyBox>
+          <Typography variant="body1" color="gray3">
+            선택한 {priority}순위 조건이 없어요
+          </Typography>
+          <Image src="/icons/empty.svg" alt="empty" width={84} height={84} />
+        </EmptyBox>
+      );
+    }
 
     return options.map((option: string, idx: number) => (
       <>
         {idx !== 0 && <Divider />}
         <OptionItem key="option" onClick={() => {}}>
-          <Typography variant="subtitle1">
+          <Typography variant="body1">
             {/* {targetingAllOptions[option].label} */}
             {optionTitle(option)}
           </Typography>
           <span>
             {targetingAllOptions[option].targeting === "slider" ? (
               <SliderOption optionName={targetingAllOptions[option].name} />
-            ) : targetingAllOptions[option].targeting === "radio" ? (
-              <>Error</>
             ) : targetingAllOptions[option].targeting === "button" ? (
               <ButtonOption optionName={targetingAllOptions[option].name} />
             ) : targetingAllOptions[option].targeting === "chip" ? (
-              <SettingChipOption optionName={targetingAllOptions[option].name} />
+              <SettingChipOption
+                optionName={targetingAllOptions[option].name}
+              />
             ) : (
               <></>
             )}
@@ -89,18 +110,22 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
         </OptionItem>
       </>
     ));
-  }
+  };
 
   return (
     <>
-      <AlertModal title={alertTitle} complete={"이해했어요!"} isModalOpen={isAlertOpen} onModalClose={closeAlertModal} onComplete={closeAlertModal} />
+      <AlertModal
+        title={alertTitle}
+        complete={"이해했어요!"}
+        isModalOpen={isAlertOpen}
+        onModalClose={closeAlertModal}
+        onComplete={closeAlertModal}
+      />
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
           <EmptyHeader />
           <Root id="content">
-            <Typography variant="h1">
-              {categoryTitle}
-            </Typography>
+            <Typography variant="h1">{categoryTitle}</Typography>
             <RenderOptions />
             <BottomConainer sx={{ flexDirection: "column" }}>
               <ResultBox>
@@ -116,18 +141,18 @@ const SettingOptionModal = ({ open, onClose, priority }: { open: any, onClose: a
         </div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 const Root = styled("div")({
   height: "calc(100vh - 146px)",
   backgroundColor: "#fff",
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px',
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
 
-  overflowX: 'hidden',
-  overflowY: 'scroll',
+  overflowX: "hidden",
+  overflowY: "scroll",
   // paddingBottom: '36px',
 
   ".bottom-button": {
@@ -137,7 +162,7 @@ const Root = styled("div")({
     width: "100%",
     height: "72px",
     borderRadius: "0",
-  }
+  },
 });
 
 const OptionItem = styled("div")({
@@ -162,8 +187,8 @@ const EmptyBox = styled(Box)({
   alignItems: "center",
   flexDirection: "column",
   justifyContent: "center",
-  height:"100%",
-  gap:"20px",
+  height: "100%",
+  gap: "20px",
 });
 
 export default SettingOptionModal;

@@ -3,7 +3,7 @@
 import colors from "@/assets/theme/base/colors";
 import { FormControlLabel, Radio, styled, Typography } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface option {
   id?: string;
@@ -14,11 +14,22 @@ interface option {
 interface optionsProps {
   options: option[];
   onChange: (value: string) => void;
+  initialValue?: string | null;
 }
 const { primary, primary_lighten3, gray4, gray5 } = colors;
 
-const RDRadioInput = ({ options, onChange }: optionsProps) => {
+const RDRadioInput = ({
+  options,
+  onChange,
+  initialValue = null,
+}: optionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
+
+  useEffect(() => {
+    if (initialValue !== null) {
+      setSelectedValue(initialValue);
+    }
+  }, [initialValue]);
 
   const handleChange = (event: any) => {
     const newValue = event.target.value;
@@ -30,7 +41,7 @@ const RDRadioInput = ({ options, onChange }: optionsProps) => {
     <RadioGroup
       value={selectedValue}
       onChange={handleChange}
-      sx={{ gap: "8px" }}
+      sx={{ gap: "8px", width: "100%" }}
     >
       {options.map((option, index) => (
         <LabelRoot
@@ -63,7 +74,11 @@ const LabelRoot = styled(FormControlLabel)(({ theme, checked }) => ({
   borderRadius: "6px",
   backgroundColor: checked ? primary_lighten3 : "transparent",
   "&:hover": {
-    backgroundColor: gray5,
+    backgroundColor: checked ? primary_lighten3 : gray5,
+    opacity: 0.95,
+  },
+  "&:focus:not(:hover)": {
+    backgroundColor: primary_lighten3,
   },
   "&:focus, &:focus-within": {
     backgroundColor: checked

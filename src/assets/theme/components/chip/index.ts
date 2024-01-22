@@ -13,7 +13,8 @@ const chip: Types = {
     sizeMedium: { ...filled.medium },
     colorDefault: { ...filled.default },
     colorPrimary: { ...filled.primary },
+    colorSecondary: { ...filled.secondary },
   },
-}
+};
 
 export default chip;

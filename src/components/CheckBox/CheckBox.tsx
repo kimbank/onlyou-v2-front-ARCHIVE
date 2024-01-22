@@ -4,29 +4,41 @@ import colors from "@/assets/theme/base/colors";
 import styled from "@emotion/styled";
 import { CheckBox } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
-
+import DoDisturbAltIcon from "@mui/icons-material/DoDisturbAlt";
 interface CheckboxProps {
   onClick: () => void;
   buttonName?: string;
   checked: boolean;
+  disabled?: boolean;
 }
 
-export function Checkbox({ onClick, buttonName, checked }: CheckboxProps) {
+export function Checkbox({
+  onClick,
+  buttonName,
+  checked,
+  disabled,
+}: CheckboxProps) {
   return (
     <CheckboxRoot
       className="checkbox-button"
       onClick={onClick}
       checked={checked}
+      disabled={disabled}
     >
-      <CheckBox className="checkbox" />
+      {disabled ? (
+        <DoDisturbAltIcon className="disabled-icon" />
+      ) : (
+        <CheckBox className="checkbox" />
+      )}
+
       <Typography variant="body2" className="label">
         {buttonName}
       </Typography>
     </CheckboxRoot>
   );
 }
-const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
-  const { primary, white, gray2, gray4, gray5, black } = colors;
+const CheckboxRoot = styled(Button)(({ checked, disabled }: CheckboxProps) => {
+  const { primary, white, gray2, gray3, gray4, gray5, black } = colors;
   return {
     width: "100%",
     display: "flex",
@@ -38,11 +50,19 @@ const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
     padding: "10px 12px",
     backgroundColor: checked ? white : gray5,
     gap: "10px",
+    "&:disabled": {
+      backgroundColor: gray4,
+      color: "#fff",
+      border: `1px solid ${gray3}`,
+    },
     "&:hover": {
-      backgroundColor: checked ? white : gray5,
+      backgroundColor: checked ? white : white,
+    },
+    "&:focus:not(:hover)": {
+      backgroundColor: checked ? white : white,
     },
     "&:focus, &:focus-within": {
-      backgroundColor: checked ? white : gray5,
+      backgroundColor: checked ? white : white,
     },
     ".checkbox": {
       width: 26.67,
@@ -52,10 +72,14 @@ const CheckboxRoot = styled(Button)(({ checked }: CheckboxProps) => {
       textAlign: "left",
       border: 0,
     },
+    ".disabled-icon": {
+      width: 16,
+      height: 16,
+    },
     ".label": {
-      color: checked ? black : gray2,
+      color: disabled ? white : checked ? black : gray2,
       textAlign: "left",
-      fontWeight: checked ? "600" : "normal",
+      fontWeight: disabled ? "600" : checked ? "600" : "normal",
     },
   };
 });
