@@ -25,10 +25,6 @@ const contained = {
     lineHeight: "100%",
     textAlign: "center",
 
-    "&:hover, :focus": {
-      backgroundColor: "#F16416",
-    },
-
     "&.Mui-disabled": {
       backgroundColor: primary,
     },
@@ -38,16 +34,24 @@ const contained = {
     backgroundColor: primary,
     color: white,
 
-    "&:hover": {
+    "&:hover ,:focus": {
       backgroundColor: primary_darken,
     },
 
     "&:focus:not(:hover)": {
-      backgroundColor: "",
+      backgroundColor: primary_darken,
     },
   },
 
   secondary: {
+    "&:hover": {
+      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+      color: gray2,
+    },
+    "&:focus:not(:hover)": {
+      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+      color: gray2,
+    },
     "&.MuiButton-root": {
       backgroundColor: gray5,
       color: gray2,
@@ -55,10 +59,10 @@ const contained = {
         boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
         color: gray2,
       },
-    },
-    "&:focus:not(:hover)": {
-      boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
-      color: gray2,
+      "&:focus:not(:hover)": {
+        boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
+        color: gray2,
+      },
     },
   },
 };

@@ -1,10 +1,13 @@
 import colors from "@/assets/theme/base/colors";
+import BottomButtonRoot from "@/components/BottomButton/BottomButtonRoot";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 import { Box, Modal, styled, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
+import BottomButton from "./BottomButton";
 import { ConsistData } from "./Connect";
 import { InfoTab } from "./tabs/InfoTab";
 import { LetterTab } from "./tabs/LetterTab";
+import { PictureTab } from "./tabs/PictureTab";
 
 interface TargetProfileModalProps {
   open: boolean;
@@ -40,18 +43,14 @@ export const TargetProfileModal = ({
             indicatorColor="primary"
           >
             <Tab label="편지" value={1} />
-            <Tab label="상세정보" value={2} />
+            <Tab label="상세 정보" value={2} />
             <Tab label="사진" value={3} />
           </Tabs>
           {priority === 1 && <LetterTab data={data} />}
           {priority === 2 && <InfoTab data={data} />}
-          {priority === 3 && (
-            <Box className="picture-box">
-              <Box className="picture"></Box>
-              <Box className="picture"></Box>
-            </Box>
-          )}
+          {priority === 3 && <PictureTab />}
         </Root>
+        <BottomButton refuseText="거절하기" acceptText="수락하기" />
       </div>
     </Modal>
   );
@@ -78,16 +77,7 @@ const Root = styled(Box)({
   ".caption": {
     marginBottom: "16px",
   },
-  ".picture-box": {
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-  },
-  ".picture": {
-    height: "200px",
-    backgroundColor: "#484848",
-    borderRadius: "6px",
-  },
+
   ".btn-prior-selected": {
     backgroundColor: "#fff !important",
     color: "#f70 !important",

@@ -81,7 +81,7 @@ const Home = () => {
         <Typography variant="h1">
           로그인
           <Typography variant="body2">
-            로그인을 위해 휴대폰번호를 인증해 주세요
+            로그인을 위해 전화번호를 인증해 주세요
           </Typography>
         </Typography>
         <Box
@@ -100,7 +100,7 @@ const Home = () => {
               autoComplete="user_id"
               autoFocus
             />
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" disabled={isCodeSent}>
               <Typography variant="subtitle2">인증번호 전송</Typography>
             </Button>
           </Box>

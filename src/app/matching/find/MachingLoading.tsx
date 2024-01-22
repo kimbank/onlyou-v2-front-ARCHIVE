@@ -1,7 +1,7 @@
 "use client";
 
 import colors from "@/assets/theme/base/colors";
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Skeleton, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import Birth from "public/icons/birth.svg";
 import Home from "public/icons/home.svg";
@@ -16,7 +16,9 @@ const MachingLoading = () => {
         인연을 찾는 중...
       </Typography>
       <Box className="loading-box">
-        <Box className="loading top" />
+        <Box className="loading top">
+          <Skeleton animation="wave" />
+        </Box>
         <Box className="item">
           <Image src={Job} width={20} alt="직장" />
           <Box className="loading" />
@@ -40,7 +42,7 @@ const MachingLoadingRoot = styled(Box)(() => {
     borderRadius: 6,
     display: "flex",
     flexDirection: "column",
-    gap: 12,
+    gap: 6,
     height: 184,
     padding: "16px 20px",
     marginTop: 8,
@@ -60,10 +62,11 @@ const MachingLoadingRoot = styled(Box)(() => {
         borderRadius: "6px",
       },
       ".loading:nth-child(1)": {
-        backgroundColor: `white !important`,
-        height: "24px",
         minWidth: "233px",
-        width: "76.39%",
+        width: "90%",
+        "&> span": {
+          height: "35px !important",
+        },
       },
 
       ".item:nth-child(2) > .loading": {

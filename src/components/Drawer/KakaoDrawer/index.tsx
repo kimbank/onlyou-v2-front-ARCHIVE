@@ -8,6 +8,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import colors from "@/assets/theme/base/colors";
 import Kakao from "public/icons/kakao.svg";
 import Image from "next/image";
+import { useState } from "react";
 
 const { gray5 } = colors;
 interface DrawerProps {
@@ -26,9 +27,11 @@ export const KakaoDrawer = ({
   kakaoId,
 }: DrawerProps) => {
   const router = useRouter();
+  const [isCopy, setIsCopy] = useState(false);
 
   const handleCompleteClick = () => {
     navigator.clipboard.writeText(kakaoId as string);
+    setIsCopy(true);
   };
 
   return (
@@ -60,8 +63,11 @@ export const KakaoDrawer = ({
           variant="contained"
           onClick={handleCompleteClick}
           size="large"
+          disabled={isCopy}
         >
-          <Typography variant="subtitle1">복사하기</Typography>
+          <Typography variant="subtitle1">
+            {isCopy ? "복사 완료!" : "복사하기"}
+          </Typography>
         </Button>
       </DrawerButton>
     </DrawerFrame>
@@ -92,6 +98,7 @@ const KakaoDrawerRoot = styled(Box)(({ theme }) => {
       padding: "8px 16px",
       gap: "8px",
       alignItems: "center",
+      borderRadius: "6px",
       "&> div": {
         width: "20px",
         height: "20px",

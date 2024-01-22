@@ -74,8 +74,8 @@ const Menu = () => {
             </Typography>
           </MenuButton>
         </Box>
-        <FullDivider />
-        <Box className="menu-wrapper">
+        {/* <FullDivider /> */}
+        {/* <Box className="menu-wrapper">
           <Typography
             variant="subtitle1"
             color="black"
@@ -93,7 +93,7 @@ const Menu = () => {
               경고 점수 조회
             </Typography>
           </MenuButton>
-        </Box>
+        </Box> */}
       </MenuRoot>
     </>
   );

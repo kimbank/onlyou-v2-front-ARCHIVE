@@ -83,7 +83,6 @@ const EventRoot = styled(Container)(({ theme }) => {
     gap: "20px",
     paddingBottom: "60px",
     alignItems: "center",
-    overflow: "scroll",
     width: "100%",
     backgroundColor: white,
     ".event-box": {

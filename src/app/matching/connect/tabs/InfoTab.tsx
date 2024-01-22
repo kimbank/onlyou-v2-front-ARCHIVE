@@ -64,7 +64,7 @@ export const InfoTab = ({ data }: Props) => {
           <FullDivider />
           <Box className="target-box">
             <Box className="target-wrap">
-              <Typography variant="subtitle3">
+              <Typography variant="subtitle2">
                 {option.target.firstPriority.label}
               </Typography>
 
@@ -75,7 +75,7 @@ export const InfoTab = ({ data }: Props) => {
               ))}
             </Box>
             <Box className="target-wrap">
-              <Typography variant="subtitle3">
+              <Typography variant="subtitle2">
                 {option.target.secondPriority.label}
               </Typography>
 
@@ -86,7 +86,7 @@ export const InfoTab = ({ data }: Props) => {
               ))}
             </Box>
             <Box className="target-wrap">
-              <Typography variant="subtitle3">
+              <Typography variant="subtitle2">
                 {option.target.thirdPriority.label}
               </Typography>
 
@@ -146,7 +146,7 @@ const Root = styled(Box)({
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    "&> span": {
+    "&> h6": {
       marginBottom: "4px",
     },
   },
