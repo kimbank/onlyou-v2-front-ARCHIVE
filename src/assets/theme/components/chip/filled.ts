@@ -29,8 +29,7 @@ const filled = {
     fontWeight: "600",
     "&:hover": {
       boxShadow: "0px 5px 6.8px 0px rgba(0, 0, 0, 0.09)",
-      opacity: 0.75,
-      backgroundColor: "#F70",
+      backgroundColor: "#F16416",
     },
   },
   secondary: {

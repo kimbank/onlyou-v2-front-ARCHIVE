@@ -79,8 +79,8 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
             <Box className="title-box">
               <Typography variant="h1">{titles[priority - 1]}</Typography>
               <Typography variant="body1">
-                꼭 맞춰줬으면 하는 조건을
-                <strong>"{conditions[priority - 1]}"</strong>
+                꼭 맞춰줬으면 하는 조건을 &nbsp;
+                <strong>"{conditions[priority - 1]}"</strong> &nbsp;
                 골라주세요.,
               </Typography>
             </Box>

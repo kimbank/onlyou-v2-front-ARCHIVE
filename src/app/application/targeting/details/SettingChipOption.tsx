@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ClickAwayListener,
   Divider,
   styled,
   Tooltip,
@@ -14,8 +15,11 @@ import { residence } from "@/constants/application_option";
 import { allOptions } from "@/constants/targeting";
 import useModal from "@/hooks/useModal";
 import { setTargetingDataField } from "@/store/targetingSlice";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useDispatch, useSelector } from "react-redux";
+
+type TooltipOpenStates = {
+  [key: string]: boolean;
+};
 
 const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const dispatch = useDispatch();
@@ -28,7 +32,13 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     openModal: openAlertModal,
     closeModal: closeAlertModal,
   } = useModal();
-
+  const [tooltipOpenStates, setTooltipOpenStates] = useState<TooltipOpenStates>(
+    {
+      서울: false,
+      경기: false,
+      인천: false,
+    }
+  );
   const allOption = residence.options;
   const limit = allOptions[optionName].targeting_limit;
 
@@ -90,11 +100,25 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     ));
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleTooltipToggle = () => {
-    setOpen(!open);
+  const toggleTooltip = (group: string) => {
+    setTooltipOpenStates((prev) => ({
+      ...prev,
+      [group]: !prev[group],
+    }));
   };
+  const handleCloseTooltip = () => {
+    setTooltipOpenStates((prev) => {
+      const newStates = { ...prev };
+      Object.keys(newStates).forEach((key) => {
+        newStates[key] = false;
+      });
+      return newStates;
+    });
+  };
+
+  const isAnyTooltipOpen = Object.values(tooltipOpenStates).some(
+    (state) => state
+  );
 
   return (
     <>
@@ -118,23 +142,48 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
               <Box className="button-box" key={group}>
                 <Box className="tooltip-box">
                   <Typography variant="subtitle2">{group}</Typography>
-                  <Tooltip
-                    title={renderTooltip(group)}
-                    placement="bottom-end"
-                    arrow
-                    open={open}
-                    onClick={handleTooltipToggle}
-                  >
-                    <Box className="tooltip-content">
-                      <Typography
-                        className="tooltip-text"
-                        variant="body3"
-                        color="gray"
+                  {isAnyTooltipOpen ? (
+                    <ClickAwayListener onClickAway={handleCloseTooltip}>
+                      <Tooltip
+                        title={renderTooltip(group)}
+                        placement="bottom-end"
+                        arrow
+                        open={tooltipOpenStates[group] || false}
+                        disableHoverListener
                       >
-                        {group} 지역 상세보기
-                      </Typography>
-                    </Box>
-                  </Tooltip>
+                        <Box
+                          className="tooltip-content"
+                          onClick={() => toggleTooltip(group)}
+                        >
+                          <Typography
+                            className="tooltip-text"
+                            variant="body3"
+                            color="gray"
+                          >
+                            {group} 지역 상세보기
+                          </Typography>
+                        </Box>
+                      </Tooltip>
+                    </ClickAwayListener>
+                  ) : (
+                    <Tooltip
+                      title={renderTooltip(group)}
+                      placement="bottom-end"
+                      arrow
+                      open={tooltipOpenStates[group]}
+                      onClick={() => toggleTooltip(group)}
+                    >
+                      <Box className="tooltip-content">
+                        <Typography
+                          className="tooltip-text"
+                          variant="body3"
+                          color="gray"
+                        >
+                          {group} 지역 상세보기
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                  )}
                 </Box>
                 <Box className="button">
                   {Object.keys(allOption[group]).map((optionKey: string) => (
@@ -193,6 +242,10 @@ const Root = styled(Box)(() => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      "& .MuiTooltip-tooltip": {
+        display: "none",
+        position: "relative",
+      },
     },
     ".tooltip-content": {
       display: "flex",
