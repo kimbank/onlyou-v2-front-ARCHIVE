@@ -52,6 +52,7 @@ const CompleteRoot = styled("div")(({ theme }) => {
 
     "& > :nth-child(2)": {
       marginTop: "16px",
+      whiteSpace: "nowrap",
     },
     "& > :nth-child(3)": {
       marginTop: "8px",

@@ -198,7 +198,11 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       onClick={() => handleOptionClick(Number(optionKey))}
                     >
                       <Typography
-                        variant="body2"
+                        variant={
+                          optionState.data.includes(Number(optionKey))
+                            ? "subtitle2"
+                            : "body2"
+                        }
                         color={
                           optionState.data.includes(Number(optionKey))
                             ? "white"

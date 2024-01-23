@@ -38,40 +38,66 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     setPriority(newValue);
   };
 
+  // const handleOptionClick = (optionName: string) => {
+  //   const currentPriorityCount = Object.keys(targetingState).filter(
+  //     (field: string) => {
+  //       return targetingState[field].priority === priority;
+  //     }
+  //   );
+  //   const targetingOption = targetingState[optionName];
+  //   if (targetingOption.priority === priority) {
+  //     dispatch(setTargetingPriority({ field: optionName, priority: null }));
+  //   } else {
+  //     if (priority === 1 && currentPriorityCount.length >= 2) {
+  //       return;
+  //     } else if (currentPriorityCount.length >= 4) {
+  //       return;
+  //     }
+  //     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
+  //   }
+  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
+    [key: number]: string[];
+  }>({});
+
   const handleOptionClick = (optionName: string) => {
-    const currentPriorityCount = Object.keys(targetingState).filter(
-      (field: string) => {
-        return targetingState[field].priority === priority;
-      }
-    );
-    const targetingOption = targetingState[optionName];
-    if (targetingOption.priority === priority) {
+    const currentOptionPriority = targetingState[optionName].priority;
+    const maxOptions = priority === 1 ? 2 : 4;
+    const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
+    if (currentOptionPriority !== null) {
       dispatch(setTargetingPriority({ field: optionName, priority: null }));
-    } else {
-      if (priority === 1 && currentPriorityCount.length >= 2) {
-        setAlertTitle("1순위는 최대 2개까지 선택할 수 있어요");
-        openAlertModal();
-        // alert("1순위는 최대 2개까지 선택할 수 있습니다.");
-        return;
-      } else if (currentPriorityCount.length >= 4) {
-        setAlertTitle(`${priority}순위는 최대 4개까지 선택할 수 있어요`);
-        openAlertModal();
-        // alert(`${priority}순위는 최대 4개까지 선택할 수 있습니다.`);
-        return;
-      }
-      dispatch(setTargetingPriority({ field: optionName, priority: priority }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: currentSelectedOptions.filter(
+          (option) => option !== optionName
+        ),
+      });
+      return;
     }
+    if (currentSelectedOptions.length >= maxOptions) {
+      const oldestOption = currentSelectedOptions[0];
+      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions.slice(1), optionName],
+      });
+    } else {
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions, optionName],
+      });
+    }
+    dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
   return (
     <>
-      <AlertModal
+      {/* <AlertModal
         title={alertTitle}
         complete={"이해했어요!"}
         isModalOpen={isAlertOpen}
         onModalClose={closeAlertModal}
         onComplete={closeAlertModal}
-      />
+      /> */}
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
           <CloseHeader onClose={onClose} />
