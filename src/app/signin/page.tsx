@@ -90,8 +90,11 @@ const Home = () => {
 
       if ("message" in res) {
         if (res.message.includes("TRY_LEFT")) {
+          const tryLeftMatch = res.message.match(/TRY_LEFT (\d+)/);
+          const triesLeft = tryLeftMatch ? tryLeftMatch[1] : "unknown";
+
           setVerifyCodeError(
-            "인증 시도 횟수가 제한되었습니다. 잠시 후 다시 시도해 주세요."
+            `인증번호가 틀렸습니다. ${triesLeft}회의 기회가 남았습니다.`
           );
         } else {
           setVerifyCodeError(res.message);
@@ -108,7 +111,6 @@ const Home = () => {
               setVerifyCodeError("이미 요청하신 인증번호가 있습니다.");
               break;
             case 403:
-              setVerifyCodeError("Auth code is not available.");
               window.location.reload();
               break;
             default:
