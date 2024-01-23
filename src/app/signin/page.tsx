@@ -12,7 +12,7 @@ import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
 
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface UseTimerResult {
   totalSeconds: number;
@@ -27,6 +27,8 @@ interface SigninCodeSendResponse {
 const Home = () => {
   const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
   const [isCodeSent, setIsCodeSent] = useState(false);
+  const [isCodeError, setIsCodeError] = useState(false);
+  const [codeErrorMessage, setCodeErrorMessage] = useState("");
 
   const router = useRouter();
 
@@ -49,28 +51,73 @@ const Home = () => {
     }
   }
 
+  // async function handleVerifyCode(event: any) {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+
+  //   try {
+  //     const res = await signinCodeVerify(
+  //       data.get("mobileNumber"),
+  //       data.get("code")
+  //     );
+  //     console.log(res);
+
+  //     if ("message" in res) {
+  //       alert("오류: " + res.message);
+  //     } else if ("token" in res) {
+  //       console.log("res", res);
+  //       router.push("matching");
+  //     } else {
+  //       console.log("알 수 없는 응답:", res);
+  //     }
+  //   } catch (error) {
+  //     console.error("인증 오류:", error);
+  //     alert("인증 처리 중 오류가 발생했습니다.");
+  //   }
+  // }
+  const [verifyCodeError, setVerifyCodeError] = useState<string | null>(null);
+
   async function handleVerifyCode(event: any) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setVerifyCodeError(null); // 초기화
 
     try {
       const res = await signinCodeVerify(
         data.get("mobileNumber"),
         data.get("code")
       );
-      console.log(res);
 
       if ("message" in res) {
-        alert("오류: " + res.message);
+        if (res.message.includes("TRY_LEFT")) {
+          setVerifyCodeError(
+            "인증 시도 횟수가 제한되었습니다. 잠시 후 다시 시도해 주세요."
+          );
+        } else {
+          setVerifyCodeError(res.message);
+        } // 서버에서 반환된 오류 메시지 설정
       } else if ("token" in res) {
-        console.log("res", res);
         router.push("matching");
-      } else {
-        console.log("알 수 없는 응답:", res);
       }
     } catch (error) {
-      console.error("인증 오류:", error);
-      alert("인증 처리 중 오류가 발생했습니다.");
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          switch (axiosError.response.status) {
+            case 409:
+              setVerifyCodeError("이미 요청하신 인증번호가 있습니다.");
+              break;
+            case 403:
+              setVerifyCodeError("Auth code is not available.");
+              window.location.reload();
+              break;
+            default:
+              setVerifyCodeError("알 수 없는 오류가 발생했습니다.");
+          }
+        }
+      } else {
+        setVerifyCodeError("인증 처리 중 오류가 발생했습니다.");
+      }
     }
   }
 
@@ -109,11 +156,17 @@ const Home = () => {
               required
               fullWidth
               name="code"
-              label="인증번호 6자리"
+              label={verifyCodeError ? "인증번호 입력" : "인증번호 6자리"}
               type="code"
               id="code"
               autoComplete="current-password"
+              error={verifyCodeError != null}
             />
+            {verifyCodeError && (
+              <Typography variant="body3" color="error">
+                {verifyCodeError}
+              </Typography>
+            )}
             <Box className="verifyCode">
               {isCodeSent ? (
                 <Typography color="primary" variant="subtitle2">
@@ -171,6 +224,7 @@ const LoginRoot = styled(Box)({
     },
   },
   ".verify": {
+    height: "56px",
     position: "relative",
     ".verifyCode": {
       position: "absolute",

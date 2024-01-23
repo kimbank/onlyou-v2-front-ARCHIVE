@@ -1,33 +1,25 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setTargetingPriority } from "@/store/targetingSlice";
 import { RootState } from "@/store/store";
+import { setTargetingPriority } from "@/store/targetingSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  styled,
-  Modal,
-  Typography,
-  Box,
-  Tabs,
-  Tab,
-  Button,
-} from "@mui/material";
-import EmptyHeader from "@/components/Header/EmptyHeader";
 import BottomButton from "@/components/BottomButton/Next";
 import { targetingCategories } from "@/constants/targeting";
+import {
+  Box,
+  Button,
+  Modal,
+  styled,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 
-import AlertModal from "@/components/Modal/Default";
-import useModal from "@/hooks/useModal";
 import CloseHeader from "@/components/Header/CloseHeader";
+import useModal from "@/hooks/useModal";
 
 const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
-  const {
-    isModalOpen: isAlertOpen,
-    openModal: openAlertModal,
-    closeModal: closeAlertModal,
-  } = useModal();
-  const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
@@ -60,7 +52,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   }>({});
 
   const handleOptionClick = (optionName: string) => {
-    const currentOptionPriority = targetingState[optionName].priority;
+    const currentOptionPriority = targetingState[optionName]?.priority;
     const maxOptions = priority === 1 ? 2 : 4;
     const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
     if (currentOptionPriority !== null) {
@@ -89,15 +81,13 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
+  useEffect(() => {
+    console.log("targeting", targetingState);
+    console.log("targetingCategories", targetingCategories);
+  });
+
   return (
     <>
-      {/* <AlertModal
-        title={alertTitle}
-        complete={"이해했어요!"}
-        isModalOpen={isAlertOpen}
-        onModalClose={closeAlertModal}
-        onComplete={closeAlertModal}
-      /> */}
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
           <CloseHeader onClose={onClose} />
@@ -135,7 +125,8 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
                     {targetingCategories[category].options.map(
                       (option: any) => {
                         const buttonPriority =
-                          targetingState[option.name].priority;
+                          targetingState[option.name]?.priority;
+
                         let buttonStyle = "";
                         if (buttonPriority === priority) {
                           buttonStyle = "btn-selected";

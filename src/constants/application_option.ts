@@ -89,7 +89,7 @@ export const residence: GroupedOption = {
 // 직장 유형 : 선택 반영
 export const jobType: Option = {
   name: "jobType",
-  label: "직장 유형",
+  label: "직장",
   me: "radio",
   targeting: "button",
 
@@ -163,8 +163,8 @@ export const university: Option = {
 
 // 돌싱 여부 : 선택 반영
 export const divorce: Option = {
-  name: "dolsing",
-  label: "divorce 여부",
+  name: "divorce",
+  label: "결혼경력",
   me: "radio",
   targeting: "button",
   targeting_limit: 1,
