@@ -226,6 +226,7 @@ export const interest: Option = {
   label: "관심사",
   me: "chip",
   targeting: "button",
+  targeting_limit: 3,
 
   options: {
     0: "여행",

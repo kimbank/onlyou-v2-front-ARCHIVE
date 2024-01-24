@@ -7,13 +7,11 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import colors from "@/assets/theme/base/colors";
-import AlertModal from "@/components/Modal/Default";
 import { residence } from "@/constants/application_option";
 import { allOptions } from "@/constants/targeting";
-import useModal from "@/hooks/useModal";
 import { setTargetingDataField } from "@/store/targetingSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,12 +24,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const optionState = useSelector(
     (state: RootState) => state.targeting[optionName]
   );
-  const [alertTitle, setAlertTitle] = useState("");
-  const {
-    isModalOpen: isAlertOpen,
-    openModal: openAlertModal,
-    closeModal: closeAlertModal,
-  } = useModal();
+
   const [tooltipOpenStates, setTooltipOpenStates] = useState<TooltipOpenStates>(
     {
       서울: false,
@@ -39,32 +32,38 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
       인천: false,
     }
   );
+  const [isEtcActive, setIsEtcActive] = useState(false);
+  const [isOtherActive, setIsOtherActive] = useState(false);
   const allOption = residence.options;
   const limit = allOptions[optionName].targeting_limit;
 
   const ascending = (a: number, b: number) => a - b;
 
   function handleOptionClick(idx: number) {
+    const isEtcOption = allOption["기타"][idx] !== undefined;
+
+    let newData;
     if (optionState.data.includes(idx)) {
-      dispatch(
-        setTargetingDataField({
-          field: optionName,
-          data: optionState.data.filter((data: number) => data !== idx),
-        })
-      );
-    } else if (limit && optionState.data.length >= limit) {
-      setAlertTitle(`최대 ${limit}개 까지 선택할 수 있어요`);
-      openAlertModal();
-      return;
+      newData = optionState.data.filter((data: number) => data !== idx);
     } else {
-      dispatch(
-        setTargetingDataField({
-          field: optionName,
-          data: [...optionState.data, idx].sort(ascending),
-        })
-      );
+      if (isEtcOption) {
+        newData = [idx];
+      } else {
+        newData = optionState.data.filter(
+          (dataIdx: string) => allOption["기타"][dataIdx] === undefined
+        );
+        newData.push(idx);
+      }
     }
+
+    dispatch(
+      setTargetingDataField({
+        field: optionName,
+        data: newData.sort(ascending),
+      })
+    );
   }
+
   const renderTooltip = (group: string) => {
     switch (group) {
       case "서울":
@@ -78,7 +77,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     }
   };
   const renderOptionButtons = (group: string) => {
-    return Object.keys(allOption[group]).map((optionKey: string) => (
+    return Object.keys(allOption["기타"]).map((optionKey: string) => (
       <Button
         sx={{ height: "34px", width: "100%" }}
         key={optionKey}
@@ -89,12 +88,14 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
         onClick={() => handleOptionClick(Number(optionKey))}
       >
         <Typography
-          variant="body2"
+          variant={
+            optionState.data.includes(Number(optionKey)) ? "subtitle2" : "body2"
+          }
           color={
             optionState.data.includes(Number(optionKey)) ? "white" : "gray1"
           }
         >
-          {allOption[group][optionKey]}
+          {allOption["기타"][optionKey]}
         </Typography>
       </Button>
     ));
@@ -119,16 +120,20 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const isAnyTooltipOpen = Object.values(tooltipOpenStates).some(
     (state) => state
   );
+  useEffect(() => {
+    const isEtcChecked = optionState.data.some(
+      (idx: string) => allOption["기타"][idx] !== undefined
+    );
+    setIsEtcActive(isEtcChecked);
+
+    const isOtherChecked = optionState.data.some(
+      (idx: string) => allOption["기타"][idx] === undefined
+    );
+    setIsOtherActive(isOtherChecked);
+  }, [optionState.data]);
 
   return (
     <>
-      <AlertModal
-        title={alertTitle}
-        complete={"이해했어요!"}
-        isModalOpen={isAlertOpen}
-        onModalClose={closeAlertModal}
-        onComplete={closeAlertModal}
-      />
       <Root>
         <Box className="button-box">
           {allOption["기타"] && (

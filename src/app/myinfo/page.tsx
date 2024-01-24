@@ -76,10 +76,12 @@ const MyinfoRoot = styled("div")({
     gap: "20px",
   },
   ".signout": {
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     margin: "auto",
-    gap: "74px",
+    aliginItems: "center",
+    justifyContent: "space-evenly",
   },
 });
 

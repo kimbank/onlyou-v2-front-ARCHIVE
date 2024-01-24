@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLetterValues, toggle } from "@/store/letterValueSlice";
 import { FullDivider } from "@/components/Dividers/FullDivider";
+import { theme } from "@/assets";
 
 const Index = () => {
   const router = useRouter();
@@ -123,18 +124,17 @@ const Index = () => {
   return (
     <LetterRoot id="content">
       {isInit ? (
-        <Typography variant="h1">
-          📝 <br />
-          이제 편지를 작성해 볼까요?
-        </Typography>
+        <Box className="title">
+          <Typography variant="h1">📝</Typography>
+          <Typography variant="h1">이제 편지를 작성해 볼까요?</Typography>
+        </Box>
       ) : (
-        <Typography variant="h1">
-          편지 수정하기
-          <br />
+        <Box className="title">
+          <Typography variant="h1">편지 수정하기</Typography>
           <Typography variant="body1">
             질문과 답변을 추가하거나 삭제할 수 있어요
           </Typography>
-        </Typography>
+        </Box>
       )}
       <InfoText bgColor="primary">
         <ReportGmailerrorredIcon color="primary" />
@@ -169,38 +169,41 @@ const Index = () => {
         {letterValues.map((key, index) => (
           <Box className="letter-write" key={index}>
             <Typography className="letter-title" variant="subtitle2">
-              {index + 1}.{questions[key]}
+              {questions[key]}
             </Typography>
-            <TextareaAutosize
-              className="text-area"
-              aria-label="textarea"
-              minRows={3}
-              placeholder="답변을 작성해주세요"
-              style={{
-                width: "100%",
-                borderRadius: "10px",
-                padding: "16px",
-                height: "210px",
-                minHeight: "140px",
-                border: "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
-                color: onlyRead[index] ? "gray" : "black",
-                resize: "none",
-              }}
-              onChange={(e) => handleTextChange(e, index)}
-              readOnly={onlyRead[index]}
-              value={lettertexts[index] || ""}
-            />
-            <Box className="caption-box">
-              <Typography variant="caption">
-                글자 수 /&nbsp;
-                <Typography
-                  variant="caption"
-                  color={textVaild[index] ? "red" : "inherit"}
-                >
-                  {lettertexts[index]?.length || 0}
+            <Box className="textarea-container">
+              <TextareaAutosize
+                className="text-area"
+                aria-label="textarea"
+                minRows={3}
+                placeholder="답변을 작성해주세요"
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  padding: "16px",
+                  height: "210px",
+                  minHeight: "140px",
+                  border: "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
+                  color: onlyRead[index] ? "gray" : "black",
+                  resize: "none",
+                  ...theme.typography.body1,
+                }}
+                onChange={(e) => handleTextChange(e, index)}
+                readOnly={onlyRead[index]}
+                value={lettertexts[index] || ""}
+              />
+              <Box className="caption-box">
+                <Typography variant="caption">
+                  글자 수 /&nbsp;
+                  <Typography
+                    variant="caption"
+                    color={textVaild[index] ? "red" : "inherit"}
+                  >
+                    {lettertexts[index]?.length || 0}
+                  </Typography>
+                  자
                 </Typography>
-                자
-              </Typography>
+              </Box>
             </Box>
             <Container className="letter-box-values">
               {isInit ? (
@@ -254,7 +257,10 @@ const LetterRoot = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
-    gap: "24px",
+    gap: "16px",
+    ".title h1:first-of-type": {
+      marginBottom: "8px",
+    },
     ".letter-box": {
       display: "flex",
       flexDirection: "column",
@@ -266,11 +272,11 @@ const LetterRoot = styled(Container)(({ theme }) => {
         paddingBottom: "6px",
       },
     },
-    ".letter-write": {
+    ".textarea-container": {
       position: "relative",
       "& .caption-box": {
         position: "absolute",
-        bottom: 76,
+        bottom: 20,
         marginLeft: "16px",
       },
     },

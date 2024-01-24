@@ -129,7 +129,7 @@ export const Connect = () => {
           : status === UserStatus.WAIT
           ? "상대의 선택을 기다리는 중이에요"
           : "오늘의 인연이에요"}
-        <Typography variant="body2">
+        <Typography variant="body1">
           {status === UserStatus.MATCH
             ? "서로를 선택하여 연락처가 공개됐어요."
             : status === UserStatus.WAIT

@@ -148,7 +148,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
                           >
                             {buttonPriority &&
                               buttonPriority !== priority &&
-                              `${buttonPriority} | `}
+                              `${buttonPriority} |${"\u00A0"}`}
                             <Typography
                               variant={
                                 buttonPriority === priority ||
