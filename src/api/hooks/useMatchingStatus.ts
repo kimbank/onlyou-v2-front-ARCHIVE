@@ -13,8 +13,11 @@ export const useMatchingStatus = () => {
 
   return {
     matchingStatus: data?.message,
+    meComplete: data?.meComplete,
     isLoading: isLoading,
     isError: error,
     mutate: mutate,
   };
 }
+
+export default useMatchingStatus;

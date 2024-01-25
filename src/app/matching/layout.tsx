@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { authedAxios } from "@/api/base/axisoInstance";
 import dynamic from "next/dynamic";
 import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 

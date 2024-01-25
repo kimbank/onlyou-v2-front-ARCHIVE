@@ -62,7 +62,7 @@ const ImageBox = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   flexShrink: 0,
-  backgroundColor: theme.palette.gray1,
+  backgroundColor: String(theme.palette.gray1),
 }));
 
 export default DormancyPage;

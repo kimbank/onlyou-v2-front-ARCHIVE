@@ -7,12 +7,16 @@ import MachingCard from "./MachingCard";
 import MachingLoading from "./MachingLoading";
 import { InfoOutlined } from "@mui/icons-material";
 
+import NoticeModal from "../NoticeModal";
+
 
 const MatchingWaitingPage = () => {
   return (
     <>
       <HomeHeader />
+
       <MatchingWaitingRoot id="content">
+        <NoticeModal />
         <Typography variant="h1">
           인연을 찾는 중이에요.
           <Typography variant="body1">
@@ -33,6 +37,7 @@ const MatchingWaitingPage = () => {
           </p>
         </ExplainBox>
       </MatchingWaitingRoot>
+
       <BottomNavi />
     </>
   );
