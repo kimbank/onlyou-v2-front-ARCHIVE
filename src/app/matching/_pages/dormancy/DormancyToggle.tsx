@@ -8,13 +8,15 @@ import Toggle from "@/components/Toggle/iOS";
 import Backdrop from "@/components/Backdrop";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/utils/formatDate";
-
+import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 
 const DormancySwitch = () => {
-  const { myInfo, mutate, isLoading, isMutating } = useMyinfo();
+  const { mutate } = useMatchingStatus();
+  const { myInfo, isLoading, isMutating } = useMyinfo();
   const { isModalOpen, openModal, closeModal } = useModal();
   const [savedDate, setSavedDate] = useState(null);
   const formattedDate = savedDate ? formatDate(savedDate) : "";
+
   useEffect(() => {
     if (myInfo?.dormant && typeof myInfo.dormant === "string") {
       setSavedDate(myInfo.dormant);
@@ -59,16 +61,16 @@ const DormancySwitch = () => {
       </DormancyMenuRoot>
       <Drawer
         title={
-          myInfo?.dormant
-            ? "매칭 전환 하시겠습니까?"
-            : "휴면 전환 하시겠습니까?"
+          !myInfo?.dormant
+            ? "휴면 전환 하시겠습니까?"
+            : "매칭 전환 하시겠습니까?"
         }
         body={
-          myInfo?.dormant
-            ? `${formattedDate}에 휴면처리 되었습니다.`
-            : "휴면 전환을 하면 매칭이 불가능해집니다."
+          !myInfo?.dormant
+            ? "휴면 전환을 하면 매칭이 불가능해집니다."
+            : `${formattedDate}에 휴면처리 되었습니다.`
         }
-        complete={myInfo?.dormant ? "매칭 활성화" : "휴면 전환"}
+        complete={!myInfo?.dormant ? "휴면 전환" : "매칭 활성화"}
         onComplete={handleDormancy}
         open={isModalOpen}
         onClose={closeModal}
@@ -90,36 +92,6 @@ const DormancyMenuRoot = styled("div")({
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-  },
-});
-
-const DormancyMenuSkeleton = styled(Skeleton)({
-  borderRadius: "6px",
-  backgroundColor: "#D3D6DB",
-});
-
-const OnButton = styled(Button)({
-  borderRadius: "6px",
-  width: "50%",
-  height: "100%",
-  pointerEvents: "none",
-
-  ":hover": {
-    boxShadow: "none",
-  },
-});
-
-const OffButton = styled(Button)({
-  borderRadius: "6px",
-  backgroundColor: "#D3D6DB",
-  color: "#5C5F63",
-  fontWeight: "400",
-  width: "50%",
-  height: "100%",
-
-  ":hover": {
-    backgroundColor: "inherit",
-    boxShadow: "none",
   },
 });
 

@@ -24,7 +24,16 @@ export const plainAxios = axios.create({
 
 // 응답 인터셉터 추가
 authedAxios.interceptors.response.use(
-  response => response,
+  response => {
+    log(`-------------------응답 인터셉터-------------------
+      status:     ${JSON.stringify(response.status)}
+      statusText: ${response.statusText}
+      res.data:   ${JSON.stringify(response.data)}
+      ${new Date()}
+      -----------------------------------------------
+    `);
+    return response;
+  },
   async error => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
