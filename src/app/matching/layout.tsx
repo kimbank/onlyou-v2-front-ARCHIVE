@@ -5,12 +5,14 @@ import { authedAxios } from "@/api/base/axisoInstance";
 import dynamic from "next/dynamic";
 import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 
+import Skeleton from "./_pages/skeleton";
 
-const Skeleton = dynamic(() => import("./_pages/skeleton"), { ssr: false });
-const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false });
-const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false });
-const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false });
-const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false });
+
+// const Skeleton = dynamic(() => import("./_pages/skeleton"), { ssr: false });
+const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false, loading: () => <Skeleton />});
+const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false, loading: () => <Skeleton /> });
+const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false, loading: () => <Skeleton /> });
+const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false, loading: () => <Skeleton /> });
 
 const MatchingLayout = ({ children }: { children: React.ReactNode }) => {
   const { matchingStatus, isLoading, isError } = useMatchingStatus();
@@ -66,7 +68,7 @@ const MatchingLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     isError ? (
-      <h1>Error</h1>
+      <>Error Page</>
     ) :
     isLoading ? (
       <Skeleton />
