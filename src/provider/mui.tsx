@@ -2,6 +2,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "@/assets";
 import { createTheme } from "@mui/material/styles";
+
+
 type Props = {
   children: React.ReactNode;
 };

@@ -3,14 +3,11 @@
 import SWRProvider from "./swr";
 import MuiProvider from "./mui";
 import ReduxProvider from "./redux";
-import { usePathname, useRouter } from "next/navigation";
-import { useTransitionSelect } from "@/hooks/useTransitionSelect";
+
+import HomeProvider from "./home";
 
 
 export default function Provider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const transition = useTransitionSelect();
-  
   return (
     <>
       {/* Mui Provider */}
@@ -20,6 +17,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
           {/* SWR Provider */}
           <SWRProvider>
             {children}
+            <HomeProvider />
           </SWRProvider>
         </ReduxProvider>
       </MuiProvider>

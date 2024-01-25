@@ -1,28 +1,29 @@
 "use client";
 
-import { useState } from "react";
-
-import Error from "@/components/error";
+import { useRouter } from "next/navigation";
 import { Box, styled, Typography } from "@mui/material";
 
-import { DangerNotification } from "@/components/Notification/legacy";
-
-import BottomNavi from "@/components/BottomNavi";
 import HomeHeader from "@/components/Header/HomeHeader";
+import BottomNavi from "@/components/BottomNavi";
+import { FullDivider } from "@/components/Dividers/FullDivider";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 
-import { FullDivider } from "../../components/Dividers/FullDivider";
-import DormancyToggle from "./DormancyToggle";
-import { MannerMenu } from "./MannerMenu";
-import Menu from "./Menu";
 import MyinfoProfileCard from "./MyinfoProfileCard";
+import { MannerMenu } from "./MannerMenu";
 import { Status } from "./Status";
+import Menu from "./Menu";
+import DormancyToggle from "./DormancyToggle";
+
+import { useDispatch } from "react-redux";
+import { showModal } from "@/store/home/modalSlice";
+
+import Error from "@/components/error";
+
 
 const Myinfo = () => {
-  const [alertMessage, setAlertMessage] = useState("");
-  const [visible, setVisible] = useState(false);
-
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { myInfo, isLoading, isError } = useMyinfo();
 
   if (isError) return <Error />;
@@ -31,11 +32,6 @@ const Myinfo = () => {
     <>
       <HomeHeader />
       <div id="content">
-        <DangerNotification
-          alertMessage={alertMessage}
-          visible={visible}
-          setVisible={setVisible}
-        />
         <MyinfoRoot>
           <Typography variant="h1">내 정보</Typography>
           <Box className="profile-wrapper">
@@ -50,11 +46,20 @@ const Myinfo = () => {
           <DormancyToggle />
           <FullDivider />
           <Box className="signout">
-            <a href="/signout">
+            <span onClick={() =>
+              dispatch(
+                showModal({
+                  title: "로그아웃",
+                  body: "로그아웃 하시겠어요?",
+                  cancel: "취소",
+                  complete: "로그아웃",
+                  onComplete: () => router.push("/signout"),
+                }))
+            }>
               <Typography variant="body2">로그아웃</Typography>
-            </a>
+            </span>
             <p>|</p>
-            <a href="https://g8h7y7g082m.typeform.com/to/BZedJjPX">
+            <a href="https://g8h7y7g082m.typeform.com/to/BZedJjPX" target="_blank">
               <Typography variant="body2">회원 탈퇴</Typography>
             </a>
           </Box>
@@ -82,6 +87,10 @@ const MyinfoRoot = styled("div")({
     margin: "auto",
     aliginItems: "center",
     justifyContent: "space-evenly",
+
+    "& span": {
+      cursor: "pointer",
+    },
   },
 });
 
