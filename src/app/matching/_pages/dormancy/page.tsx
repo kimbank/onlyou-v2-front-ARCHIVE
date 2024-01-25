@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { Box, Button, Typography } from "@mui/material";
 import HomeHeader from "@/components/Header/HomeHeader";
 import BottomNavi from "@/components/BottomNavi";
 import DormancyToggle from "./DormancyToggle";
+import DormancyImage from "public/images/dormancy/3dtoggle_1080x1080.png";
 import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 
 import { styled } from "@mui/material";
@@ -16,14 +18,15 @@ const DormancyPage = () => {
 
       <DormancyRoot id="content">
         <Box className="title">
-          <Typography variant="h1">현재 매칭 휴면 상태에요.</Typography>
+          <Typography variant="h1">매칭이 중단되었어요.</Typography>
           <Typography variant="body1">
-            언제든지 다시 매칭에 참여하실 수 있어요.
+            다시 매칭을 받고 싶으시면 매칭을 활성화 해주세요.
           </Typography>
         </Box>
-        <Box className="content">
-          <DormancyToggle />
-        </Box>
+        <ImageBox>
+          <Image src={DormancyImage} width={176} height={176} alt="휴면" />
+        </ImageBox>
+        <DormancyToggle />
       </DormancyRoot>
 
       <BottomNavi />
@@ -50,5 +53,16 @@ const DormancyRoot = styled("div")(({ theme }) => {
     },
   };
 });
+
+const ImageBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  height: "208px",
+  width: "100%",
+  borderRadius: "8px",
+  justifyContent: "center",
+  alignItems: "center",
+  flexShrink: 0,
+  backgroundColor: theme.palette.gray1,
+}));
 
 export default DormancyPage;

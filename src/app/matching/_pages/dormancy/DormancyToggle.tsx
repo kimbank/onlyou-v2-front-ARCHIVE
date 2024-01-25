@@ -44,11 +44,11 @@ const DormancySwitch = () => {
       <DormancyMenuRoot>
         <Box>
           <Typography variant="subtitle1">매칭 활성화하기</Typography>
-          <Typography variant="body2">
+          {/* <Typography variant="body2">
             {myInfo?.dormant
               ? "프로필 교환이 잠시 중단되었어요."
               : "현재 프로필을 받아 볼 수 있어요."}
-          </Typography>
+          </Typography> */}
         </Box>
         <Toggle
           checked={!myInfo?.dormant}
