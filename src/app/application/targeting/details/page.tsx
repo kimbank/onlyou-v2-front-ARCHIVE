@@ -3,7 +3,8 @@
 import { useState } from "react";
 
 import useModal from "@/hooks/useModal";
-import { Button, styled, Typography } from "@mui/material";
+import { styled, Stepper, Step, StepConnector, Button, Typography } from "@mui/material";
+import { CheckCircle } from '@mui/icons-material';
 import { useDispatch, useSelector } from "react-redux";
 import SettingOptionModal from "./SettingOptionModal";
 
@@ -53,21 +54,16 @@ const DetailsPage = () => {
       return targetingState[field].priority === priority;
     });
 
-    for (let option of options) {
-      if (targetingState[option]?.data) {
-        if (targetingState[option].data.length === 0) {
+    for (const option of options) {
+      const cur = targetingState[option];
+      if (cur?.data) { // 일반 필드
+        if (targetingState[option].data.length < 1) {
           return false;
         }
+      } else { // 범위형 필드
         if (
-          targetingState[option].from === undefined &&
-          targetingState[option].to === undefined
-        ) {
-          return true;
-        }
-      } else {
-        if (
-          targetingState[option].from === undefined &&
-          targetingState[option].to === undefined
+          cur.from === undefined ||
+          cur.to === undefined
         ) {
           return false;
         }
@@ -122,37 +118,54 @@ const DetailsPage = () => {
               <Typography variant="subtitle2">우선순위 변경하기</Typography>
             </Button>
           )}
-          <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            onClick={() => {
-              openSettingModalByPriority(0);
-              console.log("checkFillStatus", checkFillStatus(0));
-            }}
-            variant={checkFillStatus(0) ? "outlined" : "contained"}
-          >
-            <Typography>기본 반영 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(1) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(1)}
-            variant={checkFillStatus(1) ? "outlined" : "contained"}
-          >
-            <Typography> 1순위 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(2) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(2)}
-            variant={checkFillStatus(2) ? "outlined" : "contained"}
-          >
-            <Typography> 2순위 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(3) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(3)}
-            variant={checkFillStatus(3) ? "outlined" : "contained"}
-          >
-            <Typography> 3순위 상세 조건</Typography>
-          </Menu>
+
+          <Stepper activeStep={0} orientation="vertical" sx={{ width: "100%" }} connector={null}>
+            <StepperStep>
+              <CheckCircle color={ checkFillStatus(0) ? "primary" : "disabled" } />
+              <Menu
+                color={ checkFillStatus(0) ? "primary" : "secondary" }
+                onClick={() => {
+                  openSettingModalByPriority(0);
+                }}
+                variant={ checkFillStatus(0) ? "outlined" : "contained" }
+              >
+                <Typography>기본 반영 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector color={checkFillStatus(0) ? "primary" : "secondary"} />
+            <StepperStep>
+              <CheckCircle color={ checkFillStatus(1) ? "primary" : "disabled" } />
+              <Menu
+                color={checkFillStatus(1) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(1)}
+                variant={checkFillStatus(1) ? "outlined" : "contained"}
+              >
+                <Typography> 1순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector color={checkFillStatus(1) ? "primary" : "secondary"} />
+            <StepperStep>
+              <CheckCircle color={ checkFillStatus(2) ? "primary" : "disabled" } />
+              <Menu
+                color={checkFillStatus(2) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(2)}
+                variant={checkFillStatus(2) ? "outlined" : "contained"}
+              >
+                <Typography> 2순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector color={checkFillStatus(2) ? "primary" : "secondary"} />
+            <StepperStep>
+              <CheckCircle color={ checkFillStatus(3) ? "primary" : "disabled" } />
+              <Menu
+                color={checkFillStatus(3) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(3)}
+                variant={checkFillStatus(3) ? "outlined" : "contained"}
+              >
+                <Typography> 3순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+          </Stepper>
 
           <Esitimate />
         </div>
@@ -208,34 +221,21 @@ const MenuButton = styled(Button)((props) => {
   };
 });
 
-export default DetailsPage;
+const StepperStep = styled(Step)({
+  display: "flex",
+  flexDirection: "row",
+  gap: "16px",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
-{
-  /* <MenuButton
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(1)}
-            variant={checkFillStatus(1) ? "outlined" : "contained"}
-          >
-            1순위 상세 조건
-          </MenuButton> */
-}
-{
-  /* <MenuButton
-            size="large"
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(2)}
-            variant={checkFillStatus(2) ? "outlined" : "contained"}
-          >
-            2순위 상세 조건
-          </MenuButton>
-          <MenuButton
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(3)}
-            variant={checkFillStatus(3) ? "outlined" : "contained"}
-          >
-            3순위 상세 조건
-          </MenuButton> */
-}
+const StepperConnector = styled(StepConnector)(({ theme, color }) => {
+  return {
+    ".MuiStepConnector-line": {
+      borderColor: color === "primary" ?
+        theme.palette.primary.main : theme.palette.gray4?.main,
+    },
+  };
+});
+
+export default DetailsPage;

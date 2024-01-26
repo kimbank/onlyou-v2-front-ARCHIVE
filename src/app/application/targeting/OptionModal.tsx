@@ -30,23 +30,6 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     setPriority(newValue);
   };
 
-  // const handleOptionClick = (optionName: string) => {
-  //   const currentPriorityCount = Object.keys(targetingState).filter(
-  //     (field: string) => {
-  //       return targetingState[field].priority === priority;
-  //     }
-  //   );
-  //   const targetingOption = targetingState[optionName];
-  //   if (targetingOption.priority === priority) {
-  //     dispatch(setTargetingPriority({ field: optionName, priority: null }));
-  //   } else {
-  //     if (priority === 1 && currentPriorityCount.length >= 2) {
-  //       return;
-  //     } else if (currentPriorityCount.length >= 4) {
-  //       return;
-  //     }
-  //     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
-  //   }
   const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
     [key: number]: string[];
   }>({});
@@ -82,8 +65,10 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   };
 
   useEffect(() => {
-    console.log("targeting", targetingState);
-    console.log("targetingCategories", targetingCategories);
+    if (process.env.NODE_ENV === "development") {
+      console.log("targeting", targetingState);
+      console.log("targetingCategories", targetingCategories);
+    }
   });
 
   return (

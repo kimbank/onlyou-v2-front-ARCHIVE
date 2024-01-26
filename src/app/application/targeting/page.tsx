@@ -36,8 +36,6 @@ const TargetingPage = () => {
       }
     }
   );
-  console.log("targetingState", targetingState);
-  console.log("isTargetingEmpty", isTargetingEmpty);
 
   return (
     <>
