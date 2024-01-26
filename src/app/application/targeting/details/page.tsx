@@ -16,8 +16,12 @@ import { useSearchParams } from "next/navigation";
 import Esitimate from "./Estimate";
 import ModifyOptionModal from "./ModifyOptionModal";
 
+import { putTargeting } from "@/api/putTargeting";
+import Loading from "@/components/loading";
+
 
 const DetailsPage = () => {
+  const [isPutTargetingLoading, setIsPutTargetingLoading] = useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
   const {
     isModalOpen: isSettingOpen,
@@ -38,9 +42,43 @@ const DetailsPage = () => {
   const targetingState = useSelector((state: RootState) => state.targeting);
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
-  const handleNext = () => {
+
+  const handleNext = async () => {
     if (allGroupsSelected) {
-      openNextModal();
+      setIsPutTargetingLoading(true);
+      let targetingData = {};
+      for (const field of Object.keys(targetingState)) {
+        if (typeof(targetingState[field]?.priority) !== "number") continue;
+        if (targetingState[field].data) {
+          const defaultOption = {
+            data: targetingState[field]?.data,
+            priority: targetingState[field]?.priority,
+          };
+          targetingData = {
+            ...targetingData,
+            [field]: defaultOption,
+          };
+        } else {
+          const rangeOption = {
+            from: targetingState[field]?.from,
+            to: targetingState[field]?.to,
+            priority: targetingState[field]?.priority,
+          };
+          targetingData = {
+            ...targetingData,
+            [field]: rangeOption,
+          };
+        }
+      }
+      const res = await putTargeting(targetingData);
+      if (res.statusText === "OK") {
+        openNextModal();
+      } else if (res.status === 400) {
+        alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
+      } else {
+        alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      }
+      setIsPutTargetingLoading(false);
     } else {
       alert("모든 그룹을 선택하세요.");
     }
@@ -85,6 +123,7 @@ const DetailsPage = () => {
 
   return (
     <>
+      {isPutTargetingLoading && <Loading />}
       <SettingOptionModal
         open={isSettingOpen}
         onClose={closeSettingModal}
@@ -178,7 +217,7 @@ const DetailsPage = () => {
           prevHref="/application/targeting"
           onClick={handleNext}
           nextType="button"
-          checkedStates={allGroupsSelected}
+          checkedStates={fillStatus}
         />
       )}
 

@@ -1,6 +1,6 @@
 import { RootState } from "@/store/store";
 import { setTargetingPriority } from "@/store/targetingSlice";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BottomButton from "@/components/BottomButton/Next";
@@ -38,6 +38,9 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     const currentOptionPriority = targetingState[optionName]?.priority;
     const maxOptions = priority === 1 ? 2 : 4;
     const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
+    const currentSelectedOptionsInRedux = Object.keys(targetingState).filter(
+      (key) => targetingState[key].priority === priority
+    );
     if (currentOptionPriority !== null) {
       dispatch(setTargetingPriority({ field: optionName, priority: null }));
       setSelectedOptionsByPriority({
@@ -50,6 +53,13 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     }
     if (currentSelectedOptions.length >= maxOptions) {
       const oldestOption = currentSelectedOptions[0];
+      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions.slice(1), optionName],
+      });
+    } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
+      const oldestOption = currentSelectedOptionsInRedux[0];
       dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
       setSelectedOptionsByPriority({
         ...selectedOptionsByPriority,

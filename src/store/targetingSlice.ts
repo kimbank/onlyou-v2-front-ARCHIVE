@@ -92,7 +92,7 @@ const initialState: any = {
   consumptionValues: targetingField,
   careerFamilyValues: targetingField,
   childrenValues: targetingField,
-  appearance: targetingField,
+  // appearance: targetingField,
 
   animalImage: targetingField,
   doubleEyelid: targetingField,

@@ -37,13 +37,15 @@ const TargetingPage = () => {
     if (typeof(targetingData?.fillStatus) === "number") {
       const dataKeys = Object.keys(targetingData);
       for (const key of Object.keys(targetingState)) {
-        const value = targetingState[key];
+        const value = targetingData[key];
         if (dataKeys.includes(key)) {
           if (key === "birthYear" || key === "height") {
-            dispatch(setTargetingRangeField({ field: key, from: targetingData[key]?.from, to: targetingData[key]?.to }));
+            dispatch(setTargetingRangeField({ field: key, from: value?.from, to: value?.to }));
           }
-          dispatch(setTargetingDataField({ field: key, data: targetingData[key]?.data }));
-          dispatch(setTargetingPriority({ field: key, priority: targetingData[key]?.priority }));
+          dispatch(setTargetingDataField({ field: key, data: value?.data }));
+          if (value?.priority >= 1 && value?.priority <= 3) {
+            dispatch(setTargetingPriority({ field: key, priority: value?.priority }));
+          }
         }
       }
     }
