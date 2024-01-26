@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
@@ -19,8 +20,13 @@ import { StepButton } from "@/components/Button/StepButton";
 import useTargeting from "@/api/hooks/useTargeting";
 import Loading from "@/components/loading";
 
+import BottomNextButton from "@/components/BottomButton/Next";
+
 
 const TargetingPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
   const {
     isModalOpen: isOptionOpen,
     openModal: openOptionModal,
@@ -136,14 +142,38 @@ const TargetingPage = () => {
           )}
         </Box>
       </TargetingRoot>
-      <StepButton
+      {
+        isInit ? (
+          <BottomNextButton>
+            <Button size="large" variant="outlined"
+              onClick={() => router.push('/application/me/etc?type=init')}
+            >
+              이전
+            </Button>
+            <Button size="large" disabled={isTargetingEmpty}
+              onClick={() => router.push('/application/targeting/details?type=init')}
+            >
+              다음
+            </Button>
+          </BottomNextButton>
+        ) : (
+          <BottomNextButton>
+            <Button size="large" disabled={isTargetingEmpty}
+              onClick={() => router.push('/application/targeting/details')}
+            >
+              다음
+            </Button>
+          </BottomNextButton>
+        )
+      }
+      {/* <StepButton
         prevText="이전"
         nextText="다음"
         prevHref="/application/me/etc"
         nextHref="/application/targeting/details"
         nextType="button"
         checkedStates={!isTargetingEmpty}
-      />
+      /> */}
     </>
   );
 };

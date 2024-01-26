@@ -12,15 +12,20 @@ import Menu from "@/components/Button/Menu";
 import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Esitimate from "./Estimate";
 import ModifyOptionModal from "./ModifyOptionModal";
 
 import { putTargeting } from "@/api/putTargeting";
 import Loading from "@/components/loading";
 
+import BottomNextButton from "@/components/BottomButton/Next";
+
 
 const DetailsPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
   const [isPutTargetingLoading, setIsPutTargetingLoading] = useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
   const {
@@ -40,8 +45,6 @@ const DetailsPage = () => {
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-  const searchParams = useSearchParams();
-  const isInit = searchParams.get("type") === "init";
 
   const handleNext = async () => {
     if (allGroupsSelected) {
@@ -72,7 +75,11 @@ const DetailsPage = () => {
       }
       const res = await putTargeting(targetingData);
       if (res.statusText === "OK") {
-        openNextModal();
+        if (isInit) {
+          openNextModal();
+        } else {
+          router.push("/myinfo");
+        }
       } else if (res.status === 400) {
         alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
       } else {
@@ -132,7 +139,8 @@ const DetailsPage = () => {
       <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
       <ContentRoot id="content">
         <div className="content-title">
-          {!isInit ? (
+          <Typography variant="h1">조건 상세 설정 수정하기</Typography>
+          {/* {!isInit ? (
             <Typography variant="h1">조건 상세 설정 수정하기</Typography>
           ) : (
             <>
@@ -143,10 +151,10 @@ const DetailsPage = () => {
                 상세한 설정에 따라 예상 매칭 주기를 알려드려요
               </Typography>
             </>
-          )}
+          )} */}
         </div>
         <div className="content-body">
-          {!isInit && (
+          {/* {!isInit && (
             <Button
               sx={{ width: "100%" }}
               variant="contained"
@@ -157,7 +165,7 @@ const DetailsPage = () => {
               />
               <Typography variant="subtitle2">우선순위 변경하기</Typography>
             </Button>
-          )}
+          )} */}
 
           <Stepper activeStep={0} orientation="vertical" sx={{ width: "100%" }} connector={null}>
             <StepperStep>
@@ -210,7 +218,7 @@ const DetailsPage = () => {
           <Esitimate />
         </div>
       </ContentRoot>
-      {isInit && (
+      {isInit ? (
         <StepButton
           prevText="이전"
           nextText="다음"
@@ -219,6 +227,15 @@ const DetailsPage = () => {
           nextType="button"
           checkedStates={fillStatus}
         />
+      ) : (
+        <BottomNextButton>
+          <Button size="large" variant="outlined" onClick={() => router.push("/application/targeting")}>
+            이전
+          </Button>
+          <Button size="large" onClick={handleNext} disabled={!fillStatus}>
+            저장하기
+          </Button>
+        </BottomNextButton>
       )}
 
       <TargetDrawer
