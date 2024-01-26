@@ -16,6 +16,7 @@ import { useSearchParams } from "next/navigation";
 import Esitimate from "./Estimate";
 import ModifyOptionModal from "./ModifyOptionModal";
 
+
 const DetailsPage = () => {
   const [priority, setPriority] = useState<number>(0);
   const {

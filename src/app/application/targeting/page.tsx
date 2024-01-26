@@ -1,22 +1,24 @@
 "use client";
 
-import Link from "next/link";
+import React from "react";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import ProgressHeader from "@/components/Header/ProgressHeader";
 import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
 
 import { useSelector, useDispatch } from "react-redux";
-// import { setTargetingField } from "@/store/targetingSlice";
+import { setTargetingPriority, setTargetingDataField, setTargetingRangeField } from "@/store/targetingSlice";
 
 import useModal from "@/hooks/useModal";
 import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
-import { fontSize } from "@mui/system";
+
+import useTargeting from "@/api/hooks/useTargeting";
+import Loading from "@/components/loading";
+
 
 const TargetingPage = () => {
   const {
@@ -27,6 +29,25 @@ const TargetingPage = () => {
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+  const { targetingData, isLoading } = useTargeting();
+
+  React.useEffect(() => {
+    if (isLoading) return;
+
+    if (typeof(targetingData?.fillStatus) === "number") {
+      const dataKeys = Object.keys(targetingData);
+      for (const key of Object.keys(targetingState)) {
+        const value = targetingState[key];
+        if (dataKeys.includes(key)) {
+          if (key === "birthYear" || key === "height") {
+            dispatch(setTargetingRangeField({ field: key, from: targetingData[key]?.from, to: targetingData[key]?.to }));
+          }
+          dispatch(setTargetingDataField({ field: key, data: targetingData[key]?.data }));
+          dispatch(setTargetingPriority({ field: key, priority: targetingData[key]?.priority }));
+        }
+      }
+    }
+  }, [isLoading]);
 
   const isTargetingEmpty = Object.keys(targetingState).every(
     (field: string) => {
@@ -39,6 +60,7 @@ const TargetingPage = () => {
 
   return (
     <>
+      { isLoading && <Loading /> }
       <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
