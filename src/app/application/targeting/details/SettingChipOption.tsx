@@ -77,10 +77,10 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     }
   };
   const renderOptionButtons = (group: string) => {
-    return Object.keys(allOption["기타"]).map((optionKey: string) => (
+    return Object.keys(allOption["기타"]).map((optionKey: string, index: number) => (
       <Button
+        key={index}
         sx={{ height: "34px", width: "100%" }}
-        key={optionKey}
         variant="contained"
         color={
           optionState.data.includes(Number(optionKey)) ? "primary" : "secondary"
@@ -143,8 +143,8 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
           )}
           {Object.keys(allOption)
             .filter((group) => group !== "기타")
-            .map((group: string) => (
-              <Box className="button-box" key={group}>
+            .map((group: string, index: number) => (
+              <Box className="button-box" key={index}>
                 <Box className="tooltip-box">
                   <Typography variant="subtitle2">{group}</Typography>
                   {isAnyTooltipOpen ? (
@@ -191,9 +191,9 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                   )}
                 </Box>
                 <Box className="button">
-                  {Object.keys(allOption[group]).map((optionKey: string) => (
+                  {Object.keys(allOption[group]).map((optionKey: string, index: number) => (
                     <Button
-                      key={optionKey}
+                      key={index}
                       variant="contained"
                       color={
                         optionState.data.includes(Number(optionKey))

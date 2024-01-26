@@ -98,16 +98,16 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
             <Typography variant="body2">
               *다른 회원 분들은 평균 6개의 조건을 설정했어요.
             </Typography>
-            {Object.keys(targetingCategories).map((category: string) => {
+            {Object.keys(targetingCategories).map((category: string, index: number) => {
               if (category === "default") return;
               return (
-                <Box key={category} className="category-box">
+                <Box key={index} className="category-box">
                   <Typography variant="subtitle1">
                     {targetingCategories[category].label}
                   </Typography>
                   <Box className="options-box">
                     {targetingCategories[category].options.map(
-                      (option: any) => {
+                      (option: any, index: number) => {
                         const buttonPriority =
                           targetingState[option.name].priority;
                         let buttonStyle = "";
@@ -125,7 +125,7 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
                                 ? "secondary"
                                 : "primary"
                             }
-                            key={option.name}
+                            key={index}
                             className={buttonStyle}
                             onClick={() => handleOptionClick(option.name)}
                           >

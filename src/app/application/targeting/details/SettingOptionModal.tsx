@@ -89,7 +89,7 @@ const SettingOptionModal = ({
     return options.map((option: string, idx: number) => (
       <>
         {idx !== 0 && <Divider />}
-        <OptionItem key="option" onClick={() => {}}>
+        <OptionItem key={idx} onClick={() => {}}>
           <Typography variant="body1">
             {/* {targetingAllOptions[option].label} */}
             {optionTitle(option)}

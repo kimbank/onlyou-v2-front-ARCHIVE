@@ -125,7 +125,7 @@ const ChipLayout = ({
             if (!isLastIndex) {
               return (
                 <Box
-                  key={group.label}
+                  key={index}
                   className={
                     index <= activeGroupIndex
                       ? "value-radio visible"
@@ -156,9 +156,9 @@ const ChipLayout = ({
                         {index + 1}.{group.label}
                       </Typography>
                     </Box>
-                    {Object.keys(options).map((option: string) => (
+                    {Object.keys(options).map((option: string, index: number) => (
                       <Chip
-                        key={option}
+                        key={index}
                         label={options[option]}
                         variant="filled"
                         color={

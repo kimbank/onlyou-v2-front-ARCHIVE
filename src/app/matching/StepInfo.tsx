@@ -34,8 +34,8 @@ export const StepInfo = () => {
 
         <Box className="stepper">
           <Stepper activeStep={activeStep}  alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
+            {steps.map((label, index) => (
+              <Step key={index}>
                 <StepLabel color='white'>{label}</StepLabel>
               </Step>
             ))}

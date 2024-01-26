@@ -19,6 +19,9 @@ export const store = configureStore({
     letter: LetterValueSlice,
     path: pathReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

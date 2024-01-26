@@ -12,11 +12,11 @@ export const LetterTab = ({ data }: Props) => {
     <Root>
       {data.letterOptions.map((letter, index) => (
         <Box
+          key={index}
           style={{
             backgroundColor: ["#FFF6EF", "#F8F2FC"][index % 2],
           }}
           className="letter-box"
-          key={index}
         >
           <Box className="letter-icon">
             <Box className="letter-text">

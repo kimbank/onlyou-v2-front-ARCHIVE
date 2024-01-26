@@ -48,11 +48,11 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
   return (
     <>
       <Root>
-        {Object.keys(allOption).map((option: string) => {
+        {Object.keys(allOption).map((option: string, index: number) => {
           const labelValue = allOption[option];
           return (
             <Chip
-              key={option}
+              key={index}
               label={typeof labelValue === "string" ? labelValue : ""}
               variant="filled"
               color={

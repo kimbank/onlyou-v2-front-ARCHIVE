@@ -47,9 +47,9 @@ const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
           {index + 1}. {label}
         </Typography>
         <div className="chips-box">
-          {Object.keys(options).map((optionIndex) => (
+          {Object.keys(options).map((optionIndex, index) => (
             <Chip
-              key={optionIndex}
+              key={index}
               label={options[optionIndex]}
               color={
                 selectedChips.includes(Number(optionIndex))
