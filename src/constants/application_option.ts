@@ -92,6 +92,7 @@ export const jobType: Option = {
   label: "직장",
   me: "radio",
   targeting: "button",
+  targeting_limit: 15,
 
   options: {
     0: "대학생",
@@ -119,6 +120,7 @@ export const salary: Option = {
   label: "연봉",
   me: "radio",
   targeting: "button",
+  targeting_limit: 9,
 
   options: {
     0: "2천만 원 미만",
@@ -151,6 +153,7 @@ export const university: Option = {
   label: "대학",
   me: "radio",
   targeting: "button",
+  targeting_limit: 4,
 
   options: {
     0: "대학 미진학",
@@ -181,6 +184,7 @@ export const workType: Option = {
   label: "근무형태",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "교대 근무",
@@ -195,6 +199,7 @@ export const smoking: Option = {
   label: "흡연 경력",
   me: "radio",
   targeting: "button",
+  targeting_limit: 3,
 
   options: {
     0: "비흡연",
@@ -210,6 +215,7 @@ export const drinking: Option = {
   label: "음주 생활",
   me: "radio",
   targeting: "button",
+  targeting_limit: 4,
 
   options: {
     0: "전혀 마시지 않아요",
@@ -259,6 +265,7 @@ export const numberDating: Option = {
   label: "연애 횟수",
   me: "radio",
   targeting: "button",
+  targeting_limit: 4,
 
   options: {
     0: "0회",
@@ -275,6 +282,7 @@ export const athleticLife: Option = {
   label: "운동 생활",
   me: "radio",
   targeting: "button",
+  targeting_limit: 4,
 
   options: {
     0: "전혀 하지 않음",
@@ -291,6 +299,7 @@ export const petAnimal: Option = {
   label: "반려 동물",
   me: "radio",
   targeting: "button",
+  targeting_limit: 3,
 
   options: {
     0: "키우기 어렵습니다",
@@ -306,6 +315,7 @@ export const religion: Option = {
   label: "종교",
   me: "radio",
   targeting: "button",
+  targeting_limit: 5,
 
   options: {
     0: "무교",
@@ -413,6 +423,7 @@ export const marriageValues: Option = {
   label: "결혼 가치관",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "비혼주의에요",
@@ -427,6 +438,7 @@ export const oppositeSexFriendValues: Option = {
   label: "이성 친구 가치관",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "친한 친구라면 술, 영화도 괜찮아요",
@@ -441,6 +453,7 @@ export const politicalValues: Option = {
   label: "정치 성향",
   me: "radio",
   targeting: "button",
+  targeting_limit: 3,
 
   options: {
     0: "관심 없어요",
@@ -470,6 +483,7 @@ export const careerFamilyValues: Option = {
   label: "커리어와 가정 가치관",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "두 사람 모두 가정이 커리어보다 우선이었으면 해요",
@@ -484,6 +498,7 @@ export const childrenValues: Option = {
   label: "자녀 가치관",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "아직 모르겠어요",
@@ -498,6 +513,7 @@ export const animalImage: Option = {
   label: "동물 이미지",
   me: "radio",
   targeting: "button",
+  targeting_limit: 5,
 
   options: {
     0: "강아지",
@@ -515,6 +531,7 @@ export const doubleEyelid: Option = {
   label: "쌍커풀",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "무쌍",
@@ -529,6 +546,7 @@ export const bodyType: Option = {
   label: "체형",
   me: "radio",
   targeting: "button",
+  targeting_limit: 4,
 
   options: {
     0: "슬림",
@@ -580,6 +598,7 @@ export const tattoo: Option = {
   label: "문신 유무",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "없음",
@@ -622,6 +641,7 @@ export const loveInitiative: Option = {
   label: "연애 주도성",
   me: "radio",
   targeting: "button",
+  targeting_limit: 3,
 
   options: {
     0: "보통 따라간다",
@@ -637,6 +657,7 @@ export const datingFrequency: Option = {
   label: "데이트 빈도",
   me: "radio",
   targeting: "button",
+  targeting_limit: 2,
 
   options: {
     0: "일주일에 1번",

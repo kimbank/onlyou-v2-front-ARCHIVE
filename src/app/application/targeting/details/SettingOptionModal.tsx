@@ -2,7 +2,7 @@ import Image from "next/image";
 import LogoOutlined from "public/icons/logo_outlined.svg";
 
 import { RootState } from "@/store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EmptyHeader from "@/components/Header/EmptyHeader";
@@ -43,8 +43,9 @@ const SettingOptionModal = ({
       ? "기본 반영 조건 상세 설정"
       : `${priority}순위 반영 조건 상세 설정`;
   function optionTitle(optionName: string) {
-    const hangeul = targetingAllOptions[optionName].label;
-    const type = targetingAllOptions[optionName].targeting;
+    const option = targetingAllOptions[optionName];
+    const hangeul = option.label;
+    const type = option.targeting;
 
     if (type === "slider") {
       return `선호하는 ${hangeul}의 구간을 설정해주세요.`;
@@ -59,17 +60,49 @@ const SettingOptionModal = ({
         </>
       );
     }
-    if (type === "button") {
-      return (
-        <>
-          선호하는 {hangeul}
-          {jongsung(hangeul)} <strong>최대 3개</strong> 선택해주세요.
-        </>
-      );
+    if ("options" in option && type === "button") {
+      const optionsCount = Object.keys(option.options).length;
+      const limit =
+        option.targeting_limit !== undefined
+          ? option.targeting_limit
+          : optionsCount;
+      if (limit === 1) {
+        return `선호하는 ${hangeul}${jongsung(hangeul)} 선택해주세요.`;
+      } else if (limit <= optionsCount - 2) {
+        return (
+          <>
+            선호하는 {hangeul}
+            {jongsung(hangeul)} 최대 <strong>{limit}개</strong> 선택해주세요.
+          </>
+        );
+      } else {
+        return (
+          <>
+            선호하는 {hangeul}
+            {jongsung(hangeul)} <strong>모두</strong> 선택해주세요.
+          </>
+        );
+      }
     }
     return hangeul;
   }
+  useEffect(() => {
+    Object.entries(targetingAllOptions).forEach(([optionName, option]) => {
+      if ("options" in option && option.targeting === "button") {
+        const optionsCount = Object.keys(option.options).length;
+        const limit =
+          option.targeting_limit !== undefined
+            ? option.targeting_limit
+            : optionsCount;
 
+        console.log(
+          `옵션명: ${optionName}, limit: ${limit}, optionsCount: ${
+            optionsCount - 1
+          }`
+        );
+      }
+    });
+  }, []);
   const RenderOptions = () => {
     const options = Object.keys(targetingState).filter((field: string) => {
       return targetingState[field].priority === priority;
