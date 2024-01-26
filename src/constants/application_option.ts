@@ -707,3 +707,14 @@ export const conflictResolutionMethod: Option = {
     1: "갈등은 바로 풀어야 해요",
   },
 };
+
+export const informationBeforeMeeting: Option = {
+  name: "informationBeforeMeeting",
+  label: "만나기 전 정보",
+  me: "radio",
+  targeting: "button",
+  options: {
+    0: "만나기 전에는 간단히 장소와 시간만 정하고 싶어요",
+    1: "만나기 전에도 카톡, 전화 등으로 서로를 알아가고 싶어요",
+  },
+};

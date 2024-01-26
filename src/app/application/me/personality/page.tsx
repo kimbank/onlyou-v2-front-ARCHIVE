@@ -1,29 +1,10 @@
-"use client"
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
-import BottomButton from "../BottomButton"
-
-
-const PersonalityAPI = {
-  "statusCode": 200,
-  "message": "Find Success",
-  "data": {
-      "nickname": "뱅크",
-      "personality": {
-          "fillStatus": 2,
-          "extrovert_introvert": 0,
-          "intuition_reality": 0,
-          "emotion_reason": 0,
-          "impromptu_plan": 0,
-          "personalityCharm": [
-              3,
-              4
-          ]
-      }
-  }
-}
+import BottomButton from "../BottomButton";
+import useMe from "@/api/hooks/useMe";
 
 interface PersonalityData {
   // fillStatus: number | null;
@@ -43,25 +24,44 @@ const PersonalityPage = () => {
     intuition_reality: null,
     emotion_reason: null,
     impromptu_plan: null,
-    personalityCharm: null
+    personalityCharm: null,
   });
   const isInit = searchParams.get("type") === "init";
-  const isCompleteFillData = Object.values(personalityData).every((value) => value !== null);
+  const isCompleteFillData = Object.values(personalityData).every(
+    (value) => value !== null
+  );
+  const { me, isLoading, isError } = useMe("personality");
 
   useEffect(() => {
-    // const { personality } = PersonalityAPI.data;
-    // setPersonalityData(personality);
-  }, [])
+    if (!isLoading && !isError) {
+      const { personality } = me;
+
+      const updatedPersonalityData: PersonalityData = Object.keys(
+        personality
+      ).reduce(
+        (result, key) => {
+          if (personality[key] !== null) {
+            result[key as keyof PersonalityData] = personality[key];
+          }
+          return result;
+        },
+        { ...personalityData } as PersonalityData
+      );
+
+      setPersonalityData(updatedPersonalityData);
+      console.log("me data", me);
+    }
+  }, [me, isLoading, isError]);
 
   async function handleNext() {
     if (isInit) {
-      router.push("/application/me/datingstyle?type=init")
+      router.push("/application/me/datingstyle?type=init");
     }
   }
 
   async function handlePrev() {
     if (isInit) {
-      router.push("/application/me/lifestyle?type=init")
+      router.push("/application/me/lifestyle?type=init");
     }
   }
 

@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
-import BottomButton from "../BottomButton"
-
+import BottomButton from "../BottomButton";
+import useMe from "@/api/hooks/useMe";
 
 const DatingStyleAPI = {
-  "statusCode": 200,
-  "message": "Find Success",
-  "data": {
-      "nickname": "뱅크",
-      "datingstyle": {
-          "fillStatus": 2,
-          "preferredDate": 0,
-          "preferredContactMethod": 0,
-          "loveInitiative": 0,
-          "datingFrequency": 0,
-          "contactStyle": 0,
-          "conflictResolutionMethod": 0
-      }
-  }
-}
+  statusCode: 200,
+  message: "Find Success",
+  data: {
+    nickname: "뱅크",
+    datingstyle: {
+      fillStatus: 2,
+      preferredDate: 0,
+      preferredContactMethod: 0,
+      loveInitiative: 0,
+      datingFrequency: 0,
+      contactStyle: 0,
+      conflictResolutionMethod: 0,
+    },
+  },
+};
 
 interface DatingStyleData {
   // fillStatus: number | null;
@@ -43,25 +43,45 @@ const DatingStylePage = () => {
     loveInitiative: null,
     datingFrequency: null,
     contactStyle: null,
-    conflictResolutionMethod: null
+    conflictResolutionMethod: null,
   });
   const isInit = searchParams.get("type") === "init";
-  const isCompleteFillData = Object.values(datingStyleData).every((value) => value !== null);
+  const isCompleteFillData = Object.values(datingStyleData).every(
+    (value) => value !== null
+  );
+
+  const { me, isLoading, isError } = useMe("datingstyle");
 
   useEffect(() => {
-    // const { datingstyle } = DatingStyleAPI.data;
-    // setDatingStyleData(datingstyle);
-  }, [])
+    if (!isLoading && !isError) {
+      const { datingstyle } = me;
+
+      const updatedDatingstyleData: DatingStyleData = Object.keys(
+        datingstyle
+      ).reduce(
+        (result, key) => {
+          if (datingstyle[key] !== null) {
+            result[key as keyof DatingStyleData] = datingstyle[key];
+          }
+          return result;
+        },
+        { ...datingStyleData } as DatingStyleData
+      );
+
+      setDatingStyleData(updatedDatingstyleData);
+      console.log("me data", me);
+    }
+  }, [me, isLoading, isError]);
 
   async function handleNext() {
     if (isInit) {
-      router.push("/application/me/appearance?type=init")
+      router.push("/application/me/appearance?type=init");
     }
   }
 
   async function handlePrev() {
     if (isInit) {
-      router.push("/application/me/personality?type=init")
+      router.push("/application/me/personality?type=init");
     }
   }
 

@@ -1,29 +1,10 @@
-"use client"
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
-import BottomButton from "../BottomButton"
-
-
-const AppearanceAPI = {
-  "statusCode": 200,
-  "message": "Find Success",
-  "data": {
-      "nickname": "뱅크",
-      "appearance": {
-          "fillStatus": 2,
-          "animalImage": 1,
-          "doubleEyelid": 0,
-          "bodyType": 0,
-          "externalCharm": [
-              0,
-              3
-          ],
-          "tattoo": 0
-      }
-  }
-}
+import BottomButton from "../BottomButton";
+import useMe from "@/api/hooks/useMe";
 
 interface AppearanceData {
   // fillStatus: number | null;
@@ -43,26 +24,45 @@ const AppearancePage = () => {
     doubleEyelid: null,
     bodyType: null,
     externalCharm: null,
-    tattoo: null
+    tattoo: null,
   });
   const isInit = searchParams.get("type") === "init";
-  const isCompleteFillData = Object.values(appearanceData).every((value) => value !== null);
+  const isCompleteFillData = Object.values(appearanceData).every(
+    (value) => value !== null
+  );
+
+  const { me, isLoading, isError } = useMe("appearance");
 
   useEffect(() => {
-    // const { appearance } = AppearanceAPI.data;
-    // setAppearanceData(appearance);
-  }, [])
+    if (!isLoading && !isError) {
+      const { appearance } = me;
 
+      const updatedAppearanceData: AppearanceData = Object.keys(
+        appearance
+      ).reduce(
+        (result, key) => {
+          if (appearance[key] !== null) {
+            result[key as keyof AppearanceData] = appearance[key];
+          }
+          return result;
+        },
+        { ...appearanceData } as AppearanceData
+      );
+
+      setAppearanceData(updatedAppearanceData);
+      console.log("me data", me);
+    }
+  }, [me, isLoading, isError]);
 
   async function handleNext() {
     if (isInit) {
-      router.push("/application/me/etc?type=init")
+      router.push("/application/me/etc?type=init");
     }
   }
 
   async function handlePrev() {
     if (isInit) {
-      router.push("/application/me/datingstyle?type=init")
+      router.push("/application/me/datingstyle?type=init");
     }
   }
 

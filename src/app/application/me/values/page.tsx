@@ -4,23 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
-
-const ValuesAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-    values: {
-      fillStatus: 2,
-      marriageValues: 0,
-      oppositeSexFriendValues: 0,
-      politicalValues: 0,
-      consumptionValues: 0,
-      careerFamilyValues: 0,
-      childrenValues: 0,
-    },
-  },
-};
+import useMe from "@/api/hooks/useMe";
 
 interface ValuesData {
   // fillStatus: number | null;
@@ -49,14 +33,29 @@ const ValuesPage = () => {
     (value) => value !== null
   );
 
-  useEffect(() => {
-    // const { values } = ValuesAPI.data;
-    // setValuesData(values);
-  }, []);
+  const { me, isLoading, isError } = useMe("values");
 
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      const { values } = me;
+
+      const updatedvaluesData: ValuesData = Object.keys(values).reduce(
+        (result, key) => {
+          if (values[key] !== null) {
+            result[key as keyof ValuesData] = values[key];
+          }
+          return result;
+        },
+        { ...valuesData } as ValuesData
+      );
+
+      setValuesData(updatedvaluesData);
+      console.log("me data", me);
+    }
+  }, [me, isLoading, isError]);
   async function handleNext() {
     if (isInit) {
-      router.push("/application/me/lifestyle?type=init");
+      router.push("/application/me/values?type=init");
     }
   }
 

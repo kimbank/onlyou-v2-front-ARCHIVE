@@ -1,13 +1,19 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Typography,
+  styled,
+} from "@mui/material";
 
-import { otherRadioGroups } from "@/constants/me";
-
+import useMe from "@/api/hooks/useMe";
 import BottomButton from "@/components/BottomButton/Next";
 import { StepButton } from "@/components/Button/StepButton";
 import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer";
@@ -15,57 +21,68 @@ import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import useModal from "@/hooks/useModal";
-import EtcRoot from "./EtcRoot";
-import colors from "@/assets/theme/base/colors";
+import RadioOptions from "../RadioOptions";
+import { informationBeforeMeeting } from "@/constants/application_option";
+import { meCategories } from "@/constants/me";
 
-const EtcAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-  },
-};
-const { gray2 } = colors;
+interface EtcData {
+  // fillStatus: number | null;
+  nickname: string | null;
+  informationBeforeMeeting: number | null;
+  kakaoId: string | null;
+}
 
 const Etc = () => {
-  const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
-    {}
-  );
-  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const { isModalOpen, openModal, closeModal } = useModal();
   const [kakaoId, setKakaoId] = useState("");
   const searchParams = useSearchParams();
+  const [etcData, setEtcData] = useState<EtcData>({
+    nickname: null,
+    informationBeforeMeeting: null,
+    kakaoId: null,
+  });
 
   const type = searchParams.get("type");
 
-  const radioGroups = useMemo(() => otherRadioGroups, []);
+  const { label, name, options } = informationBeforeMeeting;
 
-  const handleRadioChange = (groupTitle: string, value: string) => {
-    setSelectedValues((prevValues) => ({
-      ...prevValues,
-      [groupTitle]: value,
-    }));
-    const nextIndex =
-      radioGroups.findIndex((group) => group.title === groupTitle) + 1;
-    if (nextIndex < radioGroups.length) {
-      setActiveGroupIndex(nextIndex);
-    }
-  };
   const handleKakaoIdChange = (event: any) => {
     setKakaoId(event.target.value);
   };
-  const allGroupsSelected = useMemo(() => {
-    return (
-      radioGroups.every((group) => selectedValues[group.title] != null) &&
-      kakaoId.trim() !== ""
-    );
-  }, [radioGroups, selectedValues, kakaoId]);
 
-  // useEffect(() => {
-  //   console.log("selectedValues", selectedValues);
-  //   console.log("radioGroups", radioGroups);
-  //   console.log("allGroupsSelected", allGroupsSelected);
-  // }, [selectedValues, radioGroups, allGroupsSelected]);
+  const { me, isLoading, isError } = useMe("etc");
+  const informationBeforeMeetingValue = me ? me.informationBeforeMeeting : null;
+  const handleRadioChange = (value: string) => {
+    setEtcData({
+      ...etcData,
+      [name]: Number(value),
+    });
+  };
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      const etcDataToUpdate = me || {};
+
+      const updatedEtcData: EtcData = Object.keys(etcDataToUpdate).reduce(
+        (result, key) => {
+          if (etcDataToUpdate[key] !== null) {
+            result[key as keyof EtcData] = etcDataToUpdate[key];
+          }
+          return result;
+        },
+        { ...etcData } as EtcData
+      );
+
+      setEtcData(updatedEtcData);
+    }
+  }, [me, isLoading, isError]);
+
+  const allGroupsSelected =
+    etcData.informationBeforeMeeting !== null &&
+    etcData.kakaoId &&
+    etcData.kakaoId.trim() !== ""
+      ? true
+      : undefined;
 
   return (
     <>
@@ -77,27 +94,27 @@ const Etc = () => {
           </Typography>
           <Typography variant="h1">기타 정보 입력하기</Typography>
         </Box>
-        {radioGroups.map((group, index) => (
-          <Container
-            key={group.title}
-            className={
-              index <= activeGroupIndex ? "other-radio visible" : "other-radio"
+        <Container className="other-radio">
+          <Typography variant="subtitle2">{label}</Typography>
+          <RDRadioInput
+            options={Object.keys(options).map((optionIndex) => ({
+              value: optionIndex,
+              label: options[optionIndex],
+            }))}
+            onChange={handleRadioChange}
+            initialValue={
+              informationBeforeMeetingValue !== null
+                ? informationBeforeMeetingValue.toString()
+                : ""
             }
-          >
-            <Typography variant="subtitle2">{group.title}</Typography>
-            <RDRadioInput
-              onChange={(value: string) =>
-                handleRadioChange(group.title, value)
-              }
-              options={group.options}
-            />
-          </Container>
-        ))}
+          />
+        </Container>
+
         <Box className="kakao-box">
           <RDInput
             label="카카오톡 아이디"
             placeholder="카카오톡 아이디를 입력해주세요"
-            value={kakaoId}
+            value={etcData.kakaoId || ""}
             onChange={handleKakaoIdChange}
           />
           <Typography variant="body2">
@@ -172,3 +189,35 @@ const Etc = () => {
 };
 
 export default Etc;
+
+const EtcRoot = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  paddingBottom: "166px !important",
+  ".title-box": {
+    gap: "0px",
+  },
+  ".other-radio": {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100%",
+    padding: "0",
+    gap: "12px",
+    margin: 0,
+  },
+  ".kakao-box": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
+  ".info-box": {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: "8px",
+  },
+});

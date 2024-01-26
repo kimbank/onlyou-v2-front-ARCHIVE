@@ -3,20 +3,14 @@ import { styled, Zoom, Typography } from "@mui/material";
 import { Option } from "@/constants/application_option";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 
-
 interface RadioOptionsProps {
-  index: number
-  option: Option
-  data: any
-  setData: any
+  index: number | any;
+  option: Option | any;
+  data: any;
+  setData: any;
 }
 
-const RadioOptions = ({
-  index,
-  option,
-  data,
-  setData
-}: RadioOptionsProps) => {
+const RadioOptions = ({ index, option, data, setData }: RadioOptionsProps) => {
   const { name, label, me, options } = option;
   const [initialValue, setInitialValue] = useState(null);
 
@@ -24,20 +18,22 @@ const RadioOptions = ({
     if (data[name] !== null) {
       setInitialValue(data[name]?.toString());
     }
-  }, [data, name])
+  }, [data, name]);
 
   function handleChange(value: string) {
     setData({
       ...data,
-      [name]: Number(value)
-    })
+      [name]: Number(value),
+    });
   }
 
   return (
     <Zoom in={true} unmountOnExit>
       <RadioOptionsRoot>
         {/* <button onClick={() => console.log(data[name])}>data</button> */}
-        <Typography variant="subtitle2">{index+1}. {label}</Typography>
+        <Typography variant="subtitle2">
+          {index + 1}. {label}
+        </Typography>
         <div className="radios-box">
           <RDRadioInput
             options={Object.keys(options).map((optionIndex) => ({
@@ -50,8 +46,8 @@ const RadioOptions = ({
         </div>
       </RadioOptionsRoot>
     </Zoom>
-  )
-}
+  );
+};
 
 const RadioOptionsRoot = styled("div")({
   display: "flex",
@@ -65,7 +61,7 @@ const RadioOptionsRoot = styled("div")({
     alignItems: "flex-start",
     gap: "8px",
     width: "100%",
-  }
-})
+  },
+});
 
-export default RadioOptions
+export default RadioOptions;

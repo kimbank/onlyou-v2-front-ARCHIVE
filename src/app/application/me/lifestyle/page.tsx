@@ -58,7 +58,18 @@ const LifestylePage = () => {
   useEffect(() => {
     if (!isLoading && !isError) {
       const { lifestyle } = me;
-      setLifestyleData(lifestyle);
+
+      const updatedLifestyleData: LifestyleData = Object.keys(lifestyle).reduce(
+        (result, key) => {
+          if (lifestyle[key] !== null) {
+            result[key as keyof LifestyleData] = lifestyle[key];
+          }
+          return result;
+        },
+        { ...lifestyleData } as LifestyleData
+      );
+
+      setLifestyleData(updatedLifestyleData);
       console.log("me data", me);
     }
   }, [me, isLoading, isError]);
