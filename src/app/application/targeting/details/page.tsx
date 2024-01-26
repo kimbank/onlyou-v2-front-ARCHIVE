@@ -74,7 +74,7 @@ const DetailsPage = () => {
         }
       }
       const res = await putTargeting(targetingData);
-      if (res.statusText === "OK") {
+      if (res.status >= 200 && res.status < 300) {
         if (isInit) {
           openNextModal();
         } else {
