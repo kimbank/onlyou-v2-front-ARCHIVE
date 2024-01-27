@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
 import {
@@ -13,7 +13,6 @@ import {
   styled,
 } from "@mui/material";
 
-import useMe from "@/api/hooks/useMe";
 import BottomButton from "@/components/BottomButton/Next";
 import { StepButton } from "@/components/Button/StepButton";
 import { SubmitDrawer } from "@/components/Drawer/SubmitDrawer";
@@ -21,37 +20,59 @@ import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import useModal from "@/hooks/useModal";
-import RadioOptions from "../RadioOptions";
 import { informationBeforeMeeting } from "@/constants/application_option";
-import { meCategories } from "@/constants/me";
+
+import { useDispatch } from "react-redux";
+import { showModal } from "@/store/home/modalSlice";
+
+import useMe from "@/api/hooks/useMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
+
 
 interface EtcData {
-  // fillStatus: number | null;
-  nickname: string | null;
+  // nickname: string | null;
   informationBeforeMeeting: number | null;
   kakaoId: string | null;
 }
 
 const Etc = () => {
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const [kakaoId, setKakaoId] = useState("");
   const searchParams = useSearchParams();
-  const [etcData, setEtcData] = useState<EtcData>({
-    nickname: null,
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("etc");
+  const [isPutMeLoading, setIsPutMeLoading] = React.useState<boolean>(false);
+  const [etcData, setEtcData] = React.useState<EtcData>({
+    // nickname: null,
     informationBeforeMeeting: null,
     kakaoId: null,
   });
-
-  const type = searchParams.get("type");
-
+  const dispatch = useDispatch();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const { label, name, options } = informationBeforeMeeting;
-
-  const handleKakaoIdChange = (event: any) => {
-    setKakaoId(event.target.value);
-  };
-
-  const { me, isLoading, isError } = useMe("etc");
+  const [kakaoId, setKakaoId] = React.useState("");
   const informationBeforeMeetingValue = me ? me.informationBeforeMeeting : null;
+  const isCompleteFillData = Object.values(etcData).every(
+    (value) => value !== null || value !== ""
+  );
+
+  React.useEffect(() => {
+    if (isLoading || isError) return;
+
+    try {
+      const etc = me || {};
+      console.log(etc);
+      const etcDataKeys = Object.keys(etcData);
+      Object.keys(etc).map((key) => {
+        if (etcDataKeys.includes(key)) {
+          setEtcData((prev) => ({
+            ...prev,
+            [key]: etc[key as keyof EtcData],
+          }));
+        };
+      });
+    } catch (error) { return; }
+  }, [me, isLoading, isError]);
+
   const handleRadioChange = (value: string) => {
     setEtcData({
       ...etcData,
@@ -59,33 +80,49 @@ const Etc = () => {
     });
   };
 
-  useEffect(() => {
-    if (!isLoading && !isError) {
-      const etcDataToUpdate = me || {};
+  const handleKakaoIdChange = (event: any) => {
+    setKakaoId(event.target.value);
+    setEtcData((prev) => ({
+      ...prev,
+      kakaoId: event.target.value,
+    }));
+  };
 
-      const updatedEtcData: EtcData = Object.keys(etcDataToUpdate).reduce(
-        (result, key) => {
-          if (etcDataToUpdate[key] !== null) {
-            result[key as keyof EtcData] = etcDataToUpdate[key];
-          }
-          return result;
-        },
-        { ...etcData } as EtcData
-      );
-
-      setEtcData(updatedEtcData);
+  async function handleNext() {
+    if (!/^[A-Za-z0-9_.-]{4,20}$/.test(kakaoId)) {
+      dispatch(showModal({
+        title: "카카오톡 아이디 형식이 올바르지 않아요.",
+        body: "영문, 숫자, 특수문자 빼기(-), 밑줄(_), 마침표(.)를 포함하여 4~20자만 사용 가능해요.",
+        complete: '확인',
+      }));
+      return;
     }
-  }, [me, isLoading, isError]);
+    setIsPutMeLoading(true);
+    const res = await putMe("etc", etcData);
 
-  const allGroupsSelected =
-    etcData.informationBeforeMeeting !== null &&
-    etcData.kakaoId &&
-    etcData.kakaoId.trim() !== ""
-      ? true
-      : undefined;
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
+    if (isInit) {
+      openModal();
+    }
+  }
+
+  // async function handlePrev() {
+  //   if (isInit) {
+  //     router.push("/matching");
+  //   }
+  // }
 
   return (
     <>
+      {isLoading && <Loading />}
       <EtcRoot id="content">
         <Box className="title-box">
           <Typography variant="subtitle2">
@@ -167,14 +204,14 @@ const Etc = () => {
         open={isModalOpen}
         onClose={closeModal}
       />
-      {type === "init" ? (
+      {isInit ? (
         <StepButton
           prevText="이전"
           nextText="다음"
           prevHref="appearance/"
-          onClick={openModal}
+          onClick={handleNext}
           nextType="button"
-          checkedStates={allGroupsSelected}
+          checkedStates={isCompleteFillData}
           tips
         />
       ) : (

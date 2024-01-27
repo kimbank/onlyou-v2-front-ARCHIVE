@@ -1,7 +1,7 @@
 "use client";
 
+import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
 import useMe from "@/api/hooks/useMe";
@@ -23,8 +23,8 @@ const ValuesPage = () => {
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
   const { me, isLoading, isError, mutate } = useMe("values");
-  const [isPutMeLoading, setIsPutMeLoading] = useState<boolean>(false);
-  const [valuesData, setValuesData] = useState<ValuesData>({
+  const [isPutMeLoading, setIsPutMeLoading] = React.useState<boolean>(false);
+  const [valuesData, setValuesData] = React.useState<ValuesData>({
     marriageValues: null,
     oppositeSexFriendValues: null,
     politicalValues: null,
@@ -36,7 +36,7 @@ const ValuesPage = () => {
     (value) => value !== null
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isLoading || isError) return;
     
     try {
