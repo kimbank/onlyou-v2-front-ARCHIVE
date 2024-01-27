@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
 import useMe from "@/api/hooks/useMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
+
 
 interface AppearanceData {
-  // fillStatus: number | null;
   animalImage: number | null;
   doubleEyelid: number | null;
   bodyType: number | null;
@@ -18,6 +20,9 @@ interface AppearanceData {
 const AppearancePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("appearance");
+  const [isPutMeLoading, setIsPutMeLoading] = useState<boolean>(false);
   const [appearanceData, setAppearanceData] = useState<AppearanceData>({
     // fillStatus: null,
     animalImage: null,
@@ -26,35 +31,40 @@ const AppearancePage = () => {
     externalCharm: null,
     tattoo: null,
   });
-  const isInit = searchParams.get("type") === "init";
   const isCompleteFillData = Object.values(appearanceData).every(
     (value) => value !== null
   );
 
-  const { me, isLoading, isError } = useMe("appearance");
-
   useEffect(() => {
-    if (!isLoading && !isError) {
+    if (isLoading || isError) return;
+
+    try {
       const { appearance } = me;
-
-      const updatedAppearanceData: AppearanceData = Object.keys(
-        appearance
-      ).reduce(
-        (result, key) => {
-          if (appearance[key] !== null) {
-            result[key as keyof AppearanceData] = appearance[key];
-          }
-          return result;
-        },
-        { ...appearanceData } as AppearanceData
-      );
-
-      setAppearanceData(updatedAppearanceData);
-      console.log("me data", me);
-    }
+      const appearanceDataKeys = Object.keys(appearanceData);
+      Object.keys(appearance).map((key) => {
+        if (appearanceDataKeys.includes(key)) {
+          setAppearanceData((prev) => ({
+            ...prev,
+            [key]: appearance[key as keyof AppearanceData],
+          }));
+        };
+      });
+    } catch (error) { return; }
   }, [me, isLoading, isError]);
 
   async function handleNext() {
+    setIsPutMeLoading(true);
+    const res = await putMe("appearance", appearanceData);
+
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
     if (isInit) {
       router.push("/application/me/etc?type=init");
     }
@@ -68,6 +78,7 @@ const AppearancePage = () => {
 
   return (
     <>
+      {(isLoading || isPutMeLoading) && <Loading />}
       <OptionsList
         optionName="appearance"
         step={5}

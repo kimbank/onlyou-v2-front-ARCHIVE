@@ -5,75 +5,71 @@ import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
 import useMe from "@/api/hooks/useMe";
-import useUpdateMe from "@/api/hooks/useUpdateMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
 
-const LifestyleAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-    lifestyle: {
-      fillStatus: 2,
-      workType: 0,
-      smoking: 0,
-      drinking: 0,
-      interest: [0, 1, 4, 5],
-      numberDating: 0,
-      athleticLife: 0,
-      religion: 0,
-    },
-  },
-};
 
 interface LifestyleData {
-  // fillStatus: number | null;
   workType: number | null;
   smoking: number | null;
   drinking: number | null;
   interest: number[] | null;
   numberDating: number | null;
   athleticLife: number | null;
+  petAnimal: number | null;
   religion: number | null;
 }
 
 const LifestylePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("lifestyle");
+  const [isPutMeLoading, setIsPutMeLoading] = useState<boolean>(false);
   const [lifestyleData, setLifestyleData] = useState<LifestyleData>({
-    // fillStatus: null,
     workType: null,
     smoking: null,
     drinking: null,
     interest: null,
     numberDating: null,
     athleticLife: null,
+    petAnimal: null,
     religion: null,
   });
-  const isInit = searchParams.get("type") === "init";
   const isCompleteFillData = Object.values(lifestyleData).every(
     (value) => value !== null
   );
-  const { me, isLoading, isError } = useMe("lifestyle");
 
   useEffect(() => {
-    if (!isLoading && !isError) {
+    if (isLoading || isError) return;
+
+    try {
       const { lifestyle } = me;
-
-      const updatedLifestyleData: LifestyleData = Object.keys(lifestyle).reduce(
-        (result, key) => {
-          if (lifestyle[key] !== null) {
-            result[key as keyof LifestyleData] = lifestyle[key];
-          }
-          return result;
-        },
-        { ...lifestyleData } as LifestyleData
-      );
-
-      setLifestyleData(updatedLifestyleData);
-      console.log("me data", me);
-    }
+      const lifestyleDataKeys = Object.keys(lifestyleData);
+      Object.keys(lifestyle).map((key) => {
+        if (lifestyleDataKeys.includes(key)) {
+          setLifestyleData((prev) => ({
+            ...prev,
+            [key]: lifestyle[key as keyof LifestyleData],
+          }));
+        };
+      });
+    } catch (error) { return; }
   }, [me, isLoading, isError]);
+
   async function handleNext() {
+    setIsPutMeLoading(true);
+    const res = await putMe("lifestyle", lifestyleData);
+
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
     if (isInit) {
       router.push("/application/me/personality?type=init");
     }
@@ -85,19 +81,9 @@ const LifestylePage = () => {
     }
   }
 
-  // const { updateMe } = useUpdateMe();
-
-  // const handleSave = async () => {
-  //   try {
-  //     await updateMe("lifestyle", { lifestyle: lifestyleData });
-  //     // 성공 처리 로직
-  //   } catch (error) {
-  //     // 에러 처리 로직
-  //     console.error("Save failed:", error);
-  //   }
-  // };
   return (
     <>
+      {(isLoading || isPutMeLoading) && <Loading />}
       <OptionsList
         optionName="lifestyle"
         step={2}
@@ -110,7 +96,6 @@ const LifestylePage = () => {
         nextText={isInit ? "다음" : "저장하기"}
         isNextDisabled={!isCompleteFillData}
         isPrevDisabled={!isInit}
-        // onClick={handleSave}
       />
     </>
   );

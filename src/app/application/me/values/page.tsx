@@ -8,6 +8,7 @@ import useMe from "@/api/hooks/useMe";
 import putMe from "@/api/putMe";
 import Loading from "@/components/loading";
 
+
 interface ValuesData {
   marriageValues: number | null;
   oppositeSexFriendValues: number | null;
@@ -21,7 +22,7 @@ const ValuesPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
-  const { me, isLoading, isError } = useMe("values");
+  const { me, isLoading, isError, mutate } = useMe("values");
   const [isPutMeLoading, setIsPutMeLoading] = useState<boolean>(false);
   const [valuesData, setValuesData] = useState<ValuesData>({
     marriageValues: null,
@@ -37,7 +38,7 @@ const ValuesPage = () => {
 
   useEffect(() => {
     if (isLoading || isError) return;
-
+    
     try {
       const { values } = me;
       const valuesDataKeys = Object.keys(valuesData);
@@ -57,6 +58,7 @@ const ValuesPage = () => {
     const res = await putMe("values", valuesData);
 
     if (res.status >= 200 && res.status < 300) {
+      mutate();
       setIsPutMeLoading(false);
     } else {
       alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
@@ -77,7 +79,7 @@ const ValuesPage = () => {
 
   return (
     <>
-      {isPutMeLoading && <Loading />}
+      {(isLoading || isPutMeLoading) && <Loading />}
       <OptionsList
         optionName="values"
         step={1}

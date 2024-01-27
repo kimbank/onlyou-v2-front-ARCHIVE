@@ -5,75 +5,69 @@ import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
 import useMe from "@/api/hooks/useMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
 
-const DatingStyleAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-    datingstyle: {
-      fillStatus: 2,
-      preferredDate: 0,
-      preferredContactMethod: 0,
-      loveInitiative: 0,
-      datingFrequency: 0,
-      contactStyle: 0,
-      conflictResolutionMethod: 0,
-    },
-  },
-};
 
 interface DatingStyleData {
-  // fillStatus: number | null;
   preferredDate: number | null;
   preferredContactMethod: number | null;
   loveInitiative: number | null;
   datingFrequency: number | null;
   contactStyle: number | null;
+  premaritalPurity: number | null;
   conflictResolutionMethod: number | null;
 }
 
 const DatingStylePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("datingstyle");
+  const [isPutMeLoading, setIsPutMeLoading] = useState<boolean>(false);
   const [datingStyleData, setDatingStyleData] = useState<DatingStyleData>({
-    // fillStatus: null,
     preferredDate: null,
     preferredContactMethod: null,
     loveInitiative: null,
     datingFrequency: null,
     contactStyle: null,
+    premaritalPurity: null,
     conflictResolutionMethod: null,
   });
-  const isInit = searchParams.get("type") === "init";
   const isCompleteFillData = Object.values(datingStyleData).every(
     (value) => value !== null
   );
 
-  const { me, isLoading, isError } = useMe("datingstyle");
-
   useEffect(() => {
-    if (!isLoading && !isError) {
+    if (isLoading || isError) return;
+    
+    try {
       const { datingstyle } = me;
-
-      const updatedDatingstyleData: DatingStyleData = Object.keys(
-        datingstyle
-      ).reduce(
-        (result, key) => {
-          if (datingstyle[key] !== null) {
-            result[key as keyof DatingStyleData] = datingstyle[key];
-          }
-          return result;
-        },
-        { ...datingStyleData } as DatingStyleData
-      );
-
-      setDatingStyleData(updatedDatingstyleData);
-      console.log("me data", me);
-    }
+      const datingstyleDataKeys = Object.keys(datingStyleData);
+      Object.keys(datingstyle).map((key) => {
+        if (datingstyleDataKeys.includes(key)) {
+          setDatingStyleData((prev) => ({
+            ...prev,
+            [key]: datingstyle[key as keyof DatingStyleData],
+          }));
+        };
+      });
+    } catch (error) { return; }
   }, [me, isLoading, isError]);
 
   async function handleNext() {
+    setIsPutMeLoading(true);
+    const res = await putMe("datingstyle", datingStyleData);
+
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
     if (isInit) {
       router.push("/application/me/appearance?type=init");
     }
@@ -87,6 +81,7 @@ const DatingStylePage = () => {
 
   return (
     <>
+      {(isLoading || isPutMeLoading) && <Loading />}
       <OptionsList
         optionName="datingstyle"
         step={4}
