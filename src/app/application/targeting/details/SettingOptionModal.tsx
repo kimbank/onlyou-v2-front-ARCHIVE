@@ -12,13 +12,14 @@ import AlertModal from "@/components/Modal/Default";
 import useModal from "@/hooks/useModal";
 
 import BottomConainer from "@/components/BottomButton/Container";
-import EstimateResult from "./EstimateResult";
+
 import ButtonOption from "./SettingButtonOption";
 import SliderOption from "./SettingSliderOption";
 
 import { targetingAllOptions } from "@/constants/targeting";
 import jongsung from "@/utils/jongsung";
 import SettingChipOption from "./SettingChipOption";
+import EstimateResult from "@/components/Estimate/EstimateResult";
 
 const SettingOptionModal = ({
   open,

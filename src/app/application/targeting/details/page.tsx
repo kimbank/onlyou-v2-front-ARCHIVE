@@ -3,8 +3,15 @@
 import { useState } from "react";
 
 import useModal from "@/hooks/useModal";
-import { styled, Stepper, Step, StepConnector, Button, Typography } from "@mui/material";
-import { CheckCircle } from '@mui/icons-material';
+import {
+  styled,
+  Stepper,
+  Step,
+  StepConnector,
+  Button,
+  Typography,
+} from "@mui/material";
+import { CheckCircle } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import SettingOptionModal from "./SettingOptionModal";
 
@@ -13,20 +20,19 @@ import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 import { useRouter, useSearchParams } from "next/navigation";
-import Esitimate from "./Estimate";
-import ModifyOptionModal from "./ModifyOptionModal";
 
 import { putTargeting } from "@/api/putTargeting";
 import Loading from "@/components/loading";
 
 import BottomNextButton from "@/components/BottomButton/Next";
-
+import Estimate from "@/components/Estimate/Estimate";
 
 const DetailsPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
-  const [isPutTargetingLoading, setIsPutTargetingLoading] = useState<boolean>(false);
+  const [isPutTargetingLoading, setIsPutTargetingLoading] =
+    useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
   const {
     isModalOpen: isSettingOpen,
@@ -51,7 +57,7 @@ const DetailsPage = () => {
       setIsPutTargetingLoading(true);
       let targetingData = {};
       for (const field of Object.keys(targetingState)) {
-        if (typeof(targetingState[field]?.priority) !== "number") continue;
+        if (typeof targetingState[field]?.priority !== "number") continue;
         if (targetingState[field].data) {
           const defaultOption = {
             data: targetingState[field]?.data,
@@ -102,15 +108,14 @@ const DetailsPage = () => {
 
     for (const option of options) {
       const cur = targetingState[option];
-      if (cur?.data) { // 일반 필드
+      if (cur?.data) {
+        // 일반 필드
         if (targetingState[option].data.length < 1) {
           return false;
         }
-      } else { // 범위형 필드
-        if (
-          cur.from === undefined ||
-          cur.to === undefined
-        ) {
+      } else {
+        // 범위형 필드
+        if (cur.from === undefined || cur.to === undefined) {
           return false;
         }
       }
@@ -136,7 +141,6 @@ const DetailsPage = () => {
         onClose={closeSettingModal}
         priority={priority}
       />
-      <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
       <ContentRoot id="content">
         <div className="content-title">
           <Typography variant="h1">조건 상세 설정 수정하기</Typography>
@@ -167,22 +171,33 @@ const DetailsPage = () => {
             </Button>
           )} */}
 
-          <Stepper activeStep={0} orientation="vertical" sx={{ width: "100%" }} connector={null}>
+          <Stepper
+            activeStep={0}
+            orientation="vertical"
+            sx={{ width: "100%" }}
+            connector={null}
+          >
             <StepperStep>
-              <CheckCircle color={ checkFillStatus(0) ? "primary" : "disabled" } />
+              <CheckCircle
+                color={checkFillStatus(0) ? "primary" : "disabled"}
+              />
               <Menu
-                color={ checkFillStatus(0) ? "primary" : "secondary" }
+                color={checkFillStatus(0) ? "primary" : "secondary"}
                 onClick={() => {
                   openSettingModalByPriority(0);
                 }}
-                variant={ checkFillStatus(0) ? "outlined" : "contained" }
+                variant={checkFillStatus(0) ? "outlined" : "contained"}
               >
                 <Typography>기본 반영 상세 조건</Typography>
               </Menu>
             </StepperStep>
-            <StepperConnector color={checkFillStatus(0) ? "primary" : "secondary"} />
+            <StepperConnector
+              color={checkFillStatus(0) ? "primary" : "secondary"}
+            />
             <StepperStep>
-              <CheckCircle color={ checkFillStatus(1) ? "primary" : "disabled" } />
+              <CheckCircle
+                color={checkFillStatus(1) ? "primary" : "disabled"}
+              />
               <Menu
                 color={checkFillStatus(1) ? "primary" : "secondary"}
                 onClick={() => openSettingModalByPriority(1)}
@@ -191,9 +206,13 @@ const DetailsPage = () => {
                 <Typography> 1순위 상세 조건</Typography>
               </Menu>
             </StepperStep>
-            <StepperConnector color={checkFillStatus(1) ? "primary" : "secondary"} />
+            <StepperConnector
+              color={checkFillStatus(1) ? "primary" : "secondary"}
+            />
             <StepperStep>
-              <CheckCircle color={ checkFillStatus(2) ? "primary" : "disabled" } />
+              <CheckCircle
+                color={checkFillStatus(2) ? "primary" : "disabled"}
+              />
               <Menu
                 color={checkFillStatus(2) ? "primary" : "secondary"}
                 onClick={() => openSettingModalByPriority(2)}
@@ -202,9 +221,13 @@ const DetailsPage = () => {
                 <Typography> 2순위 상세 조건</Typography>
               </Menu>
             </StepperStep>
-            <StepperConnector color={checkFillStatus(2) ? "primary" : "secondary"} />
+            <StepperConnector
+              color={checkFillStatus(2) ? "primary" : "secondary"}
+            />
             <StepperStep>
-              <CheckCircle color={ checkFillStatus(3) ? "primary" : "disabled" } />
+              <CheckCircle
+                color={checkFillStatus(3) ? "primary" : "disabled"}
+              />
               <Menu
                 color={checkFillStatus(3) ? "primary" : "secondary"}
                 onClick={() => openSettingModalByPriority(3)}
@@ -215,7 +238,7 @@ const DetailsPage = () => {
             </StepperStep>
           </Stepper>
 
-          <Esitimate />
+          <Estimate />
         </div>
       </ContentRoot>
       {isInit ? (
@@ -229,7 +252,11 @@ const DetailsPage = () => {
         />
       ) : (
         <BottomNextButton>
-          <Button size="large" variant="outlined" onClick={() => router.push("/application/targeting")}>
+          <Button
+            size="large"
+            variant="outlined"
+            onClick={() => router.push("/application/targeting")}
+          >
             이전
           </Button>
           <Button size="large" onClick={handleNext} disabled={!fillStatus}>
@@ -289,8 +316,10 @@ const StepperStep = styled(Step)({
 const StepperConnector = styled(StepConnector)(({ theme, color }) => {
   return {
     ".MuiStepConnector-line": {
-      borderColor: color === "primary" ?
-        theme.palette.primary.main : theme.palette.gray4?.main,
+      borderColor:
+        color === "primary"
+          ? theme.palette.primary.main
+          : theme.palette.gray4?.main,
     },
   };
 });

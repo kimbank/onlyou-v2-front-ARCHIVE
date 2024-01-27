@@ -1,9 +1,14 @@
-
 import { useState } from "react";
 import { styled, Typography, Divider, Skeleton, Collapse } from "@mui/material";
 import { ExpandLessRounded, ExpandMoreRounded } from "@mui/icons-material";
 
-const Estimate = ({ collapse = false, open = true } : { collapse?: boolean, open?: boolean}) => {
+const EstimateResult = ({
+  collapse = false,
+  open = true,
+}: {
+  collapse?: boolean;
+  open?: boolean;
+}) => {
   const [isEstimateOpen, setIsEstimateOpen] = useState<boolean>(open);
 
   function handleOpen() {
@@ -14,14 +19,16 @@ const Estimate = ({ collapse = false, open = true } : { collapse?: boolean, open
 
   return (
     <ResultBox>
-      { collapse &&
+      {collapse && (
         <ExpandIcon onClick={() => handleOpen()}>
           {isEstimateOpen ? <ExpandMoreRounded /> : <ExpandLessRounded />}
         </ExpandIcon>
-      }
+      )}
       <Collapse in={isEstimateOpen}>
         <div className="title">
-          <Typography variant="subtitle2">예상 매칭 주기를 계산 중이에요</Typography>
+          <Typography variant="subtitle2">
+            예상 매칭 주기를 계산 중이에요
+          </Typography>
           {/* <Skeleton animation="wave" width={"80%"} sx={{ bgcolor: 'grey.400' }} /> */}
         </div>
         <GapDiv />
@@ -33,8 +40,8 @@ const Estimate = ({ collapse = false, open = true } : { collapse?: boolean, open
         <Skeleton animation="wave" width={"60%"} />
       </div>
     </ResultBox>
-  )
-}
+  );
+};
 
 const ResultBox = styled("div")({
   position: "relative",
@@ -51,7 +58,7 @@ const ResultBox = styled("div")({
   },
 
   "& .MuiDivider-root": {
-    border: "1px solid #D3D6DB"
+    border: "1px solid #D3D6DB",
   },
 });
 
@@ -68,4 +75,4 @@ const GapDiv = styled("div")({
   width: "100%",
 });
 
-export default Estimate;
+export default EstimateResult;
