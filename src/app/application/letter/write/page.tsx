@@ -121,9 +121,9 @@ const Index = () => {
     setLetterTexts(lettertexts.map((text, idx) => (idx === index ? "" : text)));
   };
   const handleSelect = () => {
-    mockLetterValues.forEach((value) => {
-      dispatch(toggle(Number(value)));
-    });
+    // mockLetterValues.forEach((value) => {
+    //   dispatch(toggle(Number(value)));
+    // });
 
     // select/ 페이지로 이동
     router.push("select/");
