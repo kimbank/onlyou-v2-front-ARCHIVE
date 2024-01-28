@@ -3,23 +3,21 @@
 import { useState } from "react";
 
 import useModal from "@/hooks/useModal";
+import { CheckCircle } from "@mui/icons-material";
 import {
-  styled,
-  Stepper,
+  Button,
   Step,
   StepConnector,
-  Button,
+  Stepper,
+  styled,
   Typography,
 } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import SettingOptionModal from "./SettingOptionModal";
 
 import Menu from "@/components/Button/Menu";
-import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
-import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { putTargeting } from "@/api/putTargeting";
 import Loading from "@/components/loading";
@@ -29,8 +27,6 @@ import Estimate from "@/components/Estimate/Estimate";
 
 const DetailsPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const isInit = searchParams.get("type") === "init";
   const [isPutTargetingLoading, setIsPutTargetingLoading] =
     useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
@@ -43,11 +39,6 @@ const DetailsPage = () => {
     isModalOpen: isNextOpen,
     openModal: openNextModal,
     closeModal: closeNextModal,
-  } = useModal();
-  const {
-    isModalOpen: isModifyOpen,
-    openModal: openModifyModal,
-    closeModal: closeModifyModal,
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
@@ -81,11 +72,7 @@ const DetailsPage = () => {
       }
       const res = await putTargeting(targetingData);
       if (res.status >= 200 && res.status < 300) {
-        if (isInit) {
-          openNextModal();
-        } else {
-          router.push("/myinfo");
-        }
+        openNextModal();
       } else if (res.status === 400) {
         alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
       } else {
@@ -143,34 +130,12 @@ const DetailsPage = () => {
       />
       <ContentRoot id="content">
         <div className="content-title">
-          <Typography variant="h1">조건 상세 설정 수정하기</Typography>
-          {/* {!isInit ? (
-            <Typography variant="h1">조건 상세 설정 수정하기</Typography>
-          ) : (
-            <>
-              <Typography variant="h1">
-                각 조건을 상세히 지정해 주세요.
-              </Typography>
-              <Typography variant="body1">
-                상세한 설정에 따라 예상 매칭 주기를 알려드려요
-              </Typography>
-            </>
-          )} */}
+          <Typography variant="h1">상세 조건을 모두 채워주세요.</Typography>
+          <Typography variant="body1">
+            상세한 설정에 따라 예상 매칭 주기를 알려드려요
+          </Typography>
         </div>
         <div className="content-body">
-          {/* {!isInit && (
-            <Button
-              sx={{ width: "100%" }}
-              variant="contained"
-              onClick={openModifyModal}
-            >
-              <SwapHorizRoundedIcon
-                sx={{ width: "18px", height: "18px", marginRight: "8px" }}
-              />
-              <Typography variant="subtitle2">우선순위 변경하기</Typography>
-            </Button>
-          )} */}
-
           <Stepper
             activeStep={0}
             orientation="vertical"
@@ -241,29 +206,18 @@ const DetailsPage = () => {
           <Estimate />
         </div>
       </ContentRoot>
-      {isInit ? (
-        <StepButton
-          prevText="이전"
-          nextText="다음"
-          prevHref="/application/targeting"
-          onClick={handleNext}
-          nextType="button"
-          checkedStates={fillStatus}
-        />
-      ) : (
-        <BottomNextButton>
-          <Button
-            size="large"
-            variant="outlined"
-            onClick={() => router.push("/application/targeting")}
-          >
-            이전
-          </Button>
-          <Button size="large" onClick={handleNext} disabled={!fillStatus}>
-            저장하기
-          </Button>
-        </BottomNextButton>
-      )}
+      <BottomNextButton>
+        <Button
+          size="large"
+          variant="outlined"
+          onClick={() => router.push("/application/targeting")}
+        >
+          이전
+        </Button>
+        <Button size="large" onClick={handleNext} disabled={!fillStatus}>
+          다음
+        </Button>
+      </BottomNextButton>
 
       <TargetDrawer
         nextHref="/application/letter/select?type=init"
