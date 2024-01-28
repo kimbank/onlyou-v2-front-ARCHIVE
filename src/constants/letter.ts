@@ -5,7 +5,7 @@ export interface LetterOption {
   };
 }
 
-export const letterValue: LetterOption = {
+export const letterOptions: LetterOption = {
   name: "letterValue",
   options: {
     0: "지금 어떤 일을 하고 있나요?",

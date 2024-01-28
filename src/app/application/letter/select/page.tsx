@@ -1,62 +1,63 @@
 "use client";
 
+import React from "react";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { StepButton } from "@/components/Button/StepButton";
 import { Checkbox } from "@/components/CheckBox/CheckBox";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import { toggle } from "@/store/letterValueSlice";
-import { RootState } from "@/store/store";
-import { Box, Chip, Container, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { styled } from "@mui/material";
-import { letterValue } from "@/constants/letter";
-import { useEffect, useState } from "react";
+import { letterOptions } from "@/constants/letter";
 import { useRouter, useSearchParams } from "next/navigation";
 import BottomButton from "../../me/BottomButton";
 
-// const MockupLetter = {
-//   "0": "0번 편지입니다.",
-//   "5": "5번 편지입니다.",
-//   "9": "9번 편지입니다.",
-// };
+import { useDispatch, useSelector } from "react-redux";
+import { toggle, setLetterValues } from "@/store/letterValueSlice";
+import { useLetterList } from "@/api/hooks/useLetterList";
+import Loading from "@/components/loading";
+
 
 const Index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+  const { letterList, isLoading, isError } = useLetterList();
   const letterValues = useSelector(
     (state: RootState) => state.letter.letterValue
   );
-
-  const letterOptions = Object.entries(letterValue.options);
-  const [disabledLetters, setDisabledLetters] = useState<
+  const questions = Object.entries(letterOptions.options);
+  const [disabledLetters, setDisabledLetters] = React.useState<
     Record<string, boolean>
   >({});
+  
+  React.useEffect(() => {
+    if (isLoading || isError) return;
+    
+    letterList.map((letter: any) => {
+      if (
+        letter?.index === undefined ||
+        letter?.status === undefined ||
+        letter?.content === undefined
+      ) {
+        return false;
+      }
 
-  const [letter, setLetter] = useState({});
-  const searchParams = useSearchParams();
-  const isInit = searchParams.get("type") === "init";
+      if (letter?.status > 0) {
+        dispatch(
+          setLetterValues({
+            index: letter?.index,
+            status: letter?.status,
+            content: letter?.content,
+          })
+        )
+      }
+    });
+  }, [isLoading, isError]);
 
-  // useEffect(() => {
-  //   const res = MockupLetter;
-  //   const newDisabledLetters = { ...disabledLetters };
-
-  //   Object.keys(res).forEach((item) => {
-  //     dispatch(toggle(item));
-  //     newDisabledLetters[item] = true;
-  //   });
-
-  //   setDisabledLetters(newDisabledLetters);
-  // }, []);
-
-  // 수정하기기능 구현 첫 렌더링 시 (MockupLetter --> 서버에서 입력되어있는 값을 렌더링해서
-  // select에 체크가 되어있어야됨  )
-
-  const handleCheckboxClick = (key: string) => {
+  const handleCheckboxClick = (key: number) => {
     dispatch(toggle(key));
-  };
-  const selectComplete =
-    Object.values(letterValues).filter(Boolean).length >= 3;
+  }
 
   async function handleNext() {
     if (isInit) {
@@ -77,6 +78,7 @@ const Index = () => {
 
   return (
     <>
+      {(isLoading) && <Loading />}
       <LetterRoot id="content">
         <Typography variant="h1">편지 질문 선택하기</Typography>
         <Typography variant="body1">
@@ -91,12 +93,12 @@ const Index = () => {
           </Typography>
         </InfoText>
         <Container className="letter-box">
-          {letterOptions.map(([key, name]) => (
+          {questions.map(([key, value], index) => (
             <Checkbox
-              key={key}
-              buttonName={name}
-              onClick={() => handleCheckboxClick(key)}
-              checked={letterValues.includes(key)}
+              key={index}
+              buttonName={value}
+              onClick={() => handleCheckboxClick(Number(key))}
+              checked={letterValues[Number(key)].status > 0}
               disabled={disabledLetters[key]}
             />
           ))}

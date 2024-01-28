@@ -1,37 +1,64 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+
 interface LetterStore {
-  letterValue: string[];
+  index: number;
+  status: number;
+  content: string;
+}
+
+interface LetterListStore {
+  letterValue: LetterStore[];
   step: number;
 }
 
-const initialState: LetterStore = {
-  letterValue: [],
-  step: 0,
+const initialState: LetterListStore = {
+  letterValue: [
+    { index: 0, status: 0, content: "" },
+    { index: 1, status: 0, content: "" },
+    { index: 2, status: 0, content: "" },
+    { index: 3, status: 0, content: "" },
+    { index: 4, status: 0, content: "" },
+    { index: 5, status: 0, content: "" },
+    { index: 6, status: 0, content: "" },
+    { index: 7, status: 0, content: "" },
+    { index: 8, status: 0, content: "" },
+    { index: 9, status: 0, content: "" },
+  ] as LetterStore[],
+  step: 0 as number,
 };
 
 export const LetterValueSlice = createSlice({
   name: "letterValue",
   initialState,
   reducers: {
-    toggle: (state, action: PayloadAction<string>) => {
-      const key = action.payload;
-      const index = state.letterValue.indexOf(key);
-      if (index === -1) {
-        state.letterValue.push(key);
-      } else {
-        state.letterValue.splice(index, 1);
-      }
+    toggle: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      const curStatus = state.letterValue[index].status;
+      state.letterValue[index].status = curStatus === 0 ? 1 : 0;
+
       state.step = state.letterValue.length >= 3 ? 1 : 0;
     },
-    setLetterValues: (state, action: PayloadAction<string[]>) => {
-      state.letterValue = action.payload;
+
+    setLetterValues: (state, action: PayloadAction<LetterStore>) => {
+      const index = action.payload.index;
+      const status = action.payload.status;
+      const content = action.payload.content;
+      state.letterValue[index].content = content;
+      state.letterValue[index].status = status;
+
       state.step = state.letterValue.length >= 3 ? 1 : 0;
+    },
+
+    updateLetterContent: (state, action: PayloadAction<{index: number, content: string}>) => {
+      const index = action.payload.index;
+      const content = action.payload.content;
+      state.letterValue[index].content = content;
     },
   },
 });
 
-export const { toggle, setLetterValues } = LetterValueSlice.actions;
+export const { toggle, setLetterValues, updateLetterContent } = LetterValueSlice.actions;
 export default LetterValueSlice.reducer;
 
 export const SelectedItemCount = (state: RootState) =>
