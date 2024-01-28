@@ -165,21 +165,6 @@ const TargetingPage = () => {
         }
       }
     }
-    // if (prevTargetingState.current === targetingState) {
-    //   return;
-    // }
-
-    // if (
-    //   JSON.stringify(prevTargetingState.current) !==
-    //   JSON.stringify(targetingState)
-    // ) {
-    //   const confirmChange = window.confirm("변경하시겠습니까?");
-    //   if (confirmChange) {
-    //   } else {
-    //   }
-    // }
-
-    // prevTargetingState.current = targetingState;
   }, [isLoading]);
 
   return (

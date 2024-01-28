@@ -40,7 +40,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            href="/application/targeting/details"
+            href="/myinfo/targeting"
           >
             <Typography variant="body2" color="black">
               이상형 정보 수정하기
