@@ -52,7 +52,7 @@ const Etc = () => {
   const [kakaoId, setKakaoId] = React.useState("");
   const informationBeforeMeetingValue = me ? me.informationBeforeMeeting : null;
   const isCompleteFillData = Object.values(etcData).every(
-    (value) => value !== null || value !== ""
+    (value) => value !== null && value !== ""
   );
 
   React.useEffect(() => {
@@ -70,6 +70,7 @@ const Etc = () => {
           }));
         };
       });
+      setKakaoId(etc.kakaoId || "");
     } catch (error) { return; }
   }, [me, isLoading, isError]);
 
@@ -84,7 +85,7 @@ const Etc = () => {
     setKakaoId(event.target.value);
     setEtcData((prev) => ({
       ...prev,
-      kakaoId: event.target.value,
+      kakaoId: event.target.value === "" ? null : event.target.value,
     }));
   };
 
