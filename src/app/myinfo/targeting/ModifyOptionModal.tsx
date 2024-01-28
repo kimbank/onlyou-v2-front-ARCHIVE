@@ -16,16 +16,9 @@ import {
 } from "@mui/material";
 
 import CloseHeader from "@/components/Header/CloseHeader";
-import useModal from "@/hooks/useModal";
 
 const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
-  const {
-    isModalOpen: isAlertOpen,
-    openModal: openAlertModal,
-    closeModal: closeAlertModal,
-  } = useModal();
-  const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
