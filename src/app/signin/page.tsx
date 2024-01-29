@@ -1,18 +1,18 @@
 "use client";
 
-import Container from "@mui/material/Container";
+import React from "react";
+import { useRouter } from "next/navigation";
 import EmptyHeader from "@/components/Header/EmptyHeader";
-import { FormEvent, useEffect, useState } from "react";
-
-import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
 import { Box, TextField, Button, Typography, styled } from "@mui/material";
 
+import axios, { AxiosError } from "axios";
+import { signinCodeSend, signinCodeVerify } from "@/api/auth";
+
 import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
+import Loading from "@/components/loading";
 
-import { useRouter } from "next/navigation";
-import axios, { AxiosError } from "axios";
 
 interface UseTimerResult {
   totalSeconds: number;
@@ -25,14 +25,12 @@ interface SigninCodeSendResponse {
 }
 
 const Home = () => {
-  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
-  const [isCodeSent, setIsCodeSent] = useState(false);
-  const [isCodeError, setIsCodeError] = useState(false);
-  const [codeErrorMessage, setCodeErrorMessage] = useState("");
-
   const router = useRouter();
+  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
+  const [isCodeSent, setIsCodeSent] = React.useState(false);
+  const [verifyCodeError, setVerifyCodeError] = React.useState<string | null>(null);
 
-  async function handleSendCode(event: FormEvent<HTMLFormElement>) {
+  async function handleSendCode(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -147,6 +145,7 @@ const Home = () => {
               label="전화번호"
               name="mobileNumber"
               autoComplete="user_id"
+              type="tel"
               autoFocus
             />
             <Button type="submit" variant="contained" disabled={isCodeSent}>
@@ -159,9 +158,9 @@ const Home = () => {
               fullWidth
               name="code"
               label={verifyCodeError ? "인증번호 입력" : "인증번호 6자리"}
-              type="code"
               id="code"
               autoComplete="current-password"
+              type="tel"
               error={verifyCodeError != null}
             />
             {verifyCodeError && (
