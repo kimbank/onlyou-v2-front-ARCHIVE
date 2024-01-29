@@ -49,6 +49,32 @@ const Home = () => {
     }
   }
 
+  // async function handleVerifyCode(event: any) {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+
+  //   try {
+  //     const res = await signinCodeVerify(
+  //       data.get("mobileNumber"),
+  //       data.get("code")
+  //     );
+  //     console.log(res);
+
+  //     if ("message" in res) {
+  //       alert("오류: " + res.message);
+  //     } else if ("token" in res) {
+  //       console.log("res", res);
+  //       router.push("matching");
+  //     } else {
+  //       console.log("알 수 없는 응답:", res);
+  //     }
+  //   } catch (error) {
+  //     console.error("인증 오류:", error);
+  //     alert("인증 처리 중 오류가 발생했습니다.");
+  //   }
+  // }
+  const [verifyCodeError, setVerifyCodeError] = useState<string | null>(null);
+
   async function handleVerifyCode(event: any) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
