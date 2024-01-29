@@ -1,18 +1,18 @@
 "use client";
 
-import Container from "@mui/material/Container";
+import React from "react";
+import { useRouter } from "next/navigation";
 import EmptyHeader from "@/components/Header/EmptyHeader";
-import { FormEvent, useEffect, useState } from "react";
-
-import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
 import { Box, TextField, Button, Typography, styled } from "@mui/material";
 
+import axios, { AxiosError } from "axios";
+import { signinCodeSend, signinCodeVerify } from "@/api/auth";
+
 import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
+import Loading from "@/components/loading";
 
-import { useRouter } from "next/navigation";
-import axios, { AxiosError } from "axios";
 
 interface UseTimerResult {
   totalSeconds: number;
@@ -25,14 +25,12 @@ interface SigninCodeSendResponse {
 }
 
 const Home = () => {
-  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
-  const [isCodeSent, setIsCodeSent] = useState(false);
-  const [isCodeError, setIsCodeError] = useState(false);
-  const [codeErrorMessage, setCodeErrorMessage] = useState("");
-
   const router = useRouter();
+  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
+  const [isCodeSent, setIsCodeSent] = React.useState(false);
+  const [verifyCodeError, setVerifyCodeError] = React.useState<string | null>(null);
 
-  async function handleSendCode(event: FormEvent<HTMLFormElement>) {
+  async function handleSendCode(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -50,32 +48,6 @@ const Home = () => {
       console.log("insideSeconds", totalSeconds);
     }
   }
-
-  // async function handleVerifyCode(event: any) {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-
-  //   try {
-  //     const res = await signinCodeVerify(
-  //       data.get("mobileNumber"),
-  //       data.get("code")
-  //     );
-  //     console.log(res);
-
-  //     if ("message" in res) {
-  //       alert("오류: " + res.message);
-  //     } else if ("token" in res) {
-  //       console.log("res", res);
-  //       router.push("matching");
-  //     } else {
-  //       console.log("알 수 없는 응답:", res);
-  //     }
-  //   } catch (error) {
-  //     console.error("인증 오류:", error);
-  //     alert("인증 처리 중 오류가 발생했습니다.");
-  //   }
-  // }
-  const [verifyCodeError, setVerifyCodeError] = useState<string | null>(null);
 
   async function handleVerifyCode(event: any) {
     event.preventDefault();
@@ -147,6 +119,7 @@ const Home = () => {
               label="전화번호"
               name="mobileNumber"
               autoComplete="user_id"
+              type="tel"
               autoFocus
             />
             <Button type="submit" variant="contained" disabled={isCodeSent}>
@@ -159,9 +132,9 @@ const Home = () => {
               fullWidth
               name="code"
               label={verifyCodeError ? "인증번호 입력" : "인증번호 6자리"}
-              type="code"
               id="code"
               autoComplete="current-password"
+              type="tel"
               error={verifyCodeError != null}
             />
             {verifyCodeError && (
