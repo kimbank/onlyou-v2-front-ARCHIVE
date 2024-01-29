@@ -33,8 +33,9 @@ const Home = () => {
   async function handleSendCode(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log("data", data.get("code"));
 
-    if (data.get("code") === "") {
+    if (data.get("code") === "" || data.get("code") === null){
       const res = (await signinCodeSend(
         data.get("mobileNumber")
       )) as SigninCodeSendResponse;
@@ -136,6 +137,7 @@ const Home = () => {
               autoComplete="current-password"
               type="tel"
               error={verifyCodeError != null}
+              disabled={!isCodeSent}
             />
             {verifyCodeError && (
               <Typography variant="body3" color="error">
