@@ -1,33 +1,25 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setTargetingPriority } from "@/store/targetingSlice";
 import { RootState } from "@/store/store";
+import { setTargetingPriority } from "@/store/targetingSlice";
+import { use, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  styled,
-  Modal,
-  Typography,
-  Box,
-  Tabs,
-  Tab,
-  Button,
-} from "@mui/material";
-import EmptyHeader from "@/components/Header/EmptyHeader";
 import BottomButton from "@/components/BottomButton/Next";
 import { targetingCategories } from "@/constants/targeting";
+import {
+  Box,
+  Button,
+  Modal,
+  styled,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 
-import AlertModal from "@/components/Modal/Default";
-import useModal from "@/hooks/useModal";
 import CloseHeader from "@/components/Header/CloseHeader";
+import useModal from "@/hooks/useModal";
 
 const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
-  const {
-    isModalOpen: isAlertOpen,
-    openModal: openAlertModal,
-    closeModal: closeAlertModal,
-  } = useModal();
-  const [alertTitle, setAlertTitle] = useState("");
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
@@ -38,40 +30,59 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     setPriority(newValue);
   };
 
+  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
+    [key: number]: string[];
+  }>({});
+
   const handleOptionClick = (optionName: string) => {
-    const currentPriorityCount = Object.keys(targetingState).filter(
-      (field: string) => {
-        return targetingState[field].priority === priority;
-      }
+    const currentOptionPriority = targetingState[optionName]?.priority;
+    const maxOptions = priority === 1 ? 2 : 4;
+    const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
+    const currentSelectedOptionsInRedux = Object.keys(targetingState).filter(
+      (key) => targetingState[key].priority === priority
     );
-    const targetingOption = targetingState[optionName];
-    if (targetingOption.priority === priority) {
+    if (currentOptionPriority !== null) {
       dispatch(setTargetingPriority({ field: optionName, priority: null }));
-    } else {
-      if (priority === 1 && currentPriorityCount.length >= 2) {
-        setAlertTitle("1순위는 최대 2개까지 선택할 수 있어요");
-        openAlertModal();
-        // alert("1순위는 최대 2개까지 선택할 수 있습니다.");
-        return;
-      } else if (currentPriorityCount.length >= 4) {
-        setAlertTitle(`${priority}순위는 최대 4개까지 선택할 수 있어요`);
-        openAlertModal();
-        // alert(`${priority}순위는 최대 4개까지 선택할 수 있습니다.`);
-        return;
-      }
-      dispatch(setTargetingPriority({ field: optionName, priority: priority }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: currentSelectedOptions.filter(
+          (option) => option !== optionName
+        ),
+      });
+      return;
     }
+    if (currentSelectedOptions.length >= maxOptions) {
+      const oldestOption = currentSelectedOptions[0];
+      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions.slice(1), optionName],
+      });
+    } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
+      const oldestOption = currentSelectedOptionsInRedux[0];
+      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions.slice(1), optionName],
+      });
+    } else {
+      setSelectedOptionsByPriority({
+        ...selectedOptionsByPriority,
+        [priority]: [...currentSelectedOptions, optionName],
+      });
+    }
+    dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("targeting", targetingState);
+      console.log("targetingCategories", targetingCategories);
+    }
+  });
 
   return (
     <>
-      <AlertModal
-        title={alertTitle}
-        complete={"이해했어요!"}
-        isModalOpen={isAlertOpen}
-        onModalClose={closeAlertModal}
-        onComplete={closeAlertModal}
-      />
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
           <CloseHeader onClose={onClose} />
@@ -98,18 +109,19 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
             {/* <Typography variant="body2">
               *다른 회원 분들은 평균 6개의 조건을 설정했어요.
             </Typography> */}
-            {Object.keys(targetingCategories).map((category: string) => {
+            {Object.keys(targetingCategories).map((category: string, index: number) => {
               if (category === "default") return;
               return (
-                <Box key={category} className="category-box">
+                <Box key={index} className="category-box">
                   <Typography variant="subtitle1">
                     {targetingCategories[category].label}
                   </Typography>
                   <Box className="options-box">
                     {targetingCategories[category].options.map(
-                      (option: any) => {
+                      (option: any, index: number) => {
                         const buttonPriority =
-                          targetingState[option.name].priority;
+                          targetingState[option.name]?.priority;
+
                         let buttonStyle = "";
                         if (buttonPriority === priority) {
                           buttonStyle = "btn-selected";
@@ -120,18 +132,18 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
                         }
                         return (
                           <Button
+                            key={index}
                             color={
                               buttonPriority !== priority
                                 ? "secondary"
                                 : "primary"
                             }
-                            key={option.name}
                             className={buttonStyle}
                             onClick={() => handleOptionClick(option.name)}
                           >
                             {buttonPriority &&
                               buttonPriority !== priority &&
-                              `${buttonPriority} | `}
+                              `${buttonPriority} |${"\u00A0"}`}
                             <Typography
                               variant={
                                 buttonPriority === priority ||

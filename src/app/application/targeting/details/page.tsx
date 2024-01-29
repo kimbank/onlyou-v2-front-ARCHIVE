@@ -3,19 +3,32 @@
 import { useState } from "react";
 
 import useModal from "@/hooks/useModal";
-import { Button, styled, Typography } from "@mui/material";
+import { CheckCircle } from "@mui/icons-material";
+import {
+  Button,
+  Step,
+  StepConnector,
+  Stepper,
+  styled,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SettingOptionModal from "./SettingOptionModal";
 
 import Menu from "@/components/Button/Menu";
-import { StepButton } from "@/components/Button/StepButton";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
-import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
-import { useSearchParams } from "next/navigation";
-import Esitimate from "./Estimate";
-import ModifyOptionModal from "./ModifyOptionModal";
+import { useRouter } from "next/navigation";
+
+import { putTargeting } from "@/api/putTargeting";
+import Loading from "@/components/loading";
+
+import BottomNextButton from "@/components/BottomButton/Next";
+import Estimate from "@/components/Estimate/Estimate";
 
 const DetailsPage = () => {
+  const router = useRouter();
+  const [isPutTargetingLoading, setIsPutTargetingLoading] =
+    useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
   const {
     isModalOpen: isSettingOpen,
@@ -27,18 +40,45 @@ const DetailsPage = () => {
     openModal: openNextModal,
     closeModal: closeNextModal,
   } = useModal();
-  const {
-    isModalOpen: isModifyOpen,
-    openModal: openModifyModal,
-    closeModal: closeModifyModal,
-  } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-  const searchParams = useSearchParams();
-  const isInit = searchParams.get("type") === "init";
-  const handleNext = () => {
+
+  const handleNext = async () => {
     if (allGroupsSelected) {
-      openNextModal();
+      setIsPutTargetingLoading(true);
+      let targetingData = {};
+      for (const field of Object.keys(targetingState)) {
+        if (typeof targetingState[field]?.priority !== "number") continue;
+        if (targetingState[field].data) {
+          const defaultOption = {
+            data: targetingState[field]?.data,
+            priority: targetingState[field]?.priority,
+          };
+          targetingData = {
+            ...targetingData,
+            [field]: defaultOption,
+          };
+        } else {
+          const rangeOption = {
+            from: targetingState[field]?.from,
+            to: targetingState[field]?.to,
+            priority: targetingState[field]?.priority,
+          };
+          targetingData = {
+            ...targetingData,
+            [field]: rangeOption,
+          };
+        }
+      }
+      const res = await putTargeting(targetingData);
+      if (res.status >= 200 && res.status < 300) {
+        openNextModal();
+      } else if (res.status === 400) {
+        alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
+      } else {
+        alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      }
+      setIsPutTargetingLoading(false);
     } else {
       alert("모든 그룹을 선택하세요.");
     }
@@ -53,22 +93,16 @@ const DetailsPage = () => {
       return targetingState[field].priority === priority;
     });
 
-    for (let option of options) {
-      if (targetingState[option]?.data) {
-        if (targetingState[option].data.length === 0) {
+    for (const option of options) {
+      const cur = targetingState[option];
+      if (cur?.data) {
+        // 일반 필드
+        if (targetingState[option].data.length < 1) {
           return false;
         }
-        if (
-          targetingState[option].from === undefined &&
-          targetingState[option].to === undefined
-        ) {
-          return true;
-        }
       } else {
-        if (
-          targetingState[option].from === undefined &&
-          targetingState[option].to === undefined
-        ) {
+        // 범위형 필드
+        if (cur.from === undefined || cur.to === undefined) {
           return false;
         }
       }
@@ -88,85 +122,102 @@ const DetailsPage = () => {
 
   return (
     <>
+      {isPutTargetingLoading && <Loading />}
       <SettingOptionModal
         open={isSettingOpen}
         onClose={closeSettingModal}
         priority={priority}
       />
-      <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
       <ContentRoot id="content">
         <div className="content-title">
-          {!isInit ? (
-            <Typography variant="h1">조건 상세 설정 수정하기</Typography>
-          ) : (
-            <>
-              <Typography variant="h1">
-                각 조건을 상세히 지정해 주세요.
-              </Typography>
-              <Typography variant="body1">
-                상세한 설정에 따라 예상 매칭 주기를 알려드려요
-              </Typography>
-            </>
-          )}
+          <Typography variant="h1">상세 조건을 모두 채워주세요.</Typography>
+          <Typography variant="body1">
+            상세한 설정에 따라 예상 매칭 주기를 알려드려요
+          </Typography>
         </div>
         <div className="content-body">
-          {!isInit && (
-            <Button
-              sx={{ width: "100%" }}
-              variant="contained"
-              onClick={openModifyModal}
-            >
-              <SwapHorizRoundedIcon
-                sx={{ width: "18px", height: "18px", marginRight: "8px" }}
+          <Stepper
+            activeStep={0}
+            orientation="vertical"
+            sx={{ width: "100%" }}
+            connector={null}
+          >
+            <StepperStep>
+              <CheckCircle
+                color={checkFillStatus(0) ? "primary" : "disabled"}
               />
-              <Typography variant="subtitle2">우선순위 변경하기</Typography>
-            </Button>
-          )}
-          <Menu
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            onClick={() => {
-              openSettingModalByPriority(0);
-              console.log("checkFillStatus", checkFillStatus(0));
-            }}
-            variant={checkFillStatus(0) ? "outlined" : "contained"}
-          >
-            <Typography>기본 반영 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(1) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(1)}
-            variant={checkFillStatus(1) ? "outlined" : "contained"}
-          >
-            <Typography> 1순위 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(2) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(2)}
-            variant={checkFillStatus(2) ? "outlined" : "contained"}
-          >
-            <Typography> 2순위 상세 조건</Typography>
-          </Menu>
-          <Menu
-            color={checkFillStatus(3) ? "primary" : "secondary"}
-            onClick={() => openSettingModalByPriority(3)}
-            variant={checkFillStatus(3) ? "outlined" : "contained"}
-          >
-            <Typography> 3순위 상세 조건</Typography>
-          </Menu>
+              <Menu
+                color={checkFillStatus(0) ? "primary" : "secondary"}
+                onClick={() => {
+                  openSettingModalByPriority(0);
+                }}
+                variant={checkFillStatus(0) ? "outlined" : "contained"}
+              >
+                <Typography>기본 반영 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector
+              color={checkFillStatus(0) ? "primary" : "secondary"}
+            />
+            <StepperStep>
+              <CheckCircle
+                color={checkFillStatus(1) ? "primary" : "disabled"}
+              />
+              <Menu
+                color={checkFillStatus(1) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(1)}
+                variant={checkFillStatus(1) ? "outlined" : "contained"}
+              >
+                <Typography> 1순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector
+              color={checkFillStatus(1) ? "primary" : "secondary"}
+            />
+            <StepperStep>
+              <CheckCircle
+                color={checkFillStatus(2) ? "primary" : "disabled"}
+              />
+              <Menu
+                color={checkFillStatus(2) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(2)}
+                variant={checkFillStatus(2) ? "outlined" : "contained"}
+              >
+                <Typography> 2순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+            <StepperConnector
+              color={checkFillStatus(2) ? "primary" : "secondary"}
+            />
+            <StepperStep>
+              <CheckCircle
+                color={checkFillStatus(3) ? "primary" : "disabled"}
+              />
+              <Menu
+                color={checkFillStatus(3) ? "primary" : "secondary"}
+                onClick={() => openSettingModalByPriority(3)}
+                variant={checkFillStatus(3) ? "outlined" : "contained"}
+              >
+                <Typography> 3순위 상세 조건</Typography>
+              </Menu>
+            </StepperStep>
+          </Stepper>
 
-          <Esitimate />
+          <Estimate />
         </div>
       </ContentRoot>
-      {isInit && (
-        <StepButton
-          prevText="이전"
-          nextText="다음"
-          prevHref="/application/targeting"
-          onClick={handleNext}
-          nextType="button"
-          checkedStates={allGroupsSelected}
-        />
-      )}
+      <BottomNextButton>
+        <Button
+          size="large"
+          variant="outlined"
+          onClick={() => router.push("/application/targeting")}
+        >
+          이전
+        </Button>
+        <Button size="large" onClick={handleNext} disabled={!fillStatus}>
+          다음
+        </Button>
+      </BottomNextButton>
 
       <TargetDrawer
         nextHref="/application/letter/select?type=init"
@@ -208,34 +259,23 @@ const MenuButton = styled(Button)((props) => {
   };
 });
 
-export default DetailsPage;
+const StepperStep = styled(Step)({
+  display: "flex",
+  flexDirection: "row",
+  gap: "16px",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
-{
-  /* <MenuButton
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(1)}
-            variant={checkFillStatus(1) ? "outlined" : "contained"}
-          >
-            1순위 상세 조건
-          </MenuButton> */
-}
-{
-  /* <MenuButton
-            size="large"
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(2)}
-            variant={checkFillStatus(2) ? "outlined" : "contained"}
-          >
-            2순위 상세 조건
-          </MenuButton>
-          <MenuButton
-            color={checkFillStatus(0) ? "primary" : "secondary"}
-            endIcon={rightArrow}
-            onClick={() => openSettingModalByPriority(3)}
-            variant={checkFillStatus(3) ? "outlined" : "contained"}
-          >
-            3순위 상세 조건
-          </MenuButton> */
-}
+const StepperConnector = styled(StepConnector)(({ theme, color }) => {
+  return {
+    ".MuiStepConnector-line": {
+      borderColor:
+        color === "primary"
+          ? theme.palette.primary.main
+          : theme.palette.gray4?.main,
+    },
+  };
+});
+
+export default DetailsPage;

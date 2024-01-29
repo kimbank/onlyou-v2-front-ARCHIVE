@@ -1,10 +1,10 @@
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
 
+
 type Props = {
   children: React.ReactNode;
 };
-
 
 const ReduxProvider = ({ children }: Props) => {
   return (

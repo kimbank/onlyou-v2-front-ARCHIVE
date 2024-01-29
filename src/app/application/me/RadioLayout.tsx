@@ -71,7 +71,7 @@ const RadioLayout = ({
             const options = group.options as { [key: string]: string };
             return (
               <Container
-                key={group.label}
+                key={index}
                 className={
                   index <= activeGroupIndex
                     ? "value-radio visible"

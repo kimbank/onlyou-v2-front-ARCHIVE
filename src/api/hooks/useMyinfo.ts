@@ -5,8 +5,8 @@ import { authedFetcher } from '@/api/base/swrFetcher';
 
 
 export const useMyinfo = () => {
-  const { data, isLoading, error } = useSWRImmutable('/api/my_info', authedFetcher);
-  const { trigger, isMutating, error: mutateError } = useSWRMutation('/api/my_info', authedFetcher);
+  const { data, isLoading, error } = useSWRImmutable('/api/user/myinfo', authedFetcher);
+  const { trigger, isMutating, error: mutateError } = useSWRMutation('/api/user/myinfo', authedFetcher);
 
   return {
     myInfo: data?.data,

@@ -1,5 +1,6 @@
 import { meCategories } from "@/constants/me";
 import { styled, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 import ChipOptions from "./ChipOptions";
 import RadioOptions from "./RadioOptions";
@@ -19,6 +20,11 @@ interface OptionsListProps {
 
 const OptionsList = ({ optionName, step, data, setData }: OptionsListProps) => {
   const { name, label, options } = meCategories[optionName];
+
+  useEffect(() => {
+    console.log("DODODO", meCategories[optionName]);
+    console.log("PPPPPP", options);
+  });
 
   return (
     <OptionsListRoot id="content">

@@ -3,7 +3,6 @@
 import CloseHeader from "@/components/Header/CloseHeader";
 import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
-import { useTransitionSelect } from "@/hooks/useTransitionSelect";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
@@ -37,8 +36,6 @@ export default function ApplicationLayout({
     const totalPages = Object.keys(pageMap).length;
     return (currentPage / totalPages) * 100;
   }, [currentPage]);
-
-  const transition = useTransitionSelect();
 
   return (
     <>

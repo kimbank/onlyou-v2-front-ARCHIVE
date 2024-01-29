@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Option, RangeOption } from "@/constants/application_option";
 import { StepButton } from "@/components/Button/StepButton";
 import BottomButton from "@/components/BottomButton/Next";
+import useUpdateMe from "@/api/hooks/useUpdateMe";
 interface ChipLayoutProps {
   title: string;
   stepNumber: string;
@@ -94,6 +95,18 @@ const ChipLayout = ({
 
   const allGroupsSelected = allRadioGroupsSelected && allChipGroupsSelected;
 
+  const { updateMe } = useUpdateMe();
+
+  const handleSave = async () => {
+    try {
+      await updateMe("lifestyle", { lifestyle: selectedValues });
+      // 추가적인 처리 (예: 성공 메시지 표시, 페이지 이동 등)
+    } catch (error) {
+      // 에러 처리
+      console.error("Save failed:", error);
+    }
+  };
+
   return (
     <>
       <Root id="content">
@@ -112,7 +125,7 @@ const ChipLayout = ({
             if (!isLastIndex) {
               return (
                 <Box
-                  key={group.label}
+                  key={index}
                   className={
                     index <= activeGroupIndex
                       ? "value-radio visible"
@@ -143,9 +156,9 @@ const ChipLayout = ({
                         {index + 1}.{group.label}
                       </Typography>
                     </Box>
-                    {Object.keys(options).map((option: string) => (
+                    {Object.keys(options).map((option: string, index: number) => (
                       <Chip
-                        key={option}
+                        key={index}
                         label={options[option]}
                         variant="filled"
                         color={
@@ -174,7 +187,7 @@ const ChipLayout = ({
         />
       ) : (
         <BottomButton>
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" onClick={handleSave}>
             저장하기
           </Button>
         </BottomButton>

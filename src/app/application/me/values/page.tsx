@@ -1,29 +1,15 @@
 "use client";
 
+import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import OptionsList from "../OptionsList";
 import BottomButton from "../BottomButton";
+import useMe from "@/api/hooks/useMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
 
-const ValuesAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-    values: {
-      fillStatus: 2,
-      marriageValues: 0,
-      oppositeSexFriendValues: 0,
-      politicalValues: 0,
-      consumptionValues: 0,
-      careerFamilyValues: 0,
-      childrenValues: 0,
-    },
-  },
-};
 
 interface ValuesData {
-  // fillStatus: number | null;
   marriageValues: number | null;
   oppositeSexFriendValues: number | null;
   politicalValues: number | null;
@@ -35,8 +21,10 @@ interface ValuesData {
 const ValuesPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [valuesData, setValuesData] = useState<ValuesData>({
-    // fillStatus: null,
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("values");
+  const [isPutMeLoading, setIsPutMeLoading] = React.useState<boolean>(false);
+  const [valuesData, setValuesData] = React.useState<ValuesData>({
     marriageValues: null,
     oppositeSexFriendValues: null,
     politicalValues: null,
@@ -44,17 +32,40 @@ const ValuesPage = () => {
     careerFamilyValues: null,
     childrenValues: null,
   });
-  const isInit = searchParams.get("type") === "init";
   const isCompleteFillData = Object.values(valuesData).every(
     (value) => value !== null
   );
 
-  useEffect(() => {
-    // const { values } = ValuesAPI.data;
-    // setValuesData(values);
-  }, []);
+  React.useEffect(() => {
+    if (isLoading || isError) return;
+    
+    try {
+      const { values } = me;
+      const valuesDataKeys = Object.keys(valuesData);
+      Object.keys(values).map((key) => {
+        if (valuesDataKeys.includes(key)) {
+          setValuesData((prev) => ({
+            ...prev,
+            [key]: values[key as keyof ValuesData],
+          }));
+        };
+      });
+    } catch (error) { return; }
+  }, [me, isLoading, isError]);
 
   async function handleNext() {
+    setIsPutMeLoading(true);
+    const res = await putMe("values", valuesData);
+
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
     if (isInit) {
       router.push("/application/me/lifestyle?type=init");
     }
@@ -68,6 +79,7 @@ const ValuesPage = () => {
 
   return (
     <>
+      {(isLoading || isPutMeLoading) && <Loading />}
       <OptionsList
         optionName="values"
         step={1}

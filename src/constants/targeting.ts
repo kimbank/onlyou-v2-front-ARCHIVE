@@ -1,6 +1,5 @@
 import * as option from "./application_option";
 
-
 /** 이상형 타겟팅 */
 interface TargetingOptions {
   /** 이상형 타겟팅 선지 */
@@ -31,15 +30,15 @@ interface TargetingCategories {
   };
 }
 
-
 export const targetingOptions: TargetingOptions = {
   default: [
     option.birthYear,
     option.residence,
     option.interest,
     option.personalityCharm,
-    option.externalCharm
+    option.externalCharm,
   ],
+  etc: [option.jobType, option.salary, option.university, option.divorce],
   lifestyle: [
     option.workType,
     option.smoking,
@@ -48,7 +47,7 @@ export const targetingOptions: TargetingOptions = {
     option.numberDating,
     option.athleticLife,
     option.petAnimal,
-    option.religion
+    option.religion,
   ],
   personality: [
     option.extrovert_introvert,
@@ -63,14 +62,15 @@ export const targetingOptions: TargetingOptions = {
     option.politicalValues,
     option.consumptionValues,
     option.careerFamilyValues,
-    option.childrenValues
+    option.childrenValues,
   ],
   appearance: [
     option.animalImage,
     option.doubleEyelid,
+    option.height,
     option.bodyType,
     // option.externalCharm, // default
-    option.tattoo
+    option.tattoo,
   ],
   datingstyle: [
     option.preferredDate,
@@ -79,15 +79,16 @@ export const targetingOptions: TargetingOptions = {
     option.datingFrequency,
     option.contactStyle,
     option.premaritalPurity,
-    option.conflictResolutionMethod
-  ]
-}
-
+    option.conflictResolutionMethod,
+  ],
+};
 
 export const targetingAllOptions: TargetingAllOptions = {
   birthYear: option.birthYear,
   residence: option.residence,
   jobType: option.jobType,
+  divorce: option.divorce,
+  university: option.university,
   salary: option.salary,
   height: option.height,
   workType: option.workType,
@@ -120,18 +121,20 @@ export const targetingAllOptions: TargetingAllOptions = {
   datingFrequency: option.datingFrequency,
   contactStyle: option.contactStyle,
   premaritalPurity: option.premaritalPurity,
-  conflictResolutionMethod: option.conflictResolutionMethod
-}
+  conflictResolutionMethod: option.conflictResolutionMethod,
+};
 
 export const allRangeOptions: AllRangeOptions = {
   birthYear: option.birthYear,
-  height: option.height
-}
+  height: option.height,
+};
 
 export const allOptions: AllOptions = {
   residence: option.residence,
   jobType: option.jobType,
   salary: option.salary,
+  divorce: option.divorce,
+  university: option.university,
   workType: option.workType,
   smoking: option.smoking,
   drinking: option.drinking,
@@ -162,15 +165,19 @@ export const allOptions: AllOptions = {
   datingFrequency: option.datingFrequency,
   contactStyle: option.contactStyle,
   premaritalPurity: option.premaritalPurity,
-  conflictResolutionMethod: option.conflictResolutionMethod
-}
-
+  conflictResolutionMethod: option.conflictResolutionMethod,
+};
 
 export const targetingCategories: TargetingCategories = {
   default: {
     name: "default",
     label: "기본 반영",
     options: targetingOptions.default,
+  },
+  etc: {
+    name: "etc",
+    label: "기본",
+    options: targetingOptions.etc,
   },
   lifestyle: {
     name: "lifestyle",
@@ -197,4 +204,4 @@ export const targetingCategories: TargetingCategories = {
     label: "연애스타일",
     options: targetingOptions.datingstyle,
   },
-}
+};

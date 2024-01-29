@@ -24,7 +24,16 @@ export const plainAxios = axios.create({
 
 // 응답 인터셉터 추가
 authedAxios.interceptors.response.use(
-  response => response,
+  response => {
+    log(`-------------------응답 인터셉터-------------------
+      status:     ${JSON.stringify(response.status)}
+      statusText: ${response.statusText}
+      res.data:   ${JSON.stringify(response.data)}
+      ${new Date()}
+      -----------------------------------------------
+    `);
+    return response;
+  },
   async error => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
@@ -45,7 +54,7 @@ authedAxios.interceptors.response.use(
       return Promise.reject('Token refresh failed');
     }
     // 그 외 오류 처리
-    log('그 외 오류 처리', originalRequest.url);
+    // log('그 외 오류 처리', originalRequest.url);
     return Promise.reject(error);
   }
 );

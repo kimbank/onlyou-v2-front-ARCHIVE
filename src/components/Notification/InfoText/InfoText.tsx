@@ -10,7 +10,7 @@ type Props = {
   bgColor?: "primary" | "secondary";
 };
 
-export function InfoText({ children,  bgColor,}: Props) {
+export function InfoText({ children,  bgColor }: Props) {
   return (
     <InfoTextRoot bgColor={bgColor}>
         {children}

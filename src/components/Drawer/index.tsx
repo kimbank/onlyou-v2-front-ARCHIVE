@@ -39,6 +39,7 @@ const DrawerComp = ({
 };
 
 const StyledDrawer = styled(Drawer)({
+  zIndex: 4001,
   width: "100%",
   left: "50%",
   transform: "translateX(-50%)",

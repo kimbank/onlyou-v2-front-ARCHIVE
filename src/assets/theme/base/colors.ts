@@ -1,4 +1,3 @@
-
 interface ColorType {
   main: string | any;
 }
@@ -7,6 +6,7 @@ interface ColorsTypes {
   white?: string | any;
   black?: string | any;
   primary?: ColorType;
+  error?: ColorType;
   primary_darken?: string | any;
   primary_lighten1?: string | any;
   primary_lighten2?: string | any;
@@ -26,6 +26,9 @@ const colors: ColorsTypes = {
   black: "#000000",
   primary: {
     main: "#ff7700",
+  },
+  error: {
+    main: "#FF4A31",
   },
   primary_darken: "#F16416",
   primary_lighten1: "#FFB06C",

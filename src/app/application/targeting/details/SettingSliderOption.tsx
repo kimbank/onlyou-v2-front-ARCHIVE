@@ -17,8 +17,6 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
     to ? to : max,
   ]);
 
-  console.log("value", value);
-
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };

@@ -1,24 +1,35 @@
 "use client";
 
-import Link from "next/link";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
-import ProgressHeader from "@/components/Header/ProgressHeader";
 import { Box, Typography, Button } from "@mui/material";
 import TargetingRoot from "./TargetingRoot";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
 
 import { useSelector, useDispatch } from "react-redux";
-// import { setTargetingField } from "@/store/targetingSlice";
+import {
+  setTargetingPriority,
+  setTargetingDataField,
+  setTargetingRangeField,
+} from "@/store/targetingSlice";
 
 import useModal from "@/hooks/useModal";
 import OptionModal from "./OptionModal";
 
 import OptionCard from "./OptionCard";
 import { StepButton } from "@/components/Button/StepButton";
-import { fontSize } from "@mui/system";
+
+import useTargeting from "@/api/hooks/useTargeting";
+import Loading from "@/components/loading";
+
+import BottomNextButton from "@/components/BottomButton/Next";
 
 const TargetingPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
   const {
     isModalOpen: isOptionOpen,
     openModal: openOptionModal,
@@ -27,6 +38,36 @@ const TargetingPage = () => {
 
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+  const { targetingData, isLoading } = useTargeting();
+
+  React.useEffect(() => {
+    if (isLoading) return;
+
+    if (typeof targetingData?.fillStatus === "number") {
+      const dataKeys = Object.keys(targetingData);
+      console.log("targetingData", targetingData);
+      for (const key of Object.keys(targetingState)) {
+        const value = targetingData[key];
+        if (dataKeys.includes(key)) {
+          if (key === "birthYear" || key === "height") {
+            dispatch(
+              setTargetingRangeField({
+                field: key,
+                from: value?.from,
+                to: value?.to,
+              })
+            );
+          }
+          dispatch(setTargetingDataField({ field: key, data: value?.data }));
+          if (value?.priority >= 1 && value?.priority <= 3) {
+            dispatch(
+              setTargetingPriority({ field: key, priority: value?.priority })
+            );
+          }
+        }
+      }
+    }
+  }, [isLoading]);
 
   const isTargetingEmpty = Object.keys(targetingState).every(
     (field: string) => {
@@ -36,11 +77,10 @@ const TargetingPage = () => {
       }
     }
   );
-  console.log("targetingState", targetingState);
-  console.log("isTargetingEmpty", isTargetingEmpty);
 
   return (
     <>
+      {isLoading && <Loading />}
       <OptionModal open={isOptionOpen} onClose={closeOptionModal} />
       <TargetingRoot id="content">
         <Box className="title-box">
@@ -114,14 +154,33 @@ const TargetingPage = () => {
           )}
         </Box>
       </TargetingRoot>
-      <StepButton
+      <BottomNextButton>
+        <Button
+          size="large"
+          variant="outlined"
+          onClick={() => router.push("/application/me/etc?type=init")}
+        >
+          이전
+        </Button>
+        <Button
+          size="large"
+          disabled={isTargetingEmpty}
+          onClick={() =>
+            router.push("/application/targeting/details?type=init")
+          }
+        >
+          다음
+        </Button>
+      </BottomNextButton>
+      )
+      {/* <StepButton
         prevText="이전"
         nextText="다음"
         prevHref="/application/me/etc"
         nextHref="/application/targeting/details"
         nextType="button"
         checkedStates={!isTargetingEmpty}
-      />
+      /> */}
     </>
   );
 };

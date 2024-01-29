@@ -1,12 +1,17 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
-
-import { otherRadioGroups } from "@/constants/me";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Typography,
+  styled,
+} from "@mui/material";
 
 import BottomButton from "@/components/BottomButton/Next";
 import { StepButton } from "@/components/Button/StepButton";
@@ -15,60 +20,110 @@ import { InfoBox } from "@/components/Notification/InfoBox/InfoBox";
 import RDInput from "@/components/RDInput";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 import useModal from "@/hooks/useModal";
-import EtcRoot from "./EtcRoot";
-import colors from "@/assets/theme/base/colors";
+import { informationBeforeMeeting } from "@/constants/application_option";
 
-const EtcAPI = {
-  statusCode: 200,
-  message: "Find Success",
-  data: {
-    nickname: "뱅크",
-  },
-};
-const { gray2 } = colors;
+import { useDispatch } from "react-redux";
+import { showModal } from "@/store/home/modalSlice";
+
+import useMe from "@/api/hooks/useMe";
+import putMe from "@/api/putMe";
+import Loading from "@/components/loading";
+
+
+interface EtcData {
+  // nickname: string | null;
+  informationBeforeMeeting: number | null;
+  kakaoId: string | null;
+}
 
 const Etc = () => {
-  const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
-    {}
-  );
-  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const [kakaoId, setKakaoId] = useState("");
   const searchParams = useSearchParams();
+  const isInit = searchParams.get("type") === "init";
+  const { me, isLoading, isError, mutate } = useMe("etc");
+  const [isPutMeLoading, setIsPutMeLoading] = React.useState<boolean>(false);
+  const [etcData, setEtcData] = React.useState<EtcData>({
+    // nickname: null,
+    informationBeforeMeeting: null,
+    kakaoId: null,
+  });
+  const dispatch = useDispatch();
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const { label, name, options } = informationBeforeMeeting;
+  const [kakaoId, setKakaoId] = React.useState("");
+  const informationBeforeMeetingValue = me ? me.informationBeforeMeeting : null;
+  const isCompleteFillData = Object.values(etcData).every(
+    (value) => value !== null && value !== ""
+  );
 
-  const type = searchParams.get("type");
+  React.useEffect(() => {
+    if (isLoading || isError) return;
 
-  const radioGroups = useMemo(() => otherRadioGroups, []);
+    try {
+      const etc = me || {};
+      console.log(etc);
+      const etcDataKeys = Object.keys(etcData);
+      Object.keys(etc).map((key) => {
+        if (etcDataKeys.includes(key)) {
+          setEtcData((prev) => ({
+            ...prev,
+            [key]: etc[key as keyof EtcData],
+          }));
+        };
+      });
+      setKakaoId(etc.kakaoId || "");
+    } catch (error) { return; }
+  }, [me, isLoading, isError]);
 
-  const handleRadioChange = (groupTitle: string, value: string) => {
-    setSelectedValues((prevValues) => ({
-      ...prevValues,
-      [groupTitle]: value,
-    }));
-    const nextIndex =
-      radioGroups.findIndex((group) => group.title === groupTitle) + 1;
-    if (nextIndex < radioGroups.length) {
-      setActiveGroupIndex(nextIndex);
-    }
+  const handleRadioChange = (value: string) => {
+    setEtcData({
+      ...etcData,
+      [name]: Number(value),
+    });
   };
+
   const handleKakaoIdChange = (event: any) => {
     setKakaoId(event.target.value);
+    setEtcData((prev) => ({
+      ...prev,
+      kakaoId: event.target.value === "" ? null : event.target.value,
+    }));
   };
-  const allGroupsSelected = useMemo(() => {
-    return (
-      radioGroups.every((group) => selectedValues[group.title] != null) &&
-      kakaoId.trim() !== ""
-    );
-  }, [radioGroups, selectedValues, kakaoId]);
 
-  // useEffect(() => {
-  //   console.log("selectedValues", selectedValues);
-  //   console.log("radioGroups", radioGroups);
-  //   console.log("allGroupsSelected", allGroupsSelected);
-  // }, [selectedValues, radioGroups, allGroupsSelected]);
+  async function handleNext() {
+    if (!/^[A-Za-z0-9_.-]{4,20}$/.test(kakaoId)) {
+      dispatch(showModal({
+        title: "카카오톡 아이디 형식이 올바르지 않아요.",
+        body: "영문, 숫자, 특수문자 빼기(-), 밑줄(_), 마침표(.)를 포함하여 4~20자만 사용 가능해요.",
+        complete: '확인',
+      }));
+      return;
+    }
+    setIsPutMeLoading(true);
+    const res = await putMe("etc", etcData);
+
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      setIsPutMeLoading(false);
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+      setIsPutMeLoading(false);
+      return;
+    }
+
+    if (isInit) {
+      openModal();
+    }
+  }
+
+  // async function handlePrev() {
+  //   if (isInit) {
+  //     router.push("/matching");
+  //   }
+  // }
 
   return (
     <>
+      {isLoading && <Loading />}
       <EtcRoot id="content">
         <Box className="title-box">
           <Typography variant="subtitle2">
@@ -77,27 +132,27 @@ const Etc = () => {
           </Typography>
           <Typography variant="h1">기타 정보 입력하기</Typography>
         </Box>
-        {radioGroups.map((group, index) => (
-          <Container
-            key={group.title}
-            className={
-              index <= activeGroupIndex ? "other-radio visible" : "other-radio"
+        <Container className="other-radio">
+          <Typography variant="subtitle2">{label}</Typography>
+          <RDRadioInput
+            options={Object.keys(options).map((optionIndex) => ({
+              value: optionIndex,
+              label: options[optionIndex],
+            }))}
+            onChange={handleRadioChange}
+            initialValue={
+              informationBeforeMeetingValue !== null
+                ? informationBeforeMeetingValue.toString()
+                : ""
             }
-          >
-            <Typography variant="subtitle2">{group.title}</Typography>
-            <RDRadioInput
-              onChange={(value: string) =>
-                handleRadioChange(group.title, value)
-              }
-              options={group.options}
-            />
-          </Container>
-        ))}
+          />
+        </Container>
+
         <Box className="kakao-box">
           <RDInput
             label="카카오톡 아이디"
             placeholder="카카오톡 아이디를 입력해주세요"
-            value={kakaoId}
+            value={etcData.kakaoId || ""}
             onChange={handleKakaoIdChange}
           />
           <Typography variant="body2">
@@ -150,14 +205,14 @@ const Etc = () => {
         open={isModalOpen}
         onClose={closeModal}
       />
-      {type === "init" ? (
+      {isInit ? (
         <StepButton
           prevText="이전"
           nextText="다음"
           prevHref="appearance/"
-          onClick={openModal}
+          onClick={handleNext}
           nextType="button"
-          checkedStates={allGroupsSelected}
+          checkedStates={isCompleteFillData}
           tips
         />
       ) : (
@@ -172,3 +227,35 @@ const Etc = () => {
 };
 
 export default Etc;
+
+const EtcRoot = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  paddingBottom: "166px !important",
+  ".title-box": {
+    gap: "0px",
+  },
+  ".other-radio": {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100%",
+    padding: "0",
+    gap: "12px",
+    margin: 0,
+  },
+  ".kakao-box": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
+  ".info-box": {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: "8px",
+  },
+});

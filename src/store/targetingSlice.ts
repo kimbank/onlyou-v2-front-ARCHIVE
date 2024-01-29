@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface TargetingField {
   data: number[] | null;
@@ -55,20 +55,19 @@ interface TargetingState {
 const targetingField: TargetingField = {
   data: [],
   priority: null,
-}
+};
 
 const targetingRangeField: TargetingRangeField = {
   from: null,
   to: null,
   priority: null,
-}
+};
 
 const initialState: any = {
-  birthYear: { ...targetingRangeField, priority: 0}, // 기본 반영 조건
+  birthYear: { ...targetingRangeField, priority: 0 }, // 기본 반영 조건
   residence: { ...targetingField, priority: 0 }, // 기본 반영 조건
   jobType: targetingField,
   salary: targetingField,
-  height: targetingRangeField,
   university: targetingField,
   divorce: targetingField,
 
@@ -93,10 +92,11 @@ const initialState: any = {
   consumptionValues: targetingField,
   careerFamilyValues: targetingField,
   childrenValues: targetingField,
-  appearance: targetingField,
+  // appearance: targetingField,
 
   animalImage: targetingField,
   doubleEyelid: targetingField,
+  height: targetingRangeField,
   bodyType: targetingField,
   externalCharm: { ...targetingField, priority: 0 }, // 기본 반영 조건
   tattoo: targetingField,
@@ -111,7 +111,7 @@ const initialState: any = {
 };
 
 const targetingSlice = createSlice({
-  name: 'targeting',
+  name: "targeting",
   initialState,
   reducers: {
     setTargetingDataField: (
@@ -124,7 +124,11 @@ const targetingSlice = createSlice({
 
     setTargetingRangeField: (
       state,
-      action: PayloadAction<{ field: keyof TargetingState; from: number, to: number }>
+      action: PayloadAction<{
+        field: keyof TargetingState;
+        from: number;
+        to: number;
+      }>
     ) => {
       const { field, from, to } = action.payload;
       state[field].from = from;
@@ -133,7 +137,10 @@ const targetingSlice = createSlice({
 
     setTargetingPriority: (
       state,
-      action: PayloadAction<{ field: keyof TargetingState; priority: (number | null) }>
+      action: PayloadAction<{
+        field: keyof TargetingState;
+        priority: number | null;
+      }>
     ) => {
       const { field, priority } = action.payload;
       if (state[field]) {
@@ -145,5 +152,10 @@ const targetingSlice = createSlice({
   },
 });
 
-export const { setTargetingDataField, setTargetingRangeField, setTargetingPriority, resetTargeting } = targetingSlice.actions;
+export const {
+  setTargetingDataField,
+  setTargetingRangeField,
+  setTargetingPriority,
+  resetTargeting,
+} = targetingSlice.actions;
 export default targetingSlice.reducer;
