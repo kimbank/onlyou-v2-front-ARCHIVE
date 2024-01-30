@@ -20,7 +20,7 @@ const AgreementNotfound = dynamic(() => import("./AgreementNotfound"), { ssr: fa
 const AgreementExist = dynamic(() => import("./AgreementExist"), { ssr: false, loading: () => <Loading />});
 
 
-const AgreementPage = ({ children }: { children: React.ReactNode }) => {
+const AgreementPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { agreementList, isLoading, isError } = useAgreementList();
