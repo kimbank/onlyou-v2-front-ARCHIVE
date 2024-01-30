@@ -1,8 +1,6 @@
 "use client";
 
 import { Box, Button, Typography } from "@mui/material";
-import HomeHeader from "@/components/Header/HomeHeader";
-import BottomNavi from "@/components/BottomNavi";
 import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
@@ -15,34 +13,28 @@ const MatchingIndex = () => {
     router.push("application/me/values?type=init");
   };
   return (
-    <>
-      <HomeHeader />
-
-      <MatchingRoot id="content">
-        <Box className="title">
-          <Typography variant="h1">신청서 완성하기</Typography>
-          <Typography variant="body1">
-            신청서를 완성하고
-            <br />
-            나와 맞는 인연을 빠르게 찾아보세요!
-          </Typography>
-        </Box>
-        <Box className="content">
-          <StepInfo />
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={handleHref}
-          >
-            <Typography variant="button">매칭신청서 완성하기</Typography>
-          </Button>
-          <SaveInfo />
-        </Box>
-      </MatchingRoot>
-
-      <BottomNavi />
-    </>
+    <MatchingRoot id="content">
+      <Box className="title">
+        <Typography variant="h1">신청서 완성하기</Typography>
+        <Typography variant="body1">
+          신청서를 완성하고
+          <br />
+          나와 맞는 인연을 빠르게 찾아보세요!
+        </Typography>
+      </Box>
+      <Box className="content">
+        <StepInfo />
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleHref}
+        >
+          <Typography variant="button">매칭신청서 완성하기</Typography>
+        </Button>
+        <SaveInfo />
+      </Box>
+    </MatchingRoot>
   );
 };
 

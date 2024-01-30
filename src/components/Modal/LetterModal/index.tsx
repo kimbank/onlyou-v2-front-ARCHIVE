@@ -15,7 +15,7 @@ export const LetterModal = ({ children, open, onClose }: ModalProps) => {
   const router = useRouter();
 
   const handleCompleteClick = () => {
-    router.push("/Complete");
+    router.push("/application/complete");
   };
 
   return (

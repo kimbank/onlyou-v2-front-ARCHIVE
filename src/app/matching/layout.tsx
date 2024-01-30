@@ -2,18 +2,28 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 
+import HomeHeader from "@/components/Header/HomeHeader";
+import BottomNavi from "@/components/BottomNavi";
 import Skeleton from "./_pages/skeleton";
+import { useDispatch } from "react-redux";
+import { showModal, closeModal } from "@/store/home/modalSlice";
 
 
-// const Skeleton = dynamic(() => import("./_pages/skeleton"), { ssr: false });
 const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false, loading: () => <Skeleton />});
 const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false, loading: () => <Skeleton /> });
 const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false, loading: () => <Skeleton /> });
+const MatchingChoice = dynamic(() => import("./_pages/matching_choice/page"), { ssr: false, loading: () => <Skeleton /> });
+const MatchingTargetWaiting = dynamic(() => import("./_pages/matching_target_waiting/page"), { ssr: false, loading: () => <Skeleton /> });
+const MatchingSuccess = dynamic(() => import("./_pages/matching_success/page"), { ssr: false, loading: () => <Skeleton /> });
 const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false, loading: () => <Skeleton /> });
 
+
 const MatchingLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { matchingStatus, isLoading, isError } = useMatchingStatus();
 
   let Page;
@@ -43,7 +53,7 @@ const MatchingLayout = ({ children }: { children: React.ReactNode }) => {
       break;
     case "MATCHING_CHOICE":
       // 매칭 활성화 - 선택
-
+      Page = MatchingChoice;
       break;
     case "MATCHING_FAILURE":
       // 매칭 실패 - 상호 선택 실패
@@ -51,32 +61,56 @@ const MatchingLayout = ({ children }: { children: React.ReactNode }) => {
       break;
     case "MATCHING_SUCCESS":
       // 매칭 성공 - 상호 선택 성공
-
+      Page = MatchingSuccess;
       break;
     case "MATCHING_TARGET_WAITING":
       // 매칭 상대 선택 대기 - 나는 선택 완료
-
+      Page = MatchingTargetWaiting;
       break;
-    case "ERROR": // 서버 에러
-      Page = Skeleton;
-      break;
-    default: // null, undefined, 서버 에러
-      Page = Skeleton;
+    case "ERROR":
+      dispatch(
+        showModal({
+          title: "데이터 에러",
+          body: "유저 데이터에 문제가 있습니다. 관리자에게 문의해주세요.",
+          cancel: "로그아웃",
+          complete: "새로고침",
+          onCancel: () => router.push("/signout"),
+          onComplete: () => window.location.reload(),
+        })
+      );
       break;
   }
 
+  if (isError) {
+    dispatch(
+      showModal({
+        title: "서버 에러",
+        body: "잠시 후 다시 시도해주세요.",
+        cancel: "로그아웃",
+        complete: "새로고침",
+        onCancel: () => router.push("/signout"),
+        onComplete: () => window.location.reload(),
+      })
+    );
+  } else {
+    dispatch(closeModal());
+  }
+
   return (
-    isError ? (
-      <>Error Page</>
-    ) :
-    isLoading ? (
-      <Skeleton />
-    ) : (
-      <>
-        {Page && <Page />}
-        {/* {children} */}
-      </>
-    )
+    <>
+      <HomeHeader />
+      {
+        isLoading || isError ? (
+          <Skeleton />
+        ) : (
+          <>
+            {Page && <Page />}
+            {/* {children} */}
+          </>
+        )
+      }
+      <BottomNavi />
+    </>
   );
 }
 

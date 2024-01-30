@@ -1,23 +1,69 @@
 "use client";
 
+import React from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useAgreementList } from "@/api/hooks/useAgreementList";
+
+import { styled, Box } from "@mui/material";
+
 import BottomNavi from "@/components/BottomNavi";
 import HomeHeader from "@/components/Header/HomeHeader";
-import { Box, styled } from "@mui/material";
-import { Before } from "./Before";
-import { Consist } from "./Consist";
 
-const agreementPage = () => {
+import { useDispatch } from "react-redux";
+import { showModal, closeModal } from "@/store/home/modalSlice"
+
+import Loading from "@/components/loading";
+
+
+const AgreementNotfound = dynamic(() => import("./AgreementNotfound"), { ssr: false, loading: () => <Loading />});
+const AgreementExist = dynamic(() => import("./AgreementExist"), { ssr: false, loading: () => <Loading />});
+
+
+const AgreementPage = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { agreementList, isLoading, isError } = useAgreementList();
+
+  let Page = AgreementNotfound;
+
+  if (agreementList?.length > 0) {
+    Page = AgreementExist;
+  }
+
+  if (isError) {
+    dispatch(
+      showModal({
+        title: "서버 에러",
+        body: "잠시 후 다시 시도해주세요.",
+        cancel: "로그아웃",
+        complete: "새로고침",
+        onCancel: () => router.push("/signout"),
+        onComplete: () => window.location.reload(),
+      })
+    );
+  } else {
+    dispatch(closeModal());
+  }
+
   return (
     <>
       <HomeHeader />
       <AgreemenRoot id="content">
-        <Before />
-        {/* <Consist /> */}
+        {
+          isLoading || isError ? (
+            <Loading />
+          ) : (
+            <>
+              {Page && <Page />}
+            </>
+          )
+        }
       </AgreemenRoot>
       <BottomNavi />
     </>
   );
-};
+}
 
 const AgreemenRoot = styled(Box)(() => {
   return {
@@ -27,4 +73,4 @@ const AgreemenRoot = styled(Box)(() => {
   };
 });
 
-export default agreementPage;
+export default AgreementPage;
