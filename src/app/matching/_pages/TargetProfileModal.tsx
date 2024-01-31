@@ -26,7 +26,7 @@ const TargetProfileModal = ({ open, onClose, matchingId, handleAccept, handleRej
   const { targetDetails, isLoading, isError } = useMatchingTargetDetails(matchingId);
   const { matchingStatus } = useMatchingStatus();
 
-  if (!matchingId || (!isLoading && isError)) {
+  if ((!matchingId || (!isLoading && isError)) && open) {
     dispatch(
       showModal({
         title: "매칭 데이터 에러",

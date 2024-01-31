@@ -22,7 +22,7 @@ const UserProfileModal = ({ open, onClose }: any) => {
   };
   const { myinfoDetailsData, isLoading, isError } = useMyinfoDetails();
 
-  if (!isLoading && isError) {
+  if (!isLoading && isError && open) {
     dispatch(
       showModal({
         title: "매칭 데이터 에러",

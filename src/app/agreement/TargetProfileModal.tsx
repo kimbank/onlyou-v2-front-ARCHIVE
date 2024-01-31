@@ -22,7 +22,7 @@ const TargetProfileModal = ({ open, onClose, agreementID }: any) => {
   };
   const { targetDetails, isLoading, isError } = useAgreementTargetDetails(agreementID);
 
-  if (!agreementID || (!isLoading && isError)) {
+  if ((!agreementID || (!isLoading && isError)) && open) {
     dispatch(
       showModal({
         title: "매칭 데이터 에러",
