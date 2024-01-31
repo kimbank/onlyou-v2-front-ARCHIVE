@@ -90,17 +90,29 @@ const ModifyOptionModal = ({
   };
 
   const handleSaveChanges = () => {
+    let isChanged = false;
+
     Object.keys(temporaryState).forEach((key) => {
       const item = temporaryState[key];
+      const originalItem = targetingState[key];
 
-      if (item.data) {
+      if (
+        item.data &&
+        JSON.stringify(item.data) !== JSON.stringify(originalItem.data)
+      ) {
+        isChanged = true;
         dispatch(setTargetingDataField({ field: key, data: item.data }));
       }
-      if (item.priority !== undefined) {
+      if (item.priority !== originalItem.priority) {
+        isChanged = true;
         dispatch(setTargetingPriority({ field: key, priority: item.priority }));
       }
     });
-    setHasPriorityChanged(true);
+
+    if (isChanged) {
+      setHasPriorityChanged(true);
+    }
+
     onClose();
   };
   return (
