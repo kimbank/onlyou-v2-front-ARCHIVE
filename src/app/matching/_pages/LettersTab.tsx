@@ -1,16 +1,23 @@
+import React from "react";
 import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
-import Letter from "public/icons/letter.png";
-import { ConsistData } from "../Connect";
+import LetterIcon from "public/icons/letter.png";
 
-interface Props {
-  data: ConsistData;
-}
 
-export const LetterTab = ({ data }: Props) => {
+export const LettersTab = ({ targetLetters }: any) => {
+  const renderLetterContent = (content: any) => {
+    const splitContent = content.split("\\n");
+    return splitContent?.map((content: any, index: number) => (
+      <React.Fragment key={index}>
+        {content}
+        <br />
+      </React.Fragment>
+    ));
+  }
+
   return (
     <Root>
-      {data.letterOptions.map((letter, index) => (
+      {targetLetters?.map((letter: any, index: number) => (
         <Box
           key={index}
           style={{
@@ -20,10 +27,12 @@ export const LetterTab = ({ data }: Props) => {
         >
           <Box className="letter-icon">
             <Box className="letter-text">
-              <Image src={Letter} width={20} height={20} alt="Letter" />
-              <Typography variant="subtitle2">{letter.title}</Typography>
+              <Image src={LetterIcon} width={20} height={20} alt="Letter" />
+              <Typography variant="subtitle2">{letter?.title}</Typography>
             </Box>
-            <Typography variant="body2">{letter.description}</Typography>
+            <Typography variant="body2">
+              { renderLetterContent(letter?.content) }
+            </Typography>
           </Box>
         </Box>
       ))}

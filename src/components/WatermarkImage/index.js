@@ -46,7 +46,10 @@ const WatermarkedImage = ({ src, watermarkText }) => {
 
   return (
     <div ref={parentRef} style={{ width: '100%' }}>
-      <canvas ref={canvasRef} style={{ width: '100%', height: 'auto' }}></canvas>
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: 'auto', borderRadius: '6px', userSelect: 'none', pointerEvents: 'none' }}
+      />
     </div>
   );
 };

@@ -1,11 +1,7 @@
 "use client";
 
-import BirthIcon from "public/icons/birth.svg";
-import HomeIcon from "public/icons/home.svg";
-import JobIcon from "public/icons/job.svg";
-import KakaoIcon from "public/icons/kakao.svg";
-import VerifiedIcon from "public/icons/verified.svg";
-import Image from "next/image";
+import React from "react";
+import { useRouter } from "next/navigation";
 import {
   styled,
   Box,
@@ -14,90 +10,124 @@ import {
   Avatar,
 } from "@mui/material";
 import NoticeModal from "../NoticeModal";
-import { CertificationBadge } from "@/components/Badge/CertificationBadge";
+
+import { useDispatch } from "react-redux";
+import { showModal, closeModal } from "@/store/home/modalSlice";
 
 import { useMatchingList } from "@/api/hooks/useMatchingList";
+
+import Loading from "@/components/loading";
+import TargetProfileCard from "../TargetProfileCard";
 import Timer from "@/components/Timer/Timer";
+
+import useModal from "@/hooks/useModal";
+import Drawer from "@/components/Drawer";
+import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
+import { putMatchingChoice } from "@/api/putMatchingChoice";
 
 
 const MatchingChoicePage = () => {
-  const { matchingList, isLoading, isError } = useMatchingList();
-  console.log(matchingList);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { matchingList, isLoading, isError, mutate: mutateMatchingList } = useMatchingList();
+  const { mutate: mutateMatchingStatus } = useMatchingStatus();
+  const { openModal, isModalOpen, closeModal } = useModal();
+  const [choice, setChoice] = React.useState<boolean>(true);
+
+  if (!Loading && (isError || !matchingList || matchingList.length === 0)) {
+    dispatch(
+      showModal({
+        title: "매칭 데이터 에러",
+        body: "매칭 데이터에 문제가 있습니다. 새로고침 하거나, 관리자에게 문의해주세요.",
+        cancel: "로그아웃",
+        complete: "새로고침",
+        onCancel: () => router.push("/signout"),
+        onComplete: () => window.location.reload(),
+      })
+    );
+  }
+
+  const handleChoice = async (choice: boolean) => {
+    const res = await putMatchingChoice(choice, matchingList[0]?.matchingId);
+    if (res.status >= 200 && res.status < 300) {
+      mutateMatchingList();
+      mutateMatchingStatus();
+    } else {
+      dispatch(
+        showModal({
+          title: "매칭 선택 에러",
+          body: "매칭 선택에 문제가 있습니다. 새로고침 하거나, 관리자에게 문의해주세요.",
+          cancel: "로그아웃",
+          complete: "새로고침",
+          onCancel: () => router.push("/signout"),
+          onComplete: () => window.location.reload(),
+        })
+      );
+    }
+  }
+
+  const handleAccept = () => {
+    setChoice(true);
+    openModal();
+  }
+
+  const handleReject = () => {
+    setChoice(false);
+    openModal();
+  }
 
   return (
-    <MatchingChoiceRoot id="content">
-      <NoticeModal />
-      <span className="title">
-        <Typography variant="h1">
-          오늘의 인연이에요
-        </Typography>
-        <Typography variant="body1">
-          마감 전까지 선택을 완료해 주세요!
-        </Typography>
-      </span>
-      <ProfileCardRoot>
-        <ProfileCertification>
-          <Image src={VerifiedIcon} width={20} height={20} alt="verified" />
-          { matchingList?.verification && <CertificationBadge name="신분 인증" /> }
-          { matchingList?.jobVerification && <CertificationBadge name="직장 인증" /> }
-        </ProfileCertification>
-        <ProfileAvatarRoot>
-          <Avatar src={matchingList?.photo} sx={{ width: '56px', height: '56px', filter: 'blur(1px)', userSelect: 'none', pointerEvents: 'none' }} />
-          <Typography variant="subtitle1">{matchingList?.nickname}</Typography>
-        </ProfileAvatarRoot>
-        <ProfileDetail>
-          <span className="item">
-            <Image src={JobIcon} width={20} alt="직장" />
-            <Typography variant="body2">{matchingList?.jobGroup}</Typography>
-          </span>
-          <span className="item">
-            <Image src={HomeIcon} width={20} alt="거주지" />
-            <Typography variant="body2">{matchingList?.residence}</Typography>
-          </span>
-          <span className="item">
-            <Image src={BirthIcon} width={20} alt="나이" />
-            <Typography variant="body2">{matchingList?.birthYear}</Typography>
-          </span>
-          {/* <span className="item">
-            <Box>
-              <Image src={KakaoIcon} width={15} height={13.75} alt="카카오" />
-            </Box>
-            <Typography variant="body2">{matchingList?.kakaoId}</Typography>
-          </span> */}
-        </ProfileDetail>
-        <Box className="button-box">
-          <DetailButton
+    (isLoading || isError) ? <Loading /> :
+    (
+      <MatchingChoiceRoot id="content">
+        <NoticeModal />
+        <span className="title">
+          <Typography variant="h1">
+            오늘의 인연이에요
+          </Typography>
+          <Typography variant="body1">
+            마감 전까지 선택을 완료해 주세요!
+          </Typography>
+        </span>
+
+        <span className="content">
+          <TargetProfileCard
+            targetData={matchingList[0]}
+            handleAccept={handleAccept}
+            handleReject={handleReject}
+          />
+          <Timer
+            timerText="선택 마감까지"
+            expiryTimestamp={matchingList[0]?.deadline}
+            onExpire={() => window.location.reload()}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={handleAccept}
+          >
+            <Typography variant="button">수락하기</Typography>
+          </Button>
+          <Button
             variant="contained"
             color="secondary"
-            // onClick={openModal}
+            size="large"
+            onClick={handleReject}
           >
-            <Typography variant="body2" color="gray2">
-              프로필 상세보기
-            </Typography>
-          </DetailButton>
-        </Box>
-      </ProfileCardRoot>
-      <Timer expiryTimestamp={matchingList?.deadline} />
-
-      <span className="content">
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => {}}
-        >
-          <Typography variant="button">수락하기</Typography>
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          onClick={() => {}}
-        >
-          <Typography variant="button">거절하기</Typography>
-        </Button>
-      </span>
-    </MatchingChoiceRoot>
+            <Typography variant="button">거절하기</Typography>
+          </Button>
+        </span>
+        <Drawer
+          title={choice ? "정말로 수락하시겠어요?" : "정말로 거절하시겠어요?"}
+          body={"한 번 선택하면 변경할 수 없습니다"}
+          open={isModalOpen}
+          onClose={closeModal}
+          complete={choice ? "수락하기" : "거절하기"}
+          onComplete={() => handleChoice(choice)}
+        />
+      </MatchingChoiceRoot>
+    )
   )
 }
 
@@ -119,65 +149,6 @@ const MatchingChoiceRoot = styled("div")(({ theme }) => {
       gap: "12px",
     },
   };
-});
-
-const ProfileCardRoot = styled("div")(({ theme }) => {
-  return {
-    borderRadius: "8px",
-    border: `1px solid ${theme.palette.primary_lighten1}`,
-    padding: "20px",
-    display: "inline-flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: "16px",
-    ".button-box": {
-      display: "flex",
-      flexDirection: "row",
-      gap: "16px",
-    },
-  };
-});
-
-const ProfileCertification = styled("div")({
-  display: "flex",
-  gap: 8,
-  alignItems: "center",
-  height: 21,
-  "& Box": {},
-});
-
-const ProfileAvatarRoot = styled("div")(({ theme }) => {
-    return {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "16px",
-  }
-});
-
-const ProfileDetail = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: 12,
-  ".item": {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "8px",
-    "&> div": {
-      width: "20px",
-      height: "20px",
-      textAlign: "center",
-      borderRadius: "4px",
-      backgroundColor: "#FAE100",
-    },
-  },
-  "&> span:last-child": {
-    marginTop: 4,
-  },
-});
-
-const DetailButton = styled(Button)({
-  padding: "8px 12px",
 });
 
 export default MatchingChoicePage;

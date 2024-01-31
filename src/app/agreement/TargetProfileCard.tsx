@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import verified from "public/icons/verified.svg";
-import Job from "public/icons/job.svg";
-import Home from "public/icons/home.svg";
-import Birth from "public/icons/birth.svg";
-import Kakao from "public/icons/kakao.svg";
-import Siren from "public/images/agreement/siren.png";
+import VerifiedIcon from "public/icons/verified.svg";
+import JobIcon from "public/icons/job.svg";
+import HomeIcon from "public/icons/home.svg";
+import BirthIcon from "public/icons/birth.svg";
+import KakaoIcon from "public/icons/kakao.svg";
+import SirenIcon from "public/images/agreement/siren.png";
 
 import { styled, Box, Button, Typography } from "@mui/material";
 import { CertificationBadge } from "@/components/Badge/CertificationBadge";
@@ -18,7 +18,7 @@ const TargetProfileCard = ({ targetData }: any) => {
       <Typography variant="subtitle1">{targetData?.createdAt}</Typography>
       <ProfileCardRoot>
         <ProfileCertification>
-          <Image src={verified} width={20} height={20} alt="verified" />
+          <Image src={VerifiedIcon} width={20} height={20} alt="verified" />
           {targetData?.verification && <CertificationBadge name="신분 인증" /> }
           {targetData?.jobVerification && <CertificationBadge name="직장 인증" /> }
         </ProfileCertification>
@@ -33,22 +33,22 @@ const TargetProfileCard = ({ targetData }: any) => {
         </ProfileInfo>
         <ProfileDetail>
           <span className="item">
-            <Image src={Job} width={20} alt="직장" />
+            <Image src={JobIcon} width={20} alt="직장" />
             <Typography variant="body2">{targetData?.jobGroup}</Typography>
           </span>
           <span className="item">
-            <Image src={Home} width={20} alt="거주지" />
+            <Image src={HomeIcon} width={20} alt="거주지" />
             <Typography variant="body2">{targetData?.residence}</Typography>
           </span>
           <span className="item">
-            <Image src={Birth} width={20} alt="나이" />
+            <Image src={BirthIcon} width={20} alt="나이" />
             <Typography variant="body2">{targetData?.birthYear}</Typography>
           </span>
           {
             targetData?.kakaoId && (
               <span className="item">
                 <Box>
-                  <Image src={Kakao} width={15} height={13.75} alt="나이" />
+                  <Image src={KakaoIcon} width={15} height={13.75} alt="나이" />
                 </Box>
                 <Typography variant="body2">{targetData?.kakaoId}</Typography>
               </span>
@@ -62,7 +62,7 @@ const TargetProfileCard = ({ targetData }: any) => {
             </Typography>
           </DetailButton>
           <SirenButton>
-            <Image src={Siren} alt="siren" width={18} height={18} />
+            <Image src={SirenIcon} alt="siren" width={18} height={18} />
           </SirenButton>
         </Box>
       </ProfileCardRoot>

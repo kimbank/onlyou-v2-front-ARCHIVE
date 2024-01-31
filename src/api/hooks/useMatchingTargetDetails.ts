@@ -2,11 +2,11 @@ import useSWRImmutable from 'swr/immutable';
 import { authedFetcher } from '@/api/base/swrFetcher';
 
 
-export const useMatchingTargetDetails = () => {
-  const { data, isLoading, error, mutate } = useSWRImmutable('/api/matching/list', authedFetcher);
+export const useMatchingTargetDetails = (matchingId: string) => {
+  const { data, isLoading, error, mutate } = useSWRImmutable(`/api/matching/details/${matchingId}`, authedFetcher);
 
   return {
-    matchingList: data?.data[0],
+    targetDetails: data,
     isLoading: isLoading,
     isError: error,
     mutate: mutate,

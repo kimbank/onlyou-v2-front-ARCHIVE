@@ -9,8 +9,16 @@ import React from 'react';
 import useTimer from '@/hooks/useTimer';
 
 
-const Timer = ({ expiryTimestamp }: { expiryTimestamp: string | Date}) => {
-  const { restart, isRunning, hours, minutes, seconds } = useTimer(expiryTimestamp);
+const Timer = ({
+  timerText,
+  expiryTimestamp,
+  onExpire
+}: {
+  timerText: string,
+  expiryTimestamp: string | Date,
+  onExpire?: () => void
+}) => {
+  const { restart, isRunning, hours, minutes, seconds } = useTimer(expiryTimestamp, onExpire);
 
   React.useEffect(() => {
     restart(expiryTimestamp);
@@ -21,7 +29,7 @@ const Timer = ({ expiryTimestamp }: { expiryTimestamp: string | Date}) => {
     <TimerRoot>
       <Image src={Stopwatch} alt="timer" width={18} height={18} />
       <Typography color="warning" variant="body2">
-        선택 마감까지 {hours}:{minutes}:{seconds}
+        {timerText} {hours}:{minutes}:{seconds}
       </Typography>
     </TimerRoot>
   );

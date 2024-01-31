@@ -6,7 +6,7 @@ export const useMatchingList = () => {
   const { data, isLoading, error, mutate } = useSWRImmutable('/api/matching/list', authedFetcher);
 
   return {
-    matchingList: data?.data[0],
+    matchingList: data?.data,
     isLoading: isLoading,
     isError: error,
     mutate: mutate,
