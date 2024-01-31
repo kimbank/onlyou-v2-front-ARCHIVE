@@ -4,60 +4,68 @@ import verified from "public/icons/verified.svg";
 import Job from "public/icons/job.svg";
 import Home from "public/icons/home.svg";
 import Birth from "public/icons/birth.svg";
+import { Box, Button, styled, Typography, Avatar } from "@mui/material";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
-import colors from "@/assets/theme/base/colors";
-import { Box, Button, styled, Typography, Avatar } from "@mui/material";
 import { CertificationBadge } from "@/components/Badge/CertificationBadge";
 import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
+
+import useModal from "@/hooks/useModal";
+import UserProfileModal from "./_profileModal/UserProfileModal";
 
 
 const MyinfoProfileCard = () => {
   const { myInfo, isLoading, isError } = useMyinfo();
+  const { openModal, isModalOpen, closeModal } = useModal();
 
-  const manner = "36.5도";
+  const manner = `${myInfo?.manner || 36.5}도`;
 
   return (
-    <MyinfoProfileCardRoot>
-      <ProfileCertification>
-        <Image src={verified} width={20} height={20} alt="verified" />
-        <CertificationBadge name="신분 인증" />
-        <CertificationBadge name="직장 인증" />
-      </ProfileCertification>
+    <>
+      {!isLoading && !isError &&
+        <UserProfileModal open={isModalOpen} onClose={closeModal} />
+      }
+      <MyinfoProfileCardRoot>
+        <ProfileCertification>
+          <Image src={verified} width={20} height={20} alt="verified" />
+          <CertificationBadge name="신분 인증" />
+          <CertificationBadge name="직장 인증" />
+        </ProfileCertification>
 
-      <ProfileInfo>
-        <Box>
-        <Avatar src={myInfo?.photo} sx={{ width: '56px', height: '56px', userSelect: 'none', pointerEvents: 'none' }} />
+        <ProfileInfo>
           <Box>
-            <Typography variant="subtitle1">{myInfo?.nickname}</Typography>
+          <Avatar src={myInfo?.photo} sx={{ width: '56px', height: '56px', userSelect: 'none', pointerEvents: 'none' }} />
             <Box>
-              <Typography variant="body3" color="gray2">
-                {manner}
-              </Typography>
+              <Typography variant="subtitle1">{myInfo?.nickname}</Typography>
+              <Box>
+                <Typography variant="body3" color="gray2">
+                  {manner}
+                </Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </ProfileInfo>
-      <ProfileDetail>
-        <span className="item">
-          <Image src={Job} width={20} alt="직장" />
-          <Typography variant="body2">{myInfo?.jobType}</Typography>
-        </span>
-        <span className="item">
-          <Image src={Home} width={20} alt="거주지" />
-          <Typography variant="body2">{getDetailOptionLabel("residence", myInfo?.residence)}</Typography>
-        </span>
-        <span className="item">
-          <Image src={Birth} width={20} alt="나이" />
-          <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
-        </span>
-      </ProfileDetail>
-      <DetailButton variant="contained" color="secondary">
-        <Typography variant="body2" color="gray2">
-          프로필 상세보기
-        </Typography>
-      </DetailButton>
-    </MyinfoProfileCardRoot>
+        </ProfileInfo>
+        <ProfileDetail>
+          <span className="item">
+            <Image src={Job} width={20} alt="직장" />
+            <Typography variant="body2">{myInfo?.jobType}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Home} width={20} alt="거주지" />
+            <Typography variant="body2">{getDetailOptionLabel("residence", myInfo?.residence)}</Typography>
+          </span>
+          <span className="item">
+            <Image src={Birth} width={20} alt="나이" />
+            <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
+          </span>
+        </ProfileDetail>
+        <DetailButton variant="contained" color="secondary" onClick={openModal}>
+          <Typography variant="body2" color="gray2">
+            프로필 상세보기
+          </Typography>
+        </DetailButton>
+      </MyinfoProfileCardRoot>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ export const useMyinfoDetails = () => {
   const { data, isLoading, error, mutate } = useSWRImmutable('/api/user/myinfo/details', authedFetcher);
 
   return {
-    myinfoDetailsData: data?.details,
+    myinfoDetailsData: data,
     isLoading: isLoading,
     isError: error,
     mutate: mutate,
