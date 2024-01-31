@@ -1,5 +1,8 @@
 import { RootState } from "@/store/store";
-import { setTargetingPriority } from "@/store/targetingSlice";
+import {
+  setTargetingDataField,
+  setTargetingPriority,
+} from "@/store/targetingSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,16 +20,28 @@ import {
 
 import CloseHeader from "@/components/Header/CloseHeader";
 
-const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
+interface ModifyOptionModalProps {
+  open: boolean;
+  onClose: () => void;
+  targetingState: RootState["targeting"];
+  setHasPriorityChanged: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ModifyOptionModal = ({
+  open,
+  onClose,
+  targetingState,
+  setHasPriorityChanged,
+}: ModifyOptionModalProps) => {
   const [priority, setPriority] = useState(1);
   const dispatch = useDispatch();
-  const targetingState = useSelector((state: RootState) => state.targeting);
 
   const titles = ["1순위 조건", "2순위 조건", "3순위 조건"];
   const conditions = ["최대 2개", "최대 4개", "최대 4개"];
   const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
     [key: number]: string[];
   }>({});
+  const [temporaryState, setTemporaryState] = useState(targetingState);
 
   const handleTabsChange = (event: any, newValue: number) => {
     setPriority(newValue);
@@ -35,6 +50,7 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const handleOptionClick = (optionName: string) => {
     const currentOptionPriority = targetingState[optionName]?.priority;
     const maxOptions = priority === 1 ? 2 : 4;
+    console.log("maxOptions", maxOptions);
     const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
     const currentSelectedOptionsInRedux = Object.keys(targetingState).filter(
       (key) => targetingState[key].priority === priority
@@ -47,6 +63,7 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
           (option) => option !== optionName
         ),
       });
+
       return;
     }
     if (currentSelectedOptions.length >= maxOptions) {
@@ -72,6 +89,20 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
+  const handleSaveChanges = () => {
+    Object.keys(temporaryState).forEach((key) => {
+      const item = temporaryState[key];
+
+      if (item.data) {
+        dispatch(setTargetingDataField({ field: key, data: item.data }));
+      }
+      if (item.priority !== undefined) {
+        dispatch(setTargetingPriority({ field: key, priority: item.priority }));
+      }
+    });
+    setHasPriorityChanged(true);
+    onClose();
+  };
   return (
     <>
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
@@ -155,7 +186,11 @@ const ModifyOptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
             {/* <button onClick={onClose}>닫기</button> */}
           </Root>
           <BottomButton>
-            <Button variant="contained" size="large" onClick={onClose}>
+            <Button
+              variant="contained"
+              size="large"
+              onClick={handleSaveChanges}
+            >
               <Typography variant="subtitle1">변경 완료</Typography>
             </Button>
           </BottomButton>

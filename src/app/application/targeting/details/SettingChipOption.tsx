@@ -24,6 +24,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
   const optionState = useSelector(
     (state: RootState) => state.targeting[optionName]
   );
+  const currentData = optionState.data || [];
 
   const [tooltipOpenStates, setTooltipOpenStates] = useState<TooltipOpenStates>(
     {
@@ -43,13 +44,13 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     const isEtcOption = allOption["기타"][idx] !== undefined;
 
     let newData;
-    if (optionState.data.includes(idx)) {
-      newData = optionState.data.filter((data: number) => data !== idx);
+    if (currentData.includes(idx)) {
+      newData = currentData.filter((data: number) => data !== idx);
     } else {
       if (isEtcOption) {
         newData = [idx];
       } else {
-        newData = optionState.data.filter(
+        newData = currentData.filter(
           (dataIdx: string) => allOption["기타"][dataIdx] === undefined
         );
         newData.push(idx);
@@ -77,28 +78,28 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     }
   };
   const renderOptionButtons = (group: string) => {
-    return Object.keys(allOption["기타"]).map((optionKey: string, index: number) => (
-      <Button
-        key={index}
-        sx={{ height: "34px", width: "100%" }}
-        variant="contained"
-        color={
-          optionState.data.includes(Number(optionKey)) ? "primary" : "secondary"
-        }
-        onClick={() => handleOptionClick(Number(optionKey))}
-      >
-        <Typography
-          variant={
-            optionState.data.includes(Number(optionKey)) ? "subtitle2" : "body2"
-          }
+    return Object.keys(allOption["기타"]).map(
+      (optionKey: string, index: number) => (
+        <Button
+          key={index}
+          sx={{ height: "34px", width: "100%" }}
+          variant="contained"
           color={
-            optionState.data.includes(Number(optionKey)) ? "white" : "gray1"
+            currentData.includes(Number(optionKey)) ? "primary" : "secondary"
           }
+          onClick={() => handleOptionClick(Number(optionKey))}
         >
-          {allOption["기타"][optionKey]}
-        </Typography>
-      </Button>
-    ));
+          <Typography
+            variant={
+              currentData.includes(Number(optionKey)) ? "subtitle2" : "body2"
+            }
+            color={currentData.includes(Number(optionKey)) ? "white" : "gray1"}
+          >
+            {allOption["기타"][optionKey]}
+          </Typography>
+        </Button>
+      )
+    );
   };
 
   const toggleTooltip = (group: string) => {
@@ -121,12 +122,12 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
     (state) => state
   );
   useEffect(() => {
-    const isEtcChecked = optionState.data.some(
+    const isEtcChecked = currentData.some(
       (idx: string) => allOption["기타"][idx] !== undefined
     );
     setIsEtcActive(isEtcChecked);
 
-    const isOtherChecked = optionState.data.some(
+    const isOtherChecked = currentData.some(
       (idx: string) => allOption["기타"][idx] === undefined
     );
     setIsOtherActive(isOtherChecked);
@@ -191,33 +192,35 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                   )}
                 </Box>
                 <Box className="button">
-                  {Object.keys(allOption[group]).map((optionKey: string, index: number) => (
-                    <Button
-                      key={index}
-                      variant="contained"
-                      color={
-                        optionState.data.includes(Number(optionKey))
-                          ? "primary"
-                          : "secondary"
-                      }
-                      onClick={() => handleOptionClick(Number(optionKey))}
-                    >
-                      <Typography
-                        variant={
-                          optionState.data.includes(Number(optionKey))
-                            ? "subtitle2"
-                            : "body2"
-                        }
+                  {Object.keys(allOption[group]).map(
+                    (optionKey: string, index: number) => (
+                      <Button
+                        key={index}
+                        variant="contained"
                         color={
-                          optionState.data.includes(Number(optionKey))
-                            ? "white"
-                            : "gray1"
+                          currentData.includes(Number(optionKey))
+                            ? "primary"
+                            : "secondary"
                         }
+                        onClick={() => handleOptionClick(Number(optionKey))}
                       >
-                        {allOption[group][optionKey]}
-                      </Typography>
-                    </Button>
-                  ))}
+                        <Typography
+                          variant={
+                            currentData.includes(Number(optionKey))
+                              ? "subtitle2"
+                              : "body2"
+                          }
+                          color={
+                            currentData.includes(Number(optionKey))
+                              ? "white"
+                              : "gray1"
+                          }
+                        >
+                          {allOption[group][optionKey]}
+                        </Typography>
+                      </Button>
+                    )
+                  )}
                 </Box>
               </Box>
             ))}
