@@ -7,10 +7,10 @@ import Birth from "public/icons/birth.svg";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 import colors from "@/assets/theme/base/colors";
-import { Box, Button, styled, Typography } from "@mui/material";
-import { Certify } from "./Certify";
+import { Box, Button, styled, Typography, Avatar } from "@mui/material";
+import { CertificationBadge } from "@/components/Badge/CertificationBadge";
+import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
 
-const { gray4, black, primary_lighten1 } = colors;
 
 const MyinfoProfileCard = () => {
   const { myInfo, isLoading, isError } = useMyinfo();
@@ -21,17 +21,13 @@ const MyinfoProfileCard = () => {
     <MyinfoProfileCardRoot>
       <ProfileCertification>
         <Image src={verified} width={20} height={20} alt="verified" />
-        <Certify>
-          <Typography variant="body3">신분 인증</Typography>
-        </Certify>
-        <Certify>
-          <Typography variant="body3">직장 인증</Typography>
-        </Certify>
+        <CertificationBadge name="신분 인증" />
+        <CertificationBadge name="직장 인증" />
       </ProfileCertification>
 
       <ProfileInfo>
         <Box>
-          <Box className="profileImage" />
+        <Avatar src={myInfo?.photo} sx={{ width: '56px', height: '56px', userSelect: 'none', pointerEvents: 'none' }} />
           <Box>
             <Typography variant="subtitle1">{myInfo?.nickname}</Typography>
             <Box>
@@ -49,11 +45,11 @@ const MyinfoProfileCard = () => {
         </span>
         <span className="item">
           <Image src={Home} width={20} alt="거주지" />
-          <Typography variant="body2">{myInfo?.residence}</Typography>
+          <Typography variant="body2">{getDetailOptionLabel("residence", myInfo?.residence)}</Typography>
         </span>
         <span className="item">
           <Image src={Birth} width={20} alt="나이" />
-          <Typography variant="body2">{myInfo?.dateBirth}</Typography>
+          <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
         </span>
       </ProfileDetail>
       <DetailButton variant="contained" color="secondary">
@@ -65,14 +61,16 @@ const MyinfoProfileCard = () => {
   );
 };
 
-const MyinfoProfileCardRoot = styled("div")({
-  borderRadius: "8px",
-  border: `1px solid ${primary_lighten1}`,
-  padding: "20px",
-  display: "inline-flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  gap: "16px",
+const MyinfoProfileCardRoot = styled("div")(({ theme }) => {
+  return {
+    borderRadius: "8px",
+    border: `1px solid ${theme.palette.primary_lighten1}`,
+    padding: "20px",
+    display: "inline-flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: "16px",
+  }
 });
 
 const ProfileCertification = styled("div")({
@@ -83,39 +81,41 @@ const ProfileCertification = styled("div")({
   "& Box": {},
 });
 
-const ProfileInfo = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  gap: 12,
-  ".profileImage": {
-    width: 56,
-    height: 56,
-    borderRadius: "50%",
-    backgroundColor: black,
-  },
-  "> div": {
+const ProfileInfo = styled("div")(({ theme }) => {
+  return {
     display: "flex",
-    flexDirection: "row",
-    gap: 16,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 12,
+    ".profileImage": {
+      width: 56,
+      height: 56,
+      borderRadius: "50%",
+      backgroundColor: theme.palette.black,
+    },
     "> div": {
       display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-      gap: 4,
+      flexDirection: "row",
+      gap: 16,
       "> div": {
         display: "flex",
         justifyContent: "center",
-        border: `1px solid ${gray4}`,
-        padding: "2px 6px",
-        borderRadius: 4,
-        width: 47,
-        height: 21,
-        textAlign: "center",
-        whiteSpace: "nowrap",
+        flexDirection: "column",
+        gap: 4,
+        "> div": {
+          display: "flex",
+          justifyContent: "center",
+          border: `1px solid ${theme.palette.gray4}`,
+          padding: "2px 6px",
+          borderRadius: 4,
+          width: 47,
+          height: 21,
+          textAlign: "center",
+          whiteSpace: "nowrap",
+        },
       },
     },
-  },
+  }
 });
 
 const ProfileDetail = styled("div")({

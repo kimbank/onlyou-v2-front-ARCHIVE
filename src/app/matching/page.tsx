@@ -13,13 +13,13 @@ import { showModal, closeModal } from "@/store/home/modalSlice";
 import Loading from "@/components/loading";
 
 
-const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false, loading: () => <Loading />});
-const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false, loading: () => <Loading /> });
-const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false, loading: () => <Loading /> });
-const MatchingChoice = dynamic(() => import("./_pages/matching_choice/page"), { ssr: false, loading: () => <Loading /> });
+const Dormancy              = dynamic(() => import("./_pages/dormancy/page"),                { ssr: false, loading: () => <Loading />});
+const MatchingFailure       = dynamic(() => import("./_pages/matching_failure/page"),        { ssr: false, loading: () => <Loading /> });
+const MatchingWaiting       = dynamic(() => import("./_pages/matching_waiting/page"),        { ssr: false, loading: () => <Loading /> });
+const MatchingChoice        = dynamic(() => import("./_pages/matching_choice/page"),         { ssr: false, loading: () => <Loading /> });
 const MatchingTargetWaiting = dynamic(() => import("./_pages/matching_target_waiting/page"), { ssr: false, loading: () => <Loading /> });
-const MatchingSuccess = dynamic(() => import("./_pages/matching_success/page"), { ssr: false, loading: () => <Loading /> });
-const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false, loading: () => <Loading /> });
+const MatchingSuccess       = dynamic(() => import("./_pages/matching_success/page"),        { ssr: false, loading: () => <Loading /> });
+const ApplicationNeed       = dynamic(() => import("./_pages/application_need/page"),        { ssr: false, loading: () => <Loading /> });
 
 
 const MatchingPage = () => {

@@ -32,6 +32,7 @@ const TargetProfileModal = ({ open, onClose, matchingId, handleAccept, handleRej
         title: "매칭 데이터 에러",
         body: "매칭 데이터를 불러오는 도중 문제가 발생했습니다. 새로고침 하거나, 관리자에게 문의해주세요.",
         complete: "새로고침",
+        cancel: "그냥보기",
         onComplete: () => window.location.reload(),
       })
     );

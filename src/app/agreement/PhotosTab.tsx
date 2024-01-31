@@ -2,8 +2,11 @@ import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import WatermarkedImage from "@/components/WatermarkImage";
 
+
 export const PhotosTab = ({ targetPhotos, userId }: any) => {
-  if (!targetPhotos) return null;
+  if (!targetPhotos) {
+    return null;
+  }
 
   return (
     <Root>

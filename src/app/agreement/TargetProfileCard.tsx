@@ -7,14 +7,19 @@ import BirthIcon from "public/icons/birth.svg";
 import KakaoIcon from "public/icons/kakao.svg";
 import SirenIcon from "public/images/agreement/siren.png";
 
-import { styled, Box, Button, Typography } from "@mui/material";
+import { styled, Box, Button, Avatar, Typography } from "@mui/material";
 import { CertificationBadge } from "@/components/Badge/CertificationBadge";
+import useModal from "@/hooks/useModal";
+import TargetProfileModal from "./TargetProfileModal";
+import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
 
 
 const TargetProfileCard = ({ targetData }: any) => {
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   return (
     <>
+      <TargetProfileModal agreementID={targetData?.matchingId} open={isModalOpen} onClose={closeModal} />
       <Typography variant="subtitle1">{targetData?.createdAt}</Typography>
       <ProfileCardRoot>
         <ProfileCertification>
@@ -25,7 +30,7 @@ const TargetProfileCard = ({ targetData }: any) => {
 
         <ProfileInfo>
           <Box>
-            <Box className="profileImage" />
+            <Avatar src={targetData?.photo} sx={{ width: '56px', height: '56px', filter: 'blur(1px)', userSelect: 'none', pointerEvents: 'none' }} />
             <Box>
               <Typography variant="subtitle1">{targetData?.nickname}</Typography>
             </Box>
@@ -38,11 +43,11 @@ const TargetProfileCard = ({ targetData }: any) => {
           </span>
           <span className="item">
             <Image src={HomeIcon} width={20} alt="거주지" />
-            <Typography variant="body2">{targetData?.residence}</Typography>
+            <Typography variant="body2">{getDetailOptionLabel("residence", targetData?.residence)}</Typography>
           </span>
           <span className="item">
             <Image src={BirthIcon} width={20} alt="나이" />
-            <Typography variant="body2">{targetData?.birthYear}</Typography>
+            <Typography variant="body2">{targetData?.birthYear}년생</Typography>
           </span>
           {
             targetData?.kakaoId && (
@@ -56,7 +61,7 @@ const TargetProfileCard = ({ targetData }: any) => {
           }
         </ProfileDetail>
         <Box className="button-box">
-          <DetailButton variant="contained" color="secondary">
+          <DetailButton variant="contained" color="secondary" onClick={openModal}>
             <Typography variant="body2" color="gray2">
               프로필 상세보기
             </Typography>

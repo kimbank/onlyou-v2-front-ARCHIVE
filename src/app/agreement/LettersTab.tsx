@@ -6,8 +6,10 @@ import { getLetterOptionLabel } from "@/constants/letter";
 
 
 export const LettersTab = ({ targetLetters }: any) => {
-  if (!targetLetters) return null;
-  
+  if (!targetLetters) {
+    return null;
+  }
+
   const renderLetterContent = (content: any) => {
     const splitContent = content.split("\\n");
     return splitContent?.map((content: any, index: number) => (

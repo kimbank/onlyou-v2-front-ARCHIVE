@@ -9,7 +9,10 @@ import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching"
 
 
 export const DetailsTab = ({ targetDetails }: any) => {
-  if (!targetDetails) return null;
+  if (!targetDetails) {
+    return null;
+  }
+
   const filteredArray = Object.entries(targetDetails).filter(([key, value]: [string, any]) => {
     const targetPriority = value?.priority;
     return targetPriority !== null && targetPriority !== undefined && targetPriority >= 1 && targetPriority <= 3;

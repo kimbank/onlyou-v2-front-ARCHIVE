@@ -18,11 +18,11 @@ import { CertificationBadge } from "@/components/Badge/CertificationBadge";
 import useModal from "@/hooks/useModal";
 import TargetProfileModal from "./TargetProfileModal";
 import KakaoDrawer from "@/components/Drawer/KakaoDrawer";
+import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
 
 
 const TargetProfileCard = ({ targetData, handleAccept, handleReject } : any) => {
   const { openModal, isModalOpen, closeModal } = useModal();
-  console.log(targetData);
 
   return (
     <>
@@ -50,11 +50,11 @@ const TargetProfileCard = ({ targetData, handleAccept, handleReject } : any) => 
           </span>
           <span className="item">
             <Image src={HomeIcon} width={20} alt="거주지" />
-            <Typography variant="body2">{targetData?.residence}</Typography>
+            <Typography variant="body2">{getDetailOptionLabel("residence", targetData?.residence)}</Typography>
           </span>
           <span className="item">
             <Image src={BirthIcon} width={20} alt="나이" />
-            <Typography variant="body2">{targetData?.birthYear}</Typography>
+            <Typography variant="body2">{targetData?.birthYear}년생</Typography>
           </span>
           {/* {
             targetData?.kakaoId && (
