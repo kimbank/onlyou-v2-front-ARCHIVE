@@ -43,7 +43,7 @@ const Index = () => {
         return false;
       }
 
-      if (letter?.status > 0) {
+      if (typeof letter?.status === "number") {
         dispatch(
           setLetterValues({
             index: letter?.index,

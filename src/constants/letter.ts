@@ -20,3 +20,12 @@ export const letterOptions: LetterOption = {
     9: "자유편지",
   },
 };
+
+export const getLetterOptionLabel = (key: string): string => {
+  try {
+    return letterOptions.options[key];
+  }
+  catch (e) {
+    return "error";
+  }
+}

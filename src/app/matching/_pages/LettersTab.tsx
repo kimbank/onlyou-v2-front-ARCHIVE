@@ -2,6 +2,7 @@ import React from "react";
 import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import LetterIcon from "public/icons/letter.png";
+import { getLetterOptionLabel } from "@/constants/letter";
 
 
 export const LettersTab = ({ targetLetters }: any) => {
@@ -28,7 +29,9 @@ export const LettersTab = ({ targetLetters }: any) => {
           <Box className="letter-icon">
             <Box className="letter-text">
               <Image src={LetterIcon} width={20} height={20} alt="Letter" />
-              <Typography variant="subtitle2">{letter?.title}</Typography>
+              <Typography variant="subtitle2">
+                { getLetterOptionLabel(letter?.index) }
+              </Typography>
             </Box>
             <Typography variant="body2">
               { renderLetterContent(letter?.content) }

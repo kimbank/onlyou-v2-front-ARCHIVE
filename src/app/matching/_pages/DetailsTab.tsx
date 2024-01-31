@@ -5,6 +5,8 @@ import BirthIcon from "public/icons/birth.svg";
 import HomeIcon from "public/icons/home.svg";
 import JobIcon from "public/icons/job.svg";
 
+import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
+
 export const DetailsTab = ({ targetDetails }: any) => {
   const filteredArray = Object.entries(targetDetails).filter(([key, value]: [string, any]) => {
     const targetPriority = value?.priority;
@@ -55,11 +57,11 @@ export const DetailsTab = ({ targetDetails }: any) => {
             </Box>
             <Box className="profile-card-item">
               <Image src={HomeIcon} alt="home" width={20} height={20} />
-              <Typography variant="body2">{targetDetails?.residence}</Typography>
+              <Typography variant="body2">{getDetailOptionLabel("residence",targetDetails?.residence)}</Typography>
             </Box>
             <Box className="profile-card-item">
               <Image src={BirthIcon} alt="birth" width={20} height={20} />
-              <Typography variant="body2">{targetDetails?.birthYear}</Typography>
+              <Typography variant="body2">{targetDetails?.birthYear}년생</Typography>
             </Box>
           </Box>
         </span>
@@ -71,7 +73,7 @@ export const DetailsTab = ({ targetDetails }: any) => {
             <Box className="details-card-chips">
               {
                 targetDetails?.interest?.map((data: number, index: number) => (
-                  <Chip key={index} label={data} color="secondary" />
+                  <Chip key={index} label={getDetailOptionLabel("interest", data)} color="secondary" />
                 ))
               }
             </Box>
@@ -83,7 +85,7 @@ export const DetailsTab = ({ targetDetails }: any) => {
             <Box className="details-card-chips">
               {
                 targetDetails?.personalityCharm?.map((data: number, index: number) => (
-                  <Chip key={index} label={data} color="secondary" />
+                  <Chip key={index} label={getDetailOptionLabel("personalityCharm", data)} color="secondary" />
                 ))
               }
             </Box>
@@ -95,7 +97,7 @@ export const DetailsTab = ({ targetDetails }: any) => {
             <Box className="details-card-chips">
               {Array.isArray(targetDetails?.externalCharm) ?
                 targetDetails?.externalCharm?.map((data: number, index: number) => (
-                  <Chip key={index} label={data} color="secondary" />
+                  <Chip key={index} label={getDetailOptionLabel("externalCharm", data)} color="secondary" />
                 )) : <Chip label="불러오는 중 문제가 발생했습니다." color="secondary" />
               }
             </Box>
@@ -106,7 +108,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
             </Typography>
             {typeof targetDetails?.informationBeforeMeeting === "number" &&
               <Box className="details-card-chips">
-                <Chip label={targetDetails?.informationBeforeMeeting} color="secondary" />
+                <Chip
+                  label={getDetailOptionLabel("informationBeforeMeeting",targetDetails?.informationBeforeMeeting)}
+                  color="secondary"
+                />
               </Box>
             }
           </span>
@@ -126,10 +131,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                 return (
                   <span key={index} className="details-card">
                     <Typography variant="subtitle2">
-                      {option?.name}
+                      { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      {option?.data}
+                      { getDetailOptionLabel(option?.name, option?.data) }
                     </span>
                   </span>
                 )
@@ -147,10 +152,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                 return (
                   <span key={index} className="details-card">
                     <Typography variant="subtitle2">
-                      {option?.name}
+                      { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      {option?.data}
+                      { getDetailOptionLabel(option?.name, option?.data) }
                     </span>
                   </span>
                 )
@@ -168,10 +173,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                 return (
                   <span key={index} className="details-card">
                     <Typography variant="subtitle2">
-                      {option?.name}
+                      { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      {option?.data}
+                      { getDetailOptionLabel(option?.name, option?.data) }
                     </span>
                   </span>
                 )
