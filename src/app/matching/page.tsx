@@ -7,21 +7,22 @@ import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
 
 import HomeHeader from "@/components/Header/HomeHeader";
 import BottomNavi from "@/components/BottomNavi";
-import Skeleton from "./_pages/skeleton";
 import { useDispatch } from "react-redux";
 import { showModal, closeModal } from "@/store/home/modalSlice";
 
-
-const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false, loading: () => <Skeleton />});
-const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false, loading: () => <Skeleton /> });
-const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false, loading: () => <Skeleton /> });
-const MatchingChoice = dynamic(() => import("./_pages/matching_choice/page"), { ssr: false, loading: () => <Skeleton /> });
-const MatchingTargetWaiting = dynamic(() => import("./_pages/matching_target_waiting/page"), { ssr: false, loading: () => <Skeleton /> });
-const MatchingSuccess = dynamic(() => import("./_pages/matching_success/page"), { ssr: false, loading: () => <Skeleton /> });
-const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false, loading: () => <Skeleton /> });
+import Loading from "@/components/loading";
 
 
-const MatchingLayout = () => {
+const Dormancy = dynamic(() => import("./_pages/dormancy/page"), { ssr: false, loading: () => <Loading />});
+const MatchingFailure = dynamic(() => import("./_pages/matching_failure/page"), { ssr: false, loading: () => <Loading /> });
+const MatchingWaiting = dynamic(() => import("./_pages/matching_waiting/page"), { ssr: false, loading: () => <Loading /> });
+const MatchingChoice = dynamic(() => import("./_pages/matching_choice/page"), { ssr: false, loading: () => <Loading /> });
+const MatchingTargetWaiting = dynamic(() => import("./_pages/matching_target_waiting/page"), { ssr: false, loading: () => <Loading /> });
+const MatchingSuccess = dynamic(() => import("./_pages/matching_success/page"), { ssr: false, loading: () => <Loading /> });
+const ApplicationNeed = dynamic(() => import("./_pages/application_need/page"), { ssr: false, loading: () => <Loading /> });
+
+
+const MatchingPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { matchingStatus, isLoading, isError } = useMatchingStatus();
@@ -101,7 +102,7 @@ const MatchingLayout = () => {
       <HomeHeader />
       {
         isLoading || isError ? (
-          <Skeleton />
+          <Loading />
         ) : (
           <>
             {Page && <Page />}
@@ -114,4 +115,4 @@ const MatchingLayout = () => {
   );
 }
 
-export default MatchingLayout;
+export default MatchingPage;
