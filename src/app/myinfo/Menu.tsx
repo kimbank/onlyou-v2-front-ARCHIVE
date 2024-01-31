@@ -1,14 +1,18 @@
-import { styled, Box, Typography } from "@mui/material";
+"use client";
 
+import React from "react";
+import { useRouter } from "next/navigation";
+import { styled, Box, Typography } from "@mui/material";
 import MenuButton from "@/components/Button/MyinfoMenu";
 import { FullDivider } from "../../components/Dividers/FullDivider";
 import useModal from "@/hooks/useModal";
 import { ModifyModal } from "./ModifyModal";
-import { useState } from "react";
+
 
 const Menu = () => {
+  const router = useRouter();
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [initialPriority, setInitialPriority] = useState(1);
+  const [initialPriority, setInitialPriority] = React.useState(1);
 
   const openModalWithTab = (tabValue: number) => {
     // 탭 값을 설정하고 모달을 열기
@@ -40,7 +44,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            href="/myinfo/targeting"
+            onClick={() => router.push("/myinfo/targeting")}
           >
             <Typography variant="body2" color="black">
               이상형 정보 수정하기
@@ -49,7 +53,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => openModalWithTab(3)}
+            onClick={() => {}}
           >
             <Typography variant="body2" color="black">
               인증 뱃지 수정하기
@@ -58,7 +62,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => openModalWithTab(4)}
+            onClick={() => {}}
           >
             <Typography variant="body2" color="black">
               사진 수정하기
@@ -67,7 +71,8 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            href="/application/letter/write"
+            // href="/application/letter/write"
+            onClick={() => router.push("/application/letter/write")}
           >
             <Typography variant="body2" color="black">
               편지 수정하기

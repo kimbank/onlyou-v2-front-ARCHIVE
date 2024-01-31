@@ -1,7 +1,6 @@
 import Modal from "@/components/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { showModal, closeModal } from "@/store/home/modalSlice";
-import { on } from "events";
 
 
 const ModalProvider = () => {

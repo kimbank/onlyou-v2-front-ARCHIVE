@@ -172,7 +172,6 @@ const TargetingPage = () => {
           다음
         </Button>
       </BottomNextButton>
-      )
       {/* <StepButton
         prevText="이전"
         nextText="다음"

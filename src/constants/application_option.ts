@@ -1,4 +1,3 @@
-import React from "react";
 
 /** 범위형 선지 */
 export interface RangeOption {

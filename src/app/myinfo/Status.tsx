@@ -1,8 +1,11 @@
 "use client";
 
-import colors from "@/assets/theme/base/colors";
 import { Box, Button, Divider, styled, Typography } from "@mui/material";
-export const Status = ({ children }: any) => {
+import { useMyinfo } from "@/api/hooks/useMyinfo";
+
+export const Status = () => {
+  const { myInfo } = useMyinfo();
+
   return (
     <StatusRoot>
       <Typography color="gray1" variant="subtitle1">
@@ -12,10 +15,10 @@ export const Status = ({ children }: any) => {
         <Typography color="gray2" variant="subtitle2">
           사용 현황
         </Typography>
-        <Typography variant="body2">사용이 N회 남았어요</Typography>
+        <Typography variant="body2">사용이 {myInfo?.ticket || "N"}회 남았어요</Typography>
       </Box>
       <Divider />
-      <Box className="status-title">
+      <Box className="status-title" sx={{ alignItems: 'center' }}>
         <Typography color="gray2" variant="subtitle2">
           추가 구매
         </Typography>
@@ -27,7 +30,7 @@ export const Status = ({ children }: any) => {
   );
 };
 
-const StatusRoot = styled(Box)(() => {
+const StatusRoot = styled(Box)(({ theme }) => {
   return {
     gap: "12px",
     borderRadius: "4px",

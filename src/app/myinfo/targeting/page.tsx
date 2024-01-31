@@ -34,6 +34,10 @@ import {
 import ModifyOptionModal from "./ModifyOptionModal";
 import { useRouter } from "next/navigation";
 
+interface TargetingData {
+  [key: string]: any;
+}
+
 const TargetingPage = () => {
   const [isPutTargetingLoading, setIsPutTargetingLoading] =
     useState<boolean>(false);
@@ -56,14 +60,24 @@ const TargetingPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-  const prevTargetingState = useRef(targetingState);
+  const [prevData, setPrevData] = useState<TargetingData>({});
+  const [hasPriorityChanged, setHasPriorityChanged] = useState(false);
+
+  const { targetingData, isLoading, mutate } = useTargeting();
+
+  const hasChanged = Object.keys(targetingData || {}).some((key) => {
+    return targetingData[key]?.data !== prevData[key]?.data;
+  });
+
+  // const hasPriorityChanged = Object.keys(targetingData || {}).some((key) => {
+  //   const currentPriority = targetingData[key]?.priority;
+  //   const previousPriority = prevData[key]?.priority;
+  //   return currentPriority !== previousPriority;
+  // });
 
   const handleNext = async () => {
-    if (
-      JSON.stringify(prevTargetingState.current) ===
-      JSON.stringify(targetingState)
-    ) {
-      router.push("/myinfo");
+    if (hasPriorityChanged) {
+      openNextModal();
       return;
     }
     if (allGroupsSelected) {
@@ -95,7 +109,8 @@ const TargetingPage = () => {
       const res = await putTargeting(targetingData);
       if (res.status >= 200 && res.status < 300) {
         console.log("저장완료");
-        openNextModal();
+        router.push("/myinfo");
+        mutate();
       } else if (res.status === 400) {
         alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
       } else {
@@ -103,7 +118,7 @@ const TargetingPage = () => {
       }
       setIsPutTargetingLoading(false);
     } else {
-      alert("모든 그룹을 선택하세요.");
+      alert("모든 그룹을 선택해주세요.");
     }
   };
 
@@ -137,11 +152,11 @@ const TargetingPage = () => {
   const allGroupsSelected =
     checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
-  const { targetingData, isLoading } = useTargeting();
-
   useEffect(() => {
-    if (isLoading) return;
-
+    console.log("hasPriorityChanged", hasPriorityChanged);
+    if (isLoading) {
+      return;
+    }
     if (typeof targetingData?.fillStatus === "number") {
       const dataKeys = Object.keys(targetingData);
       for (const key of Object.keys(targetingState)) {
@@ -165,13 +180,18 @@ const TargetingPage = () => {
         }
       }
     }
-  }, [isLoading]);
+  }, [isLoading, hasPriorityChanged]);
 
   return (
     <>
       {isPutTargetingLoading && <Loading />}
       <TargetingModal open={isNextOpen} onClose={closeNextModal} />
-      <ModifyOptionModal open={isModifyOpen} onClose={closeModifyModal} />
+      <ModifyOptionModal
+        open={isModifyOpen}
+        onClose={closeModifyModal}
+        targetingState={targetingState}
+        setHasPriorityChanged={setHasPriorityChanged}
+      />
       <SettingOptionModal
         open={isSettingOpen}
         onClose={closeSettingModal}

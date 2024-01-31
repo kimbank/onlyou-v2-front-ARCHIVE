@@ -2,7 +2,7 @@
 
 import { ChevronRightRounded } from "@mui/icons-material";
 import { Button, styled, Typography } from "@mui/material";
-import Link from "next/link";
+// import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ const Menu = ({
   onClick = () => {},
 }: Props) => {
   return (
-    <Link href={href ?? ""} style={{ width: "100%" }}>
+    // <Link href={href ?? ""} style={{ width: "100%" }}>
       <MenuRoot
         color={color === "primary" ? "primary" : "secondary"}
         variant={variant === "outlined" ? "outlined" : "contained"}
@@ -36,7 +36,7 @@ const Menu = ({
       >
         <Typography variant="body1">{children}</Typography>
       </MenuRoot>
-    </Link>
+    // </Link>
   );
 };
 

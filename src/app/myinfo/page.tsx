@@ -18,15 +18,33 @@ import DormancyToggle from "./DormancyToggle";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/store/home/modalSlice";
 
-import Error from "@/components/error";
+import Loading from "@/components/loading";
 
 
 const Myinfo = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { myInfo, isLoading, isError } = useMyinfo();
+  const { myInfo, isLoading, isError, mutate } = useMyinfo();
 
-  if (isError) return <Error />;
+  if (isLoading || isError) {
+    if (isError) {
+      dispatch(
+        showModal({
+          title: "서버 에러",
+          body: "잠시 후 다시 시도해주세요.",
+          cancel: "로그아웃",
+          complete: "새로고침",
+          onCancel: () => router.push("/signout"),
+          onComplete: () => window.location.reload(),
+        })
+      );
+    }
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
 
   return (
     <>

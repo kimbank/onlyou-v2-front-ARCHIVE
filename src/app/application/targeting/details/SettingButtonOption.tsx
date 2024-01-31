@@ -9,6 +9,7 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
   const optionState = useSelector(
     (state: RootState) => state.targeting[optionName]
   );
+  const currentData = optionState.data || [];
 
   const allOption = allOptions[optionName].options;
   const limit = allOptions[optionName].targeting_limit;
@@ -16,15 +17,15 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
   const ascending = (a: number, b: number) => a - b;
 
   function handleOptionClick(idx: number) {
-    if (optionState.data.includes(idx)) {
+    if (currentData.includes(idx)) {
       dispatch(
         setTargetingDataField({
           field: optionName,
-          data: optionState.data.filter((data: number) => data !== idx),
+          data: currentData.filter((data: number) => data !== idx),
         })
       );
-    } else if (limit && optionState.data.length >= limit) {
-      const newData = [...optionState.data];
+    } else if (limit && currentData.length >= limit) {
+      const newData = [...currentData];
       if (!newData.includes(idx)) {
         newData.shift();
         newData.push(idx);
@@ -39,7 +40,7 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
       dispatch(
         setTargetingDataField({
           field: optionName,
-          data: [...optionState.data, idx].sort(ascending),
+          data: [...currentData, idx].sort(ascending),
         })
       );
     }
@@ -56,9 +57,7 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
               label={typeof labelValue === "string" ? labelValue : ""}
               variant="filled"
               color={
-                optionState.data.includes(Number(option))
-                  ? "primary"
-                  : "default"
+                currentData.includes(Number(option)) ? "primary" : "default"
               }
               onClick={() => handleOptionClick(Number(option))}
             />

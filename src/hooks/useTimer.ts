@@ -22,9 +22,9 @@ const useTimer = (
 
   return {
     totalSeconds,
-    seconds,
-    minutes,
-    hours,
+    seconds: seconds < 10 ? `0${seconds}` : seconds,
+    minutes: minutes < 10 ? `0${minutes}` : minutes,
+    hours: hours < 10 ? `0${hours}` : hours,
     days,
     isRunning,
     start,

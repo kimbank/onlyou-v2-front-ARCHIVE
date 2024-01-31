@@ -1,6 +1,6 @@
 "use client";
 
-import colors from "@/assets/theme/base/colors";
+import React from "react";
 import {
   Box,
   Button,
@@ -11,15 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useMyinfo } from "@/api/hooks/useMyinfo";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useState } from "react";
 
-const { gray2 } = colors;
 
 export const MannerMenu = ({ children }: any) => {
-  const manner = "36.5도";
+  const { myInfo, isLoading, isError } = useMyinfo();
+  const manner = `${myInfo?.manner || 36.5}도`;
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleTooltipToggle = () => {
     setOpen(!open);
@@ -68,8 +68,7 @@ export const MannerMenu = ({ children }: any) => {
   );
 };
 
-const CertifyRoot = styled(Box)(() => {
-  const { primary_lighten3 } = colors;
+const CertifyRoot = styled(Box)(({ theme }) => {
   return {
     gap: "8px",
     borderRadius: "4px",
@@ -94,7 +93,7 @@ const CertifyRoot = styled(Box)(() => {
     ".tooltip-icon": {
       width: "18px",
       marginRight: "4px",
-      color: gray2,
+      color: theme.palette.gray2,
       cursor: "pointer",
     },
     ".tooltip-text": {
