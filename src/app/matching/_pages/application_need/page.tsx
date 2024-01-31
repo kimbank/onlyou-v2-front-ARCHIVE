@@ -1,11 +1,10 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import { styled, Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
 
-import { styled } from "@mui/material";
 
 const MatchingIndex = () => {
   const router = useRouter();
