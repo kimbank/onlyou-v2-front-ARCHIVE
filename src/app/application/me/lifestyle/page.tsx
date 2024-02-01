@@ -90,6 +90,7 @@ const LifestylePage = () => {
         data={lifestyleData}
         setData={setLifestyleData}
       />
+      <br />
       <BottomButton
         onNext={handleNext}
         onPrev={handlePrev}

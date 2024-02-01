@@ -88,6 +88,7 @@ const DatingStylePage = () => {
         data={datingStyleData}
         setData={setDatingStyleData}
       />
+      <br />
       <BottomButton
         onNext={handleNext}
         onPrev={handlePrev}

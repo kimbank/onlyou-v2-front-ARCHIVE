@@ -17,7 +17,7 @@ import SettingOptionModal from "./SettingOptionModal";
 
 import Menu from "@/components/Button/Menu";
 import { TargetDrawer } from "@/components/Drawer/TargetDrawer/TargetDrawer";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { putTargeting } from "@/api/putTargeting";
 import Loading from "@/components/loading";
@@ -27,6 +27,8 @@ import Estimate from "@/components/Estimate/Estimate";
 
 const DetailsPage = () => {
   const router = useRouter();
+  const param = useSearchParams();
+  const isInit = param.get("type") === "init";
   const [isPutTargetingLoading, setIsPutTargetingLoading] =
     useState<boolean>(false);
   const [priority, setPriority] = useState<number>(0);
@@ -42,6 +44,14 @@ const DetailsPage = () => {
   } = useModal();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
+
+  if (targetingState?._step < 1) {
+    if (isInit) {
+      router.push("/application/targeting?type=init");
+    } else {
+      router.push("/application/targeting");
+    }
+  }
 
   const handleNext = async () => {
     if (allGroupsSelected) {
@@ -203,7 +213,7 @@ const DetailsPage = () => {
             </StepperStep>
           </Stepper>
 
-          <Estimate />
+          {/* <Estimate /> */}
         </div>
       </ContentRoot>
       <BottomNextButton>

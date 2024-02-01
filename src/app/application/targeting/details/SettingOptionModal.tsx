@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EmptyHeader from "@/components/Header/EmptyHeader";
+import CloseHeader from "@/components/Header/CloseHeader";
 import { Box, Button, Divider, Modal, styled, Typography } from "@mui/material";
 
 import AlertModal from "@/components/Modal/Default";
@@ -20,6 +21,7 @@ import { targetingAllOptions } from "@/constants/targeting";
 import jongsung from "@/utils/jongsung";
 import SettingChipOption from "./SettingChipOption";
 import EstimateResult from "@/components/Estimate/EstimateResult";
+
 
 const SettingOptionModal = ({
   open,
@@ -157,18 +159,18 @@ const SettingOptionModal = ({
       />
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
         <div id="page" style={{ height: "100vh" }}>
-          <EmptyHeader />
+          <CloseHeader onClose={onClose} />
           <Root id="content">
             <Typography variant="h1">{categoryTitle}</Typography>
             <RenderOptions />
             <BottomConainer sx={{ flexDirection: "column" }}>
-              <ResultBox>
+              {/* <ResultBox>
                 <Image src={LogoOutlined} alt="logo" />
                 <EstimateResult open={false} collapse={true} />
               </ResultBox>
-              <GapDiv />
+              <GapDiv /> */}
               <Button onClick={onClose} size="large">
-                저장
+                닫기
               </Button>
             </BottomConainer>
           </Root>

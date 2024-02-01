@@ -158,11 +158,13 @@ export const ModifyModal = ({
               />
             </Box>
           )}
+          <br/><br/>
         </Root>
       </div>
     </Modal>
   );
 };
+
 const Root = styled(Box)({
   height: "100vh",
   backgroundColor: "#fff",
@@ -171,7 +173,6 @@ const Root = styled(Box)({
   gap: "24px",
   overflowX: "hidden",
   overflowY: "scroll",
-  paddingBottom: "36px",
 
   ".caption": {
     marginBottom: "16px",
