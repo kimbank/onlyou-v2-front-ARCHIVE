@@ -159,6 +159,7 @@ const TargetingPage = () => {
     }
     if (typeof targetingData?.fillStatus === "number") {
       const dataKeys = Object.keys(targetingData);
+      console.log("dataKeys", dataKeys);
       for (const key of Object.keys(targetingState)) {
         const value = targetingData[key];
         if (dataKeys.includes(key)) {
@@ -180,7 +181,8 @@ const TargetingPage = () => {
         }
       }
     }
-  }, [isLoading, hasPriorityChanged]);
+    console.log("targetingData", targetingData);
+  }, [isLoading, hasPriorityChanged, targetingData]);
 
   return (
     <>

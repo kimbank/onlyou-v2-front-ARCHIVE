@@ -3,7 +3,7 @@ import {
   setTargetingDataField,
   setTargetingPriority,
 } from "@/store/targetingSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BottomButton from "@/components/BottomButton/Next";
@@ -89,32 +89,21 @@ const ModifyOptionModal = ({
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
-  const handleSaveChanges = () => {
-    let isChanged = false;
+  useEffect(() => {
+    setTemporaryState(targetingState);
+  }, [targetingState, open]);
 
+  const handleSaveChanges = () => {
     Object.keys(temporaryState).forEach((key) => {
       const item = temporaryState[key];
-      const originalItem = targetingState[key];
-
-      if (
-        item.data &&
-        JSON.stringify(item.data) !== JSON.stringify(originalItem.data)
-      ) {
-        isChanged = true;
-        dispatch(setTargetingDataField({ field: key, data: item.data }));
-      }
-      if (item.priority !== originalItem.priority) {
-        isChanged = true;
+      if (item.priority !== targetingState[key].priority) {
         dispatch(setTargetingPriority({ field: key, priority: item.priority }));
       }
     });
 
-    if (isChanged) {
-      setHasPriorityChanged(true);
-    }
-
-    onClose();
+    onClose(); // 모달 닫기
   };
+
   return (
     <>
       <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>

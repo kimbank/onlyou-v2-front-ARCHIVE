@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 interface LetterStore {
   index: number;
   status: number;
@@ -50,7 +49,10 @@ export const LetterValueSlice = createSlice({
       state.step = state.letterValue.length >= 3 ? 1 : 0;
     },
 
-    updateLetterContent: (state, action: PayloadAction<{index: number, content: string}>) => {
+    updateLetterContent: (
+      state,
+      action: PayloadAction<{ index: number; content: string }>
+    ) => {
       const index = action.payload.index;
       const content = action.payload.content;
       state.letterValue[index].content = content;
@@ -58,7 +60,8 @@ export const LetterValueSlice = createSlice({
   },
 });
 
-export const { toggle, setLetterValues, updateLetterContent } = LetterValueSlice.actions;
+export const { toggle, setLetterValues, updateLetterContent } =
+  LetterValueSlice.actions;
 export default LetterValueSlice.reducer;
 
 export const SelectedItemCount = (state: RootState) =>
