@@ -9,6 +9,9 @@ import { Box, TextField, Button, Typography, styled } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { signinCodeSend, signinCodeVerify } from "@/api/auth";
 
+import { useDispatch } from "react-redux";
+import { showModal } from "@/store/home/modalSlice";
+
 import useTimer from "@/hooks/useTimer";
 import UTCtoKST from "@/utils/utc2kst";
 import Loading from "@/components/loading";
@@ -25,54 +28,93 @@ interface SigninCodeSendResponse {
 }
 
 const Home = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const { totalSeconds, restart } = useTimer(new Date()) as UseTimerResult;
+  const { totalSeconds, restart } = useTimer(new Date(), () => window.location.reload()) as UseTimerResult;
   const [isCodeSent, setIsCodeSent] = React.useState(false);
+  const [mobileNumber, setMobileNumber] = React.useState<string | null>(null); // formData["mobileNumber"
+  const [mobileNumberError, setMobileNumberError] = React.useState<string | null>(null);
   const [verifyCodeError, setVerifyCodeError] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleError = () => {
+    dispatch(
+      showModal({
+        title: "에러가 발생했습니다.",
+        body: "잠시 후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 문의해주세요.",
+        cancel: "닫기",
+        complete: "새로고침",
+        onCancel: () => {},
+        onComplete: () => window.location.reload(),
+      })
+    );
+  }
 
   async function handleSendCode(event: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log("data", data.get("code"));
+    const formData = new FormData(event.currentTarget);
 
-    if (data.get("code") === "" || data.get("code") === null){
-      const res = (await signinCodeSend(
-        data.get("mobileNumber")
-      )) as SigninCodeSendResponse;
-      console.log("resrs", res);
-      setIsCodeSent(true);
-      const expiryTime = new Date(res.expiryTimestamp);
-      const currentTime = new Date();
-      const secondsLeft = (expiryTime.getTime() - currentTime.getTime()) / 1000;
-      const futureTime = new Date(currentTime.getTime() + secondsLeft * 1000);
-      restart(futureTime);
-      console.log("insideSeconds", totalSeconds);
+    if (!isCodeSent) {
+      if (!/^010[0-9]{8}$/.test(formData.get("mobileNumber") as string)) {
+        setMobileNumberError("올바른 전화번호를 입력해주세요.\n예) 01012345678");
+        alert("올바른 전화번호를 입력해주세요.\n예) 01012345678");
+        setIsLoading(false);
+        return;
+      }
+      const res = await signinCodeSend(formData.get("mobileNumber"));
+      if (res.status >= 200 && res.status < 300) {
+        const signinCodeSendRes = res?.data as SigninCodeSendResponse;
+        const expiryTime = new Date(signinCodeSendRes.expiryTimestamp);
+        const currentTime = new Date();
+        const secondsLeft = (expiryTime.getTime() - currentTime.getTime()) / 1000;
+        const futureTime = new Date(currentTime.getTime() + secondsLeft * 1000);
+        restart(futureTime);
+        setMobileNumberError(null);
+        setMobileNumber(formData.get("mobileNumber") as string);
+        setIsLoading(false);
+        setIsCodeSent(true);
+      } else {
+        handleError();
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
     }
   }
 
   async function handleVerifyCode(event: any) {
+    setIsLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     setVerifyCodeError(null); // 초기화
 
+    if (!/^\d{6}$/.test(data.get("code") as string)) {
+      // setVerifyCodeError("인증번호 6자리를 입력해주세요.");
+      alert("올바른 인증번호 6자리를 입력해주세요. \n예) 123456");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const res = await signinCodeVerify(
-        data.get("mobileNumber"),
+        mobileNumber,
         data.get("code")
       );
+      const signinCodeVerifyRes = res?.data;
 
-      if ("message" in res) {
-        if (res.message.includes("TRY_LEFT")) {
-          const tryLeftMatch = res.message.match(/TRY_LEFT (\d+)/);
+      if ("message" in signinCodeVerifyRes) {
+        if (signinCodeVerifyRes.message.includes("TRY_LEFT")) {
+          const tryLeftMatch = signinCodeVerifyRes.message.match(/TRY_LEFT (\d+)/);
           const triesLeft = tryLeftMatch ? tryLeftMatch[1] : "unknown";
 
           setVerifyCodeError(
             `인증번호가 틀렸습니다. ${triesLeft}회의 기회가 남았습니다.`
           );
         } else {
-          setVerifyCodeError(res.message);
+          setVerifyCodeError(signinCodeVerifyRes.message);
         } // 서버에서 반환된 오류 메시지 설정
-      } else if ("token" in res) {
+      } else if ("token" in signinCodeVerifyRes) {
         router.push("matching");
       }
     } catch (error) {
@@ -94,10 +136,12 @@ const Home = () => {
         setVerifyCodeError("인증 처리 중 오류가 발생했습니다.");
       }
     }
+    setIsLoading(false);
   }
 
   return (
     <>
+      {isLoading && <Loading />}
       <EmptyHeader />
       <LoginRoot id="content">
         <Typography variant="h1">
@@ -121,6 +165,9 @@ const Home = () => {
               name="mobileNumber"
               autoComplete="user_id"
               type="tel"
+              error={mobileNumberError != null}
+              disabled={isCodeSent}
+              hiddenLabel={true}
               autoFocus
             />
             <Button type="submit" variant="contained" disabled={isCodeSent}>
