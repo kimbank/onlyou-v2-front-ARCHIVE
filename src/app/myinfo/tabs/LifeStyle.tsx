@@ -6,18 +6,18 @@ import OptionsList from "./OptionsList";
 
 interface LifestyleData {
   fillStatus: number;
-  workType: number;
-  smoking: number;
-  drinking: number;
+  workType: number | null;
+  smoking: number | null;
+  drinking: number | null;
   interest: number[];
-  numberDating: number;
-  athleticLife: number;
-  religion: number;
+  numberDating: number | null;
+  athleticLife: number | null;
+  religion: number | null;
 }
 
 interface Props {
   data: LifestyleData;
-  setData: React.Dispatch<React.SetStateAction<LifestyleData>>;
+  setData: React.Dispatch<React.SetStateAction<LifestyleData>> | any;
   onClose: () => void;
 }
 

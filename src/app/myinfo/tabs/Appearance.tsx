@@ -6,16 +6,16 @@ import OptionsList from "./OptionsList";
 
 interface AppearanceData {
   fillStatus: number;
-  animalImage: number;
-  doubleEyelid: number;
-  bodyType: number;
-  tattoo: number;
+  animalImage: number | null;
+  doubleEyelid: number | null;
+  bodyType: number | null;
+  tattoo: number | null;
   externalCharm: number[];
 }
 
 interface Props {
   data: AppearanceData;
-  setData: React.Dispatch<React.SetStateAction<AppearanceData>>;
+  setData: React.Dispatch<React.SetStateAction<AppearanceData>> | any;
   onClose: () => void;
 }
 

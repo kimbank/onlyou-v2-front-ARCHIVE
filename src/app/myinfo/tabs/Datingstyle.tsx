@@ -6,17 +6,17 @@ import OptionsList from "./OptionsList";
 
 interface DatingstyleData {
   fillStatus: number;
-  preferredDate: number;
-  preferredContactMethod: number;
-  loveInitiative: number;
-  datingFrequency: number;
-  contactStyle: number;
-  conflictResolutionMethod: number;
+  preferredDate: number | null;
+  preferredContactMethod: number | null;
+  loveInitiative: number | null;
+  datingFrequency: number | null;
+  contactStyle: number | null;
+  conflictResolutionMethod: number | null;
 }
 
 interface DatingstyleTabProps {
   data: DatingstyleData;
-  setData: React.Dispatch<React.SetStateAction<DatingstyleData>>;
+  setData: React.Dispatch<React.SetStateAction<DatingstyleData>> | any;
   onClose: () => void;
 }
 

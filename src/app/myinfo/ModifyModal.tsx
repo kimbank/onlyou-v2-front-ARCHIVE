@@ -1,67 +1,67 @@
-import colors from "@/assets/theme/base/colors";
+"use client";
+
 import CloseHeader from "@/components/Header/CloseHeader";
-import CloseIcon from "@mui/icons-material/CloseRounded";
 import { Box, Modal, styled, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import AppearanceTab from "./tabs/Appearance";
 import { DatingstyleTab } from "./tabs/Datingstyle";
 import LifestyleTab from "./tabs/LifeStyle";
 import PersonalityTab from "./tabs/Personality";
-import { ValuesTab } from "./tabs/Value";
+import { ValuesTab } from "./tabs/Values";
+
+import { useMe } from "@/api/hooks/useMe";
+import { putMe } from "@/api/putMe";
+import Loading from "@/components/loading";
+
 
 const UserDataAll = {
-  statusCode: 200,
-  message: "Find Success",
   data: {
-    nickname: "뱅크",
     appearance: {
       // 외모
       fillStatus: 2,
-      animalImage: 1,
-      doubleEyelid: 0,
-      bodyType: 0,
-      externalCharm: [0, 3],
-      tattoo: 0,
+      animalImage: null,
+      doubleEyelid: null,
+      bodyType: null,
+      externalCharm: [],
+      tattoo: null,
     },
     datingstyle: {
       // 연애 스타일
       fillStatus: 2,
-      preferredDate: 0,
-      preferredContactMethod: 0,
-      loveInitiative: 0,
-      datingFrequency: 0,
-      contactStyle: 0,
-      conflictResolutionMethod: 0,
+      preferredDate: null,
+      preferredContactMethod: null,
+      loveInitiative: null,
+      datingFrequency: null,
+      contactStyle: null,
+      conflictResolutionMethod: null,
     },
     lifestyle: {
       // 생활
       fillStatus: 2,
-      workType: 0,
-      smoking: 0,
-      drinking: 0,
-      interest: [0, 1, 4, 5],
-      numberDating: 0,
-      athleticLife: 0,
-      religion: 0,
+      workType: null,
+      smoking: null,
+      drinking: null,
+      interest: [],
+      numberDating: null,
+      athleticLife: null,
+      religion: null,
     },
     personality: {
       // 성격
       fillStatus: 2,
-      extrovert_introvert: 0,
-      intuition_reality: 0,
-      emotion_reason: 0,
-      impromptu_plan: 0,
-      personalityCharm: [3, 4],
+      extrovert_introvert: null,
+      intuition_reality: null,
+      emotion_reason: null,
+      impromptu_plan: null,
+      personalityCharm: [],
     },
     values: {
-      // 가치관
-      fillStatus: 2,
-      marriageValues: 0,
-      oppositeSexFriendValues: 0,
-      politicalValues: 0,
-      consumptionValues: 0,
-      careerFamilyValues: 0,
-      childrenValues: 0,
+      marriageValues: null,
+      oppositeSexFriendValues: null,
+      politicalValues: null,
+      consumptionValues: null,
+      careerFamilyValues: null,
+      childrenValues: null,
     },
   },
 };
@@ -77,7 +77,7 @@ export const ModifyModal = ({
   onClose,
   initialPriority,
 }: ModifyModalProps) => {
-  const [priority, setPriority] = useState(initialPriority);
+  const [priority, setPriority] = useState(initialPriority || 1);
 
   const { appearance, datingstyle, lifestyle, personality, values } =
     UserDataAll.data;
@@ -87,16 +87,37 @@ export const ModifyModal = ({
   const [datingstyleData, setDatingstyleData] = useState(datingstyle);
   const [appearanceData, setAppearanceData] = useState(appearance);
 
+  const { me, isLoading, isError, mutate } = useMe('all');
+
   const handleTabsChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setPriority(newValue);
   };
 
+  const handlePutMe = async (type: string, data: any) => {
+    const res = await putMe(type, data);
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+      // onClose();
+    } else {
+      alert("저장에 실패했습니다.\n문제가 지속적으로 발생하면 관리자에게 문의해주세요.");
+    }
+  };
+
   useEffect(() => {
-    setPriority(initialPriority);
-  }, [initialPriority]);
+    if (me && !isLoading && !isError) {
+      setValuesData(me?.values);
+      setLifestyleData(me?.lifestyle);
+      setPersonalityData(me?.personality);
+      setDatingstyleData(me?.datingstyle);
+      setAppearanceData(me?.appearance);
+
+    }
+  }, [isLoading, isError, me]);
+
   return (
     <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
       <div id="page">
+        {isLoading && <Loading />}
         <CloseHeader href="/myinfo" onClose={onClose} />
         <Root id="content">
           <Typography variant="h1">내 정보 수정하기</Typography>
@@ -118,7 +139,7 @@ export const ModifyModal = ({
               <ValuesTab
                 data={valuesData}
                 setData={setValuesData}
-                onClose={onClose}
+                onClose={() => handlePutMe("values", valuesData)}
               />
             </Box>
           )}
@@ -127,7 +148,7 @@ export const ModifyModal = ({
               <LifestyleTab
                 data={lifestyleData}
                 setData={setLifestyleData}
-                onClose={onClose}
+                onClose={() => handlePutMe("lifestyle", lifestyleData)}
               />
             </Box>
           )}
@@ -136,7 +157,7 @@ export const ModifyModal = ({
               <PersonalityTab
                 data={personalityData}
                 setData={setPersonalityData}
-                onClose={onClose}
+                onClose={() => handlePutMe("personality", personalityData)}
               />
             </Box>
           )}
@@ -145,7 +166,7 @@ export const ModifyModal = ({
               <DatingstyleTab
                 data={datingstyleData}
                 setData={setDatingstyleData}
-                onClose={onClose}
+                onClose={() => handlePutMe("datingstyle", datingstyleData)}
               />
             </Box>
           )}
@@ -154,7 +175,7 @@ export const ModifyModal = ({
               <AppearanceTab
                 data={appearanceData}
                 setData={setAppearanceData}
-                onClose={onClose}
+                onClose={() => handlePutMe("appearance", appearanceData)}
               />
             </Box>
           )}

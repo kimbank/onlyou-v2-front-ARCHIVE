@@ -5,18 +5,17 @@ import BottomButton from "./BottomButton";
 import OptionsList from "./OptionsList";
 
 interface ValuesData {
-  fillStatus: number;
-  marriageValues: number;
-  oppositeSexFriendValues: number;
-  politicalValues: number;
-  consumptionValues: number;
-  careerFamilyValues: number;
-  childrenValues: number;
+  marriageValues: number | null;
+  oppositeSexFriendValues: number | null;
+  politicalValues: number | null;
+  consumptionValues: number | null;
+  careerFamilyValues: number | null;
+  childrenValues: number | null;
 }
 
 interface ValuesTabProps {
   data: ValuesData;
-  setData: React.Dispatch<React.SetStateAction<ValuesData>>;
+  setData: React.Dispatch<React.SetStateAction<ValuesData>> | any;
   onClose: () => void;
 }
 
@@ -28,6 +27,7 @@ export const ValuesTab = ({ data, setData, onClose }: ValuesTabProps) => {
     const dataChanged = JSON.stringify(data) !== JSON.stringify(initialData);
     setIsDataModified(dataChanged);
   }, [data, initialData, isDataModified]);
+
   return (
     <>
       <OptionsList optionName="values" data={data} setData={setData} />
