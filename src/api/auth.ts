@@ -6,8 +6,8 @@ export const signinCodeSend = async (mobileNumber: FormDataEntryValue | null, co
   const res = await plainAxios.post(path, {
     mobileNumber: mobileNumber,
     code: "000000"
-  });
-  return res.data;
+  }).then(res => res).catch(err => err.response);
+  return res;
 }
 
 
@@ -16,6 +16,6 @@ export const signinCodeVerify = async (mobileNumber: FormDataEntryValue | null, 
   const res = await plainAxios.post(path, {
     mobileNumber: mobileNumber,
     code: code
-  });
-  return res.data;
+  }).then(res => res).catch(err => err.response);
+  return res;
 }
