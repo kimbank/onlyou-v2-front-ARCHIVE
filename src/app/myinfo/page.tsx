@@ -31,11 +31,11 @@ const Myinfo = () => {
       dispatch(
         showModal({
           title: "서버 에러",
-          body: "잠시 후 다시 시도해주세요.",
-          cancel: "로그아웃",
-          complete: "새로고침",
-          onCancel: () => router.push("/signout"),
-          onComplete: () => window.location.reload(),
+          body: "잠시 후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 문의해주세요.",
+          cancel: "홈으로",
+          complete: "확인",
+          onCancel: () => router.push("/"),
+          onComplete: () => {},
         })
       );
     }
