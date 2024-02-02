@@ -97,7 +97,7 @@ export const ModifyModal = ({
     const res = await putMe(type, data);
     if (res.status >= 200 && res.status < 300) {
       mutate();
-      // onClose();
+      onClose();
     } else {
       alert("저장에 실패했습니다.\n문제가 지속적으로 발생하면 관리자에게 문의해주세요.");
     }
