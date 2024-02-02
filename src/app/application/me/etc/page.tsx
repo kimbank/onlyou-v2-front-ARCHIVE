@@ -29,7 +29,6 @@ import useMe from "@/api/hooks/useMe";
 import putMe from "@/api/putMe";
 import Loading from "@/components/loading";
 
-
 interface EtcData {
   // nickname: string | null;
   informationBeforeMeeting: number | null;
@@ -60,7 +59,6 @@ const Etc = () => {
 
     try {
       const etc = me || {};
-      console.log(etc);
       const etcDataKeys = Object.keys(etcData);
       Object.keys(etc).map((key) => {
         if (etcDataKeys.includes(key)) {
@@ -68,10 +66,12 @@ const Etc = () => {
             ...prev,
             [key]: etc[key as keyof EtcData],
           }));
-        };
+        }
       });
       setKakaoId(etc.kakaoId || "");
-    } catch (error) { return; }
+    } catch (error) {
+      return;
+    }
   }, [me, isLoading, isError]);
 
   const handleRadioChange = (value: string) => {
@@ -91,11 +91,13 @@ const Etc = () => {
 
   async function handleNext() {
     if (!/^[A-Za-z0-9_.-]{4,20}$/.test(kakaoId)) {
-      dispatch(showModal({
-        title: "카카오톡 아이디 형식이 올바르지 않아요.",
-        body: "영문, 숫자, 특수문자 빼기(-), 밑줄(_), 마침표(.)를 포함하여 4~20자만 사용 가능해요.",
-        complete: '확인',
-      }));
+      dispatch(
+        showModal({
+          title: "카카오톡 아이디 형식이 올바르지 않아요.",
+          body: "영문, 숫자, 특수문자 빼기(-), 밑줄(_), 마침표(.)를 포함하여 4~20자만 사용 가능해요.",
+          complete: "확인",
+        })
+      );
       return;
     }
     setIsPutMeLoading(true);

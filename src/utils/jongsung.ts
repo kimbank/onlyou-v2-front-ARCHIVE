@@ -6,14 +6,14 @@ const jongsung = (word: string) => {
   const uniValue = lastChar.charCodeAt(0);
 
   // 한글 유니코드 시작 값과 종성의 개수
-  const HANGUL_START = 0xAC00;
+  const HANGUL_START = 0xac00;
   const JONGSUNG_COUNT = 28;
 
   // 종성 인덱스를 계산합니다. (0이면 종성이 없는 것)
   const jongIndex = (uniValue - HANGUL_START) % JONGSUNG_COUNT;
 
-  return jongIndex === 0 ? '를' : '을';
-}
+  return jongIndex === 0 ? "를" : "을";
+};
 
 export default jongsung;
 

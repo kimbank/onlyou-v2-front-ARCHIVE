@@ -50,7 +50,6 @@ const ModifyOptionModal = ({
   const handleOptionClick = (optionName: string) => {
     const currentOptionPriority = targetingState[optionName]?.priority;
     const maxOptions = priority === 1 ? 2 : 4;
-    console.log("maxOptions", maxOptions);
     const currentSelectedOptions = selectedOptionsByPriority[priority] || [];
     const currentSelectedOptionsInRedux = Object.keys(targetingState).filter(
       (key) => targetingState[key].priority === priority

@@ -22,7 +22,6 @@ import jongsung from "@/utils/jongsung";
 import SettingChipOption from "./SettingChipOption";
 import EstimateResult from "@/components/Estimate/EstimateResult";
 
-
 const SettingOptionModal = ({
   open,
   onClose,
@@ -89,22 +88,25 @@ const SettingOptionModal = ({
     }
     return hangeul;
   }
-  useEffect(() => {
-    Object.entries(targetingAllOptions).forEach(([optionName, option]) => {
-      if ("options" in option && option.targeting === "button") {
-        const optionsCount = Object.keys(option.options).length;
-        const limit =
-          option.targeting_limit !== undefined
-            ? option.targeting_limit
-            : optionsCount;
 
-        console.log(
-          `옵션명: ${optionName}, limit: ${limit}, optionsCount: ${
-            optionsCount - 1
-          }`
-        );
-      }
-    });
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      Object.entries(targetingAllOptions).forEach(([optionName, option]) => {
+        if ("options" in option && option.targeting === "button") {
+          const optionsCount = Object.keys(option.options).length;
+          const limit =
+            option.targeting_limit !== undefined
+              ? option.targeting_limit
+              : optionsCount;
+
+          console.log(
+            `옵션명: ${optionName}, limit: ${limit}, optionsCount: ${
+              optionsCount - 1
+            }`
+          );
+        }
+      });
+    }
   }, []);
   const RenderOptions = () => {
     const options = Object.keys(targetingState).filter((field: string) => {

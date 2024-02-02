@@ -21,11 +21,6 @@ interface OptionsListProps {
 const OptionsList = ({ optionName, step, data, setData }: OptionsListProps) => {
   const { name, label, options } = meCategories[optionName];
 
-  useEffect(() => {
-    console.log("DODODO", meCategories[optionName]);
-    console.log("PPPPPP", options);
-  });
-
   return (
     <OptionsListRoot id="content">
       {/* <button onClick={() => console.log(data)}>data</button> */}
