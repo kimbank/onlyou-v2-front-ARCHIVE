@@ -48,7 +48,7 @@ const MyinfoProfileCard = () => {
         <ProfileDetail>
           <span className="item">
             <Image src={Job} width={20} alt="직장" />
-            <Typography variant="body2">{myInfo?.jobType}</Typography>
+            <Typography variant="body2">{myInfo?.jobGroup}</Typography>
           </span>
           <span className="item">
             <Image src={Home} width={20} alt="거주지" />

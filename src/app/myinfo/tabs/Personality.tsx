@@ -6,16 +6,16 @@ import OptionsList from "./OptionsList";
 
 interface PersonalityData {
   fillStatus: number;
-  extrovert_introvert: number;
-  intuition_reality: number;
-  emotion_reason: number;
-  impromptu_plan: number;
+  extrovert_introvert: number | null;
+  intuition_reality: number | null;
+  emotion_reason: number | null;
+  impromptu_plan: number | null;
   personalityCharm: number[];
 }
 
 interface Props {
   data: PersonalityData;
-  setData: React.Dispatch<React.SetStateAction<PersonalityData>>;
+  setData: React.Dispatch<React.SetStateAction<PersonalityData>> | any;
   onClose: () => void;
 }
 

@@ -198,6 +198,7 @@ const Etc = () => {
             </Typography>
           </InfoBox>
         </Box>
+        <br />
       </EtcRoot>
 
       <SubmitDrawer

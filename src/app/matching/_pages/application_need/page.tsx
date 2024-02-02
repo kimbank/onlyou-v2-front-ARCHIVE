@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import StepInfo from "./StepInfo";
 import SaveInfo from "./SaveInfo";
 
+import { discordAlert } from "@/api/tmpApplicationDiscord";
+
 
 const MatchingIndex = () => {
   const router = useRouter();
-  const handleHref = () => {
+  const handleHref = async () => {
+    await discordAlert(true);
     router.push("application/me/values?type=init");
   };
   return (

@@ -4,10 +4,15 @@ import BottomButton from "@/components/BottomButton/Next";
 import { Button, Typography } from "@mui/material";
 import Image from "next/image";
 import CompleteLogo from "public/images/application/complete.png";
+
+import { discordAlert } from "@/api/tmpApplicationDiscord";
+
+
 const Index = () => {
   const router = useRouter();
 
-  const toHome = () => {
+  const toHome = async () => {
+    await discordAlert(false);
     router.push("/matching");
   };
 

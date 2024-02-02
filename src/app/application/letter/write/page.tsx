@@ -1,54 +1,47 @@
 "use client";
 
-import React from "react";
+import { theme } from "@/assets";
 import { StepButton } from "@/components/Button/StepButton";
+import { FullDivider } from "@/components/Dividers/FullDivider";
 import { LetterModal } from "@/components/Modal/LetterModal";
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { letterOptions } from "@/constants/letter";
 import useModal from "@/hooks/useModal";
+import { setLetterValues, updateLetterContent } from "@/store/letterValueSlice";
 import { RootState } from "@/store/store";
-import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import {
   Box,
   Button,
   Container,
+  styled,
   TextareaAutosize,
   Typography,
-  styled,
 } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLetterValues, toggle, updateLetterContent } from "@/store/letterValueSlice";
-import { FullDivider } from "@/components/Dividers/FullDivider";
-import { theme } from "@/assets";
 
 import { useLetterList } from "@/api/hooks/useLetterList";
 import { putLetter } from "@/api/putLetter";
 import Loading from "@/components/loading";
-
 
 const Index = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
   const dispatch = useDispatch();
-  const { mutate } = useLetterList();
+  const { letterList, isLoading, isError, mutate } = useLetterList();
   const letterValues = useSelector(
     (state: RootState) => state.letter.letterValue
   );
   const step = useSelector((state: RootState) => state.letter.step);
-  const [isPutLetterLoading, setIsPutLetterLoading] = React.useState<boolean>(false);
+  const [isPutLetterLoading, setIsPutLetterLoading] =
+    React.useState<boolean>(false);
 
   const questions = letterOptions.options;
   const { isModalOpen, openModal, closeModal } = useModal();
-
-  React.useEffect(() => {
-    if (isInit && step < 1) {
-      alert("잘못된 접근입니다.");
-      router.push("/application/letter/select?type=init");
-    }
-  }, [step, router, isInit, dispatch]);
 
   //인풋박스 텍스트 갯수
   const [lettertexts, setLetterTexts] = React.useState<string[]>(
@@ -70,24 +63,6 @@ const Index = () => {
     );
   };
 
-  // 텍스트박스 하단 저장하기 토글함수
-  const toggleEditMode = (checkedIndex: number) => () => {
-    updateTextValid(checkedIndex, lettertexts[checkedIndex]);
-
-    if (lettertexts[checkedIndex].length >= 30) {
-      const newReadOnlyStates = [...onlyRead];
-      newReadOnlyStates[checkedIndex] = !newReadOnlyStates[checkedIndex];
-      setOnlyRead(newReadOnlyStates);
-      setTextValid((prev) =>
-        prev.map((val, idx) => (idx === checkedIndex ? false : val))
-      );
-    } else {
-      setTextValid((prev) =>
-        prev.map((val, idx) => (idx === checkedIndex ? true : val))
-      );
-    }
-  };
-
   const handleTextChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
     index: number
@@ -101,7 +76,7 @@ const Index = () => {
         index: index,
         content: newText,
       })
-    )
+    );
 
     if (newText.length > 30) {
       setTextValid((prev) =>
@@ -110,22 +85,10 @@ const Index = () => {
     }
   };
 
-  //true 반환시 다음페이지 활성화
-  const isAllChecked = onlyRead.every((state) => state === true);
-  const isCompleteFillData =
-    letterValues
-      .filter((letter) => letter.status > 0)
-      .every((letter) => letter.content?.length >= 30);
-
-  const handleDelete = (index: number) => {
-    setLetterTexts(lettertexts.map((text, idx) => (idx === index ? "" : text)));
-  };
+  const isCompleteFillData = letterValues
+    .filter((letter) => letter.status > 0)
+    .every((letter) => letter.content?.length >= 30);
   const handleSelect = () => {
-    // mockLetterValues.forEach((value) => {
-    //   dispatch(toggle(Number(value)));
-    // });
-
-    // select/ 페이지로 이동
     router.push("select/");
   };
 
@@ -146,8 +109,120 @@ const Index = () => {
     if (isInit) {
       openModal();
     }
-  }
+  };
 
+  // 텍스트박스 하단 저장하기 토글함수
+  const toggleEditMode = (checkedIndex: any) => () => {
+    updateTextValid(checkedIndex, lettertexts[checkedIndex]);
+
+    if (lettertexts[checkedIndex].length >= 30) {
+      const newReadOnlyStates = [...onlyRead];
+      newReadOnlyStates[checkedIndex] = !newReadOnlyStates[checkedIndex];
+      setOnlyRead(newReadOnlyStates);
+      setTextValid((prev) =>
+        prev.map((val, idx) => (idx === checkedIndex ? false : val))
+      );
+
+      if (newReadOnlyStates[checkedIndex]) {
+        handlePutLetter(checkedIndex);
+      }
+    } else {
+      setTextValid((prev) =>
+        prev.map((val, idx) => (idx === checkedIndex ? true : val))
+      );
+    }
+  };
+  const handlePutLetter = async (index: any) => {
+    setIsPutLetterLoading(true);
+
+    const updatedLetter = { ...letterValues[index], status: 1 };
+
+    // 기존의 status가 1인 항목들을 필터링
+    const existingLetters = letterValues.filter(
+      (letter) => letter.status === 1 && letter.index !== index
+    );
+
+    // 변경된 항목과 기존 항목들을 합쳐서 서버에 업데이트 요청
+    const lettersToUpdate = [updatedLetter, ...existingLetters];
+    console.log("lettersToUpdate", lettersToUpdate);
+    const res = await putLetter(lettersToUpdate);
+    if (res.status >= 200 && res.status < 300) {
+      mutate();
+    } else {
+      alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+    }
+
+    setIsPutLetterLoading(false);
+  };
+
+  const handleDelete = async (index: number) => {
+    setIsPutLetterLoading(true);
+
+    const deleteLetter = { ...letterValues[index], status: 0 };
+
+    // 기존의 status가 1인 항목들을 필터링
+    const remainingLetters = letterValues.filter(
+      (letter) => letter.status === 1 && letter.index !== index
+    );
+    // 변경된 항목과 기존 항목들을 합쳐서 서버에 업데이트 요청
+    const lettersToUpdate = [deleteLetter, ...remainingLetters];
+    console.log("lettersToUpdate", lettersToUpdate);
+
+    // 서버에 업데이트 요청
+    try {
+      const res = await putLetter(lettersToUpdate);
+      if (res.status >= 200 && res.status < 300) {
+        // 성공 시, 리덕스 상태 업데이트
+        dispatch(
+          setLetterValues({
+            index: index,
+            status: 0,
+            content: deleteLetter.content,
+          })
+        );
+        mutate();
+      } else {
+        // 실패 시 알림
+        alert("업데이트에 실패했습니다. 관리자에게 문의해주세요.");
+      }
+    } catch (error) {
+      console.error("Error updating letter:", error);
+      alert("오류가 발생했습니다. 관리자에게 문의해주세요.");
+    } finally {
+      setIsPutLetterLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(",letterList", letterList);
+    console.log(",letterValues", letterValues);
+    if (isLoading || isError) return;
+
+    letterList.map((letter: any) => {
+      if (
+        letter?.index === undefined ||
+        letter?.status === undefined ||
+        letter?.content === undefined
+      ) {
+        return false;
+      }
+
+      if (letter?.status > 0) {
+        dispatch(
+          setLetterValues({
+            index: letter?.index,
+            status: letter?.status,
+            content: letter?.content,
+          })
+        );
+      }
+    });
+
+    if (isInit && step < 1) {
+      alert("잘못된 접근입니다.");
+      router.push("/application/letter/select?type=init");
+    }
+  }, [step, router, isInit, dispatch, isLoading, isError]);
   return (
     <>
       {isPutLetterLoading && <Loading />}
@@ -195,75 +270,84 @@ const Index = () => {
             </Button>
           )}
           {!isInit && <FullDivider />}
-          {letterValues.map((letter, index) => (
-            letter.status > 0 && 
-            <Box className="letter-write" key={index}>
-              <Typography className="letter-title" variant="subtitle2">
-                {questions[letter.index]}
-              </Typography>
-              <Box className="textarea-container">
-                <TextareaAutosize
-                  className="text-area"
-                  aria-label="textarea"
-                  minRows={3}
-                  placeholder="질문에 대한 답변을 30자 이상 입력해주세요"
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    padding: "16px",
-                    height: "210px",
-                    minHeight: "140px",
-                    border: "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
-                    color: onlyRead[index] ? "gray" : "black",
-                    resize: "none",
-                    ...theme.typography.body1,
-                  }}
-                  onChange={(e) => handleTextChange(e, index)}
-                  readOnly={onlyRead[index]}
-                  value={letterValues[index].content || ""}
-                />
-                <Box className="caption-box">
-                  <Typography variant="caption">
-                    글자 수 /&nbsp;
-                    <Typography
-                      variant="caption"
-                      color={textVaild[index] ? "red" : "inherit"}
-                    >
-                      {letterValues[index].content?.length || 0}
-                    </Typography>
-                    자
+          {letterValues.map(
+            (letter, index) =>
+              letter.status > 0 && (
+                <Box className="letter-write" key={index}>
+                  <Typography className="letter-title" variant="subtitle2">
+                    {questions[letter.index]}
                   </Typography>
-                </Box>
-              </Box>
-              <Container className="letter-box-values">
-                {isInit ? (
-                  <div></div>
-                ) : (
-                  <Button color="secondary" onClick={() => handleDelete(index)}>
-                    삭제하기
-                  </Button>
-                )}
-                {lettertexts[index]?.length > 0 ? (
-                  <>
-                    <Button variant="contained" onClick={toggleEditMode(index)}>
-                      <Typography color="white" variant="subtitle2">
-                        {onlyRead[index] ? "수정하기" : "저장하기"}
+                  <Box className="textarea-container">
+                    <TextareaAutosize
+                      className="text-area"
+                      aria-label="textarea"
+                      minRows={3}
+                      placeholder="질문에 대한 답변을 30자 이상 입력해주세요"
+                      style={{
+                        width: "100%",
+                        borderRadius: "10px",
+                        padding: "16px",
+                        height: "210px",
+                        minHeight: "140px",
+                        border:
+                          "1px solid " + (textVaild[index] ? "red" : "#B2B0AE"),
+                        color: onlyRead[index] ? "gray" : "black",
+                        resize: "none",
+                        ...theme.typography.body1,
+                      }}
+                      onChange={(e) => handleTextChange(e, index)}
+                      readOnly={onlyRead[index]}
+                      value={letterValues[index].content || ""}
+                    />
+                    <Box className="caption-box">
+                      <Typography variant="caption">
+                        글자 수 /&nbsp;
+                        <Typography
+                          variant="caption"
+                          color={textVaild[index] ? "red" : "inherit"}
+                        >
+                          {letterValues[index].content?.length || 0}
+                        </Typography>
+                        자
                       </Typography>
-                    </Button>
-                  </>
-                ) : (
-                  <Button variant="contained" disabled>
-                    <Typography variant="subtitle2">저장하기</Typography>
-                  </Button>
-                )}
-              </Container>
-              {!isInit && (
-                <Box sx={{ marginTop: "16px" }}>
-                  <FullDivider />
+                    </Box>
+                  </Box>
+                  <Container className="letter-box-values">
+                    {isInit ? (
+                      <div></div>
+                    ) : (
+                      <Button
+                        color="secondary"
+                        onClick={() => handleDelete(index)}
+                      >
+                        삭제하기
+                      </Button>
+                    )}
+                    {lettertexts[index]?.length > 0 ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          onClick={toggleEditMode(index)}
+                        >
+                          <Typography color="white" variant="subtitle2">
+                            {onlyRead[index] ? "수정하기" : "저장하기"}
+                          </Typography>
+                        </Button>
+                      </>
+                    ) : (
+                      <Button variant="contained" disabled>
+                        <Typography variant="subtitle2">저장하기</Typography>
+                      </Button>
+                    )}
+                  </Container>
+                  {!isInit && (
+                    <Box sx={{ marginTop: "16px" }}>
+                      <FullDivider />
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
-          ))}
+              )
+          )}
         </Container>
         {isInit && (
           <StepButton

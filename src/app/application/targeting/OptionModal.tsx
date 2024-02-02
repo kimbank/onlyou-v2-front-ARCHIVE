@@ -18,6 +18,7 @@ import {
 import CloseHeader from "@/components/Header/CloseHeader";
 import useModal from "@/hooks/useModal";
 
+
 const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
   const [priority, setPriority] = useState(1);
   const dispatch = useDispatch();
@@ -166,7 +167,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
           </Root>
           <BottomButton>
             <Button variant="contained" size="large" onClick={onClose}>
-              저장하기
+              닫기
             </Button>
           </BottomButton>
         </div>

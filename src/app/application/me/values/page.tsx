@@ -86,6 +86,7 @@ const ValuesPage = () => {
         data={valuesData}
         setData={setValuesData}
       />
+      <br />
       <BottomButton
         onNext={handleNext}
         onPrev={handlePrev}

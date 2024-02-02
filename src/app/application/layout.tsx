@@ -3,7 +3,7 @@
 import CloseHeader from "@/components/Header/CloseHeader";
 import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
 export default function ApplicationLayout({
@@ -12,8 +12,11 @@ export default function ApplicationLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
+
+  const writepage = searchParams.get("type");
 
   const pageMap: { [key: string]: number } = {
     "/application/me/values": 1,
@@ -44,7 +47,6 @@ export default function ApplicationLayout({
       ) : (
         <CloseHeader href="/myinfo" />
       )}
-
       {children}
     </>
   );

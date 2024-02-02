@@ -27,19 +27,35 @@ const MatchingPage = () => {
   const dispatch = useDispatch();
   const { matchingStatus, isLoading, isError } = useMatchingStatus();
 
+  const handleDataError = () =>
+    dispatch(
+      showModal({
+        title: "데이터 에러",
+        body: "유저 데이터에 문제가 있습니다. 관리자에게 문의해주세요.",
+        cancel: "로그아웃",
+        complete: "새로고침",
+        onCancel: () => router.push("/signout"),
+        onComplete: () => window.location.reload(),
+      })
+    );
+
   let Page;
   switch (matchingStatus) {
     case "PROMOTION_REJECTED_PERMANENT":
       // 현재 릴리즈에는 없음
+      handleDataError();
       break;
     case "PROMOTION_REJECTED":
       // 현재 릴리즈에는 없음
+      handleDataError();
       break;
     case "PROMOTION_WAITING":
       // 현재 릴리즈에는 없음
+      handleDataError();
       break;
     case "PROMOTION_NEED":
       // 현재 릴리즈에는 없음
+      handleDataError();
       break;
     case "APPLICATION_NEED":
       Page = ApplicationNeed;

@@ -84,6 +84,7 @@ const PersonalityPage = () => {
         data={personalityData}
         setData={setPersonalityData}
       />
+      <br />
       <BottomButton
         onNext={handleNext}
         onPrev={handlePrev}

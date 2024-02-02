@@ -85,6 +85,7 @@ const AppearancePage = () => {
         data={appearanceData}
         setData={setAppearanceData}
       />
+      <br />
       <BottomButton
         onNext={handleNext}
         onPrev={handlePrev}

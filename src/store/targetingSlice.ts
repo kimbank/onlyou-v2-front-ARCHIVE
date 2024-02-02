@@ -64,6 +64,7 @@ const targetingRangeField: TargetingRangeField = {
 };
 
 const initialState: any = {
+  _step: 0,
   birthYear: { ...targetingRangeField, priority: 0 }, // 기본 반영 조건
   residence: { ...targetingField, priority: 0 }, // 기본 반영 조건
   jobType: targetingField,
@@ -114,6 +115,10 @@ const targetingSlice = createSlice({
   name: "targeting",
   initialState,
   reducers: {
+    setStep: (state, action: PayloadAction<number>) => {
+      state._step = action.payload;
+    },
+
     setTargetingDataField: (
       state,
       action: PayloadAction<{ field: keyof TargetingState; data: number[] }>
@@ -153,6 +158,7 @@ const targetingSlice = createSlice({
 });
 
 export const {
+  setStep,
   setTargetingDataField,
   setTargetingRangeField,
   setTargetingPriority,

@@ -10,6 +10,7 @@ import SquareRoundedIcon from "@mui/icons-material/SquareRounded";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
+  setStep,
   setTargetingPriority,
   setTargetingDataField,
   setTargetingRangeField,
@@ -25,6 +26,7 @@ import useTargeting from "@/api/hooks/useTargeting";
 import Loading from "@/components/loading";
 
 import BottomNextButton from "@/components/BottomButton/Next";
+
 
 const TargetingPage = () => {
   const router = useRouter();
@@ -45,7 +47,7 @@ const TargetingPage = () => {
 
     if (typeof targetingData?.fillStatus === "number") {
       const dataKeys = Object.keys(targetingData);
-      console.log("targetingData", targetingData);
+      // console.log("targetingData", targetingData);
       for (const key of Object.keys(targetingState)) {
         const value = targetingData[key];
         if (dataKeys.includes(key)) {
@@ -165,8 +167,10 @@ const TargetingPage = () => {
         <Button
           size="large"
           disabled={isTargetingEmpty}
-          onClick={() =>
-            router.push("/application/targeting/details?type=init")
+          onClick={() => {
+              dispatch(setStep(1));
+              router.push("/application/targeting/details?type=init");
+            }
           }
         >
           다음
