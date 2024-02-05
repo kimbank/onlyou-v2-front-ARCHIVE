@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-import { styled, Box, Typography, Button } from "@mui/material";
+import { styled, Typography, Button } from "@mui/material";
 import EmptyHeader from "@/components/Header/EmptyHeader";
 
 const SignoutPage = () => {
