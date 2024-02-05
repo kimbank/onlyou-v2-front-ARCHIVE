@@ -143,7 +143,6 @@ const Index = () => {
     );
 
     const lettersToUpdate = [updatedLetter, ...existingLetters];
-    console.log("lettersToUpdate", lettersToUpdate);
     const res = await putLetter(lettersToUpdate);
     if (res.status >= 200 && res.status < 300) {
       mutate();
@@ -164,7 +163,6 @@ const Index = () => {
     );
 
     const lettersToUpdate = [deleteLetter, ...remainingLetters];
-    console.log("lettersToUpdate", lettersToUpdate);
 
     try {
       const res = await putLetter(lettersToUpdate);
@@ -190,8 +188,6 @@ const Index = () => {
   };
 
   React.useEffect(() => {
-    console.log(",letterList", letterList);
-    console.log(",letterValues", letterValues);
     if (isLoading || isError) return;
 
     letterList.map((letter: any) => {
