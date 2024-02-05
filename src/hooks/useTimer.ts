@@ -25,6 +25,7 @@ const useTimer = (
     seconds: seconds < 10 ? `0${seconds}` : seconds,
     minutes: minutes < 10 ? `0${minutes}` : minutes,
     hours: hours < 10 ? `0${hours}` : hours,
+    totalHours: Math.floor(totalSeconds / 3600),
     days,
     isRunning,
     start,
