@@ -53,7 +53,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => {}}
+            onClick={() => router.push("/myinfo/badge")}
           >
             <Typography variant="body2" color="black">
               인증 뱃지 수정하기
@@ -62,7 +62,7 @@ const Menu = () => {
           <MenuButton
             variant="outlined"
             color="secondary"
-            onClick={() => {}}
+            onClick={() => router.push("/myinfo/photo")}
           >
             <Typography variant="body2" color="black">
               사진 수정하기
