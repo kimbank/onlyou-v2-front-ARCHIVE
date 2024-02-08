@@ -172,8 +172,8 @@ export const divorce: Option = {
   targeting_limit: 1,
 
   options: {
-    0: "돌싱",
-    1: "돌싱 아님",
+    0: "돌싱 아님",
+    1: "돌싱",
   },
 };
 
