@@ -18,7 +18,7 @@ const Timer = ({
   expiryTimestamp: string | Date,
   onExpire?: () => void
 }) => {
-  const { restart, isRunning, hours, minutes, seconds } = useTimer(expiryTimestamp, onExpire);
+  const { restart, isRunning, totalHours, minutes, seconds } = useTimer(expiryTimestamp, onExpire);
 
   React.useEffect(() => {
     restart(expiryTimestamp);
@@ -29,7 +29,7 @@ const Timer = ({
     <TimerRoot>
       <Image src={Stopwatch} alt="timer" width={18} height={18} />
       <Typography color="warning" variant="body2">
-        {timerText} {hours}:{minutes}:{seconds}
+        {timerText} {totalHours}:{minutes}:{seconds}
       </Typography>
     </TimerRoot>
   );

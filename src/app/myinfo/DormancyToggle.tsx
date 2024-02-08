@@ -9,7 +9,6 @@ import Backdrop from "@/components/Backdrop";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/utils/formatDate";
 
-
 const DormancySwitch = () => {
   const { myInfo, mutate, isLoading, isMutating } = useMyinfo();
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -53,7 +52,6 @@ const DormancySwitch = () => {
           // onChange={handleDormancy}
           onClick={() => {
             openModal();
-            console.log("myInfo?.dormant", myInfo?.dormant);
           }}
         />
       </DormancyMenuRoot>

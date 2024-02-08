@@ -55,7 +55,6 @@ const DormancySwitch = () => {
           // onChange={handleDormancy}
           onClick={() => {
             openModal();
-            console.log("myInfo?.dormant", myInfo?.dormant);
           }}
         />
       </DormancyMenuRoot>

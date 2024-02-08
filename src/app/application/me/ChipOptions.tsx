@@ -42,7 +42,6 @@ const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
   return (
     <Zoom in={true} unmountOnExit>
       <ChipOptionsRoot>
-        {/* <button onClick={() => console.log(selectedChips)}>selectedChips</button> */}
         <Typography variant="subtitle2">
           {index + 1}. {label}
         </Typography>

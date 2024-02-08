@@ -172,8 +172,8 @@ export const divorce: Option = {
   targeting_limit: 1,
 
   options: {
-    0: "돌싱",
-    1: "돌싱 아님",
+    0: "돌싱 아님",
+    1: "돌싱",
   },
 };
 
@@ -284,11 +284,8 @@ export const athleticLife: Option = {
   targeting_limit: 4,
 
   options: {
-    0: "전혀 하지 않음",
-    1: "어쩔 수 없을 때만 함",
-    2: "가끔 함",
-    3: "어느 정도 즐기는 편",
-    4: "즐겨 함",
+    0: "중요성엔 공감하지만 규칙적으로 하고 있진 않다",
+    1: "운동을 규칙적으로 꾸준히 한다",
   },
 };
 

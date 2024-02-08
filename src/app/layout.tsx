@@ -24,9 +24,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         {/* Hotjar CDN Scripts */}
-        {process.env.NODE_ENV === "production" && <Hotjar />}
+        { process.env.NODE_ENV === "production" && <Hotjar /> }
         {/* DatadogRUM CDN Scripts */}
-        {process.env.NODE_ENV === "production" && <DatadogRum />}
+        { process.env.NODE_ENV === "production" && <DatadogRum /> }
       </head>
       <body>
         <div id="root">
@@ -36,7 +36,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         {/* Vercel Speed Isight */}
-        {process.env.NODE_ENV === "production" && <SpeedInsights />}
+        { process.env.NODE_ENV === "production" && <SpeedInsights /> }
       </body>
     </html>
   );

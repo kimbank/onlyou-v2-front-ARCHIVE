@@ -108,7 +108,6 @@ const TargetingPage = () => {
       }
       const res = await putTargeting(targetingData);
       if (res.status >= 200 && res.status < 300) {
-        console.log("저장완료");
         router.push("/myinfo");
         mutate();
       } else if (res.status === 400) {
@@ -153,13 +152,11 @@ const TargetingPage = () => {
     checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
   useEffect(() => {
-    console.log("hasPriorityChanged", hasPriorityChanged);
     if (isLoading) {
       return;
     }
     if (typeof targetingData?.fillStatus === "number") {
       const dataKeys = Object.keys(targetingData);
-      console.log("dataKeys", dataKeys);
       for (const key of Object.keys(targetingState)) {
         const value = targetingData[key];
         if (dataKeys.includes(key)) {
@@ -181,7 +178,6 @@ const TargetingPage = () => {
         }
       }
     }
-    console.log("targetingData", targetingData);
   }, [isLoading, hasPriorityChanged, targetingData]);
 
   return (

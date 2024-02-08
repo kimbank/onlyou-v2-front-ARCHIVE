@@ -137,14 +137,12 @@ const Index = () => {
 
     const updatedLetter = { ...letterValues[index], status: 1 };
 
-    // 기존의 status가 1인 항목들을 필터링
     const existingLetters = letterValues.filter(
-      (letter) => letter.status === 1 && letter.index !== index
+      (letter) =>
+        letter.status === 1 && letter.index !== index && letter.content
     );
 
-    // 변경된 항목과 기존 항목들을 합쳐서 서버에 업데이트 요청
     const lettersToUpdate = [updatedLetter, ...existingLetters];
-    console.log("lettersToUpdate", lettersToUpdate);
     const res = await putLetter(lettersToUpdate);
     if (res.status >= 200 && res.status < 300) {
       mutate();
@@ -160,19 +158,15 @@ const Index = () => {
 
     const deleteLetter = { ...letterValues[index], status: 0 };
 
-    // 기존의 status가 1인 항목들을 필터링
     const remainingLetters = letterValues.filter(
       (letter) => letter.status === 1 && letter.index !== index
     );
-    // 변경된 항목과 기존 항목들을 합쳐서 서버에 업데이트 요청
-    const lettersToUpdate = [deleteLetter, ...remainingLetters];
-    console.log("lettersToUpdate", lettersToUpdate);
 
-    // 서버에 업데이트 요청
+    const lettersToUpdate = [deleteLetter, ...remainingLetters];
+
     try {
       const res = await putLetter(lettersToUpdate);
       if (res.status >= 200 && res.status < 300) {
-        // 성공 시, 리덕스 상태 업데이트
         dispatch(
           setLetterValues({
             index: index,
@@ -194,8 +188,6 @@ const Index = () => {
   };
 
   React.useEffect(() => {
-    console.log(",letterList", letterList);
-    console.log(",letterValues", letterValues);
     if (isLoading || isError) return;
 
     letterList.map((letter: any) => {
