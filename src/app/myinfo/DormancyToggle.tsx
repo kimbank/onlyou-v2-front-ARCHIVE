@@ -58,7 +58,7 @@ const DormancySwitch = () => {
       <Drawer
         title={
           myInfo?.dormant
-            ? "매칭 전환 하시겠습니까?"
+            ? "다시 프로필을 받으시겠어요?"
             : "휴면 전환 하시겠습니까?"
         }
         body={

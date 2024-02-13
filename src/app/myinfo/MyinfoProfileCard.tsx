@@ -59,11 +59,13 @@ const MyinfoProfileCard = () => {
             <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
           </span>
         </ProfileDetail>
-        <DetailButton variant="contained" color="secondary" onClick={openModal}>
-          <Typography variant="body2" color="gray2">
-            프로필 상세보기
-          </Typography>
-        </DetailButton>
+        {!isLoading && !isError &&
+          <DetailButton variant="contained" color="secondary" onClick={openModal}>
+            <Typography variant="body2" color="gray2">
+              프로필 상세보기
+            </Typography>
+          </DetailButton>
+        }
       </MyinfoProfileCardRoot>
     </>
   );

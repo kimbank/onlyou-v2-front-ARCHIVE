@@ -37,10 +37,10 @@ export const LettersTab = ({ targetLetters }: any) => {
                 { getLetterOptionLabel(letter?.index) }
               </Typography>
             </Box>
-            <Typography variant="body2">
-              { renderLetterContent(letter?.content) }
-            </Typography>
           </Box>
+          <Typography variant="body2" sx={{ wordWrap: "break-word" }}>
+            { renderLetterContent(letter?.content) }
+          </Typography>
         </Box>
       ))}
     </Root>
@@ -53,6 +53,7 @@ const Root = styled(Box)({
   gap: "12px",
   ".letter-box": {
     display: "flex",
+    flexDirection: "column",
     gap: "12px",
     borderRadius: "8px",
     padding: "20px",

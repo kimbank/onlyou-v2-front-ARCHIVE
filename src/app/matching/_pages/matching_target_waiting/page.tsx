@@ -48,7 +48,7 @@ const MatchingTargetWaitingPage = () => {
             상대의 선택을 기다리는 중이에요
           </Typography>
           <Typography variant="body1">
-            곧 메시지로 결과를 알려드릴게요.
+            상대도 수락하면 문자로 알려드릴게요
           </Typography>
         </span>
 

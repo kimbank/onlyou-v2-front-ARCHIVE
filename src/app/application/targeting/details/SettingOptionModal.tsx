@@ -22,6 +22,7 @@ import jongsung from "@/utils/jongsung";
 import SettingChipOption from "./SettingChipOption";
 import EstimateResult from "@/components/Estimate/EstimateResult";
 
+
 const SettingOptionModal = ({
   open,
   onClose,
@@ -172,7 +173,7 @@ const SettingOptionModal = ({
               </ResultBox>
               <GapDiv /> */}
               <Button onClick={onClose} size="large">
-                닫기
+                저장
               </Button>
             </BottomConainer>
           </Root>

@@ -66,7 +66,7 @@ const TargetProfileCard = ({ targetData }: any) => {
               프로필 상세보기
             </Typography>
           </DetailButton>
-          <SirenButton>
+          <SirenButton onClick={() => window.open("https://g8h7y7g082m.typeform.com/to/pSQrGO9q", "_blank")}>
             <Image src={SirenIcon} alt="siren" width={18} height={18} />
           </SirenButton>
         </Box>

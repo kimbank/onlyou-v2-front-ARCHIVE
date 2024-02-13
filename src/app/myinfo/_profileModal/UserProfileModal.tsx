@@ -16,7 +16,7 @@ import { PhotosTab } from "./PhotosTab";
 const UserProfileModal = ({ open, onClose }: any) => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = React.useState<string>("letters");
-  const modalTitles = { "letters": "편지가 도착했어요", "details": "자세한 정보에요", "photos": "사진이에요" };
+  const modalTitles = { "letters": "편지에요", "details": "자세한 정보에요", "photos": "사진이에요" };
   const handleTabsChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setActiveTab(newValue);
   };
