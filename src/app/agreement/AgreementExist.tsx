@@ -42,7 +42,7 @@ const AgreementExistPage = () => {
           variant="contained"
           color="primary"
           size="large"
-          onClick={() => {}}
+          onClick={() => { window.open("https://g8h7y7g082m.typeform.com/to/fEMqRBvm", "_blank") }}
         >
           <Typography variant="button">만남 현황 알려주기</Typography>
         </Button>

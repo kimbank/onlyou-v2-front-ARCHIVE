@@ -10,15 +10,19 @@ export const PhotosTab = ({ targetPhotos, userId }: any) => {
 
   return (
     <Root>
-      <Box className="photos-box">
-        {
-          targetPhotos?.map((photo: any, index: number) => (
-            <Box className="photo" key={index}>
-              <WatermarkedImage src={photo?.url} watermarkText={userId} />
-            </Box>
-          ))
-        }
-      </Box>
+      {!(targetPhotos?.length > 0) ?
+        <Typography variant="body1">사진이 없습니다.</Typography>
+        :
+        <Box className="photos-box">
+          {
+            targetPhotos?.map((photo: any, index: number) => (
+              <Box className="photo" key={index}>
+                <WatermarkedImage src={photo?.url} watermarkText={userId} />
+              </Box>
+            ))
+          }
+        </Box>
+      }
     </Root>
   );
 };

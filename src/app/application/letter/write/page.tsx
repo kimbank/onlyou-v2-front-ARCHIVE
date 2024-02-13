@@ -27,6 +27,7 @@ import { useLetterList } from "@/api/hooks/useLetterList";
 import { putLetter } from "@/api/putLetter";
 import Loading from "@/components/loading";
 
+
 const Index = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -278,7 +279,7 @@ const Index = () => {
                       style={{
                         width: "100%",
                         borderRadius: "10px",
-                        padding: "16px",
+                        padding: "16px 16px 64px 16px",
                         height: "210px",
                         minHeight: "140px",
                         border:
@@ -383,8 +384,11 @@ const LetterRoot = styled(Container)(({ theme }) => {
       position: "relative",
       "& .caption-box": {
         position: "absolute",
-        bottom: 20,
+        bottom: 8,
         marginLeft: "16px",
+        backgroundColor: "white",
+        borderRadius: "8px",
+        padding: "4px 8px 16px 0px",
       },
     },
     ".letter-box-values": {
