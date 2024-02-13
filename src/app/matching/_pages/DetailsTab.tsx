@@ -49,9 +49,6 @@ export const DetailsTab = ({ targetDetails }: any) => {
     <DetailsTabRoot>
       <span className="default-box">
         <span className="profile-box">
-          <Typography variant="body2" color="gray2">
-            *내가 설정한 1-3순위 조건만 프로필에 보여집니다.
-          </Typography>
           <Box className="profile-card">
             <Box className="profile-card-item">
               <Image src={JobIcon} alt="job" width={20} height={20} />
@@ -123,6 +120,9 @@ export const DetailsTab = ({ targetDetails }: any) => {
       <FullDivider />
 
       <span className="default-box">
+        <Typography variant="body2" color="gray2">
+          내가 중요하게 여기는 조건들만 보여드릴게요!
+        </Typography>
         {firstPriority.length > 0 && // 1순위 있을 때
           <span className="default-item">
             <Typography variant="subtitle2">

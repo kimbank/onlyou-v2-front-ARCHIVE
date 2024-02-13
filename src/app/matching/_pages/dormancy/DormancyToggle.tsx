@@ -62,7 +62,7 @@ const DormancySwitch = () => {
         title={
           !myInfo?.dormant
             ? "휴면 전환 하시겠습니까?"
-            : "매칭 전환 하시겠습니까?"
+            : "다시 프로필을 받으시겠어요?"
         }
         body={
           !myInfo?.dormant

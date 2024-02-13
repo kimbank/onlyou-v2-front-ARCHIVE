@@ -56,8 +56,16 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="caption">{value[0]}년생</Typography>
-        <Typography variant="caption">{value[1]}년생</Typography>
+        <Typography variant="caption">
+          {value[0]}
+          {optionName === "birthYear" && "년생"}
+          {optionName === "height" && "cm"}
+        </Typography>
+        <Typography variant="caption">
+          {value[1]}
+          {optionName === "birthYear" && "년생"}
+          {optionName === "height" && "cm"}
+        </Typography>
       </span>
     </>
   );

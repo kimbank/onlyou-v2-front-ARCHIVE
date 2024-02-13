@@ -66,9 +66,10 @@ export async function middleware(req: NextRequest) {
         : undefined,
     });
 
-    res.cookies.delete('access'); // access 토큰 삭제
-    res.cookies.delete('refresh'); // refresh 토큰 삭제
-
+    if (process.env.NODE_ENV === "development") {
+      res.cookies.delete('access'); // access 토큰 삭제
+      res.cookies.delete('refresh'); // refresh 토큰 삭제
+    }
     return res;
   }
 }

@@ -17,7 +17,7 @@ const MachingLoading = () => {
       </Typography>
       <Box className="loading-box">
         <Box className="loading top">
-          <Skeleton animation="wave" />
+          <Skeleton animation="wave" sx={{ bgcolor: "white"}} />
         </Box>
         <Box className="item">
           <Image src={Job} width={20} alt="직장" />

@@ -10,11 +10,13 @@ import useTimer from '@/hooks/useTimer';
 
 
 const Timer = ({
-  timerText,
+  timerText = "",
+  endingText = "",
   expiryTimestamp,
   onExpire
 }: {
   timerText: string,
+  endingText?: string,
   expiryTimestamp: string | Date,
   onExpire?: () => void
 }) => {
@@ -29,7 +31,7 @@ const Timer = ({
     <TimerRoot>
       <Image src={Stopwatch} alt="timer" width={18} height={18} />
       <Typography color="warning" variant="body2">
-        {timerText} {totalHours}:{minutes}:{seconds}
+        {timerText} {totalHours}:{minutes}:{seconds} {endingText}
       </Typography>
     </TimerRoot>
   );

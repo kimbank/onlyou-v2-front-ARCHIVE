@@ -51,17 +51,19 @@ const MatchingSuccessPage = () => {
         <NoticeModal />
         <span className="title">
           <Typography variant="h1">
-            오늘의 인연이에요
+            축하드려요 🎉
           </Typography>
           <Typography variant="body1">
-            마감 전까지 선택을 완료해 주세요!
+            서로를 선택하여 연락처가 공개됐어요.<br />
+            카카오톡 아이디를 통해 인사를 건네보세요.
           </Typography>
         </span>
 
         <span className="content">
           <TargetProfileCard targetData={matchingList[0]} />
           <Timer
-            timerText={"카카오톡 아이디 공개 마감까지"}
+            timerText={"상대에 집중하는 만남을 위해"}
+            endingText={"이후 휴면 처리되어요!"}
             expiryTimestamp={matchingList[0]?.deadline}
             onExpire={() => window.location.reload()}
           />
