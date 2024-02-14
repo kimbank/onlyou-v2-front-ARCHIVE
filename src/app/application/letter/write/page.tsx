@@ -28,7 +28,7 @@ import { putLetter } from "@/api/putLetter";
 import Loading from "@/components/loading";
 
 
-const Index = () => {
+const WritePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isInit = searchParams.get("type") === "init";
@@ -359,7 +359,7 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default WritePage;
 
 const LetterRoot = styled(Container)(({ theme }) => {
   return {
