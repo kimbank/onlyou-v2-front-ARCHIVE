@@ -156,6 +156,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                         arrow
                         open={tooltipOpenStates[group] || false}
                         disableHoverListener
+                        PopperProps={{style:{zIndex:0}}}
                       >
                         <Box
                           className="tooltip-content"
@@ -178,6 +179,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       arrow
                       open={tooltipOpenStates[group]}
                       onClick={() => toggleTooltip(group)}
+                      PopperProps={{style:{zIndex:0}}}
                     >
                       <Box className="tooltip-content">
                         <Typography

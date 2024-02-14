@@ -57,10 +57,19 @@ export const LetterValueSlice = createSlice({
       const content = action.payload.content;
       state.letterValue[index].content = content;
     },
+
+    updateLetterStatus: (
+      state,
+      action: PayloadAction<{ index: number; status: number }>
+    ) => {
+      const index = action.payload.index;
+      const status = action.payload.status;
+      state.letterValue[index].status = status;
+    },
   },
 });
 
-export const { toggle, setLetterValues, updateLetterContent } =
+export const { toggle, setLetterValues, updateLetterContent, updateLetterStatus } =
   LetterValueSlice.actions;
 export default LetterValueSlice.reducer;
 

@@ -366,6 +366,7 @@ const LetterRoot = styled(Container)(({ theme }) => {
     display: "flex",
     flexDirection: "column",
     gap: "16px",
+
     ".title h1:first-of-type": {
       marginBottom: "8px",
     },

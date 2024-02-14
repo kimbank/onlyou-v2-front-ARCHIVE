@@ -121,6 +121,7 @@ const LetterRoot = styled(Container)(({ theme }) => {
   return {
     display: "flex",
     flexDirection: "column",
+
     "& > :nth-child(1)": {
       marginBottom: "8px",
     },
