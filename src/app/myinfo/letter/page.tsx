@@ -70,6 +70,14 @@ const LetterPage = () => {
       alert("활성화 편지는 3개 이상 이어야해요.");
     }
 
+    // 선택했다가 삭제하는 경우
+    if (letterValues[letterIndex].status === 3) {
+      updateLetterStatus({
+        index: letterIndex,
+        status: 0,
+      })
+    }
+
     const res = await putLetter(letters);
 
     if (res.status === 200) {
