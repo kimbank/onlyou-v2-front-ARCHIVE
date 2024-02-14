@@ -46,6 +46,7 @@ export const MannerMenu = ({ children }: any) => {
             open={open}
             arrow
             placement="bottom-start"
+            PopperProps={{style:{zIndex:0}}}
           >
             <Box className="tooltip-box">
               <InfoOutlinedIcon
@@ -75,6 +76,7 @@ const CertifyRoot = styled(Box)(({ theme }) => {
     display: "flex",
     flexDirection: "column",
     height: 52,
+
     ".manner-title": {
       display: "flex",
       flexDirection: "row",
@@ -119,5 +121,6 @@ const TooltipTitleRoot = styled(Box)(() => {
     flexDirection: "column",
     gap: "8px",
     padding: "0 4px 0 4px",
+    zIndex: 10,
   };
 });

@@ -72,7 +72,7 @@ const Menu = () => {
             variant="outlined"
             color="secondary"
             // href="/application/letter/write"
-            onClick={() => router.push("/application/letter/write")}
+            onClick={() => router.push("/myinfo/letter")}
           >
             <Typography variant="body2" color="black">
               편지 수정하기

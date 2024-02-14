@@ -7,6 +7,7 @@ import Birth from "public/icons/birth.svg";
 import { Box, Button, styled, Typography, Avatar } from "@mui/material";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
+import { useMyinfoDetails } from "@/api/hooks/useMyinfoDetails";
 import { CertificationBadge } from "@/components/Badge/CertificationBadge";
 import { getDetailsNameLabel, getDetailOptionLabel } from "@/constants/matching";
 
@@ -16,6 +17,7 @@ import UserProfileModal from "./_profileModal/UserProfileModal";
 
 const MyinfoProfileCard = () => {
   const { myInfo, isLoading, isError } = useMyinfo();
+  const { isError: isMyinfoDetailsError } = useMyinfoDetails();
   const { openModal, isModalOpen, closeModal } = useModal();
 
   const manner = `${myInfo?.manner || 36.5}도`;
@@ -59,7 +61,7 @@ const MyinfoProfileCard = () => {
             <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
           </span>
         </ProfileDetail>
-        {!isLoading && !isError &&
+        {!isLoading && !isError && !isMyinfoDetailsError &&
           <DetailButton variant="contained" color="secondary" onClick={openModal}>
             <Typography variant="body2" color="gray2">
               프로필 상세보기
