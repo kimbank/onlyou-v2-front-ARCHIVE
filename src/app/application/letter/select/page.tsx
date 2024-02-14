@@ -17,7 +17,7 @@ import { useLetterList } from "@/api/hooks/useLetterList";
 import Loading from "@/components/loading";
 
 
-const Index = () => {
+const SelectPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -115,7 +115,7 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default SelectPage;
 
 const LetterRoot = styled(Container)(({ theme }) => {
   return {

@@ -18,7 +18,8 @@ export const DetailsTab = ({ targetDetails }: any) => {
     const targetPriority = Number(value?.priority);
     const name = key;
     const type = Array.isArray(value?.data) ? "chips" : "card";
-    const data = type === "chips" ? value?.data : Number(value?.data);
+    // const data = type === "chips" ? value?.data : Number(value?.data);
+    const data = value?.data;
     if (targetPriority === 1) {
       acc.push({ name, type, data, priority: targetPriority });
     }
@@ -28,7 +29,8 @@ export const DetailsTab = ({ targetDetails }: any) => {
     const targetPriority = Number(value?.priority);
     const name = key;
     const type = Array.isArray(value?.data) ? "chips" : "card";
-    const data = type === "chips" ? value?.data : Number(value?.data);
+    // const data = type === "chips" ? value?.data : Number(value?.data);
+    const data = value?.data;
     if (targetPriority === 2) {
       acc.push({ name, type, data, priority: targetPriority });
     }
@@ -38,7 +40,8 @@ export const DetailsTab = ({ targetDetails }: any) => {
     const targetPriority = Number(value?.priority);
     const name = key;
     const type = Array.isArray(value?.data) ? "chips" : "card";
-    const data = type === "chips" ? value?.data : Number(value?.data);
+    // const data = type === "chips" ? value?.data : Number(value?.data);
+    const data = value?.data;
     if (targetPriority === 3) {
       acc.push({ name, type, data, priority: targetPriority });
     }
@@ -136,7 +139,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>아직 상대방이 정보를 입력하지 않았어요</i>
+                      }
                     </span>
                   </span>
                 )
@@ -157,7 +163,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>아직 상대방이 정보를 입력하지 않았어요</i>
+                      }
                     </span>
                   </span>
                 )
@@ -178,7 +187,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>아직 상대방이 정보를 입력하지 않았어요</i>
+                      }
                     </span>
                   </span>
                 )
@@ -238,6 +250,7 @@ const DetailsTabRoot = styled(Box)(({ theme }) => {
     ".details-card-chips": {
       display: "flex",
       flexDirection: "row",
+      flexWrap: "wrap",
       gap: "12px",
     },
     ".details-card-item": {

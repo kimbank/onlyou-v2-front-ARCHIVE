@@ -5,6 +5,9 @@ interface AllOptions {
 }
 
 export const allOptionName: AllOptions  = {
+  birthYear: option.birthYear.label,
+  height: option.height.label,
+
   residence: option.residence.label,
   jobType: option.jobType.label,
   salary: option.salary.label,

@@ -8,7 +8,7 @@ const SkeletonPage = () => {
         open={true}
         unselectable="on"
         sx={{
-          zIndex: 44,
+          zIndex: 3000,
           color: "#fff",
           backdropFilter: "blur(4px)",
           backgroundColor:'rgba(0,0,30,0.4)'
