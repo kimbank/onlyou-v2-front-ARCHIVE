@@ -103,7 +103,9 @@ export const allOptions: AllOptions  = {
   informationBeforeMeeting: {
     0: "자세한 건 만나서 알아가요!",
     1: "카톡으로 미리 서로를 알아가요",
-  }
+  },
+
+  education: option.education.options,
 };
 
 export const getDetailsNameLabel = (key: string): string => {

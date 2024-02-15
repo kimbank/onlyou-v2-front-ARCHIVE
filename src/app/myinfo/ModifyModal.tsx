@@ -10,6 +10,7 @@ import {
   Typography
 } from "@mui/material";
 
+import DefaultInfoTab from "./_tabs/DefaultInfoTab";
 import AppearanceTab from "./_tabs/AppearanceTab";
 import DatingstyleTab from "./_tabs/DatingstyleTab";
 import LifestyleTab from "./_tabs/LifeStyleTab";
@@ -137,11 +138,13 @@ export const ModifyModal = ({
         <Root id="content">
           <Typography variant="h1">내 정보 수정하기</Typography>
           <Tabs
-            variant="fullWidth"
             value={priority}
             onChange={handleTabsChange}
             textColor="primary"
             indicatorColor="primary"
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
           >
             <Tab label="기본" value={0} />
             <Tab label="가치관" value={1} />
@@ -153,13 +156,11 @@ export const ModifyModal = ({
           </Tabs>
           {priority === 0 && (
             <Box>
-              <Typography variant="h2" className="caption">
-                기본 정보
-              </Typography>
-              <Box className="picture-box">
-                <div className="picture"></div>
-                <div className="picture"></div>
-              </Box>
+              <DefaultInfoTab
+                data={valuesData}
+                setData={setValuesData}
+                onClose={() => handlePutMe("values", valuesData)}
+              />
             </Box>
           )}
           {priority === 1 && (
@@ -257,6 +258,13 @@ const Root = styled(Box)({
     margin: "0 -24px",
     overflow: "unset",
   },
+  "& .MuiTabs-scroller": {
+    margin: "0 -48px",
+  },
+  "& .MuiTabs-scrollButtons.Mui-disabled": {
+    ocapcity: "0",
+  },
+  
 
   "& .MuiTab-root": {
     fontWeight: "400",

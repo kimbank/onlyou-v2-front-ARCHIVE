@@ -1,6 +1,6 @@
 import colors from "../../base/colors";
 
-const {  white, black,gray4 } = colors;
+const {  white, black, gray4 } = colors;
 
 // types
 type Types = any;
@@ -8,22 +8,24 @@ type Types = any;
 const tabs: Types = {
   styleOverrides: {
     root: {
-      position: "relative",
+      // position: "relative",
       backgroundColor: white,
-      minHeight: "unset",
+      // minHeight: "unset",
       color: `${black} !important`,
-      borderBottom: `1px solid ${gray4}`,
+      // borderBottom: `1px solid ${gray4}`,
     },
 
     flexContainer: {
-      height: "100%",
-      position: "relative",
+      // height: "100%",
+      // position: "relative",
       zIndex: 0,
+      // borderBottom: `1px solid ${gray4}`,
     },
 
     fixed: {
-      overflow: "unset !important",
-      overflowX: "unset !important",
+      // overflow: "unset !important",
+      // overflowX: "unset !important",
+      borderBottom: `1px solid ${gray4}`,
     },
 
     indicator: {
