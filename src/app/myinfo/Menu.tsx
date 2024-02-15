@@ -8,14 +8,31 @@ import { FullDivider } from "../../components/Dividers/FullDivider";
 import useModal from "@/hooks/useModal";
 import { ModifyModal } from "./ModifyModal";
 
+import { useSelector, useDispatch } from "react-redux";
+import { showModal } from "@/store/home/modalSlice";
+import { useMe } from "@/api/hooks/useMe";
+
 
 const Menu = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [initialPriority, setInitialPriority] = React.useState(1);
+  const [initialPriority, setInitialPriority] = React.useState(0);
+  const { isError } = useMe('all');
 
   const openModalWithTab = (tabValue: number) => {
     // 탭 값을 설정하고 모달을 열기
+    if (isError) {
+      dispatch(
+        showModal({
+          title: "데이터를 불러오는데 실패했어요.",
+          body: "매칭신청서를 아직 완성하지 않았거나, 서버에 문제가 생겼을 수 있어요. 다시 시도해주세요.",
+          complete: "확인",
+        })
+      );
+      return;
+    }
+
     setInitialPriority(tabValue); // 탭 값을 설정하는 상태 추가
     openModal(); // 모달 열기
   };

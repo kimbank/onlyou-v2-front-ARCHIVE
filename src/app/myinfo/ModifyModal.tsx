@@ -10,11 +10,12 @@ import {
   Typography
 } from "@mui/material";
 
-import AppearanceTab from "./_tabs/Appearance";
-import DatingstyleTab from "./_tabs/Datingstyle";
-import LifestyleTab from "./_tabs/LifeStyle";
-import PersonalityTab from "./_tabs/Personality";
-import ValuesTab from "./_tabs/Values";
+import AppearanceTab from "./_tabs/AppearanceTab";
+import DatingstyleTab from "./_tabs/DatingstyleTab";
+import LifestyleTab from "./_tabs/LifeStyleTab";
+import PersonalityTab from "./_tabs/PersonalityTab";
+import ValuesTab from "./_tabs/ValuesTab";
+import EtcTab from "./_tabs/EtcTab";
 
 import { useMe } from "@/api/hooks/useMe";
 import { putMe } from "@/api/putMe";
@@ -71,6 +72,10 @@ const UserDataAll = {
       careerFamilyValues: null,
       childrenValues: null,
     },
+    etc: {
+      kakaoId: null,
+      informationBeforeMeeting: null,
+    },
   },
 };
 
@@ -94,6 +99,7 @@ export const ModifyModal = ({
   const [personalityData, setPersonalityData] = React.useState(personality);
   const [datingstyleData, setDatingstyleData] = React.useState(datingstyle);
   const [appearanceData, setAppearanceData] = React.useState(appearance);
+  const [etcData, setEtcData] = React.useState(UserDataAll.data.etc);
 
   const { me, isLoading, isError, mutate } = useMe('all');
 
@@ -119,6 +125,7 @@ export const ModifyModal = ({
       setPersonalityData(me?.personality);
       setDatingstyleData(me?.datingstyle);
       setAppearanceData(me?.appearance);
+      setEtcData(me?.etc);
     }
   }, [isLoading]);
 
@@ -142,6 +149,7 @@ export const ModifyModal = ({
             <Tab label="성격" value={3} />
             <Tab label="연애" value={4} />
             <Tab label="외모" value={5} />
+            <Tab label="기타" value={6} />
           </Tabs>
           {priority === 0 && (
             <Box>
@@ -196,6 +204,15 @@ export const ModifyModal = ({
                 data={appearanceData}
                 setData={setAppearanceData}
                 onClose={() => handlePutMe("appearance", appearanceData)}
+              />
+            </Box>
+          )}
+          {priority === 6 && (
+            <Box>
+              <EtcTab
+                data={etcData}
+                setData={setEtcData}
+                onClose={() => handlePutMe("etc", etcData)}
               />
             </Box>
           )}
