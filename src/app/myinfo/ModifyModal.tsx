@@ -1,16 +1,24 @@
 "use client";
 
-import CloseHeader from "@/components/Header/CloseHeader";
-import { Box, Modal, styled, Tab, Tabs, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import AppearanceTab from "./tabs/Appearance";
-import { DatingstyleTab } from "./tabs/Datingstyle";
-import LifestyleTab from "./tabs/LifeStyle";
-import PersonalityTab from "./tabs/Personality";
-import { ValuesTab } from "./tabs/Values";
+import React from "react";
+import {
+  Box,
+  Modal,
+  styled,
+  Tab,
+  Tabs,
+  Typography
+} from "@mui/material";
+
+import AppearanceTab from "./_tabs/Appearance";
+import DatingstyleTab from "./_tabs/Datingstyle";
+import LifestyleTab from "./_tabs/LifeStyle";
+import PersonalityTab from "./_tabs/Personality";
+import ValuesTab from "./_tabs/Values";
 
 import { useMe } from "@/api/hooks/useMe";
 import { putMe } from "@/api/putMe";
+import CloseHeader from "@/components/Header/CloseHeader";
 import Loading from "@/components/loading";
 
 
@@ -77,15 +85,15 @@ export const ModifyModal = ({
   onClose,
   initialPriority,
 }: ModifyModalProps) => {
-  const [priority, setPriority] = useState(initialPriority || 1);
+  const [priority, setPriority] = React.useState(initialPriority || 0);
 
   const { appearance, datingstyle, lifestyle, personality, values } =
     UserDataAll.data;
-  const [valuesData, setValuesData] = useState(values);
-  const [lifestyleData, setLifestyleData] = useState(lifestyle);
-  const [personalityData, setPersonalityData] = useState(personality);
-  const [datingstyleData, setDatingstyleData] = useState(datingstyle);
-  const [appearanceData, setAppearanceData] = useState(appearance);
+  const [valuesData, setValuesData] = React.useState(values);
+  const [lifestyleData, setLifestyleData] = React.useState(lifestyle);
+  const [personalityData, setPersonalityData] = React.useState(personality);
+  const [datingstyleData, setDatingstyleData] = React.useState(datingstyle);
+  const [appearanceData, setAppearanceData] = React.useState(appearance);
 
   const { me, isLoading, isError, mutate } = useMe('all');
 
@@ -97,28 +105,28 @@ export const ModifyModal = ({
     const res = await putMe(type, data);
     if (res.status >= 200 && res.status < 300) {
       mutate();
-      onClose();
+      return true
     } else {
       alert("저장에 실패했습니다.\n문제가 지속적으로 발생하면 관리자에게 문의해주세요.");
+      return false
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (me && !isLoading && !isError) {
       setValuesData(me?.values);
       setLifestyleData(me?.lifestyle);
       setPersonalityData(me?.personality);
       setDatingstyleData(me?.datingstyle);
       setAppearanceData(me?.appearance);
-
     }
-  }, [isLoading, isError, me]);
+  }, [isLoading]);
 
   return (
     <Modal open={open} onClose={onClose} id="root" sx={{ height: "100vh" }}>
       <div id="page">
         {isLoading && <Loading />}
-        <CloseHeader href="/myinfo" onClose={onClose} />
+        <CloseHeader onClose={onClose} />
         <Root id="content">
           <Typography variant="h1">내 정보 수정하기</Typography>
           <Tabs
@@ -128,12 +136,24 @@ export const ModifyModal = ({
             textColor="primary"
             indicatorColor="primary"
           >
+            <Tab label="기본" value={0} />
             <Tab label="가치관" value={1} />
             <Tab label="생활" value={2} />
             <Tab label="성격" value={3} />
             <Tab label="연애" value={4} />
             <Tab label="외모" value={5} />
           </Tabs>
+          {priority === 0 && (
+            <Box>
+              <Typography variant="h2" className="caption">
+                기본 정보
+              </Typography>
+              <Box className="picture-box">
+                <div className="picture"></div>
+                <div className="picture"></div>
+              </Box>
+            </Box>
+          )}
           {priority === 1 && (
             <Box>
               <ValuesTab

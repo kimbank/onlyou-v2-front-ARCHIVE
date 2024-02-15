@@ -250,7 +250,17 @@ const LetterPage = () => {
 
                 <LetterBoxButtonGroup>
                   {isLetterRemovable &&
-                    <Button color="secondary" onClick={() => handleLetterDelete(letter.index)}>
+                    <Button color="secondary" onClick={() => 
+                      dispatch(
+                        showModal({
+                          title: "정말 삭제하시겠어요?",
+                          body: "삭제하면 편지를 되돌릴 수 없어요",
+                          cancel: "취소",
+                          complete: "삭제하기",
+                          onComplete: () => handleLetterDelete(letter.index),
+                        })
+                      )}
+                    >
                       삭제하기
                     </Button>
                   }
