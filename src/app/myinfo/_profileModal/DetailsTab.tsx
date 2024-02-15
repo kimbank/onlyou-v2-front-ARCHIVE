@@ -242,6 +242,7 @@ const DetailsTabRoot = styled(Box)(({ theme }) => {
       display: "flex",
       flexDirection: "row",
       gap: "12px",
+      flexWrap: "wrap",
     },
     ".details-card-item": {
       display: "flex",

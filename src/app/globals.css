@@ -47,14 +47,11 @@ div {
   /* padding: 48px 0; */
   background-color: #fff;
   box-shadow: gray 0px 0px 32px -12px;
-
-  overflow-y: scroll;
 }
 
 #content {
   width: 100%;
   padding: 40px 24px 104px 24px;
-  overflow-y: scroll;
 }
 
 a {

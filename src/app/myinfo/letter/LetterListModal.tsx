@@ -1,9 +1,7 @@
 import {
   styled,
-  Box,
   Modal,
-  Tabs,
-  Tab,
+  Button,
   Typography,
   Zoom
 } from "@mui/material";
@@ -21,6 +19,7 @@ import useLetterList from '@/api/hooks/useLetterList';
 import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { Checkbox } from "@/components/CheckBox/CheckBox";
 import CloseHeader from "@/components/Header/CloseHeader";
+import BottomButtonRoot from "@/components/BottomButton/BottomButtonRoot";
 
 
 const LetterListModal = ({ open, onClose }: any) => {
@@ -37,12 +36,26 @@ const LetterListModal = ({ open, onClose }: any) => {
       })
     );
   }
+  const handleSave = () => {
+    letterValues.map((letter: any, index: number) => {
+      if (letter?.status > 2) {
+        dispatch(
+          updateLetterStatus({
+            index: letter?.index,
+            status: 2,
+          })
+        );
+      }
+    });
+  }
+  const isSavable = letterValues.filter((letter: any) => letter?.status > 2).length > 0;
 
   return (
     <Modal id="root" open={open} onClose={onClose} sx={{ height: "100vh" }}>
       <Zoom in={open} unmountOnExit>
-        <div id="page">
+        <div id="page" style={{ overflowY: "scroll" }}>
           <CloseHeader onClose={onClose} />
+
           <LetterListModalRoot id="content">
             <Typography variant="h1">
               편지 질문 추가하기
@@ -70,6 +83,12 @@ const LetterListModal = ({ open, onClose }: any) => {
               })
             }
           </LetterListModalRoot>
+
+          <BottomButtonRoot>
+            <Button size="large" disabled={!isSavable} onClick={() => handleSave()}>
+              저장하기
+            </Button>
+          </BottomButtonRoot>
         </div>
       </Zoom>
     </Modal>
