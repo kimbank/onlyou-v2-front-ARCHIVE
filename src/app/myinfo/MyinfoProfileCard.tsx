@@ -58,7 +58,7 @@ const MyinfoProfileCard = () => {
           </span>
           <span className="item">
             <Image src={Birth} width={20} alt="나이" />
-            <Typography variant="body2">{myInfo?.dateBirth}년생</Typography>
+            <Typography variant="body2">{myInfo?.birthYear}년생</Typography>
           </span>
         </ProfileDetail>
         {!isLoading && !isError && !isMyinfoDetailsError &&
