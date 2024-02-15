@@ -27,6 +27,12 @@ const contained = {
 
     "&.Mui-disabled": {
       backgroundColor: primary,
+      "&:hover": {
+        backgroundColor: "gray",
+      },
+      "&:focus": {
+        backgroundColor: "gray",
+      },
     },
   },
 
