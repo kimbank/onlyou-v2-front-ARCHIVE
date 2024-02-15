@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import {
   styled,
   Box,
@@ -17,6 +18,7 @@ import { InfoText } from "@/components/Notification/InfoText/InfoText";
 import { FullDivider } from "@/components/Dividers/FullDivider";
 
 import { useDispatch, useSelector } from 'react-redux';
+import { showModal } from '@/store/home/modalSlice';
 import { setLetterValues, updateLetterStatus } from '@/store/letterValueSlice';
 
 import { getLetterOptionLabel } from '@/constants/letter';
@@ -29,6 +31,7 @@ import Loading from "@/components/loading";
 
 const LetterPage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const letterValues = useSelector((state: RootState) => state.letter.letterValue);
 
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -60,6 +63,42 @@ const LetterPage = () => {
   }, [letterList, isLoading, isError]);
 
   const isLetterRemovable = letterValues.filter((letter: any) => letter.status > 0).length > 3;
+  const CheckEditedLetterSaved = () => {
+    for (let i = 0; i < letterValues.length; i++) {
+      for (let j = 0; j < letterList.length; j++) {
+        if (letterValues[i]?.index === letterList[j]?.index) {
+          if (letterValues[i]?.status < 1 && letterList[j]?.status > 0) {
+            return false;
+          }
+          if (letterValues[i]?.status > 0 && letterList[j]?.status < 1) {
+            return false;
+          }
+          if (letterValues[i]?.content !== letterList[j]?.content) {
+            return false;
+          }
+          break;
+        } else if (letterValues[i]?.status > 0 && j === letterList.length - 1) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  const onExit = () => {
+    if (CheckEditedLetterSaved()) {
+      router.push("/myinfo");
+    } else {
+      dispatch(
+        showModal({
+          title: "저장되지 않은 정보가 있어요",
+          body: "저장하지 않고 나가시겠어요?",
+          cancel: "취소",
+          complete: "나가기",
+          onComplete: () => router.push("/myinfo"),
+        })
+      );
+    }
+  }
 
   const handleLetterDelete = async (letterIndex: number) => {
     setIsPutLoading(true);
@@ -166,7 +205,7 @@ const LetterPage = () => {
     <>
       { (isLoading || isPutLoading) && <Loading /> }
       <LetterListModal open={isModalOpen} onClose={closeModal} />
-      <CloseHeader href='/myinfo' />
+      <CloseHeader onClose={onExit} />
 
       <LetterPageRoot id="content">
         <TitleRoot>
