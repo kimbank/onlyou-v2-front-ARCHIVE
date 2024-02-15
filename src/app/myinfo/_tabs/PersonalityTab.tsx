@@ -4,27 +4,25 @@ import React from "react";
 import BottomButton from "./BottomButton";
 import OptionsList from "./OptionsList";
 
-interface DatingstyleData {
+import Loading from "@/components/loading";
+
+
+interface PersonalityData {
   fillStatus: number;
-  preferredDate: number | null;
-  preferredContactMethod: number | null;
-  loveInitiative: number | null;
-  datingFrequency: number | null;
-  contactStyle: number | null;
-  conflictResolutionMethod: number | null;
+  extrovert_introvert: number | null;
+  intuition_reality: number | null;
+  emotion_reason: number | null;
+  impromptu_plan: number | null;
+  personalityCharm: number[];
 }
 
-interface DatingstyleTabProps {
-  data: DatingstyleData;
-  setData: React.Dispatch<React.SetStateAction<DatingstyleData>> | any;
+interface Props {
+  data: PersonalityData;
+  setData: React.Dispatch<React.SetStateAction<PersonalityData>> | any;
   onClose: () => Promise<boolean>;
 }
 
-export const DatingstyleTab = ({
-  data,
-  setData,
-  onClose,
-}: DatingstyleTabProps) => {
+const PersonalityTab = ({ data, setData, onClose }: Props) => {
   const [initialData, setInitalData] = React.useState(data); // 초기 데이터 저장
   const [isDataModified, setIsDataModified] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -46,7 +44,8 @@ export const DatingstyleTab = ({
 
   return (
     <>
-      <OptionsList optionName="datingstyle" data={data} setData={setData} />
+      {loading && <Loading />}
+      <OptionsList optionName="personality" data={data} setData={setData} />
       <BottomButton
         saveText="저장하기"
         isSaveDisabled={!isDataModified}
@@ -56,4 +55,4 @@ export const DatingstyleTab = ({
   );
 };
 
-export default DatingstyleTab;
+export default PersonalityTab;

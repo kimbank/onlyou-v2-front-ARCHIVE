@@ -28,7 +28,7 @@ export interface Option {
   /** 내정보 방식 */
   me: "text" | "radio" | "chip" | "slider" | "none";
   /** 타게팅 방식 */
-  targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip";
+  targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip" | "none";
   /** 최대 선택 가능 갯수 */
   me_limit?: number;
   targeting_limit?: number;
@@ -714,5 +714,23 @@ export const informationBeforeMeeting: Option = {
   options: {
     0: "만나기 전에는 간단히 장소와 시간만 정하고 싶어요",
     1: "만나기 전에도 카톡, 전화 등으로 서로를 알아가고 싶어요",
+  },
+};
+
+
+
+// 내정보만 존재
+export const education: Option = {
+  name: "education",
+  label: "학력",
+  me: "radio",
+  targeting: "none",
+  options: {
+    0: "대학 미진학",
+    1: "대학교 중퇴",
+    2: "대학교 재학/휴학",
+    3: "대학교 졸업",
+    4: "대학원 재학/휴학",
+    5: "대학원 졸업",
   },
 };

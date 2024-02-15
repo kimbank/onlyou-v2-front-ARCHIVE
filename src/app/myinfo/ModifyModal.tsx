@@ -10,11 +10,13 @@ import {
   Typography
 } from "@mui/material";
 
-import AppearanceTab from "./_tabs/Appearance";
-import DatingstyleTab from "./_tabs/Datingstyle";
-import LifestyleTab from "./_tabs/LifeStyle";
-import PersonalityTab from "./_tabs/Personality";
-import ValuesTab from "./_tabs/Values";
+import DefaultInfoTab from "./_tabs/DefaultInfoTab";
+import AppearanceTab from "./_tabs/AppearanceTab";
+import DatingstyleTab from "./_tabs/DatingstyleTab";
+import LifestyleTab from "./_tabs/LifeStyleTab";
+import PersonalityTab from "./_tabs/PersonalityTab";
+import ValuesTab from "./_tabs/ValuesTab";
+import EtcTab from "./_tabs/EtcTab";
 
 import { useMe } from "@/api/hooks/useMe";
 import { putMe } from "@/api/putMe";
@@ -71,6 +73,10 @@ const UserDataAll = {
       careerFamilyValues: null,
       childrenValues: null,
     },
+    etc: {
+      kakaoId: null,
+      informationBeforeMeeting: null,
+    },
   },
 };
 
@@ -94,6 +100,7 @@ export const ModifyModal = ({
   const [personalityData, setPersonalityData] = React.useState(personality);
   const [datingstyleData, setDatingstyleData] = React.useState(datingstyle);
   const [appearanceData, setAppearanceData] = React.useState(appearance);
+  const [etcData, setEtcData] = React.useState(UserDataAll.data.etc);
 
   const { me, isLoading, isError, mutate } = useMe('all');
 
@@ -119,6 +126,7 @@ export const ModifyModal = ({
       setPersonalityData(me?.personality);
       setDatingstyleData(me?.datingstyle);
       setAppearanceData(me?.appearance);
+      setEtcData(me?.etc);
     }
   }, [isLoading]);
 
@@ -130,11 +138,13 @@ export const ModifyModal = ({
         <Root id="content">
           <Typography variant="h1">내 정보 수정하기</Typography>
           <Tabs
-            variant="fullWidth"
             value={priority}
             onChange={handleTabsChange}
             textColor="primary"
             indicatorColor="primary"
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
           >
             <Tab label="기본" value={0} />
             <Tab label="가치관" value={1} />
@@ -142,16 +152,15 @@ export const ModifyModal = ({
             <Tab label="성격" value={3} />
             <Tab label="연애" value={4} />
             <Tab label="외모" value={5} />
+            <Tab label="기타" value={6} />
           </Tabs>
           {priority === 0 && (
             <Box>
-              <Typography variant="h2" className="caption">
-                기본 정보
-              </Typography>
-              <Box className="picture-box">
-                <div className="picture"></div>
-                <div className="picture"></div>
-              </Box>
+              <DefaultInfoTab
+                data={valuesData}
+                setData={setValuesData}
+                onClose={() => handlePutMe("values", valuesData)}
+              />
             </Box>
           )}
           {priority === 1 && (
@@ -199,6 +208,15 @@ export const ModifyModal = ({
               />
             </Box>
           )}
+          {priority === 6 && (
+            <Box>
+              <EtcTab
+                data={etcData}
+                setData={setEtcData}
+                onClose={() => handlePutMe("etc", etcData)}
+              />
+            </Box>
+          )}
           <br/><br/>
         </Root>
       </div>
@@ -240,6 +258,13 @@ const Root = styled(Box)({
     margin: "0 -24px",
     overflow: "unset",
   },
+  "& .MuiTabs-scroller": {
+    margin: "0 -48px",
+  },
+  "& .MuiTabs-scrollButtons.Mui-disabled": {
+    ocapcity: "0",
+  },
+  
 
   "& .MuiTab-root": {
     fontWeight: "400",

@@ -4,24 +4,25 @@ import React from "react";
 import BottomButton from "./BottomButton";
 import OptionsList from "./OptionsList";
 
-interface LifestyleData {
+import Loading from "@/components/loading";
+
+
+interface AppearanceData {
   fillStatus: number;
-  workType: number | null;
-  smoking: number | null;
-  drinking: number | null;
-  interest: number[];
-  numberDating: number | null;
-  athleticLife: number | null;
-  religion: number | null;
+  animalImage: number | null;
+  doubleEyelid: number | null;
+  bodyType: number | null;
+  tattoo: number | null;
+  externalCharm: number[];
 }
 
 interface Props {
-  data: LifestyleData;
-  setData: React.Dispatch<React.SetStateAction<LifestyleData>> | any;
+  data: AppearanceData;
+  setData: React.Dispatch<React.SetStateAction<AppearanceData>> | any;
   onClose: () => Promise<boolean>;
 }
 
-const LifestyleTab = ({ data, setData, onClose }: Props) => {
+const AppearanceTab = ({ data, setData, onClose }: Props) => {
   const [initialData, setInitalData] = React.useState(data); // 초기 데이터 저장
   const [isDataModified, setIsDataModified] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -43,7 +44,8 @@ const LifestyleTab = ({ data, setData, onClose }: Props) => {
 
   return (
     <>
-      <OptionsList optionName="lifestyle" data={data} setData={setData} />
+      {loading && <Loading />}
+      <OptionsList optionName="appearance" data={data} setData={setData} />
       <BottomButton
         saveText="저장하기"
         isSaveDisabled={!isDataModified}
@@ -53,4 +55,4 @@ const LifestyleTab = ({ data, setData, onClose }: Props) => {
   );
 };
 
-export default LifestyleTab;
+export default AppearanceTab;
