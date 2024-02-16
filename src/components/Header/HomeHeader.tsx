@@ -45,6 +45,7 @@ export const HomeHeader = () => {
           <section className="header-box">
             <Box
               className="noti-box"
+              onClick={() => window.open("https://181xk.channel.io", "_blank")}
               onMouseEnter={() => setHoverNoti(true)}
               onMouseLeave={() => setHoverNoti(false)}
             >
@@ -55,6 +56,7 @@ export const HomeHeader = () => {
               )}
             </Box>
             <Box
+              onClick={() => window.open("https://litt.ly/onlyourlove", "_blank")}
               onMouseEnter={() => setHoverChat(true)}
               onMouseLeave={() => setHoverChat(false)}
               className="chat-box"

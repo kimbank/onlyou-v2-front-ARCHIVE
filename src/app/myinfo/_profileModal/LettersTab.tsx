@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, styled, Typography } from "@mui/material";
+import {
+  Box,
+  styled,
+  Typography
+} from "@mui/material";
+import {
+  VisibilityOff
+} from "@mui/icons-material";
 import Image from "next/image";
 import LetterIcon from "public/icons/letter.png";
 import { getLetterOptionLabel } from "@/constants/letter";
@@ -23,7 +30,7 @@ export const LettersTab = ({ targetLetters }: any) => {
   return (
     <Root>
       {targetLetters?.map((letter: any, index: number) => (
-        letter?.status > 0 &&
+        // letter?.status > 0 &&
         <Box
           key={index}
           style={{
@@ -33,7 +40,10 @@ export const LettersTab = ({ targetLetters }: any) => {
         >
           <Box className="letter-icon">
             <Box className="letter-text">
-              <Image src={LetterIcon} width={20} height={20} alt="Letter" />
+              {letter?.status > 0 ?
+                <Image src={LetterIcon} width={20} height={20} alt="Letter" /> :
+                <VisibilityOff color="disabled" />
+              }
               <Typography variant="subtitle2">
                 { getLetterOptionLabel(letter?.index) }
               </Typography>
