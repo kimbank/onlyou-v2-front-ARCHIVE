@@ -132,7 +132,7 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
             3. 대학명 공개
           </Typography>
           <IOSToggleBox>
-            <Typography variant="body1" color="ActiveBorder">
+            <Typography variant="body1">
               상대방에게 나의 대학 명이 공개되어요.
             </Typography>
             <IOSSwitch disabled />
@@ -144,7 +144,7 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
             4. 직장명 공개
           </Typography>
           <IOSToggleBox>
-            <Typography variant="body1" color="ActiveBorder">
+            <Typography variant="body1">
               상대방에게 나의 직장 명이 공개되어요.
             </Typography>
             <IOSSwitch disabled />
@@ -174,7 +174,7 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
           <Typography variant="subtitle2">
             직장 유형
           </Typography>
-          { getDetailOptionLabel("jobType", myInfo?.jobType) }
+          { getDetailOptionLabel("jobType", myInfo?.jobType) || "error" }
         </DetailInfoCard>
         <DetailInfoCard>
           <Typography variant="subtitle2">
@@ -192,7 +192,7 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
           <Typography variant="subtitle2">
             최종 학력
           </Typography>
-          { getDetailOptionLabel("education", myInfo?.education) }
+          { getDetailOptionLabel("education", myInfo?.education) || "error" }
         </DetailInfoCard>
         <DetailInfoCard>
           <Typography variant="subtitle2">
@@ -204,7 +204,7 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
           <Typography variant="subtitle2">
             결혼 경력
           </Typography>
-          { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) }
+          { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) || "error" }
         </DetailInfoCard>
       </DefaultInfoTabRoot>
 
