@@ -13,7 +13,7 @@ export default styled("div")(({ theme }) => {
       transform: "translateY(0px)",
       width: "100%",
       maxWidth: "480px",
-      zIndex: 1000,
+      zIndex: 2000,
     },
 
     ".header": {

@@ -65,7 +65,7 @@ export default function Navigation({ recent }: any) {
 
 const NavigationRoot = styled("div")(() => {
   return {
-    zIndex: 1000,
+    zIndex: 2000,
     position: "fixed",
     bottom: "0px",
     // left: "50%",
