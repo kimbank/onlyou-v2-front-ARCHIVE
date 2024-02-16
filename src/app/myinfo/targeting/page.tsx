@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
-import useModal from "@/hooks/useModal";
-import { CheckCircle } from "@mui/icons-material";
+import React from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -13,7 +11,15 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import {
+  CheckCircle,
+} from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  setTargetingDataField,
+  setTargetingPriority,
+  setTargetingRangeField,
+} from "@/store/targetingSlice";
 
 import Menu from "@/components/Button/Menu";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
@@ -26,13 +32,9 @@ import SettingOptionModal from "@/app/application/targeting/details/SettingOptio
 import Estimate from "@/components/Estimate/Estimate";
 import CloseHeader from "@/components/Header/CloseHeader";
 import { TargetingModal } from "@/components/Modal/TargetingModal";
-import {
-  setTargetingDataField,
-  setTargetingPriority,
-  setTargetingRangeField,
-} from "@/store/targetingSlice";
+
+import useModal from "@/hooks/useModal";
 import ModifyOptionModal from "./ModifyOptionModal";
-import { useRouter } from "next/navigation";
 
 
 interface TargetingData {
@@ -41,8 +43,8 @@ interface TargetingData {
 
 const TargetingPage = () => {
   const [isPutTargetingLoading, setIsPutTargetingLoading] =
-    useState<boolean>(false);
-  const [priority, setPriority] = useState<number>(0);
+  React.useState<boolean>(false);
+  const [priority, setPriority] = React.useState<number>(0);
   const {
     isModalOpen: isSettingOpen,
     openModal: openSettingModal,
@@ -61,8 +63,8 @@ const TargetingPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
-  const [prevData, setPrevData] = useState<TargetingData>({});
-  const [hasPriorityChanged, setHasPriorityChanged] = useState(false);
+  const [prevData, setPrevData] = React.useState<TargetingData>({});
+  const [hasPriorityChanged, setHasPriorityChanged] = React.useState(false);
 
   const { targetingData, isLoading, mutate } = useTargeting();
 
@@ -152,7 +154,7 @@ const TargetingPage = () => {
   const allGroupsSelected =
     checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
-  useEffect(() => {
+    React.useEffect(() => {
     if (isLoading) {
       return;
     }
