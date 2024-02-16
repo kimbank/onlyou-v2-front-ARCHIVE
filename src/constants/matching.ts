@@ -124,10 +124,20 @@ export const getDetailsNameLabel = (key: string): string => {
 }
 
 export const getDetailOptionLabel = (key: string, value: number): string | number => {
-  if (key === "birthYear" || key === "height") {
-    return value;
-  }
   try {
+    if (key === "birthYear" || key === "height") {
+      return value;
+    }
+
+    if (key === "salary") {
+      const word = allOptions[key][value];
+      if (value > 0 || value < 8) {
+        return word + " 이상";
+      }
+      
+      return word;
+    }
+
     return allOptions[key][value];
   }
   catch (e) {

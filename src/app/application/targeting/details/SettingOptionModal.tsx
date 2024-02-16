@@ -164,7 +164,9 @@ const SettingOptionModal = ({
         <div id="page" style={{ height: "100vh" }}>
           <CloseHeader onClose={onClose} />
           <Root id="content">
-            <Typography variant="h1">{categoryTitle}</Typography>
+            <Typography variant="h1">
+              {categoryTitle}
+            </Typography>
             <RenderOptions />
             <BottomConainer sx={{ flexDirection: "column" }}>
               {/* <ResultBox>
@@ -172,7 +174,7 @@ const SettingOptionModal = ({
                 <EstimateResult open={false} collapse={true} />
               </ResultBox>
               <GapDiv /> */}
-              <Button onClick={onClose} size="large">
+              <Button onClick={() => {}} size="large">
                 저장하기
               </Button>
             </BottomConainer>

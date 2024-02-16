@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { styled, Collapse, Typography, Button } from '@mui/material';
 import { CloseRounded } from '@mui/icons-material';
 
@@ -6,6 +7,7 @@ import useModal from '@/hooks/useModal';
 import useMatchingStatus from '@/api/hooks/useMatchingStatus';
 
 const NoticeModal = () => {
+  const router = useRouter();
   const { openModal, isModalOpen, closeModal } = useModal();
   const { meComplete, isLoading, isError } = useMatchingStatus();
 
@@ -27,7 +29,11 @@ const NoticeModal = () => {
           <strong>연봉, 외향/내향, 외적 매력, 내적 매력</strong>을
           채워주세요.
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => router.push("/application/me/values?type=init")}
+          variant="contained"
+          color="primary"
+        >
           내 정보 수정 바로가기
         </Button>
       </NoticeModalRoot>

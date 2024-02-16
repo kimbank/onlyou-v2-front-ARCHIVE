@@ -120,7 +120,15 @@ const TargetingPage = () => {
       } else if (res.status === 400) {
         alert("1순위 2개, 2순위 4개, 3순위 4개만 선택 가능합니다.");
       } else {
-        alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+        dispatch(
+          showModal({
+            title: "저장에 실패했어요.",
+            body: "잠시 후 다시 시도해주세요.",
+            complete: "닫기",
+            cancel: "그냥 나가기",
+            onCancel: () => window.location.replace("/myinfo"),
+          })
+        )
       }
       setIsPutTargetingLoading(false);
     } else {
