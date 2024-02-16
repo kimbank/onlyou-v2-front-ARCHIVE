@@ -6,6 +6,7 @@ import {
   Typography,
   Select,
   MenuItem,
+  Zoom,
 } from "@mui/material";
 
 import { useDispatch } from "react-redux";
@@ -71,142 +72,150 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
     <>
       {loading && <Loading />}
 
-      <DefaultInfoTabRoot>
-        <EditableDetailInfoCard>
+      <Zoom in={true} unmountOnExit>
+        <DefaultInfoTabRoot>
+          <EditableDetailInfoCard>
+            <Typography variant="subtitle2">
+              1. 거주지
+            </Typography>
+            <SelectBox>
+              <Typography variant="body2" sx={{ color: "gray" }}>
+                시/도
+              </Typography>
+              <Select
+                value={getSidoByResidence(myInfo?.residence)}
+                size="small"
+                disabled
+              >
+                {Object.keys(allOptions.residenceSido).map((key, index) => (
+                  <MenuItem key={index} value={key}>{allOptions.residenceSido[key]}</MenuItem>
+                ))}
+              </Select>
+            </SelectBox>
+            <SelectBox>
+              <Typography variant="body2" sx={{ color: "gray" }}>
+                시/군/구
+              </Typography>
+              <Select
+                value={myInfo?.residence}
+                size="small"
+                disabled
+              >
+                {Object.keys(allOptions.residence).map((key, index) => {
+                  return (
+                    <MenuItem key={index} value={key}>{allOptions.residence[key]}</MenuItem>
+                  );
+                })}
+              </Select>
+            </SelectBox>
+          </EditableDetailInfoCard>
+
+          <EditableDetailInfoCard>
           <Typography variant="subtitle2">
-            1. 거주지
+            2. 연봉
           </Typography>
           <SelectBox>
-            <Typography variant="body2" sx={{ color: "gray" }}>
-              시/도
-            </Typography>
             <Select
-              value={getSidoByResidence(myInfo?.residence)}
+              value={myInfo?.salary}
               size="small"
               disabled
             >
-              {Object.keys(allOptions.residenceSido).map((key, index) => (
-                <MenuItem key={index} value={key}>{allOptions.residenceSido[key]}</MenuItem>
+              {Object.keys(allOptions.salary).map((key, index) => (
+                <MenuItem key={index} value={key}>
+                  {allOptions.salary[key]}{index > 0 && index < 8 && " 이상"}
+                </MenuItem>
               ))}
             </Select>
           </SelectBox>
-          <SelectBox>
-            <Typography variant="body2" sx={{ color: "gray" }}>
-              시/군/구
+          </EditableDetailInfoCard>
+
+          <EditableDetailInfoCard>
+            <Typography variant="subtitle2">
+              3. 대학명 공개
             </Typography>
-            <Select
-              value={myInfo?.residence}
-              size="small"
-              disabled
-            >
-              {Object.keys(allOptions.residence).map((key, index) => {
-                return (
-                  <MenuItem key={index} value={key}>{allOptions.residence[key]}</MenuItem>
-                );
-              })}
-            </Select>
-          </SelectBox>
-        </EditableDetailInfoCard>
+            <IOSToggleBox>
+              <Typography variant="body1">
+                상대방에게 나의 대학 명이 공개되어요.
+              </Typography>
+              <IOSSwitch disabled />
+            </IOSToggleBox>
+          </EditableDetailInfoCard>
 
-        <EditableDetailInfoCard>
-        <Typography variant="subtitle2">
-          2. 연봉
-        </Typography>
-        <SelectBox>
-          <Select
-            value={myInfo?.salary}
-            size="small"
-            disabled
-          >
-            {Object.keys(allOptions.salary).map((key, index) => (
-              <MenuItem key={index} value={key}>
-                {allOptions.salary[key]}{index > 0 && index < 8 && " 이상"}
-              </MenuItem>
-            ))}
-          </Select>
-        </SelectBox>
-        </EditableDetailInfoCard>
-
-        <EditableDetailInfoCard>
-          <Typography variant="subtitle2">
-            3. 대학명 공개
-          </Typography>
-          <IOSToggleBox>
-            <Typography variant="body1">
-              상대방에게 나의 대학 명이 공개되어요.
+          <EditableDetailInfoCard>
+            <Typography variant="subtitle2">
+              4. 직장명 공개
             </Typography>
-            <IOSSwitch disabled />
-          </IOSToggleBox>
-        </EditableDetailInfoCard>
+            <IOSToggleBox>
+              <Typography variant="body1">
+                상대방에게 나의 직장 명이 공개되어요.
+              </Typography>
+              <IOSSwitch disabled />
+            </IOSToggleBox>
+          </EditableDetailInfoCard>
 
-        <EditableDetailInfoCard>
-          <Typography variant="subtitle2">
-            4. 직장명 공개
+          <FullDivider />
+
+          <Typography variant="body2">
+            *아래의 <strong>닉네임, 생년월일, 키, 직장유형, 직장 명, 직업, 최종 학력, 대학, 대학명, 돌싱 여부</strong>는 임의로 변경 불가능합니다.<br/>
+            문의 후 관리자 승인을 통해 변경하시길 바랍니다.
+            [내정보 - 1:1문의]
           </Typography>
-          <IOSToggleBox>
-            <Typography variant="body1">
-              상대방에게 나의 직장 명이 공개되어요.
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              닉네임
             </Typography>
-            <IOSSwitch disabled />
-          </IOSToggleBox>
-        </EditableDetailInfoCard>
-
-        <FullDivider />
-
-        <Typography variant="body2">
-          *아래의 <strong>닉네임, 생년월일, 직장유형, 직장 명, 직업, 최종 학력, 대학, 대학명, 돌싱 여부</strong>는 임의로 변경 불가능합니다.<br/>
-          문의 후 관리자 승인을 통해 변경하시길 바랍니다.
-          [내정보 - 1:1문의]
-        </Typography>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            닉네임
-          </Typography>
-          { myInfo?.nickname || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            생년월일
-          </Typography>
-          { myInfo?.birthYear || "error" }년생
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            직장 유형
-          </Typography>
-          { getDetailOptionLabel("jobType", myInfo?.jobType) || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            직장 명
-          </Typography>
-          { myInfo?.jobName || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            직업
-          </Typography>
-          { myInfo?.jobGroup || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            최종 학력
-          </Typography>
-          { getDetailOptionLabel("education", myInfo?.education) || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            대학 명
-          </Typography>
-          { myInfo?.universityName || "error" }
-        </DetailInfoCard>
-        <DetailInfoCard>
-          <Typography variant="subtitle2">
-            결혼 경력
-          </Typography>
-          { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) || "error" }
-        </DetailInfoCard>
-      </DefaultInfoTabRoot>
+            { myInfo?.nickname || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              생년월일
+            </Typography>
+            { myInfo?.birthYear || "error" }년생
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              키
+            </Typography>
+            { myInfo?.height || "error" }cm
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              직장 유형
+            </Typography>
+            { getDetailOptionLabel("jobType", myInfo?.jobType) || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              직장 명
+            </Typography>
+            { myInfo?.jobName || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              직업
+            </Typography>
+            { myInfo?.jobGroup || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              최종 학력
+            </Typography>
+            { getDetailOptionLabel("education", myInfo?.education) || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              대학 명
+            </Typography>
+            { myInfo?.universityName || "error" }
+          </DetailInfoCard>
+          <DetailInfoCard>
+            <Typography variant="subtitle2">
+              결혼 경력
+            </Typography>
+            { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) || "error" }
+          </DetailInfoCard>
+        </DefaultInfoTabRoot>
+      </Zoom>
 
       <BottomButton
         saveText="저장하기"
