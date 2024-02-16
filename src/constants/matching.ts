@@ -48,6 +48,12 @@ export const allOptionName: AllOptions  = {
 };
 
 export const allOptions: AllOptions  = {
+  residenceSido: {
+    0: "서울",
+    1: "경기",
+    2: "인천",
+    3: "기타",
+  },
   residence: {
     0: "서울 동부",
     1: "서울 서부",
@@ -126,5 +132,24 @@ export const getDetailOptionLabel = (key: string, value: number): string | numbe
   }
   catch (e) {
     return "error";
+  }
+}
+
+export const getSidoByResidence = (residenceNumber: number): number => {
+  try {
+    const sidoKeys = Object.keys(option.residence.options);
+    for (let i = 0; i < sidoKeys.length; i++) {
+      const key = sidoKeys[i];
+      const residenceKeys = Object.keys(option.residence.options[key]);
+      for (let j = 0; j < residenceKeys.length; j++) {
+        if (parseInt(residenceKeys[j]) === residenceNumber) {
+          return i;
+        }
+      }
+    }
+    return -2;
+  }
+  catch (e) {
+    return -1;
   }
 }
