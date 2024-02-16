@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import {
+  Box
+} from "@mui/material";
 
 import LogoIcon from "public/icons/logo.svg";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -10,9 +13,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
-import { Box } from "@mui/material";
+import {
+  HeadsetMicOutlined as HeadsetMicIcon,
+  HeadsetMic as HeadsetMicIconHovered,
+  InfoOutlined as InfoIcon,
+  Info as InfoIconFilledHovered,
+} from "@mui/icons-material";
 
 import HeaderRoot from "./HeaderRoot";
+
 
 export const HomeHeader = () => {
   const [hoverNoti, setHoverNoti] = useState(false);
@@ -40,9 +49,9 @@ export const HomeHeader = () => {
               onMouseLeave={() => setHoverNoti(false)}
             >
               {hoverNoti ? (
-                <NotificationsIcon color="primary" />
+                <HeadsetMicIconHovered color="primary" />
               ) : (
-                <NotificationsNoneIcon color="primary" />
+                <HeadsetMicIcon color="primary" />
               )}
             </Box>
             <Box
@@ -51,9 +60,9 @@ export const HomeHeader = () => {
               className="chat-box"
             >
               {hoverChat ? (
-                <ChatBubbleIcon color="primary" />
+                <InfoIconFilledHovered color="primary" />
               ) : (
-                <ChatBubbleOutlineIcon color="primary" />
+                <InfoIcon color="primary" />
               )}
             </Box>
           </Box>
