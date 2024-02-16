@@ -135,7 +135,7 @@ const Etc = () => {
           <Typography variant="h1">기타 정보 입력하기</Typography>
         </Box>
         <Container className="other-radio">
-          <Typography variant="subtitle2">{label}</Typography>
+          <Typography variant="subtitle2">{ "만나기 전 연락은 어땠으면 하시나요?" || label}</Typography>
           <RDRadioInput
             options={Object.keys(options).map((optionIndex) => ({
               value: optionIndex,

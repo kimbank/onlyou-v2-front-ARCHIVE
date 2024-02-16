@@ -42,7 +42,7 @@ export const SaveModal = ({ children, open, onClose }: ModalProps) => {
             </Button>
             <Button variant="contained" onClick={handleCompleteClick}>
               <Typography color="white" variant="subtitle2">
-                저장하고 나가기
+                나가기
               </Typography>
             </Button>
           </Box>

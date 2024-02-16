@@ -1,12 +1,12 @@
+import React from "react";
 import { RootState } from "@/store/store";
 import {
   setTargetingDataField,
   setTargetingPriority,
 } from "@/store/targetingSlice";
-import { useEffect, useState } from "react";
+import { showModal } from "@/store/home/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import BottomButton from "@/components/BottomButton/Next";
 import { targetingCategories } from "@/constants/targeting";
 import {
   Box,
@@ -19,6 +19,8 @@ import {
 } from "@mui/material";
 
 import CloseHeader from "@/components/Header/CloseHeader";
+import BottomButton from "@/components/BottomButton/Next";
+
 
 interface ModifyOptionModalProps {
   open: boolean;
@@ -33,15 +35,15 @@ const ModifyOptionModal = ({
   targetingState,
   setHasPriorityChanged,
 }: ModifyOptionModalProps) => {
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = React.useState(1);
   const dispatch = useDispatch();
 
   const titles = ["1순위 조건", "2순위 조건", "3순위 조건"];
   const conditions = ["최대 2개", "최대 4개", "최대 4개"];
-  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
+  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = React.useState<{
     [key: number]: string[];
   }>({});
-  const [temporaryState, setTemporaryState] = useState(targetingState);
+  const [temporaryState, setTemporaryState] = React.useState(targetingState);
 
   const handleTabsChange = (event: any, newValue: number) => {
     setPriority(newValue);
@@ -62,33 +64,42 @@ const ModifyOptionModal = ({
           (option) => option !== optionName
         ),
       });
-
       return;
     }
-    if (currentSelectedOptions.length >= maxOptions) {
-      const oldestOption = currentSelectedOptions[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
-      const oldestOption = currentSelectedOptionsInRedux[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else {
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions, optionName],
-      });
+    if (currentSelectedOptionsInRedux.length >= maxOptions) {
+      dispatch(
+        showModal({
+          title: "알림",
+          body: `${priority}순위 조건은 최대 ${maxOptions}개까지 선택 가능합니다.`,
+          complete: "확인",
+        })
+      );
+      return;
     }
+    // if (currentSelectedOptions.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptions[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptionsInRedux[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else {
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions, optionName],
+    //   });
+    // }
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setTemporaryState(targetingState);
   }, [targetingState, open]);
 
@@ -183,7 +194,6 @@ const ModifyOptionModal = ({
                 );
               }
             )}
-            {/* <button onClick={onClose}>닫기</button> */}
           </Root>
           <BottomButton>
             <Button

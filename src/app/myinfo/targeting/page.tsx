@@ -19,7 +19,11 @@ import {
   setTargetingDataField,
   setTargetingPriority,
   setTargetingRangeField,
+  resetTargeting,
 } from "@/store/targetingSlice";
+import {
+  showModal,
+} from "@/store/home/modalSlice";
 
 import Menu from "@/components/Button/Menu";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
@@ -120,7 +124,18 @@ const TargetingPage = () => {
       }
       setIsPutTargetingLoading(false);
     } else {
-      alert("모든 그룹을 선택해주세요.");
+      dispatch(
+        showModal({
+          title: "상세 설정되지 않은 조건이 있어요.",
+          body: <>
+            상세 설정되지 않은 조건은 매칭에 반영되지 않아요.<br/>
+            상세 설정하지 않고 그냥 나가시겠어요?
+            </>,
+          complete: "나가기",
+          cancel: "취소",
+          onComplete: () => router.push("/myinfo"),
+        })
+      );
     }
   };
 
@@ -155,37 +170,38 @@ const TargetingPage = () => {
     checkFillStatus(1) && checkFillStatus(2) && checkFillStatus(3);
 
     React.useEffect(() => {
-    if (isLoading) {
-      return;
-    }
-    if (typeof targetingData?.fillStatus === "number") {
-      const dataKeys = Object.keys(targetingData);
-      for (const key of Object.keys(targetingState)) {
-        const value = targetingData[key];
-        if (dataKeys.includes(key)) {
-          if (key === "birthYear" || key === "height") {
-            dispatch(
-              setTargetingRangeField({
-                field: key,
-                from: value?.from,
-                to: value?.to,
-              })
-            );
-          }
-          dispatch(setTargetingDataField({ field: key, data: value?.data }));
-          if (value?.priority >= 1 && value?.priority <= 3) {
-            dispatch(
-              setTargetingPriority({ field: key, priority: value?.priority })
-            );
+      dispatch(resetTargeting());
+      if (isLoading) {
+        return;
+      }
+      if (typeof targetingData?.fillStatus === "number") {
+        const dataKeys = Object.keys(targetingData);
+        for (const key of Object.keys(targetingState)) {
+          const value = targetingData[key];
+          if (dataKeys.includes(key)) {
+            if (key === "birthYear" || key === "height") {
+              dispatch(
+                setTargetingRangeField({
+                  field: key,
+                  from: value?.from,
+                  to: value?.to,
+                })
+              );
+            }
+            dispatch(setTargetingDataField({ field: key, data: value?.data }));
+            if (value?.priority >= 1 && value?.priority <= 3) {
+              dispatch(
+                setTargetingPriority({ field: key, priority: value?.priority })
+              );
+            }
           }
         }
       }
-    }
   }, [isLoading, hasPriorityChanged, targetingData]);
 
   return (
     <>
-      {isPutTargetingLoading && <Loading />}
+      {(isPutTargetingLoading || isLoading) && <Loading />}
       <TargetingModal open={isNextOpen} onClose={closeNextModal} />
       <ModifyOptionModal
         open={isModifyOpen}
@@ -325,7 +341,7 @@ const TargetingPage = () => {
             </StepperStep>
           </Stepper>
 
-          <Estimate />
+          {/* <Estimate /> */}
         </div>
       </ContentRoot>
     </>

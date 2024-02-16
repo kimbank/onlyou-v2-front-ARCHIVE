@@ -7,6 +7,7 @@ export interface RangeOption {
   label: string;
   /** 내정보 방식 */
   me: "slider";
+  meDescription?: string;
   /** 타게팅 방식 */
   targeting: "radio" | "button" | "dropdown" | "slider" | "none";
   /** 최대 선택 가능 갯수 */
@@ -27,6 +28,7 @@ export interface Option {
   label: string;
   /** 내정보 방식 */
   me: "text" | "radio" | "chip" | "slider" | "none";
+  meDescription?: string;
   /** 타게팅 방식 */
   targeting: "button" | "dropdown" | "checkbox" | "radio" | "slider" | "chip" | "none";
   /** 최대 선택 가능 갯수 */
@@ -182,6 +184,7 @@ export const workType: Option = {
   name: "workType",
   label: "근무형태",
   me: "radio",
+  meDescription: "근무 형태가 어떻게 되시나요?",
   targeting: "button",
   targeting_limit: 2,
 
@@ -199,6 +202,7 @@ export const smoking: Option = {
   name: "smoking",
   label: "흡연 경력",
   me: "radio",
+  meDescription: "흡연 경력이 있으신가요?",
   targeting: "button",
   targeting_limit: 3,
 
@@ -215,6 +219,7 @@ export const drinking: Option = {
   name: "drinking",
   label: "음주 생활",
   me: "radio",
+  meDescription: "평소 음주는 얼마나 하시나요?",
   targeting: "button",
   targeting_limit: 4,
 
@@ -232,6 +237,7 @@ export const interest: Option = {
   name: "interest",
   label: "관심사",
   me: "chip",
+  meDescription: "본인의 관심사를 “모두” 알려주세요",
   targeting: "button",
   targeting_limit: 3,
 
@@ -265,6 +271,7 @@ export const numberDating: Option = {
   name: "numberDating",
   label: "연애 횟수",
   me: "radio",
+  meDescription: "연애 횟수가 어떻게 되시나요?",
   targeting: "button",
   targeting_limit: 4,
 
@@ -282,6 +289,7 @@ export const athleticLife: Option = {
   name: "athleticLife",
   label: "운동 생활",
   me: "radio",
+  meDescription: "평소 운동을 꾸준히 하시나요?",
   targeting: "button",
   targeting_limit: 4,
 
@@ -296,6 +304,7 @@ export const petAnimal: Option = {
   name: "petAnimal",
   label: "반려 동물",
   me: "radio",
+  meDescription: "반려동물에 대해 어떻게 생각하세요?",
   targeting: "button",
   targeting_limit: 3,
 
@@ -312,6 +321,7 @@ export const religion: Option = {
   name: "religion",
   label: "종교",
   me: "radio",
+  meDescription: "종교가 있으신가요?",
   targeting: "button",
   targeting_limit: 5,
 
@@ -330,6 +340,7 @@ export const extrovert_introvert: Option = {
   name: "extrovert_introvert",
   label: "외향/내향",
   me: "radio",
+  meDescription: "본인을 가장 잘 표현하는 문장을 골라주세요",
   targeting: "button", // TODO: slider로 변경
 
   options: {
@@ -345,6 +356,7 @@ export const intuition_reality: Option = {
   name: "intuition_reality",
   label: "직관/현실",
   me: "radio",
+  meDescription: "본인을 가장 잘 표현하는 문장을 골라주세요",
   targeting: "button", // TODO: slider로 변경
 
   options: {
@@ -360,6 +372,7 @@ export const emotion_reason: Option = {
   name: "emotion_reason",
   label: "감성/이성",
   me: "radio",
+  meDescription: "본인을 가장 잘 표현하는 문장을 골라주세요",
   targeting: "button", // TODO: slider로 변경
 
   options: {
@@ -375,6 +388,7 @@ export const impromptu_plan: Option = {
   name: "impromptu_plan",
   label: "즉흥/계획",
   me: "radio",
+  meDescription: "본인을 가장 잘 표현하는 문장을 골라주세요",
   targeting: "button", // TODO: slider로 변경
 
   options: {
@@ -390,6 +404,7 @@ export const personalityCharm: Option = {
   name: "personalityCharm",
   label: "성격 매력",
   me: "chip",
+  meDescription: "본인 성격의 매력을 “3개” 골라주세요",
   targeting: "button",
 
   me_limit: 3,
@@ -420,6 +435,7 @@ export const marriageValues: Option = {
   name: "marriageValues",
   label: "결혼 가치관",
   me: "radio",
+  meDescription: "결혼 가치관을 알려주세요",
   targeting: "button",
   targeting_limit: 2,
 
@@ -435,6 +451,7 @@ export const oppositeSexFriendValues: Option = {
   name: "oppositeSexFriendValues",
   label: "이성 친구 가치관",
   me: "radio",
+  meDescription: "연인에 이성친구에 대해 어떻게 생각하시나요?",
   targeting: "button",
   targeting_limit: 2,
 
@@ -450,6 +467,7 @@ export const politicalValues: Option = {
   name: "politicalValues",
   label: "정치 성향",
   me: "radio",
+  meDescription: "정치 성향을 알려주세요",
   targeting: "button",
   targeting_limit: 3,
 
@@ -466,6 +484,7 @@ export const consumptionValues: Option = {
   name: "consumptionValues",
   label: "소비 가치관",
   me: "radio",
+  meDescription: "소비에 대해서 어떻게 생각하시나요?",
   targeting: "button",
   targeting_limit: 1,
 
@@ -480,6 +499,7 @@ export const careerFamilyValues: Option = {
   name: "careerFamilyValues",
   label: "커리어와 가정 가치관",
   me: "radio",
+  meDescription: "커리어와 가정에 대해 어떻게 생각하시나요?",
   targeting: "button",
   targeting_limit: 2,
 
@@ -495,6 +515,7 @@ export const childrenValues: Option = {
   name: "childrenValues",
   label: "자녀 가치관",
   me: "radio",
+  meDescription: "자녀에 대한 생각을 알려주세요",
   targeting: "button",
   targeting_limit: 2,
 
@@ -510,6 +531,7 @@ export const animalImage: Option = {
   name: "animalImage",
   label: "동물 이미지",
   me: "radio",
+  meDescription: "어떤 동물과 닮으신 것 같나요?",
   targeting: "button",
   targeting_limit: 5,
 
@@ -528,6 +550,7 @@ export const doubleEyelid: Option = {
   name: "doubleEyelid",
   label: "쌍커풀",
   me: "radio",
+  meDescription: "쌍커풀이 있으신가요?",
   targeting: "button",
   targeting_limit: 2,
 
@@ -543,6 +566,7 @@ export const bodyType: Option = {
   name: "bodyType",
   label: "체형",
   me: "radio",
+  meDescription: "체형을 알려주세요",
   targeting: "button",
   targeting_limit: 4,
 
@@ -560,6 +584,7 @@ export const externalCharm: Option = {
   name: "externalCharm",
   label: "외적 매력",
   me: "chip",
+  meDescription: "본인 외모의 매력을 “3개” 골라주세요",
   targeting: "button",
 
   me_limit: 3,
@@ -595,6 +620,7 @@ export const tattoo: Option = {
   name: "tattoo",
   label: "문신 유무",
   me: "radio",
+  meDescription: "문신이 있으신가요?",
   targeting: "button",
   targeting_limit: 2,
 
@@ -610,6 +636,7 @@ export const preferredDate: Option = {
   name: "preferredDate",
   label: "선호 데이트",
   me: "radio",
+  meDescription: "어떤 데이트를 선호하세요?",
   targeting: "button",
   targeting_limit: 1,
 
@@ -624,6 +651,7 @@ export const preferredContactMethod: Option = {
   name: "preferredContactMethod",
   label: "선호 연락 수단",
   me: "radio",
+  meDescription: "선호하시는 연락수단이 무엇인가요?",
   targeting: "button",
   targeting_limit: 1,
 
@@ -638,6 +666,7 @@ export const loveInitiative: Option = {
   name: "loveInitiative",
   label: "연애 주도성",
   me: "radio",
+  meDescription: "연애하실 때 얼마나 주도적이신가요?",
   targeting: "button",
   targeting_limit: 3,
 
@@ -654,6 +683,7 @@ export const datingFrequency: Option = {
   name: "datingFrequency",
   label: "데이트 빈도",
   me: "radio",
+  meDescription: "선호하시는 데이트 빈도를 알려주세요",
   targeting: "button",
   targeting_limit: 2,
 
@@ -669,6 +699,7 @@ export const contactStyle: Option = {
   name: "contactStyle",
   label: "연락 스타일",
   me: "radio",
+  meDescription: "선호하시는 연락스타일를 알려주세요",
   targeting: "button",
   targeting_limit: 1,
 
@@ -683,6 +714,7 @@ export const premaritalPurity: Option = {
   name: "premaritalPurity",
   label: "혼전 순결",
   me: "radio",
+  meDescription: "혼전순결에 대해 어떻게 생각하세요?",
   targeting: "button",
   targeting_limit: 1,
 
@@ -697,6 +729,7 @@ export const conflictResolutionMethod: Option = {
   name: "conflictResolutionMethod",
   label: "갈등 해결 방식",
   me: "radio",
+  meDescription: "선호하시는 갈등해결방식을 알려주세요",
   targeting: "button",
   targeting_limit: 1,
 
@@ -710,6 +743,7 @@ export const informationBeforeMeeting: Option = {
   name: "informationBeforeMeeting",
   label: "만나기 전 정보",
   me: "radio",
+  meDescription: "만나기 전 연락은 어땠으면 하시나요?",
   targeting: "button",
   options: {
     0: "만나기 전에는 간단히 장소와 시간만 정하고 싶어요",

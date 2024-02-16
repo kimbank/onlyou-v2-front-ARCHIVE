@@ -1,22 +1,20 @@
 "use client";
 
+import React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CloseHeader from "@/components/Header/CloseHeader";
 import HomeHeader from "@/components/Header/HomeHeader";
 import ProgressHeader from "@/components/Header/ProgressHeader";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo } from "react";
 
 export default function ApplicationLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-
-  const writepage = searchParams.get("type");
 
   const pageMap: { [key: string]: number } = {
     "/application/me/values": 1,
@@ -31,11 +29,11 @@ export default function ApplicationLayout({
     "/application/letter/write": 10,
   };
 
-  const currentPage = useMemo(() => {
+  const currentPage = React.useMemo(() => {
     return pageMap[pathname] || 1;
   }, [pathname]);
 
-  const progress = useMemo(() => {
+  const progress = React.useMemo(() => {
     const totalPages = Object.keys(pageMap).length;
     return (currentPage / totalPages) * 100;
   }, [currentPage]);

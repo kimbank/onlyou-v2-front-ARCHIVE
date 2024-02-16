@@ -11,7 +11,7 @@ interface RadioOptionsProps {
 }
 
 const RadioOptions = ({ index, option, data, setData }: RadioOptionsProps) => {
-  const { name, label, me, options } = option;
+  const { name, label, me, meDescription, options } = option;
   const [initialValue, setInitialValue] = useState(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const RadioOptions = ({ index, option, data, setData }: RadioOptionsProps) => {
       <RadioOptionsRoot>
         {/* <button onClick={() => console.log(data[name])}>data</button> */}
         <Typography variant="subtitle2">
-          {index + 1}. {label}
+          { index + 1 }. { meDescription || label }
         </Typography>
         <div className="radios-box">
           <RDRadioInput

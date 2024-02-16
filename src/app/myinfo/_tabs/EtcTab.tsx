@@ -80,7 +80,7 @@ export const EtcTab = ({ data, setData, onClose }: EtcTabProps) => {
       {loading && <Loading />}
       <OptionsListRoot>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <Typography variant="subtitle2">{IBMlabel}</Typography>
+          <Typography variant="subtitle2">{ "만나기 전 연락은 어땠으면 하시나요?" || IBMlabel }</Typography>
           <RDRadioInput
             options={Object.keys(IBMoptions).map((optionIndex) => ({
               value: optionIndex,

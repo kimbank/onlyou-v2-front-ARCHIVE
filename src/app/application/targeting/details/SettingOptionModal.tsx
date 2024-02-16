@@ -173,7 +173,7 @@ const SettingOptionModal = ({
               </ResultBox>
               <GapDiv /> */}
               <Button onClick={onClose} size="large">
-                저장
+                저장하기
               </Button>
             </BottomConainer>
           </Root>

@@ -10,7 +10,7 @@ interface ChipOptionsProps {
 }
 
 const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
-  const { name, label, me, options } = option;
+  const { name, label, me, meDescription, options } = option;
   const [selectedChips, setSelectedChips] = useState<number[]>([]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
     <Zoom in={true} unmountOnExit>
       <ChipOptionsRoot>
         <Typography variant="subtitle2">
-          {index + 1}. {label}
+          { index + 1 }. { meDescription || label }
         </Typography>
         <div className="chips-box">
           {Object.keys(options).map((optionIndex, index) => (
