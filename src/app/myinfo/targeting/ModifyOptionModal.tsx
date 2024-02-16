@@ -4,6 +4,7 @@ import {
   setTargetingDataField,
   setTargetingPriority,
 } from "@/store/targetingSlice";
+import { showModal } from "@/store/home/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { targetingCategories } from "@/constants/targeting";
@@ -63,29 +64,38 @@ const ModifyOptionModal = ({
           (option) => option !== optionName
         ),
       });
-
       return;
     }
-    if (currentSelectedOptions.length >= maxOptions) {
-      const oldestOption = currentSelectedOptions[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
-      const oldestOption = currentSelectedOptionsInRedux[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else {
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions, optionName],
-      });
+    if (currentSelectedOptionsInRedux.length >= maxOptions) {
+      dispatch(
+        showModal({
+          title: "알림",
+          body: `${priority}순위 조건은 최대 ${maxOptions}개까지 선택 가능합니다.`,
+          complete: "확인",
+        })
+      );
+      return;
     }
+    // if (currentSelectedOptions.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptions[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptionsInRedux[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else {
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions, optionName],
+    //   });
+    // }
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 

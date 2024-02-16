@@ -1,6 +1,7 @@
+import React from "react";
 import { RootState } from "@/store/store";
+import { showModal } from "@/store/home/modalSlice";
 import { setTargetingPriority } from "@/store/targetingSlice";
-import { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BottomButton from "@/components/BottomButton/Next";
@@ -20,7 +21,7 @@ import useModal from "@/hooks/useModal";
 
 
 const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = React.useState(1);
   const dispatch = useDispatch();
   const targetingState = useSelector((state: RootState) => state.targeting);
 
@@ -31,7 +32,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
     setPriority(newValue);
   };
 
-  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = useState<{
+  const [selectedOptionsByPriority, setSelectedOptionsByPriority] = React.useState<{
     [key: number]: string[];
   }>({});
 
@@ -52,30 +53,40 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
       });
       return;
     }
-    if (currentSelectedOptions.length >= maxOptions) {
-      const oldestOption = currentSelectedOptions[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
-      const oldestOption = currentSelectedOptionsInRedux[0];
-      dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions.slice(1), optionName],
-      });
-    } else {
-      setSelectedOptionsByPriority({
-        ...selectedOptionsByPriority,
-        [priority]: [...currentSelectedOptions, optionName],
-      });
+    if (currentSelectedOptionsInRedux.length >= maxOptions) {
+      dispatch(
+        showModal({
+          title: "알림",
+          body: `${priority}순위 조건은 최대 ${maxOptions}개까지 선택 가능합니다.`,
+          complete: "확인",
+        })
+      );
+      return;
     }
+    // if (currentSelectedOptions.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptions[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else if (currentSelectedOptionsInRedux.length >= maxOptions) {
+    //   const oldestOption = currentSelectedOptionsInRedux[0];
+    //   dispatch(setTargetingPriority({ field: oldestOption, priority: null }));
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions.slice(1), optionName],
+    //   });
+    // } else {
+    //   setSelectedOptionsByPriority({
+    //     ...selectedOptionsByPriority,
+    //     [priority]: [...currentSelectedOptions, optionName],
+    //   });
+    // }
     dispatch(setTargetingPriority({ field: optionName, priority: priority }));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (process.env.NODE_ENV === "development") {
       console.log("targeting", targetingState);
       console.log("targetingCategories", targetingCategories);
@@ -93,7 +104,7 @@ const OptionModal = ({ open, onClose }: { open: any; onClose: any }) => {
               <Typography variant="body1">
                 꼭 맞춰줬으면 하는 조건을 &nbsp;
                 <strong>"{conditions[priority - 1]}"</strong> &nbsp;
-                골라주세요.,
+                골라주세요.
               </Typography>
             </Box>
             <Tabs
