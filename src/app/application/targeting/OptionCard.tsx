@@ -1,7 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { targetingAllOptions } from "@/constants/targeting";
 
-import { styled, Box, List, Divider, Typography } from "@mui/material";
+import {
+  styled,
+  Box,
+  List,
+  Divider,
+  Typography
+} from "@mui/material";
 
 
 const OptionCard = () => {
@@ -25,11 +31,11 @@ const OptionCard = () => {
           <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>1순위</Typography>
           { firstOptions.length > 0 ?
             <Typography variant="body2">
-            {
-              firstOptions.map((option: string) => (
-                targetingAllOptions[option].label
-              )).join(", ")
-            }
+              {
+                firstOptions.map((option: string) => (
+                  targetingAllOptions[option].label
+                )).join(", ")
+              }
             </Typography>
             :
             <Typography variant="body2" className="option-empty">선택 안함</Typography>
@@ -40,11 +46,11 @@ const OptionCard = () => {
           <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>2순위</Typography>
           { secondOptions.length > 0 ?
             <Typography variant="body2">
-            {
-              secondOptions.map((option: string) => (
-                targetingAllOptions[option].label
-              )).join(", ")
-            }
+              {
+                secondOptions.map((option: string) => (
+                  targetingAllOptions[option].label
+                )).join(", ")
+              }
             </Typography>
             :
             <Typography variant="body2" className="option-empty">선택 안함</Typography>
@@ -55,11 +61,11 @@ const OptionCard = () => {
           <Typography variant="subtitle2" sx={{ minWidth:"34px", color: "#f70" }}>3순위</Typography>
           { thirdOptions.length > 0 ?
             <Typography variant="body2">
-            {
-              thirdOptions.map((option: string) => (
-                targetingAllOptions[option].label
-              )).join(", ")
-            }
+              {
+                thirdOptions.map((option: string) => (
+                  targetingAllOptions[option].label
+                )).join(", ")
+              }
             </Typography>
             :
             <Typography variant="body2" className="option-empty">선택 안함</Typography>
