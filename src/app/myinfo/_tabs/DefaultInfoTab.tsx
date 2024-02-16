@@ -119,7 +119,9 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
             disabled
           >
             {Object.keys(allOptions.salary).map((key, index) => (
-              <MenuItem key={index} value={key}>{allOptions.salary[key]}</MenuItem>
+              <MenuItem key={index} value={key}>
+                {allOptions.salary[key]}{index > 0 && index < 8 && " 이상"}
+              </MenuItem>
             ))}
           </Select>
         </SelectBox>
