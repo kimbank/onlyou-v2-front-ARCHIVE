@@ -42,7 +42,7 @@ export const HomeHeader = () => {
             />
           </Link>
 
-          <Box className="header-box">
+          <section className="header-box">
             <Box
               className="noti-box"
               onMouseEnter={() => setHoverNoti(true)}
@@ -65,7 +65,7 @@ export const HomeHeader = () => {
                 <InfoIcon color="primary" />
               )}
             </Box>
-          </Box>
+          </section>
         </header>
       </div>
     </HeaderRoot>

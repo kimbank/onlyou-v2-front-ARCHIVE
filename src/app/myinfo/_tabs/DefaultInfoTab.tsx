@@ -4,6 +4,8 @@ import React from "react";
 import {
   styled,
   Typography,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 import { useDispatch } from "react-redux";
@@ -11,8 +13,10 @@ import { showModal } from "@/store/home/modalSlice";
 
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 import { getDetailOptionLabel } from "@/constants/matching";
+import { allOptions, getSidoByResidence } from "@/constants/matching";
 
 import BottomButton from "./BottomButton";
+import IOSSwitch from "@/components/Toggle/iOS";
 import OptionsList from "./OptionsList";
 import { FullDivider } from "@/components/Dividers/FullDivider";
 import Loading from "@/components/loading";
@@ -61,27 +65,89 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
     //   setInitalData(data);
     // }
     // setLoading(false);
-  }
+  };
 
   return (
     <>
       {loading && <Loading />}
 
       <DefaultInfoTabRoot>
-        <Typography variant="subtitle2">
-          1. 거주지
-        </Typography>
-        { getDetailOptionLabel("residence", myInfo?.residence) }
+        <EditableDetailInfoCard>
+          <Typography variant="subtitle2">
+            1. 거주지
+          </Typography>
+          <SelectBox>
+            <Typography variant="body2" sx={{ color: "gray" }}>
+              시/도
+            </Typography>
+            <Select
+              value={getSidoByResidence(myInfo?.residence)}
+              size="small"
+              disabled
+            >
+              {Object.keys(allOptions.residenceSido).map((key, index) => (
+                <MenuItem key={index} value={key}>{allOptions.residenceSido[key]}</MenuItem>
+              ))}
+            </Select>
+          </SelectBox>
+          <SelectBox>
+            <Typography variant="body2" sx={{ color: "gray" }}>
+              시/군/구
+            </Typography>
+            <Select
+              value={myInfo?.residence}
+              size="small"
+              disabled
+            >
+              {Object.keys(allOptions.residence).map((key, index) => {
+                return (
+                  <MenuItem key={index} value={key}>{allOptions.residence[key]}</MenuItem>
+                );
+              })}
+            </Select>
+          </SelectBox>
+        </EditableDetailInfoCard>
+
+        <EditableDetailInfoCard>
         <Typography variant="subtitle2">
           2. 연봉
         </Typography>
-        { getDetailOptionLabel("salary", myInfo?.salary) }
-        <Typography variant="subtitle2">
-          3. 대학명 공개
-        </Typography>
-        <Typography variant="subtitle2">
-          4. 직장명 공개
-        </Typography>
+        <SelectBox>
+          <Select
+            value={myInfo?.salary}
+            size="small"
+            disabled
+          >
+            {Object.keys(allOptions.salary).map((key, index) => (
+              <MenuItem key={index} value={key}>{allOptions.salary[key]}</MenuItem>
+            ))}
+          </Select>
+        </SelectBox>
+        </EditableDetailInfoCard>
+
+        <EditableDetailInfoCard>
+          <Typography variant="subtitle2">
+            3. 대학명 공개
+          </Typography>
+          <IOSToggleBox>
+            <Typography variant="body1" color="ActiveBorder">
+              상대방에게 나의 대학 명이 공개되어요.
+            </Typography>
+            <IOSSwitch disabled />
+          </IOSToggleBox>
+        </EditableDetailInfoCard>
+
+        <EditableDetailInfoCard>
+          <Typography variant="subtitle2">
+            4. 직장명 공개
+          </Typography>
+          <IOSToggleBox>
+            <Typography variant="body1" color="ActiveBorder">
+              상대방에게 나의 직장 명이 공개되어요.
+            </Typography>
+            <IOSSwitch disabled />
+          </IOSToggleBox>
+        </EditableDetailInfoCard>
 
         <FullDivider />
 
@@ -166,5 +232,24 @@ const DetailInfoCard = styled("div")(({ theme }) => {
     gap: "4px",
   };
 });
+
+const EditableDetailInfoCard = styled("div")`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const SelectBox = styled("div")`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const IOSToggleBox = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+`;
 
 export default DefaultInfoTab;
