@@ -15,6 +15,7 @@ import { allOptions } from "@/constants/targeting";
 import { setTargetingDataField } from "@/store/targetingSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+
 type TooltipOpenStates = {
   [key: string]: boolean;
 };
@@ -156,7 +157,10 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                         arrow
                         open={tooltipOpenStates[group] || false}
                         disableHoverListener
-                        PopperProps={{style:{zIndex:1500}}}
+                        PopperProps={{
+                          style: { zIndex:1500 },
+                          container: document.getElementById("page") || document.body,
+                        }}
                       >
                         <Box
                           className="tooltip-content"
@@ -179,7 +183,7 @@ const SettingChipOption = ({ optionName }: { optionName: string }) => {
                       arrow
                       open={tooltipOpenStates[group]}
                       onClick={() => toggleTooltip(group)}
-                      PopperProps={{style:{zIndex:0}}}
+                      PopperProps={{style:{zIndex:1500}}}
                     >
                       <Box className="tooltip-content">
                         <Typography
@@ -344,6 +348,7 @@ const TooltipTitleRoot = styled(Box)(() => {
     flexDirection: "column",
     gap: "8px",
     width: "100%",
+    zIndex: 3000,
 
     ".content-box": {
       marginBottom: "4px",

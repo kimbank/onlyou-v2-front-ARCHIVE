@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { styled, Zoom, Typography } from "@mui/material";
-import { Option } from "@/constants/application_option";
+import { Option, RangeOption } from "@/constants/application_option";
 import RDRadioInput from "@/components/RDRadio/RDRadioInput";
 
 interface RadioOptionsProps {
   index: number;
-  option: Option;
+  option: Option | RangeOption;
   data: any;
   setData: any;
 }
@@ -36,9 +36,9 @@ const RadioOptions = ({ index, option, data, setData }: RadioOptionsProps) => {
         </Typography>
         <div className="radios-box">
           <RDRadioInput
-            options={Object.keys(options).map((optionIndex) => ({
+            options={Object.keys(options ?? {}).map((optionIndex) => ({
               value: optionIndex,
-              label: options[optionIndex],
+              label: options?.[optionIndex] ?? "error",
             }))}
             onChange={handleChange}
             initialValue={initialValue}

@@ -6,7 +6,7 @@ export interface RangeOption {
   /** 한국 명 */
   label: string;
   /** 내정보 방식 */
-  me: "slider";
+  me: "slider" | "radio" | "none";
   meDescription?: string;
   /** 타게팅 방식 */
   targeting: "radio" | "button" | "dropdown" | "slider" | "none";
@@ -18,6 +18,9 @@ export interface RangeOption {
   from: number;
   /** 범위 끝 */
   to: number;
+
+  /** salary 대응 */
+  options?: { [key: string]: string };
 }
 
 /** 일반적 선지 */
@@ -42,6 +45,21 @@ export interface Option {
 export interface GroupedOption extends Omit<Option, "options"> {
   options: { [group: string]: { [key: string]: string } };
 }
+
+// 매칭 유형 : 무조건 반영
+export const matchingType: Option = {
+  name: "matchingType",
+  label: "매칭 유형",
+  me: "none",
+  meDescription: "매칭 유형을 선택해주세요",
+  targeting: "button",
+  targeting_limit: 1,
+
+  options: {
+    0: "더 많이 매칭해 주세요",
+    1: "정확도가 중요해요",
+  },
+};
 
 // 생년월일(나이) : 무조건 반영
 export const birthYear: RangeOption = {
@@ -117,12 +135,15 @@ export const jobType: Option = {
 };
 
 // 연봉 : 선택 반영
-export const salary: Option = {
+export const salary: RangeOption = {
   name: "salary",
   label: "연봉",
   me: "radio",
-  targeting: "button",
+  targeting: "slider",
   targeting_limit: 9,
+
+  from: 0,
+  to: 8,
 
   options: {
     0: "2천만 원 미만",
