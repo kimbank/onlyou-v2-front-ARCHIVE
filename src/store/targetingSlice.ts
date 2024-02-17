@@ -68,7 +68,7 @@ const initialState: any = {
   birthYear: { ...targetingRangeField, priority: 0 }, // 기본 반영 조건
   residence: { ...targetingField, priority: 0 }, // 기본 반영 조건
   jobType: targetingField,
-  salary: targetingField,
+  salary: targetingRangeField,
   university: targetingField,
   divorce: targetingField,
 

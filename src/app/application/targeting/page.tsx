@@ -51,7 +51,7 @@ const TargetingPage = () => {
       for (const key of Object.keys(targetingState)) {
         const value = targetingData[key];
         if (dataKeys.includes(key)) {
-          if (key === "birthYear" || key === "height") {
+          if (key === "birthYear" || key === "height" || key === "salary") {
             dispatch(
               setTargetingRangeField({
                 field: key,

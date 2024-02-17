@@ -127,12 +127,12 @@ export const targetingAllOptions: TargetingAllOptions = {
 export const allRangeOptions: AllRangeOptions = {
   birthYear: option.birthYear,
   height: option.height,
+  salary: option.salary,
 };
 
 export const allOptions: AllOptions = {
   residence: option.residence,
   jobType: option.jobType,
-  salary: option.salary,
   divorce: option.divorce,
   university: option.university,
   workType: option.workType,

@@ -18,38 +18,35 @@ import { allOptions, getSidoByResidence } from "@/constants/matching";
 
 import BottomButton from "./BottomButton";
 import IOSSwitch from "@/components/Toggle/iOS";
-import OptionsList from "./OptionsList";
 import { FullDivider } from "@/components/Dividers/FullDivider";
 import Loading from "@/components/loading";
 
 
 interface DefaultInfoData {
-  marriageValues: number | null;
-  oppositeSexFriendValues: number | null;
-  politicalValues: number | null;
-  consumptionValues: number | null;
-  careerFamilyValues: number | null;
-  childrenValues: number | null;
+  residence: number;
+  salary: number;
+  universityName: string;
+  jobName: string;
 }
 
-interface DefaultInfoTabProps {
-  data: DefaultInfoData;
-  setData: React.Dispatch<React.SetStateAction<DefaultInfoData>> | any;
-  onClose: () => Promise<boolean>;
-}
+// interface DefaultInfoTabProps {
+//   data: DefaultInfoData;
+//   setData: React.Dispatch<React.SetStateAction<DefaultInfoData>> | any;
+//   onClose: () => Promise<boolean>;
+// }
 
-export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) => {
+export const DefaultInfoTab = () => {
   const dispatch = useDispatch();
-  const [initialData, setInitalData] = React.useState(data); // 초기 데이터 저장
+  // const [initialData, setInitalData] = React.useState(data); // 초기 데이터 저장
   const [isDataModified, setIsDataModified] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   const { myInfo, isLoading, isError } = useMyinfo();
 
-  React.useEffect(() => {
-    const dataChanged = JSON.stringify(data) !== JSON.stringify(initialData);
-    setIsDataModified(dataChanged);
-  }, [data, initialData]);
+  // React.useEffect(() => {
+  //   const dataChanged = JSON.stringify(data) !== JSON.stringify(initialData);
+  //   setIsDataModified(dataChanged);
+  // }, [data, initialData]);
 
   const handleSubmit = async () => {
     dispatch(
@@ -72,8 +69,8 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
     <>
       {loading && <Loading />}
 
-      <Zoom in={true} unmountOnExit>
-        <DefaultInfoTabRoot>
+      <DefaultInfoTabRoot>
+        <Zoom in={true} unmountOnExit>
           <EditableDetailInfoCard>
             <Typography variant="subtitle2">
               1. 거주지
@@ -109,7 +106,9 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
               </Select>
             </SelectBox>
           </EditableDetailInfoCard>
+        </Zoom>
 
+        <Zoom in={true} unmountOnExit>
           <EditableDetailInfoCard>
           <Typography variant="subtitle2">
             2. 연봉
@@ -128,7 +127,9 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
             </Select>
           </SelectBox>
           </EditableDetailInfoCard>
+        </Zoom>
 
+        <Zoom in={true} unmountOnExit>
           <EditableDetailInfoCard>
             <Typography variant="subtitle2">
               3. 대학명 공개
@@ -140,7 +141,9 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
               <IOSSwitch disabled />
             </IOSToggleBox>
           </EditableDetailInfoCard>
+        </Zoom>
 
+        <Zoom in={true} unmountOnExit>
           <EditableDetailInfoCard>
             <Typography variant="subtitle2">
               4. 직장명 공개
@@ -152,70 +155,70 @@ export const DefaultInfoTab = ({ data, setData, onClose }: DefaultInfoTabProps) 
               <IOSSwitch disabled />
             </IOSToggleBox>
           </EditableDetailInfoCard>
+        </Zoom>
 
-          <FullDivider />
+        <FullDivider />
 
-          <Typography variant="body2">
-            *아래의 <strong>닉네임, 생년월일, 키, 직장유형, 직장 명, 직업, 최종 학력, 대학, 대학명, 돌싱 여부</strong>는 임의로 변경 불가능합니다.<br/>
-            문의 후 관리자 승인을 통해 변경하시길 바랍니다.
-            [내정보 - 1:1문의]
+        <Typography variant="body2">
+          *아래의 <strong>닉네임, 생년월일, 키, 직장유형, 직장 명, 직업, 최종 학력, 대학, 대학명, 돌싱 여부</strong>는 임의로 변경 불가능합니다.<br/>
+          문의 후 관리자 승인을 통해 변경하시길 바랍니다.
+          [내정보 - 1:1문의]
+        </Typography>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            닉네임
           </Typography>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              닉네임
-            </Typography>
-            { myInfo?.nickname || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              생년월일
-            </Typography>
-            { myInfo?.birthYear || "error" }년생
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              키
-            </Typography>
-            { myInfo?.height || "error" }cm
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              직장 유형
-            </Typography>
-            { getDetailOptionLabel("jobType", myInfo?.jobType) || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              직장 명
-            </Typography>
-            { myInfo?.jobName || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              직업
-            </Typography>
-            { myInfo?.jobGroup || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              최종 학력
-            </Typography>
-            { getDetailOptionLabel("education", myInfo?.education) || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              대학 명
-            </Typography>
-            { myInfo?.universityName || "error" }
-          </DetailInfoCard>
-          <DetailInfoCard>
-            <Typography variant="subtitle2">
-              결혼 경력
-            </Typography>
-            { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) || "error" }
-          </DetailInfoCard>
-        </DefaultInfoTabRoot>
-      </Zoom>
+          { myInfo?.nickname || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            생년월일
+          </Typography>
+          { myInfo?.birthYear || "error" }년생
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            키
+          </Typography>
+          { myInfo?.height || "error" }cm
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            직장 유형
+          </Typography>
+          { getDetailOptionLabel("jobType", myInfo?.jobType) || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            직장 명
+          </Typography>
+          { myInfo?.jobName || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            직업
+          </Typography>
+          { myInfo?.jobGroup || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            최종 학력
+          </Typography>
+          { getDetailOptionLabel("education", myInfo?.education) || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            대학 명
+          </Typography>
+          { myInfo?.universityName || "error" }
+        </DetailInfoCard>
+        <DetailInfoCard>
+          <Typography variant="subtitle2">
+            결혼 경력
+          </Typography>
+          { getDetailOptionLabel("divorce", Number(myInfo?.divorce)) || "error" }
+        </DetailInfoCard>
+      </DefaultInfoTabRoot>
 
       <BottomButton
         saveText="저장하기"

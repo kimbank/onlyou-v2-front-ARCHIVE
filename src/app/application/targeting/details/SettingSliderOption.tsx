@@ -34,6 +34,14 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
     );
   };
 
+  const salaryOptions = allRangeOptions[optionName].options || {};
+  const optionsMarks = Object.keys(allRangeOptions[optionName].options || {}).map((key) => {
+    return {
+      value: Number(key),
+      label: (allRangeOptions[optionName].options as Record<string, string>)[key],
+    };
+  });
+
   return (
     <>
       {/* <div>{optionName}</div> */}
@@ -43,9 +51,10 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
           value={value}
           onChange={handleChange}
           onChangeCommitted={handleChangeComitted}
-          valueLabelDisplay="auto"
+          valueLabelDisplay={optionsMarks.length > 0 ? "off" : "auto"}
           min={min}
           max={max}
+          // marks={optionsMarks}
         />
       </Box>
       <span
@@ -57,14 +66,24 @@ const SettingSliderOption = ({ optionName }: { optionName: string }) => {
         }}
       >
         <Typography variant="caption">
-          {value[0]}
-          {optionName === "birthYear" && "년생"}
-          {optionName === "height" && "cm"}
+          {
+            optionsMarks.length <= 0 ? (
+              optionName === "birthYear" ? `${value[0]}년생` :
+              optionName === "height" && `${value[0]}cm`
+            ) : (
+              optionName === "salary" && `${salaryOptions[value[0]]}`
+            )
+          }
         </Typography>
         <Typography variant="caption">
-          {value[1]}
-          {optionName === "birthYear" && "년생"}
-          {optionName === "height" && "cm"}
+          {
+            optionsMarks.length <= 0 ? (
+              optionName === "birthYear" ? `${value[1]}년생` :
+              optionName === "height" && `${value[1]}cm`
+            ) : (
+              optionName === "salary" && `${salaryOptions[value[1]]}`
+            )
+          }
         </Typography>
       </span>
     </>
