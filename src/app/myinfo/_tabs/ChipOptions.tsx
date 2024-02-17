@@ -10,7 +10,7 @@ interface ChipOptionsProps {
 }
 
 const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
-  const { name, label, me, meDescription, options } = option;
+  const { name, label, me, meDescription, options, me_limit } = option;
   const [selectedChips, setSelectedChips] = useState<number[]>([]);
 
   useEffect(() => {
@@ -29,10 +29,15 @@ const ChipOptions = ({ index, option, data, setData }: ChipOptionsProps) => {
   function toggleChip(chipIndex: number) {
     setSelectedChips((prevSelectedChips) => {
       // 이미 선택된 칩이면 제거, 아니면 추가
-      if (prevSelectedChips.includes(chipIndex)) {
+      if (prevSelectedChips.includes(chipIndex)) { // 제거
         handleChange(prevSelectedChips.filter((index) => index !== chipIndex));
         return prevSelectedChips.filter((index) => index !== chipIndex);
-      } else {
+      } else { // 추가
+        if (me_limit && prevSelectedChips.length >= me_limit) {
+          // TODO: alert 대신에 모달로 변경
+          alert(`최대 ${me_limit}개까지 선택 가능합니다.`);
+          return prevSelectedChips;
+        }
         handleChange([...prevSelectedChips, chipIndex]);
         return [...prevSelectedChips, chipIndex];
       }

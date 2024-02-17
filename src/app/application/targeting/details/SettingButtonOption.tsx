@@ -25,17 +25,8 @@ const SettingButtonOption = ({ optionName }: { optionName: string }) => {
         })
       );
     } else if (limit && currentData.length >= limit) {
-      const newData = [...currentData];
-      if (!newData.includes(idx)) {
-        newData.shift();
-        newData.push(idx);
-      }
-      dispatch(
-        setTargetingDataField({
-          field: optionName,
-          data: newData.sort(ascending),
-        })
-      );
+      // TODO: alert 대신에 모달로 변경
+      alert(`최대 ${limit}개까지 선택 가능합니다.`);
     } else {
       dispatch(
         setTargetingDataField({
