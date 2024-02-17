@@ -65,6 +65,7 @@ const targetingRangeField: TargetingRangeField = {
 
 const initialState: any = {
   _step: 0,
+  matchingType: { ...targetingField, priority: 0 },
   birthYear: { ...targetingRangeField, priority: 0 }, // 기본 반영 조건
   residence: { ...targetingField, priority: 0 }, // 기본 반영 조건
   jobType: targetingField,
@@ -164,4 +165,5 @@ export const {
   setTargetingPriority,
   resetTargeting,
 } = targetingSlice.actions;
+
 export default targetingSlice.reducer;

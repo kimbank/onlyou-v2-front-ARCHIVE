@@ -46,6 +46,21 @@ export interface GroupedOption extends Omit<Option, "options"> {
   options: { [group: string]: { [key: string]: string } };
 }
 
+// 매칭 유형 : 무조건 반영
+export const matchingType: Option = {
+  name: "matchingType",
+  label: "매칭 유형",
+  me: "none",
+  meDescription: "매칭 유형을 선택해주세요",
+  targeting: "button",
+  targeting_limit: 1,
+
+  options: {
+    0: "더 많이 매칭해 주세요",
+    1: "정확도가 중요해요",
+  },
+};
+
 // 생년월일(나이) : 무조건 반영
 export const birthYear: RangeOption = {
   name: "birthYear",

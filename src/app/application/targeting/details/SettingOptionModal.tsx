@@ -51,7 +51,13 @@ const SettingOptionModal = ({
     const type = option.targeting;
 
     if (type === "slider") {
-      return `선호하는 ${hangeul}의 구간을 설정해주세요.`;
+      return (
+        <>
+          <strong>
+            선호하는 {hangeul}의 구간을 설정해주세요.
+          </strong>
+        </>
+      )
     }
     if (type === "chip") {
       return (
@@ -70,19 +76,29 @@ const SettingOptionModal = ({
           ? option.targeting_limit
           : optionsCount;
       if (limit === 1) {
-        return `선호하는 ${hangeul}${jongsung(hangeul)} 선택해주세요.`;
+        return (
+          <>
+            <strong>
+              선호하는 {hangeul}{jongsung(hangeul)} 선택해주세요.
+            </strong>
+          </>
+        );
       } else if (limit <= optionsCount - 2) {
         return (
           <>
-            선호하는 {hangeul}
-            {jongsung(hangeul)} 최대 <strong>{limit}개</strong> 선택해주세요.
+            <strong>
+              선호하는 {hangeul}
+              {jongsung(hangeul)} 최대 <strong>{limit}개</strong> 선택해주세요.
+            </strong>
           </>
         );
       } else {
         return (
           <>
-            선호하는 {hangeul}
-            {jongsung(hangeul)} <strong>모두</strong> 선택해주세요.
+            <strong>
+              선호하는 {hangeul}
+              {jongsung(hangeul)} <strong>모두</strong> 선택해주세요.
+            </strong>
           </>
         );
       }

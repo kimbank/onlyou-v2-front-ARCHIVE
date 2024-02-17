@@ -32,6 +32,7 @@ interface TargetingCategories {
 
 export const targetingOptions: TargetingOptions = {
   default: [
+    option.matchingType,
     option.birthYear,
     option.residence,
     option.interest,
@@ -84,6 +85,7 @@ export const targetingOptions: TargetingOptions = {
 };
 
 export const targetingAllOptions: TargetingAllOptions = {
+  matchingType: option.matchingType,
   birthYear: option.birthYear,
   residence: option.residence,
   jobType: option.jobType,
@@ -131,6 +133,7 @@ export const allRangeOptions: AllRangeOptions = {
 };
 
 export const allOptions: AllOptions = {
+  matchingType: option.matchingType,
   residence: option.residence,
   jobType: option.jobType,
   divorce: option.divorce,

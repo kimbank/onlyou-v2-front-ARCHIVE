@@ -63,6 +63,15 @@ export const DefaultInfoTab = () => {
       visibilityUniversityName: myInfo?.visibilityUniversityName,
       visibilityJobName: myInfo?.visibilityJobName,
     }
+    // TODO: 하드코딩 되어 있으므로 수정 필요
+    const curRes = data.residence;
+    if (0 <= curRes && curRes <= 3) {
+      setSidoData("서울");
+    } else if (4 <= curRes && curRes <= 11) {
+      setSidoData("경기");
+    } else if (12 <= curRes && curRes <= 13) {
+      setSidoData("인천");
+    }
     const dataChanged = JSON.stringify(data) !== JSON.stringify(originData);
     setIsDataModified(dataChanged);
   }, [data, myInfo]);
@@ -96,7 +105,6 @@ export const DefaultInfoTab = () => {
   }
 
   const handleSubmit = async () => {
-
     setIsPutLoading(true);
     const res = await putMyinfoDefault(data);
     if (res) {
