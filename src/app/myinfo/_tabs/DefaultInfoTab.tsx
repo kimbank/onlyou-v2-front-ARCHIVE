@@ -18,6 +18,8 @@ import { getDetailOptionLabel } from "@/constants/matching";
 import { allOptions, getSidoByResidence } from "@/constants/matching";
 import { residence as residenceConstant } from "@/constants/application_option";
 
+import { putMyinfoDefault } from "@/api/putMyinfoDefault";
+
 import ResidenceTooltip from "@/components/Tooltip/Residence";
 import BottomButton from "./BottomButton";
 import IOSSwitch from "@/components/Toggle/iOS";
@@ -88,23 +90,19 @@ export const DefaultInfoTab = () => {
     const value = event.target.value as number;
     setData({ ...data, residence: value });
   }
+  const handleSalaryDataChange = (event: any) => {
+    const value = event.target.value as number;
+    setData({ ...data, salary: value });
+  }
 
   const handleSubmit = async () => {
-    dispatch(
-      showModal({
-        title: "기본 정보 수정 및 저장 기능이 곧 추가될 예정이에요.",
-        // body: "",
-        complete: "확인",
-      })
-    )
 
-    // setLoading(true);
-    // const res = await onClose();
-    // if (res) {
-    //   setInitalData(data);
-    //   mutate();
-    // }
-    // setLoading(false);
+    setIsPutLoading(true);
+    const res = await putMyinfoDefault(data);
+    if (res) {
+      mutate();
+    }
+    setIsPutLoading(false);
   };
 
   return (
@@ -125,7 +123,6 @@ export const DefaultInfoTab = () => {
                 value={sidoData}
                 size="small"
                 onChange={handleSidoDataChange}
-                // disabled
               >
                 {["서울", "경기", "인천"].map((sido, index) => (
                   <MenuItem key={index} value={sido}>{sido}</MenuItem>
@@ -140,7 +137,6 @@ export const DefaultInfoTab = () => {
                 value={data.residence}
                 size="small"
                 onChange={handleResidenceDataChange}
-                // disabled
               >
                 {Object.keys(residenceConstant.options[sidoData]).map((key, index) => {
                   const value = residenceConstant.options[sidoData][key];
@@ -163,12 +159,12 @@ export const DefaultInfoTab = () => {
           </Typography>
           <SelectBox>
             <Select
-              value={myInfo?.salary}
+              value={data.salary}
+              onChange={handleSalaryDataChange}
               size="small"
-              disabled
             >
               {Object.keys(allOptions.salary).map((key, index) => (
-                <MenuItem key={index} value={key}>
+                <MenuItem key={index} value={Number(key)}>
                   {allOptions.salary[key]}{index > 0 && index < 8 && " 이상"}
                 </MenuItem>
               ))}
