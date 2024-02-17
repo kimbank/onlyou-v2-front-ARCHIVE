@@ -157,9 +157,6 @@ export const ModifyModal = ({
           {priority === 0 && (
             <Box>
               <DefaultInfoTab
-                data={valuesData}
-                setData={setValuesData}
-                onClose={() => handlePutMe("values", valuesData)}
               />
             </Box>
           )}

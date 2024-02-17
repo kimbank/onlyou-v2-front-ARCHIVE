@@ -3,6 +3,7 @@
 import React from "react";
 import {
   styled,
+  Box,
   Typography,
   Select,
   MenuItem,
@@ -15,7 +16,9 @@ import { showModal } from "@/store/home/modalSlice";
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 import { getDetailOptionLabel } from "@/constants/matching";
 import { allOptions, getSidoByResidence } from "@/constants/matching";
+import { residence as residenceConstant } from "@/constants/application_option";
 
+import ResidenceTooltip from "@/components/Tooltip/Residence";
 import BottomButton from "./BottomButton";
 import IOSSwitch from "@/components/Toggle/iOS";
 import { FullDivider } from "@/components/Dividers/FullDivider";
@@ -25,9 +28,16 @@ import Loading from "@/components/loading";
 interface DefaultInfoData {
   residence: number;
   salary: number;
-  universityName: string;
-  jobName: string;
+  visibilityUniversityName: boolean | null;
+  visibilityJobName: boolean | null;
 }
+
+const initialData: DefaultInfoData = {
+  residence: 0,
+  salary: 0,
+  visibilityUniversityName: false,
+  visibilityJobName: false,
+};
 
 // interface DefaultInfoTabProps {
 //   data: DefaultInfoData;
@@ -37,16 +47,47 @@ interface DefaultInfoData {
 
 export const DefaultInfoTab = () => {
   const dispatch = useDispatch();
-  // const [initialData, setInitalData] = React.useState(data); // 초기 데이터 저장
+  const [data, setData] = React.useState<DefaultInfoData>(initialData);
+  const [sidoData, setSidoData] = React.useState<'서울' | '경기' | '인천'>("서울");
   const [isDataModified, setIsDataModified] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [isPutLoading, setIsPutLoading] = React.useState(false);
 
-  const { myInfo, isLoading, isError } = useMyinfo();
+  const { myInfo, isLoading, isError, mutate } = useMyinfo();
 
-  // React.useEffect(() => {
-  //   const dataChanged = JSON.stringify(data) !== JSON.stringify(initialData);
-  //   setIsDataModified(dataChanged);
-  // }, [data, initialData]);
+  React.useEffect(() => {
+    const originData = {
+      residence: myInfo?.residence,
+      salary: myInfo?.salary,
+      visibilityUniversityName: myInfo?.visibilityUniversityName,
+      visibilityJobName: myInfo?.visibilityJobName,
+    }
+    const dataChanged = JSON.stringify(data) !== JSON.stringify(originData);
+    setIsDataModified(dataChanged);
+  }, [data, myInfo]);
+
+  React.useEffect(() => {
+    if (isLoading || isError) {
+      return;
+    }
+
+    if (myInfo) {
+      setData({
+        residence: myInfo.residence,
+        salary: myInfo.salary,
+        visibilityUniversityName: myInfo.visibilityUniversityName,
+        visibilityJobName: myInfo.visibilityJobName,
+      });
+    }
+  }, [myInfo, isLoading, isError]);
+
+  const handleSidoDataChange = (event: any) => {
+    const value = event.target.value as '서울' | '경기' | '인천';
+    setSidoData(value);
+  };
+  const handleResidenceDataChange = (event: any) => {
+    const value = event.target.value as number;
+    setData({ ...data, residence: value });
+  }
 
   const handleSubmit = async () => {
     dispatch(
@@ -61,13 +102,14 @@ export const DefaultInfoTab = () => {
     // const res = await onClose();
     // if (res) {
     //   setInitalData(data);
+    //   mutate();
     // }
     // setLoading(false);
   };
 
   return (
     <>
-      {loading && <Loading />}
+      {(isLoading || isPutLoading) && <Loading />}
 
       <DefaultInfoTabRoot>
         <Zoom in={true} unmountOnExit>
@@ -80,12 +122,13 @@ export const DefaultInfoTab = () => {
                 시/도
               </Typography>
               <Select
-                value={getSidoByResidence(myInfo?.residence)}
+                value={sidoData}
                 size="small"
-                disabled
+                onChange={handleSidoDataChange}
+                // disabled
               >
-                {Object.keys(allOptions.residenceSido).map((key, index) => (
-                  <MenuItem key={index} value={key}>{allOptions.residenceSido[key]}</MenuItem>
+                {["서울", "경기", "인천"].map((sido, index) => (
+                  <MenuItem key={index} value={sido}>{sido}</MenuItem>
                 ))}
               </Select>
             </SelectBox>
@@ -94,16 +137,21 @@ export const DefaultInfoTab = () => {
                 시/군/구
               </Typography>
               <Select
-                value={myInfo?.residence}
+                value={data.residence}
                 size="small"
-                disabled
+                onChange={handleResidenceDataChange}
+                // disabled
               >
-                {Object.keys(allOptions.residence).map((key, index) => {
+                {Object.keys(residenceConstant.options[sidoData]).map((key, index) => {
+                  const value = residenceConstant.options[sidoData][key];
                   return (
-                    <MenuItem key={index} value={key}>{allOptions.residence[key]}</MenuItem>
+                    <MenuItem key={index} value={Number(key)}>{value}</MenuItem>
                   );
                 })}
               </Select>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <ResidenceTooltip sidoName={sidoData} />
+              </Box>
             </SelectBox>
           </EditableDetailInfoCard>
         </Zoom>
@@ -222,7 +270,7 @@ export const DefaultInfoTab = () => {
 
       <BottomButton
         saveText="저장하기"
-        // isSaveDisabled={!isDataModified}
+        isSaveDisabled={!isDataModified}
         onClose={() => handleSubmit()}
       />
     </>

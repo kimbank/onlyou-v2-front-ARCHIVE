@@ -64,7 +64,7 @@ const SettingOptionModal = ({
       );
     }
     if ("options" in option && type === "button") {
-      const optionsCount = Object.keys(option.options).length;
+      const optionsCount = Object.keys(option.options || {}).length;
       const limit =
         option.targeting_limit !== undefined
           ? option.targeting_limit
@@ -94,7 +94,7 @@ const SettingOptionModal = ({
     if (process.env.NODE_ENV === "development") {
       Object.entries(targetingAllOptions).forEach(([optionName, option]) => {
         if ("options" in option && option.targeting === "button") {
-          const optionsCount = Object.keys(option.options).length;
+          const optionsCount = Object.keys(option.options || {}).length;
           const limit =
             option.targeting_limit !== undefined
               ? option.targeting_limit
