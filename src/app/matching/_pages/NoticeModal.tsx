@@ -30,7 +30,7 @@ const NoticeModal = () => {
           채워주세요.
         </Typography>
         <Button
-          onClick={() => router.push("/myinfo")}
+          onClick={() => router.push("/myinfo?tab=modify")}
           variant="contained"
           color="primary"
         >
