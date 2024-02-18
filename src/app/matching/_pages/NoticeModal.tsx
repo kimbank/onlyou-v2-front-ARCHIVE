@@ -30,7 +30,7 @@ const NoticeModal = () => {
           채워주세요.
         </Typography>
         <Button
-          onClick={() => router.push("/application/me/values?type=init")}
+          onClick={() => router.push("/myinfo")}
           variant="contained"
           color="primary"
         >
