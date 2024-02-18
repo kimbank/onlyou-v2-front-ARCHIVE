@@ -9,7 +9,7 @@ export const LettersTab = ({ targetLetters }: any) => {
   if (!targetLetters) return null;
   
   const renderLetterContent = (content: any) => {
-    const splitContent = content.split("\\n");
+    const splitContent = content.split("\n");
     return splitContent?.map((content: any, index: number) => (
       <React.Fragment key={index}>
         {content}

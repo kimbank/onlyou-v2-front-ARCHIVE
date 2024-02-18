@@ -11,7 +11,7 @@ export const LettersTab = ({ targetLetters }: any) => {
   }
 
   const renderLetterContent = (content: any) => {
-    const splitContent = content.split("\\n");
+    const splitContent = content.split("\n");
     return splitContent?.map((content: any, index: number) => (
       <React.Fragment key={index}>
         {content}

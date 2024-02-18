@@ -1,10 +1,20 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Box, Button, Divider, styled, Typography } from "@mui/material";
 import { useMyinfo } from "@/api/hooks/useMyinfo";
 
 export const Status = () => {
   const { myInfo } = useMyinfo();
+
+  const handleBuyTicket = () => {
+    if (myInfo?.integration === "frip") {
+      window.open("https://www.frip.co.kr/products/172133", "_blank")
+    } else {
+      // TODO: 결제 페이지 변경 가능
+      window.open("https://onlyourlove.imweb.me/26/?idx=1", "_blank")
+    }
+  }
 
   return (
     <StatusRoot>
@@ -18,7 +28,7 @@ export const Status = () => {
         <Typography variant="body2">사용이 {myInfo?.ticket || "N"}회 남았어요</Typography>
       </Box>
       <Divider />
-      <Box className="status-title" sx={{ alignItems: 'center' }}>
+      <Box className="status-title" sx={{ alignItems: 'center' }} onClick={handleBuyTicket}>
         <Typography color="gray2" variant="subtitle2">
           추가 구매
         </Typography>

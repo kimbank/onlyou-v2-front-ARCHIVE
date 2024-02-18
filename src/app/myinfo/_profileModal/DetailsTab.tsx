@@ -76,10 +76,11 @@ export const DetailsTab = ({ targetDetails }: any) => {
               관심사
             </Typography>
             <Box className="details-card-chips">
-              {
+              {targetDetails?.interest ?
                 targetDetails?.interest?.map((data: number, index: number) => (
                   <Chip key={index} label={getDetailOptionLabel("interest", data)} color="secondary" />
-                ))
+                )) :
+                <i>항목 작성 전입니다</i>
               }
             </Box>
           </span>
@@ -88,10 +89,11 @@ export const DetailsTab = ({ targetDetails }: any) => {
               내적 매력
             </Typography>
             <Box className="details-card-chips">
-              {
+              {targetDetails?.personalityCharm ?
                 targetDetails?.personalityCharm?.map((data: number, index: number) => (
                   <Chip key={index} label={getDetailOptionLabel("personalityCharm", data)} color="secondary" />
-                ))
+                )) :
+                <i>항목 작성 전입니다</i>
               }
             </Box>
           </span>
@@ -103,7 +105,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
               {Array.isArray(targetDetails?.externalCharm) ?
                 targetDetails?.externalCharm?.map((data: number, index: number) => (
                   <Chip key={index} label={getDetailOptionLabel("externalCharm", data)} color="secondary" />
-                )) : <Chip label="불러오는 중 문제가 발생했습니다." color="secondary" />
+                ))
+                :
+                <i>항목 작성 전입니다.</i>
+                // <Chip label="불러오는 중 문제가 발생했습니다." color="secondary" />
               }
             </Box>
           </span>
@@ -111,13 +116,16 @@ export const DetailsTab = ({ targetDetails }: any) => {
             <Typography variant="subtitle2">
               만나기 전 정보
             </Typography>
-            {typeof targetDetails?.informationBeforeMeeting === "number" &&
+            {targetDetails?.informationBeforeMeeting ?
+              typeof targetDetails?.informationBeforeMeeting === "number" &&
               <Box className="details-card-chips">
                 <Chip
                   label={getDetailOptionLabel("informationBeforeMeeting",targetDetails?.informationBeforeMeeting)}
                   color="secondary"
                 />
               </Box>
+              :
+              <i>항목 작성 전입니다</i>
             }
           </span>
         </span>
@@ -139,7 +147,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>항목 작성 전입니다</i>
+                      }
                     </span>
                   </span>
                 )
@@ -160,7 +171,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>항목 작성 전입니다</i>
+                      }
                     </span>
                   </span>
                 )
@@ -181,7 +195,10 @@ export const DetailsTab = ({ targetDetails }: any) => {
                       { getDetailsNameLabel(option?.name) }
                     </Typography>
                     <span>
-                      { getDetailOptionLabel(option?.name, option?.data) }
+                      {option?.data !== null ?
+                        getDetailOptionLabel(option?.name, option?.data) :
+                        <i>항목 작성 전입니다</i>
+                      }
                     </span>
                   </span>
                 )
