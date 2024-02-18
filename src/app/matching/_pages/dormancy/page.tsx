@@ -5,6 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import DormancyToggle from "./DormancyToggle";
 import DormancyImage from "public/images/dormancy/3dtoggle_1080x1080.png";
 import { useMatchingStatus } from "@/api/hooks/useMatchingStatus";
+import NoticeModal from "../NoticeModal";
 
 import { styled } from "@mui/material";
 
@@ -12,6 +13,7 @@ const DormancyPage = () => {
 
   return (
     <DormancyRoot id="content">
+      <NoticeModal />
       <Box className="title">
         <Typography variant="h1">매칭이 중단되었어요.</Typography>
         <Typography variant="body1">

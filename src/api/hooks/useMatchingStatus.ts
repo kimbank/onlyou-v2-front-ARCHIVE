@@ -14,6 +14,7 @@ export const useMatchingStatus = () => {
   return {
     matchingStatus: data?.message,
     meComplete: data?.meComplete,
+    letterComplete: data?.letterComplete,
     isLoading: isLoading,
     isError: error,
     mutate: mutate,
