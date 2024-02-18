@@ -15,8 +15,19 @@ export const DetailsTab = ({ targetDetails }: any) => {
 
   const filteredArray = Object.entries(targetDetails).filter(([key, value]: [string, any]) => {
     const targetPriority = value?.priority;
-    return targetPriority !== null && targetPriority !== undefined && targetPriority >= 1 && targetPriority <= 3;
+    const targetData = value?.data;
+    return targetPriority !== null && targetPriority !== undefined && targetData !== null && targetData !== undefined;
   });
+  const allPriority = filteredArray.reduce<any[]>((acc: any[], [key, value]: [string, any]) => {
+    const targetPriority = Number(value?.priority);
+    const name = key;
+    const type = Array.isArray(value?.data) ? "chips" : "card";
+    const data = type === "chips" ? value?.data : Number(value?.data);
+    if (targetPriority >= -1 && targetPriority <= 3) {
+      acc.push({ name, type, data, priority: targetPriority });
+    }
+    return acc;
+  }, []);
   const firstPriority = filteredArray.reduce<any[]>((acc: any[], [key, value]: [string, any]) => {
     const targetPriority = Number(value?.priority);
     const name = key;
@@ -52,9 +63,9 @@ export const DetailsTab = ({ targetDetails }: any) => {
     <DetailsTabRoot>
       <span className="default-box">
         <span className="profile-box">
-          <Typography variant="body2" color="gray2">
+          {/* <Typography variant="body2" color="gray2">
             *내가 설정한 1-3순위 조건만 프로필에 보여집니다.
-          </Typography>
+          </Typography> */}
           <Box className="profile-card">
             <Box className="profile-card-item">
               <Image src={JobIcon} alt="job" width={20} height={20} />
@@ -134,7 +145,30 @@ export const DetailsTab = ({ targetDetails }: any) => {
       <FullDivider />
 
       <span className="default-box">
-        {firstPriority.length > 0 && // 1순위 있을 때
+        <span className="default-item">
+        {
+          allPriority.map((option: any, index: number) => {
+            return (
+              <span key={index} className="details-card">
+                <Typography variant="subtitle2">
+                  { getDetailsNameLabel(option?.name) }
+                </Typography>
+                <span>
+                  {option?.data !== null ?
+                    option?.type === "chips" ?
+                      option?.data.map((data: number, index: number) => (
+                        <Chip key={index} label={getDetailOptionLabel(option?.name, data)} color="secondary" />
+                      )) :
+                      getDetailOptionLabel(option?.name, option?.data) :
+                    <i>항목 작성 전입니다</i>
+                  }
+                </span>
+              </span>
+            )
+          })
+        }
+        </span>
+        {/* {firstPriority.length > 0 && // 1순위 있을 때
           <span className="default-item">
             <Typography variant="subtitle2">
               1순위 조건
@@ -205,7 +239,7 @@ export const DetailsTab = ({ targetDetails }: any) => {
               })
             }
           </span>
-        }
+        } */}
       </span>
     </DetailsTabRoot>
   );

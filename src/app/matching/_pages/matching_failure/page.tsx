@@ -2,11 +2,13 @@
 
 import { Box, styled, Typography } from "@mui/material";
 import MachingLoading from "./MachingLoading";
+import NoticeModal from "../NoticeModal";
 
 
 const MatchingFailurePage = () => {
   return (
     <MatchingFailureRoot id="content">
+      <NoticeModal />
       <Typography variant="h1">
         서로의 선택이 엇갈렸어요
         <Typography variant="body2">
