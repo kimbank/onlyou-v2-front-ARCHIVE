@@ -17,7 +17,7 @@ const EventPage = () => {
             프립 후기 이벤트
           </Typography>
           <Typography variant="body2" className="event-text">
-            많은 분을 모셔 정확도를 올릴 수 있도록
+            <strong>ONLYou</strong>에서의 솔직한 경험을 담은
             <br />
             <strong>프립 후기</strong>를 작성해 주세요!
           </Typography>
@@ -25,6 +25,8 @@ const EventPage = () => {
             작성 후 문자로 인증해주시면,
             <br />
             <strong>스타벅스 기프티콘</strong>을 드립니다!
+            <br />
+            (프립 구매자의 한하여 참여 가능)
           </Typography>
           <Image
             src="/images/event/starbucks.png"
