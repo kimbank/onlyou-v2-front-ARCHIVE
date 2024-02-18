@@ -29,31 +29,37 @@ export const LettersTab = ({ targetLetters }: any) => {
 
   return (
     <Root>
-      {targetLetters?.map((letter: any, index: number) => (
+      {targetLetters?.length > 0 ? (
+        targetLetters?.map((letter: any, index: number) => (
         // letter?.status > 0 &&
-        <Box
-          key={index}
-          style={{
-            backgroundColor: ["#FFF6EF", "#F8F2FC"][index % 2],
-          }}
-          className="letter-box"
-        >
-          <Box className="letter-icon">
-            <Box className="letter-text">
-              {letter?.status > 0 ?
-                <Image src={LetterIcon} width={20} height={20} alt="Letter" /> :
-                <VisibilityOff color="disabled" />
-              }
-              <Typography variant="subtitle2">
-                { getLetterOptionLabel(letter?.index) }
-              </Typography>
+          <Box
+            key={index}
+            style={{
+              backgroundColor: ["#FFF6EF", "#F8F2FC"][index % 2],
+            }}
+            className="letter-box"
+          >
+            <Box className="letter-icon">
+              <Box className="letter-text">
+                {letter?.status > 0 ?
+                  <Image src={LetterIcon} width={20} height={20} alt="Letter" /> :
+                  <VisibilityOff color="disabled" />
+                }
+                <Typography variant="subtitle2">
+                  { getLetterOptionLabel(letter?.index) }
+                </Typography>
+              </Box>
             </Box>
+            <Typography variant="body2" sx={{ wordWrap: "break-word" }}>
+              { renderLetterContent(letter?.content) }
+            </Typography>
           </Box>
+        ))
+        ) : (
           <Typography variant="body2" sx={{ wordWrap: "break-word" }}>
-            { renderLetterContent(letter?.content) }
+            편지가 없습니다.
           </Typography>
-        </Box>
-      ))}
+      )}
     </Root>
   );
 };
