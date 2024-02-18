@@ -190,7 +190,7 @@ const SettingOptionModal = ({
                 <EstimateResult open={false} collapse={true} />
               </ResultBox>
               <GapDiv /> */}
-              <Button onClick={() => {}} size="large">
+              <Button onClick={() => onClose()} size="large">
                 저장하기
               </Button>
             </BottomConainer>
