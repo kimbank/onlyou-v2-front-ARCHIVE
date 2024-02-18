@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { styled, Box, Typography } from "@mui/material";
 import MenuButton from "@/components/Button/MyinfoMenu";
 import { FullDivider } from "../../components/Dividers/FullDivider";
@@ -16,9 +16,17 @@ import { useMe } from "@/api/hooks/useMe";
 const Menu = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const param = useSearchParams();
+
   const { isModalOpen, openModal, closeModal } = useModal();
   const [initialPriority, setInitialPriority] = React.useState(0);
   const { isError } = useMe('all');
+
+  React.useEffect(() => {
+    if (param.get('tab') === "modify") {
+      openModal();
+    }
+  }, []);
 
   const openModalWithTab = (tabValue: number) => {
     // 탭 값을 설정하고 모달을 열기
