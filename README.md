@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# onlyou v2 front
 
-## Getting Started
+## 개발 환경
 
-First, run the development server:
+### Next.js 구동
+
+- [pakage.json](/package.json) 의 dependency를 사용 중
+- [pakage.json](/package.json) 의 "scripts"의 `dev`로 로컬 개발환경에서 구동
+
+0. (required) 환경변수 파일(`.env`) 설정
+
+```plaintext
+{{비공개}}
+```
+
+1. (conditional) dependency 설치
+
+```bash
+npm install
+```
+
+2. Next.js 개발 환경으로 구동
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. 구동 확인
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- http://127.0.0.1
+- 개발 배포 테스트시
+  - {{비공개}}
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### API 통신 구조
 
-To learn more about Next.js, take a look at the following resources:
+- 로컬 환경에서 개발 시에는 `Next.js`의 proxy기능으로 API 통신
+- `develop` & `production` 배포 상황에서는 proxy하지 않고 client에서 직접 통신함
+  - Axios사용과 연관성이 있으므로 해당 사항을 인지해야함
+- 백엔드 API 주소는 `NEXT_PUBLIC_V2_BACK_URL` 로 `https://{주소}` 형태로 저장해야함
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Middleware 와 Axios
 
-## Deploy on Vercel
+- 회원 페이지와 비로그인 페이지를 middleware가 관리함
+- _회원의 로그아웃을 middleware (프론트)에서 관리함_
+- 로그아웃 원리는 Axios authed 통신에서 access token 유효하지 않을 때 refresh token으로 access 재발급 및 API 통신 시도
+- 재발급 및 통신 시도 실패시 signout 페이지로 이동하며 middleware가 access, refresh token을 삭제함
+- 해당 로직은 [middleware](/src/middleware.ts)와 [authedAxios](/src/api/base/axisoInstance.ts#L11) 소스코드 참고가 필요함
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br/><br/>
